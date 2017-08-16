@@ -9,4 +9,4 @@
 ## About
 * [https://github.com/j2doll](https://github.com/j2doll)
 * [mailto:j2doll@gmail.com](mailto:j2doll@gmail.com)
-* Hi! I'm a Korean. My English is not fluent. Please use EASY English. :-) 
+* Hi! My native language is not English. My English is not fluent. Please use EASY English. :-) 
