@@ -11,7 +11,10 @@
 
 #include <private/qzipreader_p.h>
 
-#include <QVector> // https://github.com/dbzhang800/QtXlsxWriter/issues/108
+#include <QtGlobal>
+
+#include <QVector> 
+#include <QList>  
 
 namespace QXlsx {
 
@@ -34,10 +37,17 @@ ZipReader::~ZipReader()
 
 void ZipReader::init()
 {
+    // issue 
+    //  https://github.com/dbzhang800/QtXlsxWriter/issues/108
+    //  https://github.com/dbzhang800/QtXlsxWriter/issues/117
 
-    // https://github.com/dbzhang800/QtXlsxWriter/issues/117
-    // QList<QZipReader::FileInfo> allFiles = m_reader->fileInfoList(); // before
-    QVector<QZipReader::FileInfo> allFiles = m_reader->fileInfoList(); // after
+#if (QT_VERSION <= QT_VERSION_CHECK(5, 5, 0))
+    QList<QZipReader::FileInfo> allFiles = m_reader->fileInfoList(); 
+#endif
+
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 6, 0))
+    QVector<QZipReader::FileInfo> allFiles = m_reader->fileInfoList(); 
+#endif
 
     foreach (const QZipReader::FileInfo &fi, allFiles) {
         if (fi.isFile)
