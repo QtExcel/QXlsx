@@ -43,9 +43,7 @@ void ZipReader::init()
 
 #if (QT_VERSION <= QT_VERSION_CHECK(5, 5, 0))
     QList<QZipReader::FileInfo> allFiles = m_reader->fileInfoList(); 
-#endif
-
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 6, 0))
+#else
     QVector<QZipReader::FileInfo> allFiles = m_reader->fileInfoList(); 
 #endif
 
