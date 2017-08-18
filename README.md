@@ -5,7 +5,7 @@
 * Some bug issue is fixed.
 ## Copyright
 * MIT License
-* original source code from Debao Zhang : [https://github.com/dbzhang800/QtXlsxWriter](https://github.com/dbzhang800/QtXlsxWriter)
+* original source code from Debao Zhang(2014) : [https://github.com/dbzhang800/QtXlsxWriter](https://github.com/dbzhang800/QtXlsxWriter)
 * The Qt Company : 
    [https://www.qt.io/developers/](https://www.qt.io/developers/)
 ## About
