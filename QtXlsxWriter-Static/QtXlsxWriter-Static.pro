@@ -35,6 +35,7 @@
 #   Qt 5.5.1 (MingW/Windows 32bit)
 #   Qt 5.6.0 (MingW/Windows 32bit) 
 #   Qt 5.5.0 (Ubuntu 17/Linux i686)
+#   Qt 5.0.1 (MingW/Windows 32bit) 
 #   
 ######################################################################
 
