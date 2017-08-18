@@ -31,10 +31,11 @@
 ######################################################################
 # test on:
 #   Qt 5.9.1 (MingW/Windows 32bit) 
+#   Qt 5.9.1 (Ubuntu 16/Linux x64) 
 #   Qt 5.5.1 (MingW/Windows 32bit)
 #   Qt 5.6.0 (MingW/Windows 32bit) 
 #   Qt 5.5.0 (Ubuntu 17/Linux i686)
-#
+#   
 ######################################################################
 
 TARGET = QtXlsxWriter-Static
