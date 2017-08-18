@@ -11,6 +11,13 @@
 * Qt 5.6.0 (MingW/Windows 32bit) 
 * Qt 5.5.0 (Ubuntu 17/Linux i686)
 
+## Hello excel
+```cpp
+QXlsx::Document xlsx;
+xlsx.write("A1", "Hello Qt!");
+xlsx.saveAs("Test.xlsx");
+```
+
 ## Copyright
 * MIT License
 * original source code from Debao Zhang(2014) : [https://github.com/dbzhang800/QtXlsxWriter](https://github.com/dbzhang800/QtXlsxWriter)
