@@ -41,7 +41,7 @@ void ZipReader::init()
     //  https://github.com/dbzhang800/QtXlsxWriter/issues/108
     //  https://github.com/dbzhang800/QtXlsxWriter/issues/117
 
-#if (QT_VERSION <= QT_VERSION_CHECK(5, 6, 0))
+#if (QT_VERSION < QT_VERSION_CHECK(5, 6, 0))
     QList<QZipReader::FileInfo> allFiles = m_reader->fileInfoList(); 
 #else
     QVector<QZipReader::FileInfo> allFiles = m_reader->fileInfoList(); 
