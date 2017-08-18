@@ -1,6 +1,6 @@
 # QtXlsxWriter-Static
-## QtXlsx static library project
-* Microsoft Excel file wirter for Qt5
+## QtXlsxWriter static library project
+* Microsoft Excel file reader/writer for Qt5
 * Use static library of QtXlsx.
 * Some bug issue is fixed.
 ## Copyright
