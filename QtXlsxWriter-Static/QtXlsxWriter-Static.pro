@@ -30,8 +30,9 @@
 
 ######################################################################
 # test on:
-#   Qt 5.9.1 (MingW/Windows 32bit), QtCreator 4.3.1 
+#   Qt 5.9.1 (MingW/Windows 32bit) 
 #   Qt 5.5.1 (MingW/Windows 32bit)
+#   Qt 5.6.0 (MingW/Windows 32bit) 
 #   Qt 5.5.0 (Ubuntu 17/Linux i686)
 #
 ######################################################################
