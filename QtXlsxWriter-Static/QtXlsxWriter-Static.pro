@@ -1,6 +1,8 @@
-#---------------------------------------------------------------------------
+######################################################################
 #
-# QtXlsxWriter static library (https://github.com/j2doll/QtXlsxWriter-Static)
+# QtXlsxWriter static library 
+#
+# https://github.com/j2doll/QtXlsxWriter-Static
 #
 # MIT License
 #
@@ -24,10 +26,15 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 #
-# test on :
-#   Qt 5.9.1 (MingW/Windows 32bit), QtCreator 4.3.1
+######################################################################
+
+######################################################################
+# test on:
+#   Qt 5.9.1 (MingW/Windows 32bit), QtCreator 4.3.1 
+#   Qt 5.5.1 (MingW/Windows 32bit)
+#   Qt 5.5.0 (Ubuntu 17/Linux i686)
 #
-#---------------------------------------------------------------------------
+######################################################################
 
 TARGET = QtXlsxWriter-Static
 
@@ -48,15 +55,33 @@ DEFINES += QT_DEPRECATED_WARNINGS
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
+######################################################################
+# custom setting for compiler & system
+#
+
+win32-g++:INCLUDEPATH += include/win32-gcc # mingw32
+
+win32-msvc2013:INCLUDEPATH += include/msvc2013 # visual c++ 2013
+win32-msvc2015:INCLUDEPATH += include/msvc2015 # visual c++ 2015
+win32-msvc2015:INCLUDEPATH += include/msvc2017 # visual c++ 2017
+
+linux-g++{
+   !contains(QT_ARCH, x86_64){
+       LIB=lib32
+       message("compiling for 32bit linux system")
+    } else {
+       LIB=lib64
+       message("compiling for 64bit linux system")
+   }
+}
+
 # unix {
 #    target.path = /usr/lib
 #    INSTALLS += target
 # }
 
-# custom setting for compiler & system
-win32-g++:INCLUDEPATH += include/win32-gcc # mingw32
-win32-msvc2013:INCLUDEPATH += include/msvc2013 # visual c++ 2013
-win32-msvc2015:INCLUDEPATH += include/msvc2015 # visual c++ 2015
+# thanks: https://stackoverflow.com/questions/33117822/how-to-specify-linux-architecture-in-a-qt-project-pro-file
+######################################################################
 
 INCLUDEPATH += include
 
