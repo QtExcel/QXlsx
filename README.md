@@ -1,9 +1,8 @@
 # QtXlsxWriter-Static
+<a><img src="https://github.com/j2doll/j2doll-container/blob/master/images/qt-icon.png" align="left" height="48" width="48" ></a>
+<a><img src="https://github.com/j2doll/j2doll-container/blob/master/images/excel-icon.png" align="left" height="48" width="48" ></a>
 
 *Read this in other languages: [English](README.md), [한국어](README.ko.md)*
-
-<a href="url"><img src="https://github.com/j2doll/j2doll-container/blob/master/images/qt-icon.png" align="left" height="48" width="48" ></a>
-<a href="url"><img src="https://github.com/j2doll/j2doll-container/blob/master/images/excel-icon.png" align="left" height="48" width="48" ></a>
 
 ## QtXlsxWriter static library project
 * Microsoft Excel file reader/writer for Qt5
