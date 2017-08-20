@@ -3,8 +3,11 @@
 *Read this in other languages: [English](README.md), [한국어](README.ko.md)*
 
 ## QtXlsxWriter static library project
-* 엑셀 파일(.xlsz) 읽기/쓰기 
-* 정적 라이브러리 (Qt5용)
+
+<img src="https://github.com/j2doll/j2doll-container/blob/master/images/qt-icon.png" width="48" height="48" /> <img src="https://github.com/j2doll/j2doll-container/blob/master/images/excel-icon.png" width="48" height="48" />
+
+* 엑셀 파일(.xlsx) 읽기/쓰기 
+* 정적 라이브러리 (Qt5)
 
 ## 테스트 환경
 * Qt 5.9.1 (MingW/Windows 32bit) 
