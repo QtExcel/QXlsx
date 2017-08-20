@@ -4,8 +4,8 @@
 
 ## QtXlsxWriter static library project
 
-![](https://github.com/j2doll/j2doll-container/blob/master/images/qt-icon.png =48x48)
-![](https://github.com/j2doll/j2doll-container/blob/master/images/excel-icon.png =48x48)
+![image](https://github.com/j2doll/j2doll-container/blob/master/images/qt-icon.png {width=40px height=400px})
+![image](https://github.com/j2doll/j2doll-container/blob/master/images/excel-icon.png {width=40px height=400px})
 
 * Microsoft Excel file reader/writer for Qt5
 * Use static library of QtXlsx.
