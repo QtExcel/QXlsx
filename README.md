@@ -2,11 +2,12 @@
 
 *Read this in other languages: [English](README.md), [한국어](README.ko.md)*
 
-## <img src="https://github.com/j2doll/j2doll-container/blob/master/images/qt-icon.png" width="48" height="48" /> <img src="https://github.com/j2doll/j2doll-container/blob/master/images/excel-icon.png" width="48" height="48" /> QtXlsxWriter static library project
+## QtXlsxWriter static library project
 
-* Microsoft Excel file reader/writer for Qt5
-* Use static library of QtXlsx.
-* Some bug issue is fixed.
+<img src="https://github.com/j2doll/j2doll-container/blob/master/images/qt-icon.png" width="48" height="48" /> <img src="https://github.com/j2doll/j2doll-container/blob/master/images/excel-icon.png" width="48" height="48" />
+
+* Excel file(.xlsx) reader/writer
+* Static library using Qt 5
 
 ## Test environment
 * Qt 5.9.1 (MingW/Windows 32bit) 
