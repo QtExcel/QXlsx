@@ -3,11 +3,11 @@
 *Read this in other languages: [English](README.md), [한국어](README.ko.md)*
 
 ## QtXlsxWriter static library project
-* Microsoft Excel file reader/writer for Qt5
-* Use static library of QtXlsx.
-* Some bug issue is fixed.
+* 마이크로소프트 엑셀 파일 읽기/쓰기 라이브러리 (Qt5용)
+* 정적 라이브러리로 사용.
+* 일부 버그가 수정되었음.
 
-## Test environment
+## 테스트 환경
 * Qt 5.9.1 (MingW/Windows 32bit) 
 * Qt 5.9.1 (Ubuntu 16/Linux x64) 
 * Qt 5.5.1 (MingW/Windows 32bit)
@@ -16,7 +16,7 @@
 * Qt 5.2.0 (Ubuntu 14/Linux x64)
 * Qt 5.0.1 (MingW/Windows 32bit) 
 
-## Hello excel
+## 활용예제 Hello excel
 ```cpp
 QXlsx::Document xlsx;
 xlsx.write("A1", "Hello Qt!");
@@ -25,11 +25,10 @@ xlsx.saveAs("Test.xlsx");
 
 ## Copyright
 * MIT License
-* original source code from Debao Zhang(2014) : [https://github.com/dbzhang800/QtXlsxWriter](https://github.com/dbzhang800/QtXlsxWriter)
+* 기반 소스코드 출처 Debao Zhang(2014) : [https://github.com/dbzhang800/QtXlsxWriter](https://github.com/dbzhang800/QtXlsxWriter)
 * The Qt Company : 
    [https://www.qt.io/developers/](https://www.qt.io/developers/)
    
-## About
+## 배포/문의
 * [https://github.com/j2doll](https://github.com/j2doll)
 * [mailto:j2doll@gmail.com](mailto:j2doll@gmail.com)
-* Hi! My native language is not English. My English is not fluent. Please use EASY English. :-) 
