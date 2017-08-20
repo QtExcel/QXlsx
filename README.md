@@ -2,8 +2,8 @@
 
 *Read this in other languages: [English](README.md), [한국어](README.ko.md)*
 
-![Qt](https://github.com/j2doll/j2doll-container/blob/master/images/qt-icon.png){: width="32px" height="32px"}
-![Excel](https://github.com/j2doll/j2doll-container/blob/master/images/excel-icon.png){: width="32px" height="32px"}
+![Qt](https://github.com/j2doll/j2doll-container/blob/master/images/qt-icon.png = 32x32)
+![Excel](https://github.com/j2doll/j2doll-container/blob/master/images/excel-icon.png = 32x32)
 
 ## QtXlsxWriter static library project
 * Microsoft Excel file reader/writer for Qt5
