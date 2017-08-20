@@ -3,9 +3,8 @@
 *Read this in other languages: [English](README.md), [한국어](README.ko.md)*
 
 ## QtXlsxWriter static library project
-* 마이크로소프트 엑셀 파일 읽기/쓰기 라이브러리 (Qt5용)
-* 정적 라이브러리로 사용.
-* 일부 버그가 수정되었음.
+* 엑셀 파일(.xlsz) 읽기/쓰기 
+* 정적 라이브러리 (Qt5용)
 
 ## 테스트 환경
 * Qt 5.9.1 (MingW/Windows 32bit) 
@@ -23,7 +22,7 @@ xlsx.write("A1", "Hello Qt!");
 xlsx.saveAs("Test.xlsx");
 ```
 
-## Copyright
+## 라이선스
 * MIT License
 * 기반 소스코드 출처 Debao Zhang(2014) : [https://github.com/dbzhang800/QtXlsxWriter](https://github.com/dbzhang800/QtXlsxWriter)
 * The Qt Company : 
