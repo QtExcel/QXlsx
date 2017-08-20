@@ -6,7 +6,7 @@
 #
 # MIT License
 #
-# Copyright (c) 2017, j2doll (https://github.com/j2doll)
+# Copyright (c) 2017-, j2doll (https://github.com/j2doll)
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -35,17 +35,22 @@
 #   Qt 5.5.1 (MingW/Windows 32bit)
 #   Qt 5.6.0 (MingW/Windows 32bit) 
 #   Qt 5.5.0 (Ubuntu 17/Linux i686)
+#   Qt 5.2.0 (Ubuntu 14/Linux x64) 
 #   Qt 5.0.1 (MingW/Windows 32bit) 
 #   
 ######################################################################
 
 TARGET = QtXlsxWriter-Static
-
 TEMPLATE = lib
-
+QT += core gui gui-private
 CONFIG += staticlib
 
-QT += core gui gui-private
+#####################################################################
+# set debug/release build environment
+#
+# CONFIG += debug_and_release
+# release: DESTDIR = lib-release
+# debug: DESTDIR = lib-debug
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked as deprecated (the exact warnings
@@ -69,6 +74,7 @@ win32-msvc2015:INCLUDEPATH += include/msvc2015 # visual c++ 2015
 win32-msvc2015:INCLUDEPATH += include/msvc2017 # visual c++ 2017
 
 linux-g++{
+   INCLUDEPATH += include/linux-gcc	
    !contains(QT_ARCH, x86_64){
        LIB=lib32
        message("compiling for 32bit linux system")
@@ -78,12 +84,11 @@ linux-g++{
    }
 }
 
-# unix {
+unix {
 #    target.path = /usr/lib
 #    INSTALLS += target
-# }
+}
 
-# thanks: https://stackoverflow.com/questions/33117822/how-to-specify-linux-architecture-in-a-qt-project-pro-file
 ######################################################################
 
 INCLUDEPATH += include
@@ -167,4 +172,5 @@ source/xlsxabstractooxmlfile.cpp \
 source/xlsxchart.cpp \
 source/xlsxsimpleooxmlfile.cpp \
 source/xlsxcellformula.cpp
+
 
