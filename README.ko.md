@@ -4,8 +4,6 @@
 
 ## QtXlsxWriter static library project
 
-<img src="https://github.com/j2doll/j2doll-container/blob/master/images/qt-icon.png" width="48" height="48" /> <img src="https://github.com/j2doll/j2doll-container/blob/master/images/excel-icon.png" width="48" height="48" />
-
 * 엑셀 파일(.xlsx) 읽기/쓰기 
 * 정적 라이브러리 (Qt5)
 
