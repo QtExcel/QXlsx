@@ -25,9 +25,9 @@ xlsx.saveAs("Test.xlsx");
 
 ## License
 * MIT License
-* original source code from Debao Zhang(2014) : [https://github.com/dbzhang800/QtXlsxWriter](https://github.com/dbzhang800/QtXlsxWriter)
+* original source code from Debao Zhang(2014) : https://github.com/dbzhang800/QtXlsxWriter
 * The Qt Company : 
-   [https://www.qt.io/developers/](https://www.qt.io/developers/)
+   https://www.qt.io/
    
 ## About
 * [https://github.com/j2doll](https://github.com/j2doll)
