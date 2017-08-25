@@ -65,16 +65,35 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 ######################################################################
 # custom setting for compiler & system
-#
 
-win32-g++:INCLUDEPATH += include/win32-gcc # mingw32
+win32-g++
+{
+ INCLUDEPATH += include/win32-gcc # mingw32
+}
 
-win32-msvc2013:INCLUDEPATH += include/msvc2013 # visual c++ 2013
-win32-msvc2015:INCLUDEPATH += include/msvc2015 # visual c++ 2015
-win32-msvc2015:INCLUDEPATH += include/msvc2017 # visual c++ 2017
+win32-msvc2013
+{
+INCLUDEPATH += include/msvc2013 # visual c++ 2013
+}
 
-linux-g++{
-   INCLUDEPATH += include/linux-gcc	
+win32-msvc2015
+{
+INCLUDEPATH += include/msvc2015 # visual c++ 2015
+}
+
+win32-msvc2015
+{
+ INCLUDEPATH += include/msvc2017 # visual c++ 2017
+}
+
+win32-msvc2017
+{
+
+}
+
+unix 
+{
+   INCLUDEPATH += include/unix-gcc	
    !contains(QT_ARCH, x86_64){
        LIB=lib32
        message("compiling for 32bit linux system")
@@ -82,11 +101,13 @@ linux-g++{
        LIB=lib64
        message("compiling for 64bit linux system")
    }
-}
-
-unix {
 #    target.path = /usr/lib
 #    INSTALLS += target
+}
+
+mac 
+{
+  
 }
 
 ######################################################################
