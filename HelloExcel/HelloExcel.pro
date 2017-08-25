@@ -35,8 +35,17 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 # set include & libs path for your own test environment
-win32:INCLUDEPATH += "D:/workspace/github/QtXlsxWriter-Static/QtXlsxWriter-Static/include"
-win32:LIBS += -L"D:/workspace/github/QtXlsxWriter-Static/build-QtXlsxWriter-Static-Desktop_Qt_5_9_1_MinGW_32bit-Debug/debug"
+win32-g++ 
+{
+ INCLUDEPATH += "D:/workspace/github/QtXlsxWriter-Static/QtXlsxWriter-Static/include"
+ LIBS += -L"D:/workspace/github/QtXlsxWriter-Static/build-QtXlsxWriter-Static-Desktop_Qt_5_9_1_MinGW_32bit-Debug/debug"
+}
+
+linux-g++ 
+{
+ INCLUDEPATH += "../QtXlsxWriter-Static/include"
+ LIBS += -L"../QtXlsxWriter-Static/"
+}
 
 LIBS += -lQtXlsxWriter-Static
 
