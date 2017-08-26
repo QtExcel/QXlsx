@@ -1,6 +1,6 @@
 #--------------------------------------------------------------------
-# HelloExcel.pro
 #
+# HelloExcel.pro
 #
 # MIT License
 # Copyright (c) 2017, j2doll (https://github.com/j2doll)
@@ -22,6 +22,7 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
+#
 #--------------------------------------------------------------------
 
 QT += core
@@ -30,6 +31,7 @@ CONFIG += console
 CONFIG -= app_bundle
 TEMPLATE = app
 
+#--------------------------------------------------------------------
 # set include & libs path for your own test environment
 
 # case : Qt5 & MingW(gcc) & QtCreator & Windows
@@ -52,7 +54,8 @@ linux-g++
     LIBS += -L"../QtXlsxWriter-Static/"
 }
 
-#case : Qt5 & Visual Studio(VC++) & Windows 
+# case : Qt5 & Visual Studio(VC++) & Windows
+
 win32-msvc2013
 {
     CONFIG(debug, debug|release) {
@@ -71,12 +74,14 @@ win32-msvc2015
     }
 }
 
-#case : Qt5 & XCode(gcc) & MAC OS
+# case : Qt5 & XCode(gcc) & MAC OS
+
 mac
 {
     
 }
 
+# link QtXlsxWriter-Static library
 LIBS += -lQtXlsxWriter-Static
 
 # The following define makes your compiler emit warnings if you use
@@ -92,8 +97,5 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     main.cpp
-
-
-
 
 
