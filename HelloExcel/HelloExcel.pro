@@ -52,6 +52,31 @@ linux-g++
     LIBS += -L"../QtXlsxWriter-Static/"
 }
 
+#case : Qt5 & Visual Studio(VC++) & Windows 
+win32-msvc2013
+{
+    CONFIG(debug, debug|release) {
+        # LIBS += -L"" # debug lib 
+    } else {
+        # LIBS += -L"" $ release lib 
+    }
+}
+
+win32-msvc2015
+{
+    CONFIG(debug, debug|release) {
+        # LIBS += -L"" # debug lib 
+    } else {
+        # LIBS += -L"" $ release lib 
+    }
+}
+
+#case : Qt5 & XCode(gcc) & MAC OS
+mac
+{
+    
+}
+
 LIBS += -lQtXlsxWriter-Static
 
 # The following define makes your compiler emit warnings if you use
