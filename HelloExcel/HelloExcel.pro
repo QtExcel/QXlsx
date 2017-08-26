@@ -25,20 +25,21 @@
 #--------------------------------------------------------------------
 
 QT += core
-
 TARGET = HelloExcel
-
 CONFIG += console
-
 CONFIG -= app_bundle
-
 TEMPLATE = app
 
 # set include & libs path for your own test environment
 win32-g++ 
 {
- INCLUDEPATH += "D:/workspace/github/QtXlsxWriter-Static/QtXlsxWriter-Static/include"
- LIBS += -L"D:/workspace/github/QtXlsxWriter-Static/build-QtXlsxWriter-Static-Desktop_Qt_5_9_1_MinGW_32bit-Debug/debug"
+    CONFIG(debug, debug|release) {
+        INCLUDEPATH += "../QtXlsxWriter-Static/QtXlsxWriter-Static/include"
+        LIBS += -L"../build-QtXlsxWriter-Static-Desktop_Qt_5_9_1_MinGW_32bit-Debug/debug"
+        # DESTDIR = build/debug
+    } else {
+        # DESTDIR = build/release
+    }
 }
 
 linux-g++ 
