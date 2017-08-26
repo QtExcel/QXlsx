@@ -31,21 +31,25 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 # set include & libs path for your own test environment
+
+# case : Qt5 & MingW(gcc) & QtCreator & Windows
 win32-g++ 
 {
+    INCLUDEPATH += "../QtXlsxWriter-Static/QtXlsxWriter-Static/include"
     CONFIG(debug, debug|release) {
-        INCLUDEPATH += "../QtXlsxWriter-Static/QtXlsxWriter-Static/include"
         LIBS += -L"../build-QtXlsxWriter-Static-Desktop_Qt_5_9_1_MinGW_32bit-Debug/debug"
         # DESTDIR = build/debug
     } else {
+        LIBS += -L"../build-QtXlsxWriter-Static-Desktop_Qt_5_9_1_MinGW_32bit-Release/release"
         # DESTDIR = build/release
     }
 }
 
+# case : Qt5 & Linux & gcc
 linux-g++ 
 {
- INCLUDEPATH += "../QtXlsxWriter-Static/include"
- LIBS += -L"../QtXlsxWriter-Static/"
+    INCLUDEPATH += "../QtXlsxWriter-Static/include"
+    LIBS += -L"../QtXlsxWriter-Static/"
 }
 
 LIBS += -lQtXlsxWriter-Static
@@ -62,7 +66,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
- main.cpp
+    main.cpp
 
 
 
