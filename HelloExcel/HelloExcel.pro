@@ -38,12 +38,15 @@ TEMPLATE = app
 win32-g++ 
 {
     INCLUDEPATH += "../QtXlsxWriter-Static/QtXlsxWriter-Static/include"
+
     CONFIG(debug, debug|release) {
-        LIBS += -L"../build-QtXlsxWriter-Static-Desktop_Qt_5_9_1_MinGW_32bit-Debug/debug"
-        # DESTDIR = build/debug
+        contains(QT_VERSION, 5.9.1) {
+            LIBS += -L"../build-QtXlsxWriter-Static-Desktop_Qt_5_9_1_MinGW_32bit-Debug/debug"
+        }
     } else {
-        LIBS += -L"../build-QtXlsxWriter-Static-Desktop_Qt_5_9_1_MinGW_32bit-Release/release"
-        # DESTDIR = build/release
+        contains(QT_VERSION, 5.9.1) {
+            LIBS += -L"../build-QtXlsxWriter-Static-Desktop_Qt_5_9_1_MinGW_32bit-Release/release"
+        }
     }
 }
 
