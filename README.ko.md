@@ -23,6 +23,9 @@ xlsx.write("A1", "Hello Qt!");
 xlsx.saveAs("Test.xlsx");
 ```
 
+## 빌드하는 방법
+참조: https://github.com/j2doll/QtXlsxWriter-Static/wiki
+
 ## 라이선스
 * MIT License
 * 기반 소스코드 출처 Debao Zhang(2014) : [https://github.com/dbzhang800/QtXlsxWriter](https://github.com/dbzhang800/QtXlsxWriter)
