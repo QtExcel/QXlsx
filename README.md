@@ -22,6 +22,8 @@ QXlsx::Document xlsx;
 xlsx.write("A1", "Hello Qt!");
 xlsx.saveAs("Test.xlsx");
 ```
+## How to build
+* see https://github.com/j2doll/QtXlsxWriter-Static/wiki
 
 ## License
 * MIT License
