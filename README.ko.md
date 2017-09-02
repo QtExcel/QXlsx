@@ -32,6 +32,6 @@ xlsx.saveAs("Test.xlsx");
 * The Qt Company : 
    [https://www.qt.io/developers/](https://www.qt.io/developers/)
    
-## 배포/문의
+## 문의
 * [https://github.com/j2doll](https://github.com/j2doll)
 * [mailto:j2doll@gmail.com](mailto:j2doll@gmail.com)
