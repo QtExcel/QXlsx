@@ -4,8 +4,9 @@
 
 ## QtXlsxWriter static library project
 
-* Excel file(.xlsx) reader/writer
-* Static library using Qt 5
+* QtXlsxWriter-Static is excel file(.xlsx) reader/writer library. 
+* It is written for static library using Qt 5.
+* Original source code from Debao Zhang(2014) : https://github.com/dbzhang800/QtXlsxWriter
 
 ## Test environment
 * Qt 5.9.1 (MingW/Windows 32bit) 
@@ -16,7 +17,7 @@
 * Qt 5.2.0 (Ubuntu 14/Linux x64)
 * Qt 5.0.1 (MingW/Windows 32bit) 
 
-## Hello excel
+## Hello excel (writing excel file)
 ```cpp
 QXlsx::Document xlsx;
 xlsx.write("A1", "Hello Qt!");
@@ -27,7 +28,6 @@ xlsx.saveAs("Test.xlsx");
 
 ## License
 * MIT License
-* original source code from Debao Zhang(2014) : https://github.com/dbzhang800/QtXlsxWriter
 * The Qt Company : 
    https://www.qt.io/
    
