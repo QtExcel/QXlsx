@@ -100,86 +100,86 @@ mac
 
 ######################################################################
 
-INCLUDEPATH += include
+INCLUDEPATH += header
 
 HEADERS += \
-include/xlsxdocpropscore_p.h \
-include/xlsxdocpropsapp_p.h \
-include/xlsxrelationships_p.h \
-include/xlsxutility_p.h \
-include/xlsxsharedstrings_p.h \
-include/xlsxcontenttypes_p.h \
-include/xlsxtheme_p.h \
-include/xlsxformat.h \
-include/xlsxworkbook.h \
-include/xlsxstyles_p.h \
-include/xlsxabstractsheet.h \
-include/xlsxabstractsheet_p.h \
-include/xlsxworksheet.h \
-include/xlsxworksheet_p.h \
-include/xlsxchartsheet.h \
-include/xlsxchartsheet_p.h \
-include/xlsxzipwriter_p.h \
-include/xlsxworkbook_p.h \
-include/xlsxformat_p.h \
-include/xlsxglobal.h \
-include/xlsxdrawing_p.h \
-include/xlsxzipreader_p.h \
-include/xlsxdocument.h \
-include/xlsxdocument_p.h \
-include/xlsxcell.h \
-include/xlsxcell_p.h \
-include/xlsxdatavalidation.h \
-include/xlsxdatavalidation_p.h \
-include/xlsxcellreference.h \
-include/xlsxcellrange.h \
-include/xlsxrichstring_p.h \
-include/xlsxrichstring.h \
-include/xlsxconditionalformatting.h \
-include/xlsxconditionalformatting_p.h \
-include/xlsxcolor_p.h \
-include/xlsxnumformatparser_p.h \
-include/xlsxdrawinganchor_p.h \
-include/xlsxmediafile_p.h \
-include/xlsxabstractooxmlfile.h \
-include/xlsxabstractooxmlfile_p.h \
-include/xlsxchart.h \
-include/xlsxchart_p.h \
-include/xlsxsimpleooxmlfile_p.h \
-include/xlsxcellformula.h \
-include/xlsxcellformula_p.h
+header/xlsxabstractooxmlfile.h \ 
+header/xlsxabstractooxmlfile_p.h \ 
+header/xlsxabstractsheet.h \ 
+header/xlsxabstractsheet_p.h \ 
+header/xlsxcell.h \ 
+header/xlsxcellformula.h \ 
+header/xlsxcellformula_p.h \ 
+header/xlsxcellrange.h \ 
+header/xlsxcellreference.h \ 
+header/xlsxcell_p.h \ 
+header/xlsxchart.h \ 
+header/xlsxchartsheet.h \ 
+header/xlsxchartsheet_p.h \ 
+header/xlsxchart_p.h \ 
+header/xlsxcolor_p.h \ 
+header/xlsxconditionalformatting.h \ 
+header/xlsxconditionalformatting_p.h \ 
+header/xlsxcontenttypes_p.h \ 
+header/xlsxdatavalidation.h \ 
+header/xlsxdatavalidation_p.h \ 
+header/xlsxdocpropsapp_p.h \ 
+header/xlsxdocpropscore_p.h \ 
+header/xlsxdocument.h \ 
+header/xlsxdocument_p.h \ 
+header/xlsxdrawinganchor_p.h \ 
+header/xlsxdrawing_p.h \ 
+header/xlsxformat.h \ 
+header/xlsxformat_p.h \ 
+header/xlsxglobal.h \ 
+header/xlsxmediafile_p.h \ 
+header/xlsxnumformatparser_p.h \ 
+header/xlsxrelationships_p.h \ 
+header/xlsxrichstring.h \ 
+header/xlsxrichstring_p.h \ 
+header/xlsxsharedstrings_p.h \ 
+header/xlsxsimpleooxmlfile_p.h \ 
+header/xlsxstyles_p.h \ 
+header/xlsxtheme_p.h \ 
+header/xlsxutility_p.h \ 
+header/xlsxworkbook.h \ 
+header/xlsxworkbook_p.h \ 
+header/xlsxworksheet.h \ 
+header/xlsxworksheet_p.h \ 
+header/xlsxzipreader_p.h \ 
+header/xlsxzipwriter_p.h
 
 SOURCES += \
-source/xlsxdocpropscore.cpp \
-source/xlsxdocpropsapp.cpp \
-source/xlsxrelationships.cpp \
-source/xlsxutility.cpp \
-source/xlsxsharedstrings.cpp \
-source/xlsxcontenttypes.cpp \
-source/xlsxtheme.cpp \
-source/xlsxformat.cpp \
-source/xlsxstyles.cpp \
-source/xlsxworkbook.cpp \
-source/xlsxabstractsheet.cpp \
-source/xlsxworksheet.cpp \
-source/xlsxchartsheet.cpp \
-source/xlsxzipwriter.cpp \
-source/xlsxdrawing.cpp \
-source/xlsxzipreader.cpp \
-source/xlsxdocument.cpp \
-source/xlsxcell.cpp \
-source/xlsxdatavalidation.cpp \
-source/xlsxcellreference.cpp \
-source/xlsxcellrange.cpp \
-source/xlsxrichstring.cpp \
-source/xlsxconditionalformatting.cpp \
-source/xlsxcolor.cpp \
-source/xlsxnumformatparser.cpp \
-source/xlsxdrawinganchor.cpp \
-source/xlsxmediafile.cpp \
-source/xlsxabstractooxmlfile.cpp \
-source/xlsxchart.cpp \
-source/xlsxsimpleooxmlfile.cpp \
-source/xlsxcellformula.cpp
+xlsxabstractooxmlfile.cpp \ 
+xlsxabstractsheet.cpp \ 
+xlsxcell.cpp \ 
+xlsxcellformula.cpp \ 
+xlsxcellrange.cpp \ 
+xlsxcellreference.cpp \ 
+xlsxchart.cpp \ 
+xlsxchartsheet.cpp \ 
+xlsxcolor.cpp \ 
+xlsxconditionalformatting.cpp \ 
+xlsxcontenttypes.cpp \ 
+xlsxdatavalidation.cpp \ 
+xlsxdocpropsapp.cpp \ 
+xlsxdocpropscore.cpp \ 
+xlsxdocument.cpp \ 
+xlsxdrawing.cpp \ 
+xlsxdrawinganchor.cpp \ 
+xlsxformat.cpp \ 
+xlsxmediafile.cpp \ 
+xlsxnumformatparser.cpp \ 
+xlsxrelationships.cpp \ 
+xlsxrichstring.cpp \ 
+xlsxsharedstrings.cpp \ 
+xlsxsimpleooxmlfile.cpp \ 
+xlsxstyles.cpp \ 
+xlsxtheme.cpp \ 
+xlsxutility.cpp \ 
+xlsxworkbook.cpp \ 
+xlsxworksheet.cpp \ 
+xlsxzipreader.cpp \ 
+xlsxzipwriter.cpp
 
 
