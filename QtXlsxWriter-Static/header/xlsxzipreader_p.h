@@ -22,31 +22,49 @@
 ** WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 **
 ****************************************************************************/
-#ifndef XLSXGLOBAL_H
-#define XLSXGLOBAL_H
-#include <QtGlobal>
 
-#define QT_BEGIN_NAMESPACE_XLSX namespace QXlsx {
-#define QT_END_NAMESPACE_XLSX }
-#define QTXLSX_USE_NAMESPACE using namespace QXlsx;
+#ifndef QXLSX_XLSXZIPREADER_P_H
+#define QXLSX_XLSXZIPREADER_P_H
 
-/*
-#if !defined(QT_STATIC) && !defined(XLSX_NO_LIB)
-#  if defined(QT_BUILD_XLSX_LIB)
-#    define Q_XLSX_EXPORT Q_DECL_EXPORT
-#  else
-#    define Q_XLSX_EXPORT Q_DECL_IMPORT
-#  endif
-#else
-#  define Q_XLSX_EXPORT
+//
+//  W A R N I N G
+//  -------------
+//
+// This file is not part of the Qt Xlsx API.  It exists for the convenience
+// of the Qt Xlsx.  This header file may change from
+// version to version without notice, or even be removed.
+//
+// We mean it.
+//
+
+#include "xlsxglobal.h"
+#include <QScopedPointer>
+#include <QStringList>
+#if QT_VERSION >= 0x050600
+#include <QVector>
 #endif
-*/
-#define Q_XLSX_EXPORT
+class QZipReader;
+class QIODevice;
 
-#ifdef XLSX_TEST
-#  define XLSX_AUTOTEST_EXPORT Q_XLSX_EXPORT
-#else
-#  define XLSX_AUTOTEST_EXPORT
-#endif
+namespace QXlsx {
 
-#endif // XLSXGLOBAL_H
+class XLSX_AUTOTEST_EXPORT ZipReader
+{
+public:
+    explicit ZipReader(const QString &fileName);
+    explicit ZipReader(QIODevice *device);
+    ~ZipReader();
+    bool exists() const;
+    QStringList filePaths() const;
+    QByteArray fileData(const QString &fileName) const;
+
+private:
+    Q_DISABLE_COPY(ZipReader)
+    void init();
+    QScopedPointer<QZipReader> m_reader;
+    QStringList m_filePaths;
+};
+
+} // namespace QXlsx
+
+#endif // QXLSX_XLSXZIPREADER_P_H
