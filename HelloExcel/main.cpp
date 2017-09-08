@@ -16,27 +16,32 @@ using namespace std;
 #include "xlsxworkbook.h"
 using namespace QXlsx;
 
-void Test1(bool isTest);
-void Test2(bool isTest);
+void WriteExcel(bool isTest);
+void ReadExcel(bool isTest);
+
+void UseSheet(bool isTest);
+
 void Test3(bool isTest);
 void Test4(bool isTest);
-void Test5(bool isTest);
-void Test6(bool isTest);
-void Test7(bool isTest);
+void RichText(bool isTest);
+void CellFormat(bool isTest);
 
 int main(int argc, char *argv[])
 {
-    Test1(false);
-    Test2(false);
+    WriteExcel(true);
+    ReadExcel(true);
+    UseSheet(true);
+
+    RichText(true);
+    CellFormat(true);
+
     Test3(false);
     Test4(false);
-    Test5(false);
-    Test6(false);
-    Test7(true);
+
     return 0;
 }
 
-void Test1(bool isTest)
+void WriteExcel(bool isTest)
 {
     if (!isTest)
         return;
@@ -55,7 +60,7 @@ void Test1(bool isTest)
         qDebug() << "[TEST1] failed to save excel file" ;
 }
 
-void Test2(bool isTest)
+void ReadExcel(bool isTest)
 {
     if (!isTest)
         return;
@@ -100,7 +105,8 @@ void Test2(bool isTest)
     {
         if ( Cell* cell = xlsx.cellAt( row, 1 ) )
         {
-            qDebug() << row << " " << cell->value() ;
+            QVariant var = cell->value();
+            qDebug() << row << " " << var;
         }
     }
     //![2]
@@ -198,7 +204,7 @@ void Test4(bool isTest)
 
 }
 
-void Test5(bool isTest)
+void UseSheet(bool isTest)
 {
     if (!isTest)
         return;
@@ -259,7 +265,7 @@ void Test5(bool isTest)
     }
 }
 
-void Test6(bool isTest)
+void RichText(bool isTest)
 {
     if (!isTest)
         return;
@@ -377,7 +383,7 @@ void writeCustomNumFormatsCell(Document &xlsx, int row, double value, const QStr
     xlsx.write(row, 3, value, format);
 }
 
-void Test7(bool isTest)
+void CellFormat(bool isTest)
 {
     if (!isTest)
         return;
