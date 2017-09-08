@@ -30,8 +30,9 @@
 
 TARGET = QtXlsxWriter-Static
 TEMPLATE = lib
-QT += core gui gui-private
 CONFIG += staticlib
+QT += core
+QT += gui-private
 
 #####################################################################
 # set debug/release build environment
@@ -56,32 +57,27 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 win32-g++
 {
- INCLUDEPATH += include/win32-gcc # mingw32
+    INCLUDEPATH += header/win32-gcc # mingw32
 }
 
 win32-msvc2013
 {
-INCLUDEPATH += include/msvc2013 # visual c++ 2013
+    INCLUDEPATH += header/msvc2013 # visual c++ 2013
 }
 
 win32-msvc2015
 {
-INCLUDEPATH += include/msvc2015 # visual c++ 2015
-}
-
-win32-msvc2015
-{
- INCLUDEPATH += include/msvc2017 # visual c++ 2017
+    INCLUDEPATH += header/msvc2015 # visual c++ 2015
 }
 
 win32-msvc2017
 {
-
+    INCLUDEPATH += header/msvc2017 # visual c++ 2017
 }
 
 unix 
 {
-   INCLUDEPATH += include/unix-gcc	
+   INCLUDEPATH += header/unix-gcc
    !contains(QT_ARCH, x86_64){
        LIB=lib32
        message("compiling for 32bit linux system")
@@ -89,13 +85,13 @@ unix
        LIB=lib64
        message("compiling for 64bit linux system")
    }
-#    target.path = /usr/lib
-#    INSTALLS += target
+    # target.path = /usr/lib
+    # INSTALLS += target
 }
 
 mac 
 {
-  
+    INCLUDEPATH += header/mac
 }
 
 ######################################################################
