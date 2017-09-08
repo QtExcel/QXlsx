@@ -150,36 +150,36 @@ header/xlsxzipreader_p.h \
 header/xlsxzipwriter_p.h
 
 SOURCES += \
-xlsxabstractooxmlfile.cpp \ 
-xlsxabstractsheet.cpp \ 
-xlsxcell.cpp \ 
-xlsxcellformula.cpp \ 
-xlsxcellrange.cpp \ 
-xlsxcellreference.cpp \ 
-xlsxchart.cpp \ 
-xlsxchartsheet.cpp \ 
-xlsxcolor.cpp \ 
-xlsxconditionalformatting.cpp \ 
-xlsxcontenttypes.cpp \ 
-xlsxdatavalidation.cpp \ 
-xlsxdocpropsapp.cpp \ 
-xlsxdocpropscore.cpp \ 
-xlsxdocument.cpp \ 
-xlsxdrawing.cpp \ 
-xlsxdrawinganchor.cpp \ 
-xlsxformat.cpp \ 
-xlsxmediafile.cpp \ 
-xlsxnumformatparser.cpp \ 
-xlsxrelationships.cpp \ 
-xlsxrichstring.cpp \ 
-xlsxsharedstrings.cpp \ 
-xlsxsimpleooxmlfile.cpp \ 
-xlsxstyles.cpp \ 
-xlsxtheme.cpp \ 
-xlsxutility.cpp \ 
-xlsxworkbook.cpp \ 
-xlsxworksheet.cpp \ 
-xlsxzipreader.cpp \ 
-xlsxzipwriter.cpp
+source/xlsxabstractooxmlfile.cpp \
+source/xlsxabstractsheet.cpp \
+source/xlsxcell.cpp \
+source/xlsxcellformula.cpp \
+source/xlsxcellrange.cpp \
+source/xlsxcellreference.cpp \
+source/xlsxchart.cpp \
+source/xlsxchartsheet.cpp \
+source/xlsxcolor.cpp \
+source/xlsxconditionalformatting.cpp \
+source/xlsxcontenttypes.cpp \
+source/xlsxdatavalidation.cpp \
+source/xlsxdocpropsapp.cpp \
+source/xlsxdocpropscore.cpp \
+source/xlsxdocument.cpp \
+source/xlsxdrawing.cpp \
+source/xlsxdrawinganchor.cpp \
+source/xlsxformat.cpp \
+source/xlsxmediafile.cpp \
+source/xlsxnumformatparser.cpp \
+source/xlsxrelationships.cpp \
+source/xlsxrichstring.cpp \
+source/xlsxsharedstrings.cpp \
+source/xlsxsimpleooxmlfile.cpp \
+source/xlsxstyles.cpp \
+source/xlsxtheme.cpp \
+source/xlsxutility.cpp \
+source/xlsxworkbook.cpp \
+source/xlsxworksheet.cpp \
+source/xlsxzipreader.cpp \
+source/xlsxzipwriter.cpp
 
 
