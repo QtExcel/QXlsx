@@ -21,22 +21,24 @@ void ReadExcel(bool isTest);
 
 void UseSheet(bool isTest);
 
-void Test3(bool isTest);
-void Test4(bool isTest);
 void RichText(bool isTest);
 void CellFormat(bool isTest);
+
+void DoChart(bool isTest);
+void Align(bool isTest);
 
 int main(int argc, char *argv[])
 {
     WriteExcel(true);
     ReadExcel(true);
+
     UseSheet(true);
 
     RichText(true);
     CellFormat(true);
 
-    Test3(false);
-    Test4(false);
+    DoChart(true);
+    Align(true);
 
     return 0;
 }
@@ -48,7 +50,7 @@ void WriteExcel(bool isTest)
 
     Document xlsx;
 
-    xlsx.write("A1", "Hello Qt!");
+    xlsx.write("A1", "Hello Qt! 한글");
     xlsx.write("A2", 12345);
     xlsx.write("A3", "=44+33"); // cell value is 77.
     xlsx.write("A4", true);
@@ -132,7 +134,7 @@ void ReadExcel(bool isTest)
     */
 }
 
-void Test3(bool isTest)
+void DoChart(bool isTest)
 {
     if (!isTest)
         return;
@@ -173,7 +175,7 @@ void Test3(bool isTest)
 
 }
 
-void Test4(bool isTest)
+void Align(bool isTest)
 {
     if (!isTest)
         return;
