@@ -58,10 +58,14 @@ public:
 
     bool write(const CellReference &cell, const QVariant &value, const Format &format=Format());
     bool write(int row, int col, const QVariant &value, const Format &format=Format());
+    
     QVariant read(const CellReference &cell) const;
     QVariant read(int row, int col) const;
+    
     bool insertImage(int row, int col, const QImage &image);
+    
     Chart *insertChart(int row, int col, const QSize &size);
+    
     bool mergeCells(const CellRange &range, const Format &format=Format());
     bool unmergeCells(const CellRange &range);
 
@@ -74,6 +78,7 @@ public:
     bool setColumnWidth(int colFirst, int colLast, double width);
     bool setColumnFormat(int colFirst, int colLast, const Format &format);
     bool setColumnHidden(int colFirst, int colLast, bool hidden);
+    
     double columnWidth(int column);
     Format columnFormat(int column);
     bool isColumnHidden(int column);
@@ -91,6 +96,7 @@ public:
 
     bool groupRows(int rowFirst, int rowLast, bool collapsed = true);
     bool groupColumns(int colFirst, int colLast, bool collapsed = true);
+    
     bool addDataValidation(const DataValidation &validation);
     bool addConditionalFormatting(const ConditionalFormatting &cf);
 
