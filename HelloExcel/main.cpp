@@ -220,18 +220,18 @@ void UseSheet(bool isTest)
             for ( int j = 1 ; j < 15 ; ++j )
                 xlsx.write( i, j, QString("R %1 C %2").arg(i).arg(j) );
         }
+        
         xlsx.addSheet();
-
         xlsx.write(2, 2, "Hello Qt Xlsx");
+        
         xlsx.addSheet();
-
         xlsx.write(3, 3, "This will be deleted...");
+        
         xlsx.addSheet("HiddenSheet");
-
         xlsx.currentSheet()->setHidden(true);
         xlsx.write("A1", "This sheet is hidden.");
+        
         xlsx.addSheet("VeryHiddenSheet");
-
         xlsx.sheet("VeryHiddenSheet")->setSheetState(AbstractSheet::SS_VeryHidden);
         xlsx.write("A1", "This sheet is very hidden.");
 
