@@ -25,7 +25,7 @@ xlsx.saveAs("Test.xlsx");
 ```
 
 ## 빌드하는 방법
-참조: https://github.com/j2doll/QtXlsxWriter-Static/wiki
+참조: https://github.com/j2doll/QtXlsx/wiki
 
 ## 라이선스
 * MIT License
