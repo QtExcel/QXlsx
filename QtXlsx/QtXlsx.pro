@@ -1,8 +1,8 @@
 ######################################################################
 #
-# QtXlsxWriter static library 
+# QtXlsx
 #
-# https://github.com/j2doll/QtXlsxWriter-Static
+# https://github.com/j2doll/QtXlsx
 #
 # MIT License
 #
@@ -28,7 +28,7 @@
 #
 ######################################################################
 
-TARGET = QtXlsxWriter-Static
+TARGET = QtXlsx
 TEMPLATE = lib
 CONFIG += staticlib
 QT += core
