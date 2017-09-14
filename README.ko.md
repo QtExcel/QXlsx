@@ -1,8 +1,8 @@
-# QtXlsxWriter-Static
+# QtXlsx
 
 *Read this in other languages: [English](README.md), [한국어](README.ko.md)*
 
-## QtXlsxWriter 정적 라이브러리 프로젝트
+## 엑셀 읽기/쓰기 정적 라이브러리
 
 * QtXlsxWriter-Static는 엑셀 파일(.xlsx) 읽기/쓰기 라이브러리입니다.
 * QtXlsxWriter-Static는 Qt5를 사용하는 정적 라이브러리로 제작되었습니다.
