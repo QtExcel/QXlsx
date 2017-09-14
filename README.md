@@ -1,8 +1,8 @@
-# QtXlsxWriter-Static
+# QtXls
 
 > *Read this in other languages: [English](README.md), [한국어](README.ko.md)*
 
-## QtXlsxWriter static library project
+## Excel reader/writer library
 
 * QtXlsxWriter-Static is excel file(.xlsx) reader/writer library. 
 * It is written for static library using Qt 5.
