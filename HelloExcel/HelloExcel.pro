@@ -37,45 +37,45 @@ TEMPLATE = app
 # case : Qt5 & MingW(gcc) & QtCreator & Windows
 win32-g++ 
 {
-    INCLUDEPATH += "../QtXlsxWriter-Static/QtXlsxWriter-Static/header"
+    INCLUDEPATH += "../QtXlsx/QtXlsx/header"
 
     CONFIG(debug, debug|release) {
         contains(QT_VERSION, 5.6.0) {
-            LIBS += -L"../build-QtXlsxWriter-Static-Desktop_Qt_5_6_0_MinGW_32bit-Debug/debug"
+            LIBS += -L"../build-QtXlsx-Desktop_Qt_5_6_0_MinGW_32bit-Debug/debug"
         }
         contains(QT_VERSION, 5.7.0) {
-            LIBS += -L"../build-QtXlsxWriter-Static-Desktop_Qt_5_7_0_MinGW_32bit-Debug/debug"
+            LIBS += -L"../build-QtXlsx-Desktop_Qt_5_7_0_MinGW_32bit-Debug/debug"
         }
         contains(QT_VERSION, 5.7.1) {
-            LIBS += -L"../build-QtXlsxWriter-Static-Desktop_Qt_5_7_0_MinGW_32bit-Debug/debug"
+            LIBS += -L"../build-QtXlsx-Desktop_Qt_5_7_0_MinGW_32bit-Debug/debug"
         }
         contains(QT_VERSION, 5.8.0) {
-            LIBS += -L"../build-QtXlsxWriter-Static-Desktop_Qt_5_8_0_MinGW_32bit-Debug/debug"
+            LIBS += -L"../build-QtXlsx-Desktop_Qt_5_8_0_MinGW_32bit-Debug/debug"
         }
         contains(QT_VERSION, 5.9.0) {
-            LIBS += -L"../build-QtXlsxWriter-Static-Desktop_Qt_5_9_0_MinGW_32bit-Debug/debug"
+            LIBS += -L"../build-QtXlsx-Desktop_Qt_5_9_0_MinGW_32bit-Debug/debug"
         }
         contains(QT_VERSION, 5.9.1) {
-            LIBS += -L"../build-QtXlsxWriter-Static-Desktop_Qt_5_9_1_MinGW_32bit-Debug/debug"
+            LIBS += -L"../build-QtXlsx-Desktop_Qt_5_9_1_MinGW_32bit-Debug/debug"
         }
     } else {
         contains(QT_VERSION, 5.6.0) {
-            LIBS += -L"../build-QtXlsxWriter-Static-Desktop_Qt_5_6_0_MinGW_32bit-Release/release"
+            LIBS += -L"../build-QtXlsx-Desktop_Qt_5_6_0_MinGW_32bit-Release/release"
         }
         contains(QT_VERSION, 5.7.0) {
-            LIBS += -L"../build-QtXlsxWriter-Static-Desktop_Qt_5_7_0_MinGW_32bit-Release/release"
+            LIBS += -L"../build-QtXlsx-Desktop_Qt_5_7_0_MinGW_32bit-Release/release"
         }
         contains(QT_VERSION, 5.7.1) {
-            LIBS += -L"../build-QtXlsxWriter-Static-Desktop_Qt_5_7_0_MinGW_32bit-Release/release"
+            LIBS += -L"../build-QtXlsx-Desktop_Qt_5_7_0_MinGW_32bit-Release/release"
         }
         contains(QT_VERSION, 5.8.0) {
-            LIBS += -L"../build-QtXlsxWriter-Static-Desktop_Qt_5_8_0_MinGW_32bit-Release/release"
+            LIBS += -L"../build-QtXlsx-Desktop_Qt_5_8_0_MinGW_32bit-Release/release"
         }
         contains(QT_VERSION, 5.9.0) {
-            LIBS += -L"../build-QtXlsxWriter-Static-Desktop_Qt_5_9_0_MinGW_32bit-Release/release"
+            LIBS += -L"../build-QtXlsx-Desktop_Qt_5_9_0_MinGW_32bit-Release/release"
         }
         contains(QT_VERSION, 5.9.1) {
-            LIBS += -L"../build-QtXlsxWriter-Static-Desktop_Qt_5_9_1_MinGW_32bit-Release/release"
+            LIBS += -L"../build-QtXlsx-Desktop_Qt_5_9_1_MinGW_32bit-Release/release"
         }
     }
 }
@@ -83,8 +83,8 @@ win32-g++
 # case : Qt5 & Linux & gcc
 linux-g++ 
 {
-    INCLUDEPATH += "../QtXlsxWriter-Static/header"
-    LIBS += -L"../QtXlsxWriter-Static/"
+    INCLUDEPATH += "../QtXlsx/header"
+    LIBS += -L"../QtXlsx/"
 }
 
 # case : Qt5 & Visual Studio(VC++) & Windows
@@ -114,8 +114,8 @@ mac
     
 }
 
-# link QtXlsxWriter-Static library
-LIBS += -lQtXlsxWriter-Static
+# link QtXlsx library
+LIBS += -lQtXlsx
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked deprecated (the exact warnings
