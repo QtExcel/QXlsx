@@ -50,7 +50,7 @@ void WriteExcel(bool isTest)
 
     Document xlsx;
 
-    xlsx.write("A1", "Hello Qt! 한글");
+    xlsx.write("A1", "Hello Qt! 한글"); // current file is utf8 character-set.
     xlsx.write("A2", 12345);
     xlsx.write("A3", "=44+33"); // cell value is 77.
     xlsx.write("A4", true);
@@ -128,8 +128,8 @@ void ReadExcel(bool isTest)
     3   QVariant(double, 0)
     4   QVariant(bool, true)
     5   QVariant(QString, "http://qt-project.org")
-    6   QVariant(double, 41635)
-    7   QVariant(double, 0.270833)
+    6   QVariant(double, 41635)      // something wrong
+    7   QVariant(double, 0.270833)   // something wrong
 
     */
 }
