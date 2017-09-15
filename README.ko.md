@@ -34,4 +34,4 @@ xlsx.saveAs("Test.xlsx");
    
 ## 문의
 * https://github.com/j2doll
-* mailto:j2doll@gmail.com
+* j2doll@gmail.com
