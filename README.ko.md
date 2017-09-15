@@ -4,7 +4,7 @@
 
 ## 엑셀 읽기/쓰기 정적 라이브러리
 
-* QtXlsx는 엑셀 파일(.xlsx) 읽기/쓰기 라이브러리입니다.
+* QtXlsx는 엑셀 파일(*.xlsx) 읽기/쓰기 라이브러리입니다.
 * QtXlsx는 Qt5를 사용하는 정적 라이브러리로 제작되었습니다.
 * 원본 소스코드의 출처는 다음과 같습니다. Debao Zhang(2014) : https://github.com/dbzhang800/QtXlsxWriter
 
@@ -29,10 +29,9 @@ xlsx.saveAs("Test.xlsx");
 
 ## 라이선스
 * MIT License
-* 기반 소스코드 출처 Debao Zhang(2014) : [https://github.com/dbzhang800/QtXlsxWriter](https://github.com/dbzhang800/QtXlsxWriter)
 * The Qt Company : 
-   [https://www.qt.io/developers/](https://www.qt.io/developers/)
+   https://www.qt.io/developers/
    
 ## 문의
-* [https://github.com/j2doll](https://github.com/j2doll)
-* [mailto:j2doll@gmail.com](mailto:j2doll@gmail.com)
+* https://github.com/j2doll
+* mailto:j2doll@gmail.com
