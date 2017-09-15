@@ -1,3 +1,30 @@
+//--------------------------------------------------------------------
+//
+// HelloExcel.pro
+//
+// MIT License
+// Copyright (c) 2017, j2doll (https://github.com/j2doll)
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in all
+// copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
+//
+//--------------------------------------------------------------------
+
 //
 // main.cpp
 //
@@ -50,7 +77,7 @@ void WriteExcel(bool isTest)
 
     Document xlsx;
 
-    xlsx.write("A1", "Hello Qt! 한글"); // current file is utf8 character-set.
+    xlsx.write("A1", "Hello Qt! 한글"); // current file is utf-8 character-set.
     xlsx.write("A2", 12345);
     xlsx.write("A3", "=44+33"); // cell value is 77.
     xlsx.write("A4", true);
@@ -117,7 +144,7 @@ void ReadExcel(bool isTest)
 
     QVariant(QString, "Hello Qt!")
     QVariant(double, 12345)
-    QVariant(QString, "=44+33")
+    QVariant(QString, "=44+33") // it's string. it is not a formula.
     QVariant(bool, true)
     QVariant(QString, "http://qt-project.org")
     QVariant(QDate, QDate("2013-12-27"))
