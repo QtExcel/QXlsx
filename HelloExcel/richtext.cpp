@@ -1,10 +1,12 @@
+// ruchtext.cpp
+
 #include <QtCore>
 #include "xlsxdocument.h"
 #include "xlsxrichstring.h"
 #include "xlsxworkbook.h"
 #include "xlsxformat.h"
 
-int main()
+int ruchtext()
 {
     //![0]
     QXlsx::Document xlsx;

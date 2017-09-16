@@ -1,3 +1,5 @@
+// chart.cpp
+
 #include <QtCore>
 #include "xlsxdocument.h"
 #include "xlsxcellrange.h"
@@ -5,7 +7,7 @@
 
 using namespace QXlsx;
 
-int main()
+int chart()
 {
     //![0]
     Document xlsx;

@@ -1,11 +1,11 @@
+// numberformat.cpp
+
 #include <QtGui>
 #include "xlsxdocument.h"
 #include "xlsxformat.h"
 
-int main(int argc, char** argv)
+int numberformat()
 {
-    QGuiApplication(argc, argv);
-
     QXlsx::Document xlsx;
     xlsx.setColumnWidth(1, 4, 20.0);
 

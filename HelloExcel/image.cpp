@@ -1,10 +1,10 @@
+// image.cpp
+
 #include <QtGui>
 #include "xlsxdocument.h"
 
-int main(int argc, char** argv)
+int image()
 {
-    QGuiApplication(argc, argv);
-
     QXlsx::Document xlsx;
     QImage image(40, 30, QImage::Format_RGB32);
     image.fill(Qt::green);

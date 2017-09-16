@@ -1,3 +1,5 @@
+// demo.cpp
+
 #include <QtCore>
 #include "xlsxdocument.h"
 #include "xlsxformat.h"
@@ -88,7 +90,7 @@ void writeCustomNumFormatsCell(Document &xlsx, int row, double value, const QStr
     xlsx.write(row, 3, value, format);
 }
 
-int main()
+int demo()
 {
     Document xlsx;
 

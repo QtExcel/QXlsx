@@ -1,7 +1,9 @@
+// documentproperty.cpp
+
 #include <QtCore>
 #include "xlsxdocument.h"
 
-int main()
+int documentproperty()
 {
     QXlsx::Document xlsx;
     xlsx.write("A1", "View the properties through:");

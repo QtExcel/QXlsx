@@ -1,8 +1,10 @@
+// style.cpp
+
 #include <QtCore>
 #include "xlsxdocument.h"
 #include "xlsxformat.h"
 
-int main()
+int style()
 {
     QXlsx::Document xlsx;
     QXlsx::Format format1;

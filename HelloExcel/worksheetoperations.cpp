@@ -1,10 +1,12 @@
+// worksheetoperations.cpp
+
 #include <QtCore>
 #include "xlsxdocument.h"
 #include "xlsxabstractsheet.h"
 
 QTXLSX_USE_NAMESPACE
 
-int main()
+int worksheetoperations()
 {
     //![Create a xlsx file]
     Document xlsx;

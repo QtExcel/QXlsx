@@ -1,3 +1,5 @@
+// formula.cpp
+
 #include <QtCore>
 #include "xlsxdocument.h"
 #include "xlsxformat.h"
@@ -6,7 +8,7 @@
 
 QTXLSX_USE_NAMESPACE
 
-int main()
+int formula()
 {
     //![0]
     Document xlsx;

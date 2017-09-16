@@ -1,3 +1,5 @@
+// calendar.cpp
+
 #include <QtCore>
 #include "xlsxdocument.h"
 #include "xlsxformat.h"
@@ -6,10 +8,8 @@
 
 QTXLSX_USE_NAMESPACE
 
-int main(int argc, char **argv)
+int calendar()
 {
-    QCoreApplication app(argc, argv);
-
     //Select a proper locale
     //QLocale::setDefault(QLocale(QLocale::English));
 

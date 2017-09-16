@@ -1,7 +1,9 @@
+// hyperlink.cpp
+
 #include <QtCore>
 #include "xlsxdocument.h"
 
-int main()
+int hyperlink()
 {
     //![0]
     QXlsx::Document xlsx;

@@ -1,7 +1,9 @@
+// extractdata.cpp
+
 #include <QtCore>
 #include "xlsxdocument.h"
 
-int main()
+int extractdata()
 {
     {
     //Create a new .xlsx file.

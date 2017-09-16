@@ -1,10 +1,12 @@
+// datavalidation.cpp
+
 #include <QtCore>
 #include "xlsxdocument.h"
 #include "xlsxdatavalidation.h"
 
 QTXLSX_USE_NAMESPACE
 
-int main()
+int datavalidation()
 {
     Document xlsx;
     xlsx.write("A1", "A2 and A3:E5 only accept the number between 33 and 99");

@@ -1,9 +1,11 @@
+// mergecells.cpp
+
 #include "xlsxdocument.h"
 #include "xlsxformat.h"
 
 QTXLSX_USE_NAMESPACE
 
-int main()
+int mergecells()
 {
     Document xlsx;
     //![0]

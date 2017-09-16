@@ -1,8 +1,10 @@
+// rowcolumn.cpp
+
 #include <QtCore>
 #include "xlsxdocument.h"
 #include "xlsxformat.h"
 
-int main()
+int rowcolumn()
 {
     QXlsx::Document xlsx;
     xlsx.write(1, 2, "Row:0, Col:2 ==> (C1)");

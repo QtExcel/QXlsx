@@ -1,9 +1,11 @@
+// definename.cpp
+
 #include <QtCore>
 #include "xlsxdocument.h"
 
 QTXLSX_USE_NAMESPACE
 
-int main()
+int definename()
 {
     //![0]
     Document xlsx;
