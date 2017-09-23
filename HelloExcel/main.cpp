@@ -3,7 +3,7 @@
 // HelloExcel.pro
 //
 // MIT License
-// Copyright (c) 2017, j2doll (https://github.com/j2doll)
+// Copyright (c) 2017, j2doll
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal

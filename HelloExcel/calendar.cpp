@@ -68,6 +68,26 @@ int calendar()
         weekendRightStyle.setBottomBorderStyle(Format::BorderThin);
         weekendRightStyle.setBottomBorderColor(borderColor);
 
+		Format holidayLeftStyle;
+		holidayLeftStyle.setFontSize(14);
+		holidayLeftStyle.setFontBold(true);
+		holidayLeftStyle.setHorizontalAlignment(Format::AlignLeft);
+		holidayLeftStyle.setVerticalAlignment(Format::AlignTop);
+		holidayLeftStyle.setPatternBackgroundColor(QColor("#EACC93"));
+		holidayLeftStyle.setLeftBorderStyle(Format::BorderThin);
+		holidayLeftStyle.setLeftBorderColor(borderColor);
+		holidayLeftStyle.setBottomBorderStyle(Format::BorderThin);
+		holidayLeftStyle.setBottomBorderColor(borderColor);
+
+		Format holidayRightStyle;
+		holidayRightStyle.setHorizontalAlignment(Format::AlignHCenter);
+		holidayRightStyle.setVerticalAlignment(Format::AlignTop);
+		holidayRightStyle.setPatternBackgroundColor(QColor("#EACC93"));
+		holidayRightStyle.setRightBorderStyle(Format::BorderThin);
+		holidayRightStyle.setRightBorderColor(borderColor);
+		holidayRightStyle.setBottomBorderStyle(Format::BorderThin);
+		holidayRightStyle.setBottomBorderColor(borderColor);
+
         Format workdayLeftStyle;
         workdayLeftStyle.setHorizontalAlignment(Format::AlignLeft);
         workdayLeftStyle.setVerticalAlignment(Format::AlignTop);
@@ -106,16 +126,19 @@ int calendar()
             if (!date.isValid())
                 break;
             xlsx.setRowHeight(rownum, 100);
-            int dow = date.dayOfWeek();
+            int dow = date.dayOfWeek(); // 1 = Monday to 7 = Sunday
             int colnum = dow*2-1;
 
-            if (dow <= 5) {
+            if (dow <= 5) { // 1,2,3,4,5
                 xlsx.write(rownum, colnum, day, workdayLeftStyle);
                 xlsx.write(rownum, colnum+1, QVariant(), workdayRightStyle);
-            } else {
+            } else if (dow == 6) {
                 xlsx.write(rownum, colnum, day, weekendLeftStyle);
                 xlsx.write(rownum, colnum+1, QVariant(), weekendRightStyle);
-            }
+			} else {
+				xlsx.write(rownum, colnum, day, holidayLeftStyle);
+				xlsx.write(rownum, colnum + 1, QVariant(), holidayRightStyle);
+			}
 
             if (day == 1 && dow != 1) {//First day
                 for (int i=1; i<dow; ++i) {

@@ -50,7 +50,7 @@ void WriteExcel(bool isTest)
     xlsx.write("A6", QDate(2013, 12, 27));
     xlsx.write("A7", QTime(6, 30));
 
-    if (!xlsx.saveAs("Test1.xlsx"))
+    if (!xlsx.saveAs("hello1.xlsx"))
         qDebug() << "[TEST1] failed to save excel file" ;
 }
 
@@ -71,7 +71,7 @@ void ReadExcel(bool isTest)
         xlsx.write("A6", QDate(2013, 12, 27));
         xlsx.write("A7", QTime(6, 30));
 
-        if (!xlsx.saveAs("Test2.xlsx"))
+        if (!xlsx.saveAs("hello2.xlsx"))
         {
             qDebug() << "[TEST2] failed to save excel file" ;
             return;
@@ -79,7 +79,7 @@ void ReadExcel(bool isTest)
     }
 
     //![0]
-    QXlsx::Document xlsx("Test2.xlsx");
+    QXlsx::Document xlsx("hello2.xlsx");
     //![0]
 
     //![1]

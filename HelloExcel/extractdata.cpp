@@ -23,6 +23,7 @@ int extractdata()
     //![0]
 
     //![1]
+	qDebug() << "extractdata.xlsx - QXlsx::Document.read()";
     qDebug()<<xlsx.read("A1");
     qDebug()<<xlsx.read("A2");
     qDebug()<<xlsx.read("A3");
@@ -33,9 +34,11 @@ int extractdata()
     //![1]
 
     //![2]
+	qDebug() << "extractdata.xlsx - QXlsx::Cell.value()";
     for (int row=1; row<10; ++row) {
-        if (QXlsx::Cell *cell=xlsx.cellAt(row, 1))
-            qDebug()<<cell->value();
+		if (QXlsx::Cell *cell = xlsx.cellAt(row, 1)) {
+			qDebug() << cell->value();
+		}
     }
     //![2]
 

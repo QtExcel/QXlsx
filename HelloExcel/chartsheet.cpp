@@ -25,10 +25,10 @@ int chartsheet()
     //![1]
 
     //![2]
-    xlsx.saveAs("chart1.xlsx");
+    xlsx.saveAs("chartsheet1.xlsx");
     //![2]
 
-    Document xlsx2("chart1.xlsx");
-    xlsx2.saveAs("chart2.xlsx");
+    Document xlsx2("chartsheet1.xlsx");
+    xlsx2.saveAs("chartsheet2.xlsx");
     return 0;
 }
