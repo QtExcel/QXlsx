@@ -90,21 +90,39 @@ linux-g++
 
 # case : Qt5 & Visual Studio(VC++) & Windows
 
+win32-msvc2012
+{
+    CONFIG(debug, debug|release) {
+        LIBS += -L"../QtXlsx/debug" 
+    } else {
+        LIBS += -L"../QtXlsx/release" 
+    }
+}
+
 win32-msvc2013
 {
     CONFIG(debug, debug|release) {
-        # LIBS += -L"" # debug lib 
+        LIBS += -L"../QtXlsx/debug" 
     } else {
-        # LIBS += -L"" $ release lib 
+        LIBS += -L"../QtXlsx/release" 
     }
 }
 
 win32-msvc2015
 {
     CONFIG(debug, debug|release) {
-        # LIBS += -L"" # debug lib 
+        LIBS += -L"../QtXlsx/debug" 
     } else {
-        # LIBS += -L"" $ release lib 
+        LIBS += -L"../QtXlsx/release" 
+    }
+}
+
+win32-msvc2017
+{
+    CONFIG(debug, debug|release) {
+        LIBS += -L"../QtXlsx/debug" 
+    } else {
+        LIBS += -L"../QtXlsx/release" 
     }
 }
 
