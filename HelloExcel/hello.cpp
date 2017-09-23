@@ -83,6 +83,7 @@ void ReadExcel(bool isTest)
     //![0]
 
     //![1]
+	qDebug() << " QXlsx::Document.read()";
     qDebug() << xlsx.read("A1");
     qDebug() << xlsx.read("A2");
     qDebug() << xlsx.read("A3");
@@ -91,14 +92,16 @@ void ReadExcel(bool isTest)
     qDebug() << xlsx.read("A6");
     qDebug() << xlsx.read("A7");
 
-    qDebug() << "--------------------";
     //![1]
 
     //![2]
+	qDebug() << " QXlsx::Cell.cellAt()";
     for ( int row = 1 ; row < 10 ; ++row )
     {
         if ( Cell* cell = xlsx.cellAt( row, 1 ) )
         {
+			if (cell == NULL)
+				continue;
             QVariant var = cell->value();
             qDebug() << row << " " << var;
         }

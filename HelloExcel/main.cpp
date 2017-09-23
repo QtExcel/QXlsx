@@ -57,7 +57,7 @@ extern int hyperlink();
 extern int image();
 extern int mergecells();
 extern int numberformat();
-extern int ruchtext();
+extern int richtext();
 extern int rowcolumn();
 extern int style();
 extern int worksheetoperations();
@@ -81,7 +81,7 @@ int main(int argc, char *argv[])
 	image();
 	mergecells();
 	numberformat();
-	ruchtext();
+	richtext();
 	rowcolumn();
 	style();
 	worksheetoperations();

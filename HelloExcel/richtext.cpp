@@ -6,7 +6,7 @@
 #include "xlsxworkbook.h"
 #include "xlsxformat.h"
 
-int ruchtext()
+int richtext()
 {
     //![0]
     QXlsx::Document xlsx;
@@ -35,11 +35,11 @@ int ruchtext()
     //![1]
 
     //![2]
-    xlsx.saveAs("ruchtext1.xlsx");
+    xlsx.saveAs("richtext1.xlsx");
     //![2]
 
-    QXlsx::Document("ruchtext1.xlsx");
-    xlsx.saveAs("ruchtext2.xlsx");
+    QXlsx::Document("richtext1.xlsx");
+    xlsx.saveAs("richtext2.xlsx");
 
     return 0;
 }
