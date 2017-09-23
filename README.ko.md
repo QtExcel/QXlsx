@@ -1,4 +1,4 @@
-# QtXlsx
+﻿# QtXlsx
 
 *Read this in other languages: [English](README.md), [한국어](README.ko.md)*
 
@@ -9,6 +9,7 @@
 * 원본 소스코드의 출처는 다음과 같습니다. Debao Zhang(2014) : https://github.com/dbzhang800/QtXlsxWriter
 
 ## 테스트 환경
+* Qt 5.9.1 (Visual Studio 2017/Windows 32bit) 
 * Qt 5.9.1 (MingW/Windows 32bit) 
 * Qt 5.9.1 (Ubuntu 16/Linux x64) 
 * Qt 5.5.1 (MingW/Windows 32bit)
