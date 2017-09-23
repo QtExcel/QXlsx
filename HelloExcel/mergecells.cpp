@@ -8,11 +8,13 @@ QTXLSX_USE_NAMESPACE
 int mergecells()
 {
     Document xlsx;
+
     //![0]
     Format format;
     format.setHorizontalAlignment(Format::AlignHCenter);
     format.setVerticalAlignment(Format::AlignVCenter);
     //![0]
+
     //![1]
     xlsx.write("B4", "Hello Qt!");
     xlsx.mergeCells("B4:F6", format);
@@ -21,7 +23,8 @@ int mergecells()
     xlsx.write("E8", 2);
     xlsx.mergeCells("E8:F21", format);
     //![1]
-    xlsx.save();
+
+	xlsx.saveAs("mergecells.xlsx"); 
 
     return 0;
 }

@@ -44,7 +44,7 @@ int style()
     format6.setPatternBackgroundColor(QColor(Qt::green));
     xlsx.write("A6", "Background color: green", format6);
 
-    xlsx.saveAs("book1.xlsx");
+    xlsx.saveAs("style1.xlsx");
 
     return 0;
 }

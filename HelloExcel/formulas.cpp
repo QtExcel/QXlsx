@@ -78,17 +78,17 @@ int formula()
     //![21]
 
     //![3]
-    xlsx.save();
+	xlsx.saveAs("formula1.xlsx");
     //![3]
 
     //Make sure that read/write works well.
-    Document xlsx2("Book1.xlsx");
+    Document xlsx2("formula1.xlsx");
     Worksheet *sharedFormulaSheet = dynamic_cast<Worksheet*>(xlsx2.sheet("SharedFormula"));
     for (int row=2; row<20; ++row) {
         qDebug()<<sharedFormulaSheet->read(row, 4);
     }
 
-    xlsx2.saveAs("Book2.xlsx");
+    xlsx2.saveAs("formula2.xlsx");
 
     return 0;
 }

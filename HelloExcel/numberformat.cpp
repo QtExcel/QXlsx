@@ -47,6 +47,7 @@ int numberformat()
         xlsx.write(row, 3, 100.0, format);
     }
 
-    xlsx.save();
+	xlsx.saveAs("numberformat.xlsx");
+
     return 0;
 }

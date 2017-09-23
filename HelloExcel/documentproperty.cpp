@@ -17,6 +17,6 @@ int documentproperty()
     xlsx.setDocumentProperty("keywords", "Sample, Example, Properties");
     xlsx.setDocumentProperty("description", "Created with Qt Xlsx");
 
-    xlsx.saveAs("Test.xlsx");
+    xlsx.saveAs("documentproperty.xlsx");
     return 0;
 }

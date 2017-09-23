@@ -15,11 +15,11 @@ int extractdata()
     xlsx.write("A5", "http://qt-project.org");
     xlsx.write("A6", QDate(2013, 12, 27));
     xlsx.write("A7", QTime(6, 30));
-    xlsx.saveAs("Book1.xlsx");
+    xlsx.saveAs("extractdata.xlsx");
     }
 
     //![0]
-    QXlsx::Document xlsx("Book1.xlsx");
+    QXlsx::Document xlsx("extractdata.xlsx");
     //![0]
 
     //![1]

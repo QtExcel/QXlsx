@@ -28,10 +28,10 @@ int worksheetoperations()
     xlsx.sheet("VeryHiddenSheet")->setSheetState(AbstractSheet::SS_VeryHidden);
     xlsx.write("A1", "This sheet is very hidden.");
 
-    xlsx.save();//Default name is "Book1.xlsx"
+    xlsx.saveAs("worksheetoperations1.xlsx");
     //![Create a xlsx file]
 
-    Document xlsx2("Book1.xlsx");
+    Document xlsx2("worksheetoperations1.xlsx");
     //![add_copy_move_delete]
     xlsx2.renameSheet("Sheet1", "TheFirstSheet");
 
@@ -50,6 +50,6 @@ int worksheetoperations()
     xlsx2.sheet("VeryHiddenSheet")->setVisible(true);
     //![show_hidden_sheets]
 
-    xlsx2.saveAs("Book2.xlsx");
+    xlsx2.saveAs("worksheetoperations2.xlsx");
     return 0;
 }

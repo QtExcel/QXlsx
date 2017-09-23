@@ -10,10 +10,10 @@ int image()
     image.fill(Qt::green);
     for (int i=0; i<10; ++i)
         xlsx.insertImage(10*i, 5, image);
-    xlsx.saveAs("Book1.xlsx");
+    xlsx.saveAs("image1.xlsx");
 
-    QXlsx::Document xlsx2("Book1.xlsx");
-    xlsx2.saveAs("Book2.xlsx");
+    QXlsx::Document xlsx2("image1.xlsx");
+    xlsx2.saveAs("image2.xlsx");
 
     return 0;
 }

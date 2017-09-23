@@ -35,11 +35,11 @@ int ruchtext()
     //![1]
 
     //![2]
-    xlsx.saveAs("Test1.xlsx");
+    xlsx.saveAs("ruchtext1.xlsx");
     //![2]
 
-    QXlsx::Document("Test1.xlsx");
-    xlsx.saveAs("Test2.xlsx");
+    QXlsx::Document("ruchtext1.xlsx");
+    xlsx.saveAs("ruchtext2.xlsx");
 
     return 0;
 }

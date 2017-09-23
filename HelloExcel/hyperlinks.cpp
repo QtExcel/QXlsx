@@ -17,11 +17,11 @@ int hyperlink()
     //![1]
 
     //![2]
-    xlsx.save();
+    xlsx.saveAs("hyperlink1.xlsx");
     //![2]
 
-    QXlsx::Document xlsx2("Book1.xlsx");
-    xlsx2.saveAs("Book2.xlsx");
+    QXlsx::Document xlsx2("hyperlink1.xlsx");
+    xlsx2.saveAs("hyperlink2.xlsx");
 
     return 0;
 }

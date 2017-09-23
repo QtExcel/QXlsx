@@ -288,11 +288,11 @@ int demo()
     xlsx.groupColumns(1, 2);
     xlsx.groupColumns(5, 8, false);
 
-    xlsx.saveAs("Book1.xlsx");
+    xlsx.saveAs("demo1.xlsx");
 
     //Make sure that read/write works well.
-    Document xlsx2("Book1.xlsx");
-    xlsx2.saveAs("Book2.xlsx");
+    Document xlsx2("demo1.xlsx");
+    xlsx2.saveAs("demo2.xlsx"); 
 
     return 0;
 }

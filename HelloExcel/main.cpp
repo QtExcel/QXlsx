@@ -66,7 +66,25 @@ int main(int argc, char *argv[])
 {
     QCoreApplication app(argc, argv);
 
-    hello();
+    // hello();
 
+	calendar();
+	chart();
+	chartsheet();
+	datavalidation();
+	definename();
+	demo();
+	documentproperty();
+	extractdata();
+	formula();
+	hyperlink();
+	image();
+	mergecells();
+	numberformat();
+	ruchtext();
+	rowcolumn();
+	style();
+	worksheetoperations();
+	
     return 0;
 }

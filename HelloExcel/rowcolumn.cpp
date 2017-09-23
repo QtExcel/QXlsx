@@ -35,6 +35,6 @@ int rowcolumn()
     xlsx.setColumnWidth(9, 16, 5.0);
     xlsx.setColumnFormat(9, 16, format2);
 
-    xlsx.save();
+	xlsx.saveAs("rowcolumn.xlsx");
     return 0;
 }
