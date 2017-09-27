@@ -50,8 +50,8 @@ void WriteExcel(bool isTest)
     xlsx.write("A6", QDate(2013, 12, 27));
     xlsx.write("A7", QTime(6, 30));
 
-    if (!xlsx.saveAs("hello1.xlsx"))
-        qDebug() << "[TEST1] failed to save excel file" ;
+    if (!xlsx.saveAs("WriteExcel.xlsx"))
+        qDebug() << "[WriteExcel] failed to save excel file" ;
 }
 
 void ReadExcel(bool isTest)
@@ -71,15 +71,15 @@ void ReadExcel(bool isTest)
         xlsx.write("A6", QDate(2013, 12, 27));
         xlsx.write("A7", QTime(6, 30));
 
-        if (!xlsx.saveAs("hello2.xlsx"))
+        if (!xlsx.saveAs("ReadExcel.xlsx"))
         {
-            qDebug() << "[TEST2] failed to save excel file" ;
+            qDebug() << "[ReadExcel] failed to save excel file" ;
             return;
         }
     }
 
     //![0]
-    QXlsx::Document xlsx("hello2.xlsx");
+    QXlsx::Document xlsx("ReadExcel.xlsx");
     //![0]
 
     //![1]
@@ -162,9 +162,9 @@ void DoChart(bool isTest)
     //![1]
 
     //![2]
-    if (!xlsx.saveAs("Test3.xlsx"))
+    if (!xlsx.saveAs("DoChart.xlsx"))
     {
-        qDebug() << "[TEST3] failed to create excel file";
+        qDebug() << "[DoChart] failed to create excel file";
     }
     //![2]
 
@@ -194,9 +194,9 @@ void Align(bool isTest)
     xlsx.mergeCells("E8:F21", format);
     //![1]
 
-    if (!xlsx.saveAs("Test4.xlsx"))
+    if (!xlsx.saveAs("Align.xlsx"))
     {
-        qDebug() << "[TEST4] failed to create excel file";
+        qDebug() << "[Align] failed to create excel file";
     }
 
 }
@@ -255,7 +255,7 @@ void UseSheet(bool isTest)
         xlsx2.sheet("VeryHiddenSheet")->setVisible(true);
         //![show_hidden_sheets]
 
-        if ( !xlsx2.saveAs("Book2.xlsx") )
+        if ( !xlsx2.saveAs("UseSheet.xlsx") )
         {
             return;
         }
@@ -294,7 +294,7 @@ void RichText(bool isTest)
     //![1]
 
     //![2]
-    xlsx.saveAs("Test6.xlsx");
+    xlsx.saveAs("RichText.xlsx");
     //![2]
 }
 

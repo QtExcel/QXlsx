@@ -66,7 +66,8 @@ int main(int argc, char *argv[])
 {
     QCoreApplication app(argc, argv);
 
-    // hello();
+    hello();
+	return 0; 
 
 	calendar();
 	chart();
