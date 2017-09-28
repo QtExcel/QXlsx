@@ -1,3 +1,28 @@
+//--------------------------------------------------------------------
+//
+// MIT License
+// Copyright (c) 2017, j2doll
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in all
+// copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
+//
+//--------------------------------------------------------------------
+
 // hello.cpp
 
 #include <QtCore>
@@ -24,6 +49,7 @@ int hello()
 {
 	// WriteExcel(true);
 	ReadExcel(true);
+	return 0; 
 
 	UseSheet(true);
 
@@ -94,9 +120,10 @@ void ReadExcel(bool isTest)
 	//![1]
 
 	/* debug output
+	QXlsx::Document.read()
 	QVariant(QString, "Hello Qt!")
 	QVariant(double, 12345)
-	QVariant(QString, "=44+33") // it's string. it is not a formula.
+	QVariant(QString, "=44+33") // it's string. not formular.
 	QVariant(bool, true)
 	QVariant(QString, "http://qt-project.org")
 	QVariant(QDate, QDate("2013-12-27"))
@@ -111,35 +138,83 @@ void ReadExcel(bool isTest)
 		{
 			if (cell == NULL)
 				continue;
-
-			QVariant var = cell->value();
-
-			// NOTICE!: this shoud be new function 
-			// NOTE: Don't append code in cell.vlaue() fucntion.   
-			if (cell->isDateTime()) 
-			{
-				double val = var.toDouble();
-				if (val < 1) 
-					var = cell->dateTime().time();
-				if (fmod(val, 1.0) <  1.0 / (1000 * 60 * 60 * 24)) 
-					var = cell->dateTime().date();
-			}
-
+			QVariant var = cell->readValue();
 			qDebug() << row << " " << var;
 		}
 	}
 	//![2]
-	
-	/* debug output
+
+	/* debug output 
+	QXlsx::Cell.cellAt()
 	1   QVariant(QString, "Hello Qt!")
 	2   QVariant(double, 12345)
-	3   QVariant(double, 0)
+	3   QVariant(double, 0) // NOTICE: something wrong !!!! 
 	4   QVariant(bool, true)
 	5   QVariant(QString, "http://qt-project.org")
-	6   QVariant(double, 41635)      // something wrong
-	7   QVariant(double, 0.270833)   // something wrong
+	6   QVariant(QDate, QDate("2013-12-27"))
+	7   QVariant(QTime, QTime("06:30:00.000"))
+	*/ 
+}
 
-	*/
+void UseSheet(bool isTest)
+{
+	if (!isTest)
+		return;
+
+	{
+		//![Create a xlsx file]
+		Document xlsx;
+
+		for (int i = 1; i < 20; ++i)
+		{
+			for (int j = 1; j < 15; ++j)
+				xlsx.write(i, j, QString("R %1 C %2").arg(i).arg(j));
+		}
+
+		xlsx.addSheet();
+		xlsx.write(2, 2, "Hello Qt Xlsx");
+
+		xlsx.addSheet();
+		xlsx.write(3, 3, "This will be deleted...");
+
+		xlsx.addSheet("HiddenSheet");
+		xlsx.currentSheet()->setHidden(true);
+		xlsx.write("A1", "This sheet is hidden.");
+
+		xlsx.addSheet("VeryHiddenSheet");
+		xlsx.sheet("VeryHiddenSheet")->setSheetState(AbstractSheet::SS_VeryHidden);
+		xlsx.write("A1", "This sheet is very hidden.");
+
+		xlsx.save();//Default name is "Book1.xlsx"
+					//![Create a xlsx file]
+	}
+
+	{
+		Document xlsx2("Book1.xlsx");
+		//![add_copy_move_delete]
+
+		xlsx2.renameSheet("Sheet1", "TheFirstSheet");
+
+		xlsx2.copySheet("TheFirstSheet", "CopyOfTheFirst");
+
+		xlsx2.selectSheet("CopyOfTheFirst");
+		xlsx2.write(25, 2, "On the Copy Sheet");
+
+		xlsx2.deleteSheet("Sheet3");
+
+		xlsx2.moveSheet("Sheet2", 0);
+		//![add_copy_move_delete]
+
+		//![show_hidden_sheets]
+		xlsx2.sheet("HiddenSheet")->setVisible(true);
+		xlsx2.sheet("VeryHiddenSheet")->setVisible(true);
+		//![show_hidden_sheets]
+
+		if (!xlsx2.saveAs("UseSheet.xlsx"))
+		{
+			return;
+		}
+	}
 }
 
 void DoChart(bool isTest)
@@ -212,67 +287,6 @@ void Align(bool isTest)
 		qDebug() << "[Align] failed to create excel file";
 	}
 
-}
-
-void UseSheet(bool isTest)
-{
-	if (!isTest)
-		return;
-
-	{
-		//![Create a xlsx file]
-		Document xlsx;
-
-		for ( int i = 1 ; i < 20 ; ++i )
-		{
-			for ( int j = 1 ; j < 15 ; ++j )
-				xlsx.write( i, j, QString("R %1 C %2").arg(i).arg(j) );
-		}
-
-		xlsx.addSheet();
-		xlsx.write(2, 2, "Hello Qt Xlsx");
-
-		xlsx.addSheet();
-		xlsx.write(3, 3, "This will be deleted...");
-
-		xlsx.addSheet("HiddenSheet");
-		xlsx.currentSheet()->setHidden(true);
-		xlsx.write("A1", "This sheet is hidden.");
-
-		xlsx.addSheet("VeryHiddenSheet");
-		xlsx.sheet("VeryHiddenSheet")->setSheetState(AbstractSheet::SS_VeryHidden);
-		xlsx.write("A1", "This sheet is very hidden.");
-
-		xlsx.save();//Default name is "Book1.xlsx"
-		//![Create a xlsx file]
-	}
-
-	{
-		Document xlsx2("Book1.xlsx");
-		//![add_copy_move_delete]
-
-		xlsx2.renameSheet("Sheet1", "TheFirstSheet");
-
-		xlsx2.copySheet("TheFirstSheet", "CopyOfTheFirst");
-
-		xlsx2.selectSheet("CopyOfTheFirst");
-		xlsx2.write(25, 2, "On the Copy Sheet");
-
-		xlsx2.deleteSheet("Sheet3");
-
-		xlsx2.moveSheet("Sheet2", 0);
-		//![add_copy_move_delete]
-
-		//![show_hidden_sheets]
-		xlsx2.sheet("HiddenSheet")->setVisible(true);
-		xlsx2.sheet("VeryHiddenSheet")->setVisible(true);
-		//![show_hidden_sheets]
-
-		if ( !xlsx2.saveAs("UseSheet.xlsx") )
-		{
-			return;
-		}
-	}
 }
 
 void RichText(bool isTest)
