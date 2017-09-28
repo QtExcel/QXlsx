@@ -110,10 +110,43 @@ Cell::CellType Cell::cellType() const
 QVariant Cell::value() const
 {
 	Q_D(const Cell); 
+	return d->value; 
+}
+
+/*!
+* Return the data content of this Cell for reading 
+*/
+QVariant Cell::readValue() const
+{
+	Q_D(const Cell);
 
 	QVariant ret;
 	ret = d->value;
-	return ret; 
+
+	if (isDateTime())
+	{
+		QDateTime dt = dateTime(); 
+		double val = d->value.toDouble();
+		if (val < 1)
+		{
+			ret = dt.time(); // it's time type 
+			return ret; 
+		}
+
+		if (fmod(val, 1.0) < 1.0 / (1000 * 60 * 60 * 24))
+		{
+			ret = dt.date(); // it's date type  
+			return ret;
+		}
+	}
+
+	if (hasFormula())
+	{
+		QVariant::Type vt = ret.type(); // it's double type.  
+
+	}
+
+	return ret;
 }
 
 /*!
