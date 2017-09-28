@@ -6,7 +6,6 @@
 
 * QtXlsx is excel file(.xlsx) reader/writer library. 
 * It is written for static library using Qt 5.
-* Original source code from Debao Zhang(2014) : https://github.com/dbzhang800/QtXlsxWriter
 
 ## Test environment
 * Qt 5.9.1 (Visual Studio 2017/Windows 32bit) 
@@ -29,8 +28,8 @@ xlsx.saveAs("Test.xlsx");
 
 ## License
 * MIT License
-* The Qt Company : 
-   https://www.qt.io/
+* Original source code from Debao Zhang(2014) : https://github.com/dbzhang800/QtXlsxWriter
+* The Qt Company : https://www.qt.io/
    
 ## About
 * [https://github.com/j2doll](https://github.com/j2doll)
