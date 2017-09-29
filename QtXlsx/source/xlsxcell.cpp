@@ -138,12 +138,16 @@ QVariant Cell::readValue() const
 			ret = dt.date(); // it's date type  
 			return ret;
 		}
+
+		return ret; 
 	}
 
 	if (hasFormula())
 	{
 		QVariant::Type vt = ret.type(); // it's double type.  
-
+		QString formulaString = this->formula().formulaText();
+		ret = formulaString;
+		return ret;
 	}
 
 	return ret;
