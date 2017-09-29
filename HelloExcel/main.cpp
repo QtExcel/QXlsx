@@ -63,9 +63,9 @@ extern int worksheetoperations();
 
 int main(int argc, char *argv[])
 {
-    QCoreApplication app(argc, argv);
+	QCoreApplication app(argc, argv);
 
-    hello();
+	hello();
 	return 0; 
 
 	calendar();
@@ -86,5 +86,5 @@ int main(int argc, char *argv[])
 	style();
 	worksheetoperations();
 	
-    return 0;
+	return 0;
 }

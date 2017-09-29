@@ -49,7 +49,6 @@ int hello()
 {
 	// WriteExcel(true);
 	ReadExcel(true);
-	return 0; 
 
 	UseSheet(true);
 
@@ -105,7 +104,8 @@ void ReadExcel(bool isTest)
 	}
 
 	//![0]
-	QXlsx::Document xlsx("ReadExcel.xlsx");
+	// QXlsx::Document xlsx("ReadExcel.xlsx");
+	QXlsx::Document xlsx("Excel1.xlsx");
 	//![0]
 
 	//![1]
@@ -148,7 +148,7 @@ void ReadExcel(bool isTest)
 	QXlsx::Cell.cellAt()
 	1   QVariant(QString, "Hello Qt!")
 	2   QVariant(double, 12345)
-	3   QVariant(double, 0) // NOTICE: something wrong !!!! 
+	3   QVariant(QString, "44+33") // it's string of formula. (not double) 
 	4   QVariant(bool, true)
 	5   QVariant(QString, "http://qt-project.org")
 	6   QVariant(QDate, QDate("2013-12-27"))
@@ -165,53 +165,75 @@ void UseSheet(bool isTest)
 		//![Create a xlsx file]
 		Document xlsx;
 
+		// current sheet is Sheet1(default sheet)
 		for (int i = 1; i < 20; ++i)
 		{
 			for (int j = 1; j < 15; ++j)
+			{
 				xlsx.write(i, j, QString("R %1 C %2").arg(i).arg(j));
+			}
 		}
 
-		xlsx.addSheet();
+		xlsx.addSheet(); // current sheet is Sheet2
 		xlsx.write(2, 2, "Hello Qt Xlsx");
 
-		xlsx.addSheet();
+		xlsx.addSheet(); // current sheet is Sheet3
 		xlsx.write(3, 3, "This will be deleted...");
 
-		xlsx.addSheet("HiddenSheet");
+		xlsx.addSheet("HiddenSheet"); // current sheet is HiddenSheet
 		xlsx.currentSheet()->setHidden(true);
 		xlsx.write("A1", "This sheet is hidden.");
 
-		xlsx.addSheet("VeryHiddenSheet");
+		xlsx.addSheet("VeryHiddenSheet"); // current sheet is VeryHiddenSheet 
 		xlsx.sheet("VeryHiddenSheet")->setSheetState(AbstractSheet::SS_VeryHidden);
 		xlsx.write("A1", "This sheet is very hidden.");
 
-		xlsx.save();//Default name is "Book1.xlsx"
-					//![Create a xlsx file]
+		if (!xlsx.save()) //Default name is "Book1.xlsx"
+		{
+			qDebug() << "[Book1.xlsx] failed to write excel.";
+			return; 
+		}
 	}
 
 	{
 		Document xlsx2("Book1.xlsx");
-		//![add_copy_move_delete]
 
-		xlsx2.renameSheet("Sheet1", "TheFirstSheet");
+		xlsx2.renameSheet("Sheet1", "TheFirstSheet"); // rename sheet 
 
-		xlsx2.copySheet("TheFirstSheet", "CopyOfTheFirst");
+		xlsx2.copySheet("TheFirstSheet", "CopyOfTheFirst"); // copy sheet 
 
-		xlsx2.selectSheet("CopyOfTheFirst");
-		xlsx2.write(25, 2, "On the Copy Sheet");
+		xlsx2.selectSheet("CopyOfTheFirst"); // current sheet is 'CopyOfTheFirst'
+		xlsx2.write(25, 2, "On the Copy Sheet"); // write cell(25,2)
 
-		xlsx2.deleteSheet("Sheet3");
+		xlsx2.deleteSheet("Sheet3"); // delete sheet 
 
-		xlsx2.moveSheet("Sheet2", 0);
-		//![add_copy_move_delete]
+		xlsx2.moveSheet("Sheet2", 0); // move sheet to first position 
 
 		//![show_hidden_sheets]
 		xlsx2.sheet("HiddenSheet")->setVisible(true);
 		xlsx2.sheet("VeryHiddenSheet")->setVisible(true);
 		//![show_hidden_sheets]
 
+		xlsx2.selectSheet("TheFirstSheet"); // current sheet is 'TheFirstSheet'
+		xlsx2.write(1, 1, QDate(2099,12,31));
+
+		// list all sheets of document.
+		QStringList slSheetNames = xlsx2.sheetNames();
+		qDebug() << " Document::sheetNames()";
+		for (int i = 0; i < slSheetNames.size(); ++i)
+			qDebug() << " " << slSheetNames.at(i).toLocal8Bit().constData();
+		/* debug output 
+			Document::sheetNames()
+				Sheet2
+				TheFirstSheet
+				HiddenSheet
+				VeryHiddenSheet
+				CopyOfTheFirst
+		*/
+
 		if (!xlsx2.saveAs("UseSheet.xlsx"))
 		{
+			qDebug() << "[UseSheet.xlsx] failed to write excel.";
 			return;
 		}
 	}
