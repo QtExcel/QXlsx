@@ -33,6 +33,8 @@
 #include "xlsxworkbook.h"
 #include <QDateTime>
 
+#include <cmath>
+
 QT_BEGIN_NAMESPACE_XLSX
 
 CellPrivate::CellPrivate(Cell *p) :
