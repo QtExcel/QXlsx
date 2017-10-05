@@ -51,7 +51,7 @@ struct XlsxRelationship
     QString targetMode;
 };
 
-class XLSX_AUTOTEST_EXPORT Relationships
+class  Relationships
 {
 public:
     Relationships();

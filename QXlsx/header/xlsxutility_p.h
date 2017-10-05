@@ -47,22 +47,22 @@ class QTime;
 namespace QXlsx {
 class CellReference;
 
-XLSX_AUTOTEST_EXPORT bool parseXsdBoolean(const QString &value, bool defaultValue=false);
+ bool parseXsdBoolean(const QString &value, bool defaultValue=false);
 
-XLSX_AUTOTEST_EXPORT QStringList splitPath(const QString &path);
-XLSX_AUTOTEST_EXPORT QString getRelFilePath(const QString &filePath);
+ QStringList splitPath(const QString &path);
+ QString getRelFilePath(const QString &filePath);
 
-XLSX_AUTOTEST_EXPORT double datetimeToNumber(const QDateTime &dt, bool is1904=false);
-XLSX_AUTOTEST_EXPORT QDateTime datetimeFromNumber(double num, bool is1904=false);
-XLSX_AUTOTEST_EXPORT double timeToNumber(const QTime &t);
+ double datetimeToNumber(const QDateTime &dt, bool is1904=false);
+ QDateTime datetimeFromNumber(double num, bool is1904=false);
+ double timeToNumber(const QTime &t);
 
-XLSX_AUTOTEST_EXPORT QString createSafeSheetName(const QString &nameProposal);
-XLSX_AUTOTEST_EXPORT QString escapeSheetName(const QString &sheetName);
-XLSX_AUTOTEST_EXPORT QString unescapeSheetName(const QString &sheetName);
+ QString createSafeSheetName(const QString &nameProposal);
+ QString escapeSheetName(const QString &sheetName);
+ QString unescapeSheetName(const QString &sheetName);
 
-XLSX_AUTOTEST_EXPORT bool isSpaceReserveNeeded(const QString &string);
+ bool isSpaceReserveNeeded(const QString &string);
 
-XLSX_AUTOTEST_EXPORT QString convertSharedFormula(const QString &rootFormula, const CellReference &rootCell, const CellReference &cell);
+ QString convertSharedFormula(const QString &rootFormula, const CellReference &rootCell, const CellReference &cell);
 
 } //QXlsx
 #endif // XLSXUTILITY_H

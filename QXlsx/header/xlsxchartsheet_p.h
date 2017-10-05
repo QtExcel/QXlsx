@@ -42,7 +42,7 @@
 
 namespace QXlsx {
 
-class XLSX_AUTOTEST_EXPORT ChartsheetPrivate : public AbstractSheetPrivate
+class  ChartsheetPrivate : public AbstractSheetPrivate
 {
     Q_DECLARE_PUBLIC(Chartsheet)
 public:

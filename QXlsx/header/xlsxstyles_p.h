@@ -64,7 +64,7 @@ struct XlsxFormatNumberData
     QString formatString;
 };
 
-class XLSX_AUTOTEST_EXPORT Styles : public AbstractOOXmlFile
+class  Styles : public AbstractOOXmlFile
 {
 public:
     Styles(CreateFlag flag);

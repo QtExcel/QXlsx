@@ -149,7 +149,7 @@ struct XlsxColumnInfo
     bool collapsed;
 };
 
-class XLSX_AUTOTEST_EXPORT WorksheetPrivate : public AbstractSheetPrivate
+class  WorksheetPrivate : public AbstractSheetPrivate
 {
     Q_DECLARE_PUBLIC(Worksheet)
 public:
