@@ -1,30 +1,24 @@
-#--------------------------------------------------------------------
 #
 # HelloExcel.pro
 #
-# MIT License
-# Copyright (c) 2017, j2doll (https://github.com/j2doll)
+# QXlsx https://github.com/j2doll/QXlsx
 #
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
+# GPL License v3 https://www.gnu.org/licenses/gpl-3.0.en.html
 #
-# The above copyright notice and this permission notice shall be included in all
-# copies or substantial portions of the Software.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-# SOFTWARE.
-#
-#--------------------------------------------------------------------
-
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+# 
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+# 
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+# 
+ 
 QT += core
 QT += gui
 TARGET = HelloExcel
@@ -38,45 +32,45 @@ TEMPLATE = app
 # case : Qt5 & MingW(gcc) & QtCreator & Windows
 win32-g++ 
 {
-    INCLUDEPATH += "../QtXlsx/QtXlsx/header"
+    INCLUDEPATH += "../QXlsx/QXlsx/header"
 
     CONFIG(debug, debug|release) {
         contains(QT_VERSION, 5.6.0) {
-            LIBS += -L"../build-QtXlsx-Desktop_Qt_5_6_0_MinGW_32bit-Debug/debug"
+            LIBS += -L"../build-QXlsx-Desktop_Qt_5_6_0_MinGW_32bit-Debug/debug"
         }
         contains(QT_VERSION, 5.7.0) {
-            LIBS += -L"../build-QtXlsx-Desktop_Qt_5_7_0_MinGW_32bit-Debug/debug"
+            LIBS += -L"../build-QXlsx-Desktop_Qt_5_7_0_MinGW_32bit-Debug/debug"
         }
         contains(QT_VERSION, 5.7.1) {
-            LIBS += -L"../build-QtXlsx-Desktop_Qt_5_7_0_MinGW_32bit-Debug/debug"
+            LIBS += -L"../build-QXlsx-Desktop_Qt_5_7_0_MinGW_32bit-Debug/debug"
         }
         contains(QT_VERSION, 5.8.0) {
-            LIBS += -L"../build-QtXlsx-Desktop_Qt_5_8_0_MinGW_32bit-Debug/debug"
+            LIBS += -L"../build-QXlsx-Desktop_Qt_5_8_0_MinGW_32bit-Debug/debug"
         }
         contains(QT_VERSION, 5.9.0) {
-            LIBS += -L"../build-QtXlsx-Desktop_Qt_5_9_0_MinGW_32bit-Debug/debug"
+            LIBS += -L"../build-QXlsx-Desktop_Qt_5_9_0_MinGW_32bit-Debug/debug"
         }
         contains(QT_VERSION, 5.9.1) {
-            LIBS += -L"../build-QtXlsx-Desktop_Qt_5_9_1_MinGW_32bit-Debug/debug"
+            LIBS += -L"../build-QXlsx-Desktop_Qt_5_9_1_MinGW_32bit-Debug/debug"
         }
     } else {
         contains(QT_VERSION, 5.6.0) {
-            LIBS += -L"../build-QtXlsx-Desktop_Qt_5_6_0_MinGW_32bit-Release/release"
+            LIBS += -L"../build-QXlsx-Desktop_Qt_5_6_0_MinGW_32bit-Release/release"
         }
         contains(QT_VERSION, 5.7.0) {
-            LIBS += -L"../build-QtXlsx-Desktop_Qt_5_7_0_MinGW_32bit-Release/release"
+            LIBS += -L"../build-QXlsx-Desktop_Qt_5_7_0_MinGW_32bit-Release/release"
         }
         contains(QT_VERSION, 5.7.1) {
-            LIBS += -L"../build-QtXlsx-Desktop_Qt_5_7_0_MinGW_32bit-Release/release"
+            LIBS += -L"../build-QXlsx-Desktop_Qt_5_7_0_MinGW_32bit-Release/release"
         }
         contains(QT_VERSION, 5.8.0) {
-            LIBS += -L"../build-QtXlsx-Desktop_Qt_5_8_0_MinGW_32bit-Release/release"
+            LIBS += -L"../build-QXlsx-Desktop_Qt_5_8_0_MinGW_32bit-Release/release"
         }
         contains(QT_VERSION, 5.9.0) {
-            LIBS += -L"../build-QtXlsx-Desktop_Qt_5_9_0_MinGW_32bit-Release/release"
+            LIBS += -L"../build-QXlsx-Desktop_Qt_5_9_0_MinGW_32bit-Release/release"
         }
         contains(QT_VERSION, 5.9.1) {
-            LIBS += -L"../build-QtXlsx-Desktop_Qt_5_9_1_MinGW_32bit-Release/release"
+            LIBS += -L"../build-QXlsx-Desktop_Qt_5_9_1_MinGW_32bit-Release/release"
         }
     }
 }
@@ -84,8 +78,8 @@ win32-g++
 # case : Qt5 & Linux & gcc
 linux-g++ 
 {
-    INCLUDEPATH += "../QtXlsx/header"
-    LIBS += -L"../QtXlsx/"
+    INCLUDEPATH += "../QXlsx/header"
+    LIBS += -L"../QXlsx/"
 }
 
 # case : Qt5 & Visual Studio(VC++) & Windows
@@ -93,36 +87,36 @@ linux-g++
 win32-msvc2012
 {
     CONFIG(debug, debug|release) {
-        LIBS += -L"../QtXlsx/debug" 
+        LIBS += -L"../QXlsx/debug" 
     } else {
-        LIBS += -L"../QtXlsx/release" 
+        LIBS += -L"../QXlsx/release" 
     }
 }
 
 win32-msvc2013
 {
     CONFIG(debug, debug|release) {
-        LIBS += -L"../QtXlsx/debug" 
+        LIBS += -L"../QXlsx/debug" 
     } else {
-        LIBS += -L"../QtXlsx/release" 
+        LIBS += -L"../QXlsx/release" 
     }
 }
 
 win32-msvc2015
 {
     CONFIG(debug, debug|release) {
-        LIBS += -L"../QtXlsx/debug" 
+        LIBS += -L"../QXlsx/debug" 
     } else {
-        LIBS += -L"../QtXlsx/release" 
+        LIBS += -L"../QXlsx/release" 
     }
 }
 
 win32-msvc2017
 {
     CONFIG(debug, debug|release) {
-        LIBS += -L"../QtXlsx/debug" 
+        LIBS += -L"../QXlsx/debug" 
     } else {
-        LIBS += -L"../QtXlsx/release" 
+        LIBS += -L"../QXlsx/release" 
     }
 }
 
@@ -133,8 +127,8 @@ mac
     
 }
 
-# link QtXlsx library
-LIBS += -lQtXlsx
+# link QXlsx library
+LIBS += -lQXlsx
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked deprecated (the exact warnings
