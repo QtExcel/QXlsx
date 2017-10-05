@@ -184,10 +184,25 @@ CellFormula Cell::formula() const
 bool Cell::isDateTime() const
 {
 	Q_D(const Cell);
-	if (d->cellType == NumberType && d->value.toDouble() >=0
-			&& d->format.isValid() && d->format.isDateTimeFormat()) {
+
+	Cell::CellType cellType = d->cellType;
+	double dValue = d->value.toDouble();
+	QString strValue = d->value.toString().toUtf8(); 
+	bool isValidFormat = d->format.isValid();
+	bool isDateTimeFormat = d->format.isDateTimeFormat();
+
+	// NOTICE: google spreadsheet data is not adoptable.
+	// cell style(10): cellType is SharedStringType. strValue is '1900. 1. 9'.
+	// cell style(12): cellType is SharedStringType. strValue is '1900. 1. 11 AM 12:00:00'.
+
+	if ( cellType == NumberType && 
+		 dValue >= 0 &&
+		 isValidFormat &&
+		 isDateTimeFormat )
+	{
 		return true;
 	}
+
 	return false;
 }
 

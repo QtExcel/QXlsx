@@ -1941,7 +1941,7 @@ void WorksheetPrivate::loadXmlSheetData(QXmlStreamReader &reader)
 				}
 
 			} 
-			else if (reader.name() == QLatin1String("c"))
+			else if (reader.name() == QLatin1String("c")) // Cell
 			{ 
 				//Cell
 				QXmlStreamAttributes attributes = reader.attributes();
@@ -1950,10 +1950,12 @@ void WorksheetPrivate::loadXmlSheetData(QXmlStreamReader &reader)
 
 				//get format
 				Format format;
-				if (attributes.hasAttribute(QLatin1String("s"))) 
+				int styleIndex = -1;
+				if (attributes.hasAttribute(QLatin1String("s"))) // Style 
 				{ 
 					//"s" == style index
 					int idx = attributes.value(QLatin1String("s")).toString().toInt();
+					styleIndex = idx; 
 					format = workbook->styles()->xfFormat(idx);
 
 					////Empty format exists in styles xf table of real .xlsx files, see issue #65.
@@ -1962,11 +1964,20 @@ void WorksheetPrivate::loadXmlSheetData(QXmlStreamReader &reader)
 				}
 
 				Cell::CellType cellType = Cell::NumberType;
-				if (attributes.hasAttribute(QLatin1String("t")))
+				if (attributes.hasAttribute(QLatin1String("t"))) // Type 
 				{
 					QString typeString = attributes.value(QLatin1String("t")).toString();
 					if (typeString == QLatin1String("s"))
-						cellType = Cell::SharedStringType;
+					{
+						cellType = Cell::SharedStringType; 
+						
+						// NOTICE: somtimes 's' is not string type. it may be date-time type. 
+						if ( styleIndex == 10 ||
+							 styleIndex == 12 )
+						{
+							cellType = Cell::NumberType;
+						}
+					}
 					else if (typeString == QLatin1String("inlineStr"))
 						cellType = Cell::InlineStringType;
 					else if (typeString == QLatin1String("str"))
