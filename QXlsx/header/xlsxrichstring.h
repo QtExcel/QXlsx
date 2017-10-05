@@ -35,9 +35,9 @@ QT_BEGIN_NAMESPACE_XLSX
 class RichStringPrivate;
 class RichString;
 // qHash is a friend, but we can't use default arguments for friends (§8.3.6.4)
-Q_XLSX_EXPORT uint qHash(const RichString &rs, uint seed = 0) Q_DECL_NOTHROW;
+  uint qHash(const RichString &rs, uint seed = 0) Q_DECL_NOTHROW;
 
-class Q_XLSX_EXPORT RichString
+class   RichString
 {
 public:
     RichString();
@@ -61,25 +61,25 @@ public:
 
     RichString &operator=(const RichString &other);
 private:
-    friend Q_XLSX_EXPORT uint qHash(const RichString &rs, uint seed) Q_DECL_NOTHROW;
-    friend Q_XLSX_EXPORT bool operator==(const RichString &rs1, const RichString &rs2);
-    friend Q_XLSX_EXPORT bool operator!=(const RichString &rs1, const RichString &rs2);
-    friend Q_XLSX_EXPORT bool operator<(const RichString &rs1, const RichString &rs2);
-    friend Q_XLSX_EXPORT QDebug operator<<(QDebug dbg, const RichString &rs);
+    friend   uint qHash(const RichString &rs, uint seed) Q_DECL_NOTHROW;
+    friend   bool operator==(const RichString &rs1, const RichString &rs2);
+    friend   bool operator!=(const RichString &rs1, const RichString &rs2);
+    friend   bool operator<(const RichString &rs1, const RichString &rs2);
+    friend   QDebug operator<<(QDebug dbg, const RichString &rs);
 
     QSharedDataPointer<RichStringPrivate> d;
 };
 
-Q_XLSX_EXPORT bool operator==(const RichString &rs1, const RichString &rs2);
-Q_XLSX_EXPORT bool operator!=(const RichString &rs1, const RichString &rs2);
-Q_XLSX_EXPORT bool operator<(const RichString &rs1, const RichString &rs2);
-Q_XLSX_EXPORT bool operator==(const RichString &rs1, const QString &rs2);
-Q_XLSX_EXPORT bool operator==(const QString &rs1, const RichString &rs2);
-Q_XLSX_EXPORT bool operator!=(const RichString &rs1, const QString &rs2);
-Q_XLSX_EXPORT bool operator!=(const QString &rs1, const RichString &rs2);
+  bool operator==(const RichString &rs1, const RichString &rs2);
+  bool operator!=(const RichString &rs1, const RichString &rs2);
+  bool operator<(const RichString &rs1, const RichString &rs2);
+  bool operator==(const RichString &rs1, const QString &rs2);
+  bool operator==(const QString &rs1, const RichString &rs2);
+  bool operator!=(const RichString &rs1, const QString &rs2);
+  bool operator!=(const QString &rs1, const RichString &rs2);
 
 #ifndef QT_NO_DEBUG_STREAM
-Q_XLSX_EXPORT QDebug operator<<(QDebug dbg, const RichString &rs);
+  QDebug operator<<(QDebug dbg, const RichString &rs);
 #endif
 
 QT_END_NAMESPACE_XLSX

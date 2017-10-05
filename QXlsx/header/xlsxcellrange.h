@@ -29,7 +29,7 @@
 
 QT_BEGIN_NAMESPACE_XLSX
 
-class Q_XLSX_EXPORT CellRange
+class   CellRange
 {
 public:
     CellRange();

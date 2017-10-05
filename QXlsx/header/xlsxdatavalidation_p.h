@@ -42,7 +42,7 @@
 
 QT_BEGIN_NAMESPACE_XLSX
 
-class Q_XLSX_EXPORT  DataValidationPrivate : public QSharedData
+class    DataValidationPrivate : public QSharedData
 {
 public:
     DataValidationPrivate();

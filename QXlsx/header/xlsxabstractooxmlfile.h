@@ -35,7 +35,7 @@ QT_BEGIN_NAMESPACE_XLSX
 class Relationships;
 class AbstractOOXmlFilePrivate;
 
-class Q_XLSX_EXPORT AbstractOOXmlFile
+class   AbstractOOXmlFile
 {
     Q_DECLARE_PRIVATE(AbstractOOXmlFile)
 public:

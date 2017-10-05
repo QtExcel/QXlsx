@@ -41,7 +41,7 @@ class ChartPrivate;
 class CellRange;
 class DrawingAnchor;
 
-class Q_XLSX_EXPORT Chart : public AbstractOOXmlFile
+class   Chart : public AbstractOOXmlFile
 {
     Q_DECLARE_PRIVATE(Chart)
 

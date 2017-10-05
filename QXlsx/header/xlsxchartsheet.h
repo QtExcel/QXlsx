@@ -34,7 +34,7 @@ class Workbook;
 class DocumentPrivate;
 class ChartsheetPrivate;
 class Chart;
-class Q_XLSX_EXPORT Chartsheet : public AbstractSheet
+class   Chartsheet : public AbstractSheet
 {
     Q_DECLARE_PRIVATE(Chartsheet)
 public:

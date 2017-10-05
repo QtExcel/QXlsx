@@ -33,7 +33,7 @@ QT_BEGIN_NAMESPACE_XLSX
 class Workbook;
 class Drawing;
 class AbstractSheetPrivate;
-class Q_XLSX_EXPORT AbstractSheet : public AbstractOOXmlFile
+class   AbstractSheet : public AbstractOOXmlFile
 {
     Q_DECLARE_PRIVATE(AbstractSheet)
 public:

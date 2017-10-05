@@ -40,7 +40,7 @@ class CellRange;
 class CellReference;
 
 class DataValidationPrivate;
-class Q_XLSX_EXPORT DataValidation
+class   DataValidation
 {
 public:
     enum ValidationType

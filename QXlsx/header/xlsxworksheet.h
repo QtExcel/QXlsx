@@ -53,7 +53,7 @@ class Relationships;
 class Chart;
 
 class WorksheetPrivate;
-class Q_XLSX_EXPORT Worksheet : public AbstractSheet
+class   Worksheet : public AbstractSheet
 {
     Q_DECLARE_PRIVATE(Worksheet)
 public:

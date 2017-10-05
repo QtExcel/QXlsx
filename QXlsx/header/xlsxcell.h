@@ -33,7 +33,7 @@ class CellFormula;
 class CellPrivate;
 class WorksheetPrivate;
 
-class Q_XLSX_EXPORT Cell
+class   Cell
 {
 	Q_DECLARE_PRIVATE(Cell)
 public:
