@@ -23,8 +23,10 @@
 #include <QtGlobal>
 
 #define QT_BEGIN_NAMESPACE_XLSX namespace QXlsx {
+
 #define QT_END_NAMESPACE_XLSX }
-#define QTXLSX_USE_NAMESPACE using namespace QXlsx;
+
+#define QXLSX_USE_NAMESPACE using namespace QXlsx;
  
 #define Q_XLSX_EXPORT // use static lib
 
