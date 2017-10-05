@@ -160,7 +160,9 @@ numberformat.cpp \
 richtext.cpp \
 rowcolumn.cpp \
 style.cpp \
-worksheetoperations.cpp
+worksheetoperations.cpp \
+readStyle.cpp
+
 
 
 
