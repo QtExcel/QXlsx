@@ -54,13 +54,16 @@ extern int richtext();
 extern int rowcolumn();
 extern int style();
 extern int worksheetoperations();
+extern int readStyle(); 
 
 int main(int argc, char *argv[])
 {
 	QCoreApplication app(argc, argv);
 
+	readStyle(); 
+	return 0;
+
 	hello();
-	return 0; 
 
 	calendar();
 	chart();
