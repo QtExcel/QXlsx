@@ -33,7 +33,7 @@ xlsx.saveAs("Test.xlsx");
 * Original source code from Debao Zhang(2014) : https://github.com/dbzhang800/QXlsxWriter
 * The Qt Company : https://www.qt.io/
    
-## About
+## Contact
 * [https://github.com/j2doll](https://github.com/j2doll)
 * [j2doll@gmail.com](mailto:j2doll@gmail.com)
 * Hi! My native language is not English. My English is not fluent. Please use EASY English. :-) 
