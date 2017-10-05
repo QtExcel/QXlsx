@@ -2,6 +2,8 @@
 
 > *Read this in other languages: [English](README.md), [한국어](README.ko.md)*
 
+![](image/xlsx-file-format-extension.png)
+
 ## 엑셀 읽기/쓰기 라이브러리
 
 * QXlsx는 엑셀 파일(*.xlsx) 읽기/쓰기 라이브러리입니다.
