@@ -61,13 +61,13 @@ int readGoogleStyle()
 	4   QVariant(double, 4) :it's percentage
 	5   QVariant(double, 5) :it's exponentiation 
 	6   QVariant(double, 6) :it's accounting#1
-	7   QVariant(double, 7) :it's accounting#1
-	8   QVariant(double, 8) :it's currency#1
+	7   QVariant(double, 7) :it's accounting#2
+	8   QVariant(double, 8) :it's currency
 	9   QVariant(double, 9) :it's currency(rounds)
-	10   QVariant(QString, "1900. 1. 9") :it's date :something wrong
-	11   QVariant(QDate, QDate("1900-01-11")) :it'stime
-	12   QVariant(QString, "1900. 1. 11 AM 12:00:00") :it's date time :something wrong
-	13   QVariant(QDate, QDate("1900-01-13")) :it'speriod
+	10   QVariant(QString, "1900. 1. 9") :it's date :something wrong!
+	11   QVariant(QDate, QDate("1900-01-11")) :it's time
+	12   QVariant(QString, "1900. 1. 11 AM 12:00:00") :it's date time :something wrong!
+	13   QVariant(QDate, QDate("1900-01-13")) :it's period
 	*/
 	  
 	return 0; 
