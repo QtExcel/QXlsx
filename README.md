@@ -2,6 +2,8 @@
 
 > *Read this in other languages: [English](README.md), [한국어](README.ko.md)*
 
+![](image/xlsx-file-format-extension.png)
+
 ## Excel reader/writer library
 
 * QXlsx is excel file(*.xlsx) reader/writer library. 
