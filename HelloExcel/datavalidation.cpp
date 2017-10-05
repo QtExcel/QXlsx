@@ -4,7 +4,7 @@
 #include "xlsxdocument.h"
 #include "xlsxdatavalidation.h"
 
-QTXLSX_USE_NAMESPACE
+using namespace QXlsx;
 
 int datavalidation()
 {

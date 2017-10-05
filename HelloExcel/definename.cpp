@@ -3,7 +3,7 @@
 #include <QtCore>
 #include "xlsxdocument.h"
 
-QTXLSX_USE_NAMESPACE
+using namespace QXlsx;
 
 int definename()
 {

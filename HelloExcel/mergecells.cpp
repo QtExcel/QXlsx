@@ -3,7 +3,7 @@
 #include "xlsxdocument.h"
 #include "xlsxformat.h"
 
-QTXLSX_USE_NAMESPACE
+using namespace QXlsx;
 
 int mergecells()
 {

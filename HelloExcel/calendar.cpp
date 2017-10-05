@@ -6,7 +6,7 @@
 #include "xlsxcellrange.h"
 #include "xlsxworksheet.h"
 
-QTXLSX_USE_NAMESPACE
+using namespace QXlsx;
 
 int calendar()
 {

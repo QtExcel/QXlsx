@@ -28,6 +28,7 @@
 #include "xlsxchart.h"
 #include "xlsxrichstring.h"
 #include "xlsxworkbook.h"
+
 using namespace QXlsx;
 
 void WriteExcel(bool isTest);

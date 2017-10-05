@@ -6,7 +6,7 @@
 #include "xlsxcellrange.h"
 #include "xlsxworksheet.h"
 
-QTXLSX_USE_NAMESPACE
+using namespace QXlsx;
 
 void writeHorizontalAlignCell(Document &xlsx, const QString &cell, const QString &text, Format::HorizontalAlignment align)
 {
