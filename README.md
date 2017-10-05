@@ -1,10 +1,10 @@
-﻿# QtXlsx
+﻿# QXlsx
 
 > *Read this in other languages: [English](README.md), [한국어](README.ko.md)*
 
 ## Excel reader/writer library
 
-* QtXlsx is excel file(.xlsx) reader/writer library. 
+* QXlsx is excel file(*.xlsx) reader/writer library. 
 * It is written for static library using Qt 5.
 
 ## Test environment
@@ -24,11 +24,11 @@ xlsx.write("A1", "Hello Qt!");
 xlsx.saveAs("Test.xlsx");
 ```
 ## How to build
-* see https://github.com/j2doll/QtXlsx/wiki
+* see https://github.com/j2doll/QXlsx/wiki
 
 ## License
-* MIT License
-* Original source code from Debao Zhang(2014) : https://github.com/dbzhang800/QtXlsxWriter
+* GPL License https://www.gnu.org/licenses/gpl-3.0.en.html
+* Original source code from Debao Zhang(2014) : https://github.com/dbzhang800/QXlsxWriter
 * The Qt Company : https://www.qt.io/
    
 ## About

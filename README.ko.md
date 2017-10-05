@@ -1,11 +1,11 @@
-﻿# QtXlsx
+﻿# QXlsx
 
-*Read this in other languages: [English](README.md), [한국어](README.ko.md)*
+> *Read this in other languages: [English](README.md), [한국어](README.ko.md)*
 
-## 엑셀 읽기/쓰기 정적 라이브러리
+## 엑셀 읽기/쓰기 라이브러리
 
-* QtXlsx는 엑셀 파일(*.xlsx) 읽기/쓰기 라이브러리입니다.
-* QtXlsx는 Qt5를 사용하는 정적 라이브러리로 제작되었습니다.
+* QXlsx는 엑셀 파일(*.xlsx) 읽기/쓰기 라이브러리입니다.
+* QXlsx는 Qt 5.x를 사용하는 정적 라이브러리로 제작되었습니다.
 
 ## 테스트 환경
 * Qt 5.9.1 (Visual Studio 2017/Windows 32bit) 
@@ -25,12 +25,12 @@ xlsx.saveAs("Test.xlsx");
 ```
 
 ## 빌드하는 방법
-참조: https://github.com/j2doll/QtXlsx/wiki
+참조: https://github.com/j2doll/QXlsx/wiki
 
 ## 라이선스
-* MIT License
+* GPL License https://www.gnu.org/licenses/gpl-3.0.en.html
 * The Qt Company : https://www.qt.io/developers/
-* 원본 소스코드의 출처는 다음과 같습니다. Debao Zhang(2014) : https://github.com/dbzhang800/QtXlsxWriter
+* 최초 소스코드의 출처는 다음과 같습니다. Debao Zhang(2014) : https://github.com/dbzhang800/QXlsxWriter
    
 ## 문의
 * https://github.com/j2doll
