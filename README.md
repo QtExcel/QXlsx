@@ -19,7 +19,7 @@
 
 ## Hello excel (writing excel file)
 ```cpp
-QXlsx::Document xlsx;
+QtXlsx::Document xlsx;
 xlsx.write("A1", "Hello Qt!");
 xlsx.saveAs("Test.xlsx");
 ```
