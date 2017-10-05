@@ -10,6 +10,7 @@
 * QXlsx는 Qt 5.x를 사용하는 정적 라이브러리로 제작되었습니다.
 
 ## 테스트 환경
+* Qt 5.9.1 (Visual Studio 2017/Windows 64bit) 
 * Qt 5.9.1 (Visual Studio 2017/Windows 32bit) 
 * Qt 5.9.1 (MingW/Windows 32bit) 
 * Qt 5.9.1 (Ubuntu 16/Linux x64) 

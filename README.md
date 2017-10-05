@@ -10,6 +10,7 @@
 * It is written for static library using Qt 5.
 
 ## Test environment
+* Qt 5.9.1 (Visual Studio 2017/Windows 64bit) 
 * Qt 5.9.1 (Visual Studio 2017/Windows 32bit) 
 * Qt 5.9.1 (MingW/Windows 32bit) 
 * Qt 5.9.1 (Ubuntu 16/Linux x64) 
