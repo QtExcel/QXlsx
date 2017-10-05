@@ -21,7 +21,7 @@
 
 ## 활용예제 Hello excel (엑셀 파일 쓰기)
 ```cpp
-QtXlsx::Document xlsx;
+QXlsx::Document xlsx;
 xlsx.write("A1", "Hello Qt!");
 xlsx.saveAs("Test.xlsx");
 ```
