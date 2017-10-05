@@ -21,7 +21,7 @@
 
 ## Hello excel (writing excel file)
 ```cpp
-QtXlsx::Document xlsx;
+QXlsx::Document xlsx;
 xlsx.write("A1", "Hello Qt!");
 xlsx.saveAs("Test.xlsx");
 ```
