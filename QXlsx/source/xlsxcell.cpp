@@ -142,7 +142,7 @@ QVariant Cell::readValue() const
 
 	if (hasFormula())
 	{
-		QVariant::Type vt = ret.type(); // it's double type.  
+		// QVariant::Type vt = ret.type(); // it's double type.  
 		QString formulaString = this->formula().formulaText();
 		ret = formulaString;
 		return ret;
