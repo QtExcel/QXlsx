@@ -91,6 +91,7 @@ void ReadExcel(bool isTest)
 		xlsx.write("A5", "http://qt-project.org");
 		xlsx.write("A6", QDate(2013, 12, 27));
 		xlsx.write("A7", QTime(6, 30));
+		xlsx.write("A8", QDateTime(QDate(2049,7,23), QTime(23,5,32), Qt::UTC));
 
 		if (!xlsx.saveAs("ReadExcel.xlsx"))
 		{
@@ -113,22 +114,24 @@ void ReadExcel(bool isTest)
 	qDebug() << xlsx.read("A5");
 	qDebug() << xlsx.read("A6");
 	qDebug() << xlsx.read("A7");
+	qDebug() << xlsx.read("A8");
 	//![1]
 
 	/* debug output
 	QXlsx::Document.read()
 	QVariant(QString, "Hello Qt!")
 	QVariant(double, 12345)
-	QVariant(QString, "=44+33") // it's string. not formular.
+	QVariant(QString, "=44+33")
 	QVariant(bool, true)
 	QVariant(QString, "http://qt-project.org")
 	QVariant(QDate, QDate("2013-12-27"))
 	QVariant(QTime, QTime("06:30:00.000"))
+	QVariant(QDateTime, QDateTime(2049-07-24 08:05:32.000 KST Qt::TimeSpec(LocalTime)))
 	*/
 
 	//![2]
 	qDebug() << " QXlsx::Cell.cellAt()";
-	for ( int row = 1 ; row < 10 ; ++row )
+	for ( int row = 1 ; row < 20 ; ++row )
 	{
 		if ( Cell* cell = xlsx.cellAt( row, 1 ) )
 		{
@@ -144,11 +147,12 @@ void ReadExcel(bool isTest)
 	QXlsx::Cell.cellAt()
 	1   QVariant(QString, "Hello Qt!")
 	2   QVariant(double, 12345)
-	3   QVariant(QString, "44+33") // it's string of formula. (not double) 
+	3   QVariant(QString, "44+33")
 	4   QVariant(bool, true)
 	5   QVariant(QString, "http://qt-project.org")
-	6   QVariant(QDate, QDate("2013-12-27"))
-	7   QVariant(QTime, QTime("06:30:00.000"))
+	6   QVariant(QDateTime, QDateTime(2013-12-27 00:00:00.000 KST Qt::TimeSpec(LocalTime)))
+	7   QVariant(QDateTime, QDateTime(1899-12-31 06:30:00.000 KST Qt::TimeSpec(LocalTime)))
+	8   QVariant(QDateTime, QDateTime(2049-07-24 08:05:32.000 KST Qt::TimeSpec(LocalTime)))
 	*/ 
 }
 

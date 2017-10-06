@@ -60,10 +60,9 @@ int main(int argc, char *argv[])
 {
 	QCoreApplication app(argc, argv);
 
-	readStyle(); 
-	return 0;
-
 	hello();
+
+	readStyle(); 
 
 	calendar();
 	chart();
