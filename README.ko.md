@@ -33,7 +33,7 @@ xlsx.saveAs("Test.xlsx");
 ## 라이선스
 * GPL License https://www.gnu.org/licenses/gpl-3.0.en.html
 * The Qt Company : https://www.qt.io/developers/
-* 최초 소스코드의 출처는 다음과 같습니다. Debao Zhang(2014) : https://github.com/dbzhang800/QXlsxWriter
+* 최초 소스코드의 출처는 다음과 같습니다. Debao Zhang(2014) : https://github.com/dbzhang800/QtXlsxWriter
    
 ## 문의
 * https://github.com/j2doll
