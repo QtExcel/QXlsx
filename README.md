@@ -31,7 +31,7 @@ xlsx.saveAs("Test.xlsx");
 
 ## License
 * GPL License https://www.gnu.org/licenses/gpl-3.0.en.html
-* Original source code from Debao Zhang(2014) : https://github.com/dbzhang800/QXlsxWriter
+* Original source code from Debao Zhang(2014)/MIT License : https://github.com/dbzhang800/QtXlsxWriter
 * The Qt Company : https://www.qt.io/
    
 ## Contact
