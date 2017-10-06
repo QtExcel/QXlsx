@@ -31,15 +31,17 @@
 
 using namespace QXlsx; 
 
-int readGoogleStyle();
+int readGoogleSpreadsheet();
+int readLibreOffice();
+int readMSExcel201x();
 
 int readStyle()
 {
-	readGoogleStyle(); 
+	readGoogleSpreadsheet();
 	return 0; 
 }
 
-int readGoogleStyle()
+int readGoogleSpreadsheet()
 {
 	Document xlsx("google-spreadsheet.xlsx");
 
@@ -54,21 +56,46 @@ int readGoogleStyle()
 		}
 	}
 
-	/* read google spreadsheet file (made by google docs) 
-	1   QVariant(double, 1) :it's auto style 
-	2   QVariant(QString, "2") :it's general text style 
-	3   QVariant(double, 3) :it's number
-	4   QVariant(double, 4) :it's percentage
-	5   QVariant(double, 5) :it's exponentiation 
-	6   QVariant(double, 6) :it's accounting#1
-	7   QVariant(double, 7) :it's accounting#2
-	8   QVariant(double, 8) :it's currency
-	9   QVariant(double, 9) :it's currency(rounds)
-	10   QVariant(QString, "1900. 1. 9") :it's date :something wrong!
-	11   QVariant(QDate, QDate("1900-01-11")) :it's time
-	12   QVariant(QString, "1900. 1. 11 AM 12:00:00") :it's date time :something wrong!
-	13   QVariant(QDate, QDate("1900-01-13")) :it's period
+	/* 
+     testing fo read google spreadsheet file (made by google docs) 
+  	 https://github.com/j2doll/QXlsx/blob/master/image/LibreOffice-Google-XLSX.png
+
+	1   QVariant(double, 1) OK:it's auto style (1)
+
+	2   QVariant(QString, "2") OK:it's shared string. (2) see ./xl/sharedStrings.xml 
+
+	3   QVariant(double, 3) OK:it's number (3.00) 
+	
+	4   QVariant(double, 4) OK:it's percentage (400.00%) (TODO: use style[4] of cell)
+
+	5   QVariant(double, 5) OK:it's exponentiation (5.00E+00) (TODO: use style[5] of cell)
+
+	6   QVariant(double, 6) OK:it's accounting#1 ($ 6.00) (TODO: use style[6] of cell)
+	7   QVariant(double, 7) OK:it's accounting#2 (7.00) (TODO: use style[7] of cell)
+
+	8   QVariant(double, 8) OK:it's currency ($8.00) (TODO: use style[8] of cell)
+	9   QVariant(double, 9) OK:it's currency(rounds) ($9) (TODO: use style[9] of cell)
+
+	10   QVariant(QString, "1900. 1. 9") OK:it's date (1900. 1. 9) [it's shared string. see /xl/sharedStrings.xml] 
+	11   QVariant(QDate, QDate("1900-01-11")) NOK:it's time (AM 12:00:00) [WRONG: it's time. i don;t know why style 11 is 12:00:00.]
+	12   QVariant(QString, "1900. 1. 11 AM 12:00:00") OK: (1900.1.11 AM 12:00:00) [it's shared string. see /xl/sharedStrings.xml] 
+	13   QVariant(QDate, QDate("1900-01-13")) PENDING:it's period (312:00:00). [it's date. but, 13 days means 312 hours!!]  
+
 	*/
 	  
 	return 0; 
 }
+
+int readLibreOffice()
+{
+	// WAIT...
+	return 0; 
+}
+
+int readMSExcel201x()
+{
+	return 0;
+}
+
+
+
