@@ -131,13 +131,15 @@ QVariant Cell::readValue() const
 			return ret; 
 		}
 
-		if (fmod(val, 1.0) < 1.0 / (1000 * 60 * 60 * 24))
+		double dFmod = fmod(val, double(1.0));
+		double dRValue = 1.0 / (1000 * 60 * 60 * 24);
+		if ( dFmod < dRValue )
 		{
 			ret = dt.date(); // it's date type  
 			return ret;
 		}
 
-		return ret; 
+		return ret; // or. ...?
 	}
 
 	if (hasFormula())
@@ -192,8 +194,8 @@ bool Cell::isDateTime() const
 	bool isDateTimeFormat = d->format.isDateTimeFormat();
 
 	// NOTICE: google spreadsheet data is not adoptable.
-	// cell style(10): cellType is SharedStringType. strValue is '1900. 1. 9'.
-	// cell style(12): cellType is SharedStringType. strValue is '1900. 1. 11 AM 12:00:00'.
+	//  cell style(10): cellType is SharedStringType. strValue is '1900. 1. 9'.
+	//  cell style(12): cellType is SharedStringType. strValue is '1900. 1. 11 AM 12:00:00'.
 
 	if ( cellType == NumberType && 
 		 dValue >= 0 &&
