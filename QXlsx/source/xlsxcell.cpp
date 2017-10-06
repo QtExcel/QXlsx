@@ -124,6 +124,10 @@ QVariant Cell::readValue() const
 	if (isDateTime())
 	{
 		QDateTime dt = dateTime(); 
+		ret = dt;
+		return ret; 
+
+		/*
 		double val = d->value.toDouble();
 		if (val < 1)
 		{
@@ -139,7 +143,9 @@ QVariant Cell::readValue() const
 			return ret;
 		}
 
-		return ret; // or. ...?
+		ret = dt;
+		return ret;
+		*/
 	}
 
 	if (hasFormula())
