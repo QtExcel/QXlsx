@@ -136,10 +136,10 @@ QVariant Cell::readValue() const
 
 		if (styleNo == 10)
 		{
-
+			// TODO: change string to time (1900. 1. 9)
 		}
 
-		if (styleNo == 11) // only time 
+		if (styleNo == 11) // only time. (HH:mm:ss) 
 		{
 			QTime timeValue = dt.time();
 			ret = timeValue;
@@ -148,12 +148,27 @@ QVariant Cell::readValue() const
 
 		if (styleNo == 12) 
 		{
-
+			// TODO: change string to time (1900. 1. 11 AM 12:00:00)
 		}
 
-		if (styleNo == 13)
+		if (styleNo == 13) // (HH:mm:ss) 
 		{
+ 			double dValue = d->value.toDouble(); 
+			int iValue = int(dValue);
+			double deciamlPointValue = dValue - double(iValue);
 
+			double dMin = deciamlPointValue * (double(1.0) / double(60.0));
+			int min = int(dMin);
+	
+			double dSuplus = deciamlPointValue - double( double(60) * double(min) ); 
+			double dSec = dSuplus * (double(1.0) / double(3600.0));
+			int sec = int(dSec);
+			
+			QString strTime;
+			strTime = QString("%1:%2:%3").arg(iValue).arg(min).arg(sec);
+			ret = strTime;
+
+			return ret;
 		}
 
 		return ret; 
@@ -164,7 +179,7 @@ QVariant Cell::readValue() const
 		// QVariant::Type vt = ret.type(); // it's double type.  
 		QString formulaString = this->formula().formulaText();
 		ret = formulaString;
-		return ret;
+		return ret; // return formula string 
 	}
 
 	return ret;

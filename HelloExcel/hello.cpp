@@ -146,20 +146,18 @@ int ReadExcel(bool isTest)
 	qDebug() << " QXlsx::Cell.cellAt()";
 	for ( int row = 1 ; row < 20 ; ++row )
 	{
-		if ( Cell* cell = xlsx.cellAt( row, 1 ) )
+		Cell* cell = xlsx.cellAt(row, 1);
+		if (cell == NULL)
+			continue;
+		QVariant var = cell->readValue();
+		qint32 styleNo = cell->styleNumber();
+		if (styleNo >= 0)
 		{
-			if (cell == NULL)
-				continue;
-			QVariant var = cell->readValue();
-			qint32 styleNo = cell->styleNumber();
-			if (styleNo >= 0)
-			{
-				qDebug() << row << " " << var << " , style:" << styleNo;
-			}
-			else
-			{
-				qDebug() << row << " " << var;
-			}
+			qDebug() << row << " " << var << " , style:" << styleNo;
+		}
+		else
+		{
+			qDebug() << row << " " << var;
 		}
 	}
 	//![2]

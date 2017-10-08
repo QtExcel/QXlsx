@@ -20,6 +20,7 @@
 
 // readStyle.cpp
 
+#include <QtGlobal>
 #include <QtCore>
 
 #include "xlsxdocument.h"
@@ -46,7 +47,6 @@ int readGoogleSpreadsheet()
 {
 	Document xlsx("google-spreadsheet.xlsx"); // google docs 
 
-
 	if (!xlsx.isLoadPackage())
 	{
 		qDebug() << "[readGoogleSpreadsheet] failed to load package"; 
@@ -55,22 +55,20 @@ int readGoogleSpreadsheet()
 
 	for (int row = 1; row < 20; ++row)
 	{
-		if (Cell* cell = xlsx.cellAt(row, 1))
+		Cell* cell = xlsx.cellAt(row, 1);
+ 		if ( cell == NULL )
+			continue;
+		QVariant var = cell->readValue();
+		qint32 styleNo = cell->styleNumber();
+		if ( styleNo >= 0 )
 		{
-			if ( cell == NULL )
-				continue;
-			QVariant var = cell->readValue();
-			qint32 styleNo = cell->styleNumber();
-			if ( styleNo >= 0 )
-			{
-				qDebug() << row << " " << var << " , style:" << styleNo;
-			}
-			else
-			{
-				qDebug() << row << " " << var;
-			}
+			qDebug() << row << " " << var << " , style:" << styleNo;
 		}
-	}
+		else
+		{
+			qDebug() << row << " " << var;
+		}
+ 	}
 
 	/* Deug output 
 	1   QVariant(double, 1)  , style: 1
@@ -122,6 +120,4 @@ int readMSExcel201x()
 
 	return 0;
 }
-
-
 
