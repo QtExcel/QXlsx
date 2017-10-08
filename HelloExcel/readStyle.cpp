@@ -45,7 +45,13 @@ int readGoogleSpreadsheet()
 {
 	Document xlsx("google-spreadsheet.xlsx"); // google docs 
 	// Document xlsx("date-time.xlsx"); // ms office online
-	
+
+	if (!xlsx.isLoadPackage())
+	{
+		qDebug() << "[readGoogleSpreadsheet] failed to load package"; 
+		return (-1); 
+	}
+
 	for (int row = 1; row < 20; ++row)
 	{
 		if (Cell* cell = xlsx.cellAt(row, 1))
@@ -53,15 +59,38 @@ int readGoogleSpreadsheet()
 			if (cell == NULL)
 				continue;
 			QVariant var = cell->readValue();
-			qDebug() << row << " " << var;
+			qint32 styleNo = cell->styleNumber();
+			if (styleNo >= 0)
+			{
+				qDebug() << row << " " << var << " , style:" << styleNo;
+			}
+			else
+			{
+				qDebug() << row << " " << var;
+			}
 		}
 	}
+
+	/* debug output
+	1   QVariant(double, 1)  , style: 1
+	2   QVariant(QString, "2")  , style: 2
+	3   QVariant(double, 3)  , style: 3
+	4   QVariant(double, 4)  , style: 4
+	5   QVariant(double, 5)  , style: 5
+	6   QVariant(double, 6)  , style: 6
+	7   QVariant(double, 7)  , style: 7
+	8   QVariant(double, 8)  , style: 8
+	9   QVariant(double, 9)  , style: 9
+	10   QVariant(QString, "1900. 1. 9")  , style: 10
+	11   QVariant(QDateTime, QDateTime(1900-01-11 00:00:00.000 KST Qt::TimeSpec(LocalTime)))  , style: 11
+	12   QVariant(QString, "1900. 1. 11 AM 12:00:00")  , style: 12
+	13   QVariant(QDateTime, QDateTime(1900-01-13 00:00:00.000 KST Qt::TimeSpec(LocalTime)))  , style: 13
+	*/
 
 	/* 
      testing fo read google spreadsheet file (made by google docs) 
   	 https://github.com/j2doll/QXlsx/blob/master/image/LibreOffice-Google-XLSX.png
-	*/
-	/*
+
 	1   QVariant(double, 1) OK:it's auto style (1)
 	2   QVariant(QString, "2") OK:it's shared string. (2) see ./xl/sharedStrings.xml 
 	3   QVariant(double, 3) PENDING:it's number (3.00) 

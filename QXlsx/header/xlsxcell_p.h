@@ -27,6 +27,7 @@
 #include "xlsxcellrange.h"
 #include "xlsxrichstring.h"
 #include "xlsxcellformula.h"
+#include <QtGlobal>
 #include <QList>
 #include <QSharedPointer>
 
@@ -39,6 +40,7 @@ public:
     CellPrivate(Cell *p);
     CellPrivate(const CellPrivate * const cp);
 
+public:
     QVariant value;
     CellFormula formula;
     Cell::CellType cellType;
@@ -48,6 +50,8 @@ public:
 
     Worksheet *parent;
     Cell *q_ptr;
+
+	qint32 styleNumber;
 };
 
 QT_END_NAMESPACE_XLSX

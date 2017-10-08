@@ -31,8 +31,12 @@
 
 using namespace QXlsx;
 
-void WriteExcel(bool isTest);
-void ReadExcel(bool isTest);
+#include <cstdio>
+#include <iostream>
+// using namespace std; 
+
+int WriteExcel(bool isTest);
+int ReadExcel(bool isTest);
 
 void UseSheet(bool isTest);
 
@@ -56,10 +60,10 @@ int hello()
    return 0;
 }
 
-void WriteExcel(bool isTest)
+int WriteExcel(bool isTest)
 {
 	if (!isTest)
-		return;
+		return (-1);
 
 	Document xlsx;
 
@@ -72,13 +76,18 @@ void WriteExcel(bool isTest)
 	xlsx.write("A7", QTime(6, 30));
 
 	if (!xlsx.saveAs("WriteExcel.xlsx"))
-		qDebug() << "[WriteExcel] failed to save excel file" ;
+	{
+		qDebug() << "[WriteExcel] failed to save excel file";
+		return (-2);
+	}
+
+	return 0; 
 }
 
-void ReadExcel(bool isTest)
+int ReadExcel(bool isTest)
 {
 	if (!isTest)
-		return;
+		return (-1);
 
 	{
 		//Create a new .xlsx file.
@@ -91,18 +100,22 @@ void ReadExcel(bool isTest)
 		xlsx.write("A5", "http://qt-project.org");
 		xlsx.write("A6", QDate(2013, 12, 27));
 		xlsx.write("A7", QTime(6, 30));
-		xlsx.write("A8", QDateTime(QDate(2049,7,23), QTime(23,5,32), Qt::UTC));
+		xlsx.write("A8", QDateTime(QDate(2049,7,23), QTime(23,5,32), Qt::LocalTime));
 
 		if (!xlsx.saveAs("ReadExcel.xlsx"))
 		{
-			qDebug() << "[ReadExcel] failed to save excel file" ;
-			return;
+			qDebug() << "[ReadExcel] failed to save excel file." ;
+			return (-2);
 		}
 	}
 
 	//![0]
 	QXlsx::Document xlsx("ReadExcel.xlsx");
-	// QXlsx::Document xlsx("Excel1.xlsx");
+	if (!xlsx.isLoadPackage())
+	{
+		qDebug() << "[ReadExcel.xlsx] failed to load package";
+		return (-3);
+	}
 	//![0]
 
 	//![1]
@@ -118,7 +131,7 @@ void ReadExcel(bool isTest)
 	//![1]
 
 	/* debug output
-	QXlsx::Document.read()
+	 QXlsx::Document.read()
 	QVariant(QString, "Hello Qt!")
 	QVariant(double, 12345)
 	QVariant(QString, "=44+33")
@@ -126,7 +139,7 @@ void ReadExcel(bool isTest)
 	QVariant(QString, "http://qt-project.org")
 	QVariant(QDate, QDate("2013-12-27"))
 	QVariant(QTime, QTime("06:30:00.000"))
-	QVariant(QDateTime, QDateTime(2049-07-24 08:05:32.000 KST Qt::TimeSpec(LocalTime)))
+	QVariant(QDateTime, QDateTime(2049-07-23 23:05:32.000 KST Qt::TimeSpec(LocalTime)))
 	*/
 
 	//![2]
@@ -138,22 +151,32 @@ void ReadExcel(bool isTest)
 			if (cell == NULL)
 				continue;
 			QVariant var = cell->readValue();
-			qDebug() << row << " " << var;
+			qint32 styleNo = cell->styleNumber();
+			if (styleNo >= 0)
+			{
+				qDebug() << row << " " << var << " , style:" << styleNo;
+			}
+			else
+			{
+				qDebug() << row << " " << var;
+			}
 		}
 	}
 	//![2]
 
 	/* debug output 
-	QXlsx::Cell.cellAt()
+	 QXlsx::Cell.cellAt()
 	1   QVariant(QString, "Hello Qt!")
 	2   QVariant(double, 12345)
 	3   QVariant(QString, "44+33")
 	4   QVariant(bool, true)
-	5   QVariant(QString, "http://qt-project.org")
-	6   QVariant(QDateTime, QDateTime(2013-12-27 00:00:00.000 KST Qt::TimeSpec(LocalTime)))
-	7   QVariant(QDateTime, QDateTime(1899-12-31 06:30:00.000 KST Qt::TimeSpec(LocalTime)))
-	8   QVariant(QDateTime, QDateTime(2049-07-24 08:05:32.000 KST Qt::TimeSpec(LocalTime)))
+	5   QVariant(QString, "http://qt-project.org")  , style: 1
+	6   QVariant(QDateTime, QDateTime(2013-12-27 00:00:00.000 KST Qt::TimeSpec(LocalTime)))  , style: 2
+	7   QVariant(QDateTime, QDateTime(1899-12-31 06:30:00.000 KST Qt::TimeSpec(LocalTime)))  , style: 3
+	8   QVariant(QDateTime, QDateTime(2049-07-23 23:05:32.000 KST Qt::TimeSpec(LocalTime)))  , style: 2
 	*/ 
+
+	return 0; 
 }
 
 void UseSheet(bool isTest)

@@ -23,7 +23,9 @@
 
 #include "xlsxglobal.h"
 #include "xlsxformat.h"
+#include <QtGlobal>
 #include <QVariant>
+#include <cstdio>
 
 QT_BEGIN_NAMESPACE_XLSX
 
@@ -74,12 +76,18 @@ public:
 
 	bool isRichString() const;
 
+	qint32 styleNumber() const;
+
 	~Cell();
 private:
 	friend class Worksheet;
 	friend class WorksheetPrivate;
 
-	Cell(const QVariant &data=QVariant(), CellType type=NumberType, const Format &format=Format(), Worksheet *parent=0);
+	Cell(const QVariant &data = QVariant(), 
+		CellType type = NumberType, 
+		const Format &format = Format(), 
+		Worksheet *parent = NULL,
+		qint32 styleIndex = (-1) );
 	Cell(const Cell * const cell);
 	CellPrivate * const d_ptr;
 };

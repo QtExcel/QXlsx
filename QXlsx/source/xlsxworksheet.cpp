@@ -1956,7 +1956,7 @@ void WorksheetPrivate::loadXmlSheetData(QXmlStreamReader &reader)
 
 				//get format
 				Format format;
-				int styleIndex = -1;
+				qint32 styleIndex = -1;
 				if (attributes.hasAttribute(QLatin1String("s"))) // a Style defined in the styles.xml file.
 				{ 
 					//"s" == style index
@@ -1968,6 +1968,8 @@ void WorksheetPrivate::loadXmlSheetData(QXmlStreamReader &reader)
 					/*
 
 					*/
+
+
 
 					////Empty format exists in styles xf table of real .xlsx files, see issue #65.
 					//if (!format.isValid())
@@ -2006,8 +2008,11 @@ void WorksheetPrivate::loadXmlSheetData(QXmlStreamReader &reader)
 						cellType = Cell::NumberType;
 				}
 
-				QSharedPointer<Cell> cell(new Cell(QVariant() ,cellType, format, q));
-				while (!reader.atEnd() && !(reader.name() == QLatin1String("c") && reader.tokenType() == QXmlStreamReader::EndElement)) {
+				// create a heap of new cell
+				QSharedPointer<Cell> cell(new Cell(QVariant() ,cellType, format, q, styleIndex));
+
+				while (!reader.atEnd() && !(reader.name() == QLatin1String("c") && reader.tokenType() == QXmlStreamReader::EndElement)) 
+				{
 					if (reader.readNextStartElement())
 					{
 						if (reader.name() == QLatin1String("f")) 
@@ -2064,6 +2069,7 @@ void WorksheetPrivate::loadXmlSheetData(QXmlStreamReader &reader)
 						}
 					}
 				}
+
 				cellTable[pos.row()][pos.column()] = cell;
 			}
 		}

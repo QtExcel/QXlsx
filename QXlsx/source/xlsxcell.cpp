@@ -18,8 +18,6 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //--------------------------------------------------------------------
 
-
-
 #include "xlsxcell.h"
 #include "xlsxcell_p.h"
 #include "xlsxformat.h"
@@ -27,9 +25,10 @@
 #include "xlsxutility_p.h"
 #include "xlsxworksheet.h"
 #include "xlsxworkbook.h"
-#include <QDateTime>
-
 #include <cmath>
+#include <QDateTime>
+#include <QDate>
+#include <QTime>
 
 QT_BEGIN_NAMESPACE_XLSX
 
@@ -41,7 +40,8 @@ CellPrivate::CellPrivate(Cell *p) :
 
 CellPrivate::CellPrivate(const CellPrivate * const cp)
 	: value(cp->value), formula(cp->formula), cellType(cp->cellType)
-	, format(cp->format), richString(cp->richString), parent(cp->parent)
+	, format(cp->format), richString(cp->richString), parent(cp->parent),
+	styleNumber(cp->styleNumber)
 {
 
 }
@@ -67,13 +67,19 @@ CellPrivate::CellPrivate(const CellPrivate * const cp)
  * \internal
  * Created by Worksheet only.
  */
-Cell::Cell(const QVariant &data, CellType type, const Format &format, Worksheet *parent) :
+// qint32 styleIndex = (-1)
+Cell::Cell(const QVariant &data, 
+	CellType type, 
+	const Format &format, 
+	Worksheet *parent,
+	qint32 styleIndex ) :
 	d_ptr(new CellPrivate(this))
 {
 	d_ptr->value = data;
 	d_ptr->cellType = type;
 	d_ptr->format = format;
 	d_ptr->parent = parent;
+	d_ptr->styleNumber = styleIndex; 
 }
 
 /*!
@@ -231,11 +237,20 @@ QDateTime Cell::dateTime() const
 bool Cell::isRichString() const
 {
 	Q_D(const Cell);
+
 	if (d->cellType != SharedStringType && d->cellType != InlineStringType
 			&& d->cellType != StringType)
 		return false;
 
 	return d->richString.isRichString();
+}
+
+qint32 Cell::styleNumber() const 
+{
+	Q_D(const Cell);
+
+	qint32 ret = d->styleNumber;
+	return ret; 
 }
 
 QT_END_NAMESPACE_XLSX

@@ -85,7 +85,8 @@ QT_BEGIN_NAMESPACE_XLSX
 */
 
 DocumentPrivate::DocumentPrivate(Document *p) :
-    q_ptr(p), defaultPackageName(QStringLiteral("Book1.xlsx"))
+    q_ptr(p), defaultPackageName(QStringLiteral("Book1.xlsx")),
+	isLoad(false)
 {
 }
 
@@ -228,6 +229,7 @@ bool DocumentPrivate::loadPackage(QIODevice *device)
         mf->set(zipReader.fileData(path), suffix);
     }
 
+	isLoad = true; 
     return true;
 }
 
@@ -376,15 +378,25 @@ Document::Document(QObject *parent) :
  * Try to open an existing xlsx document named \a name.
  * The \a parent argument is passed to QObject's constructor.
  */
-Document::Document(const QString &name, QObject *parent) :
-    QObject(parent), d_ptr(new DocumentPrivate(this))
+Document::Document(const QString &name, 
+					QObject *parent) :
+    QObject(parent), 
+	d_ptr(new DocumentPrivate(this))
 {
-    d_ptr->packageName = name;
-    if (QFile::exists(name)) {
-        QFile xlsx(name);
-        if (xlsx.open(QFile::ReadOnly))
-            d_ptr->loadPackage(&xlsx);
+    d_ptr->packageName = name; 
+
+	if (QFile::exists(name)) 
+	{
+		QFile xlsx(name);
+		if (xlsx.open(QFile::ReadOnly))
+		{
+			if (! d_ptr->loadPackage(&xlsx))
+			{
+				// NOTICE: failed to load package 
+			}
+		}
     }
+
     d_ptr->init();
 }
 
@@ -394,10 +406,15 @@ Document::Document(const QString &name, QObject *parent) :
  * The \a parent argument is passed to QObject's constructor.
  */
 Document::Document(QIODevice *device, QObject *parent) :
-    QObject(parent), d_ptr(new DocumentPrivate(this))
+	QObject(parent), d_ptr(new DocumentPrivate(this))
 {
-    if (device && device->isReadable())
-        d_ptr->loadPackage(device);
+	if (device && device->isReadable())
+	{
+		if (!d_ptr->loadPackage(device))
+		{
+			// NOTICE: failed to load package 
+		}
+	}
     d_ptr->init();
 }
 
@@ -1033,6 +1050,12 @@ bool Document::saveAs(QIODevice *device) const
 {
     Q_D(const Document);
     return d->savePackage(device);
+}
+
+bool Document::isLoadPackage() const
+{
+	Q_D(const Document);
+	return d->isLoad; 
 }
 
 /*!

@@ -1,27 +1,22 @@
-/****************************************************************************
-** Copyright (c) 2013-2014 Debao Zhang <hello@debao.me>
-** All right reserved.
-**
-** Permission is hereby granted, free of charge, to any person obtaining
-** a copy of this software and associated documentation files (the
-** "Software"), to deal in the Software without restriction, including
-** without limitation the rights to use, copy, modify, merge, publish,
-** distribute, sublicense, and/or sell copies of the Software, and to
-** permit persons to whom the Software is furnished to do so, subject to
-** the following conditions:
-**
-** The above copyright notice and this permission notice shall be
-** included in all copies or substantial portions of the Software.
-**
-** THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-** EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-** MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
-** NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
-** LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
-** OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
-** WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-**
-****************************************************************************/
+//--------------------------------------------------------------------
+//
+// QXlsx https://github.com/j2doll/QXlsx
+//
+// GPL License v3 https://www.gnu.org/licenses/gpl-3.0.en.html
+//
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+// 
+// You should have received a copy of the GNU General Public License
+// along with this program.  If not, see <http://www.gnu.org/licenses/>.
+//--------------------------------------------------------------------
 
 #ifndef QXLSX_XLSXDOCUMENT_H
 #define QXLSX_XLSXDOCUMENT_H
@@ -29,9 +24,11 @@
 #include "xlsxglobal.h"
 #include "xlsxformat.h"
 #include "xlsxworksheet.h"
+
+#include <QtGlobal>
 #include <QObject>
 #include <QVariant>
-class QIODevice;
+#include <QIODevice>
 class QImage;
 
 QT_BEGIN_NAMESPACE_XLSX
@@ -51,9 +48,9 @@ class   Document : public QObject
     Q_DECLARE_PRIVATE(Document)
 
 public:
-    explicit Document(QObject *parent = 0);
-    Document(const QString &xlsxName, QObject *parent=0);
-    Document(QIODevice *device, QObject *parent=0);
+    explicit Document(QObject *parent = NULL);
+    Document(const QString& xlsxName, QObject* parent = NULL);
+    Document(QIODevice* device, QObject* parent = NULL);
     ~Document();
 
     bool write(const CellReference &cell, const QVariant &value, const Format &format=Format());
@@ -128,6 +125,8 @@ public:
     bool save() const;
     bool saveAs(const QString &xlsXname) const;
     bool saveAs(QIODevice *device) const;
+
+	bool isLoadPackage() const; 
 
 private:
     Q_DISABLE_COPY(Document)
