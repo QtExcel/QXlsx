@@ -2,7 +2,7 @@
 
 > *Read this in other languages: [English](README.md), [한국어](README.ko.md)*
 
-![](image/xlsx-file-format-extension.png)
+![](image/XLSX-64.png)
 ![](image/qt-64.png)
 
 ## 엑셀 읽기/쓰기 라이브러리
