@@ -124,35 +124,40 @@ QVariant Cell::readValue() const
 {
 	Q_D(const Cell);
 
-	QVariant ret;
+	QVariant ret; // return value 
 	ret = d->value;
 
 	if (isDateTime())
 	{
 		QDateTime dt = dateTime(); 
 		ret = dt;
-		return ret; 
 
-		/*
-		double val = d->value.toDouble();
-		if (val < 1)
+		qint32 styleNo = d->styleNumber;
+
+		if (styleNo == 10)
 		{
-			ret = dt.time(); // it's time type 
-			return ret; 
+
 		}
 
-		double dFmod = fmod(val, double(1.0));
-		double dRValue = 1.0 / (1000 * 60 * 60 * 24);
-		if ( dFmod < dRValue )
+		if (styleNo == 11) // only time 
 		{
-			ret = dt.date(); // it's date type  
+			QTime timeValue = dt.time();
+			ret = timeValue;
 			return ret;
 		}
 
-		ret = dt;
-		return ret;
-		*/
-	}
+		if (styleNo == 12) 
+		{
+
+		}
+
+		if (styleNo == 13)
+		{
+
+		}
+
+		return ret; 
+ 	}
 
 	if (hasFormula())
 	{

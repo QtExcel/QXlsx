@@ -37,14 +37,15 @@ int readMSExcel201x();
 
 int readStyle()
 {
-	readGoogleSpreadsheet();
+	int ret = readGoogleSpreadsheet();
+
 	return 0; 
 }
 
 int readGoogleSpreadsheet()
 {
 	Document xlsx("google-spreadsheet.xlsx"); // google docs 
-	// Document xlsx("date-time.xlsx"); // ms office online
+
 
 	if (!xlsx.isLoadPackage())
 	{
@@ -56,11 +57,11 @@ int readGoogleSpreadsheet()
 	{
 		if (Cell* cell = xlsx.cellAt(row, 1))
 		{
-			if (cell == NULL)
+			if ( cell == NULL )
 				continue;
 			QVariant var = cell->readValue();
 			qint32 styleNo = cell->styleNumber();
-			if (styleNo >= 0)
+			if ( styleNo >= 0 )
 			{
 				qDebug() << row << " " << var << " , style:" << styleNo;
 			}
@@ -71,7 +72,7 @@ int readGoogleSpreadsheet()
 		}
 	}
 
-	/* debug output
+	/* Deug output 
 	1   QVariant(double, 1)  , style: 1
 	2   QVariant(QString, "2")  , style: 2
 	3   QVariant(double, 3)  , style: 3
@@ -82,13 +83,12 @@ int readGoogleSpreadsheet()
 	8   QVariant(double, 8)  , style: 8
 	9   QVariant(double, 9)  , style: 9
 	10   QVariant(QString, "1900. 1. 9")  , style: 10
-	11   QVariant(QDateTime, QDateTime(1900-01-11 00:00:00.000 KST Qt::TimeSpec(LocalTime)))  , style: 11
+	11   QVariant(QTime, QTime("00:00:00.000"))  , style: 11
 	12   QVariant(QString, "1900. 1. 11 AM 12:00:00")  , style: 12
 	13   QVariant(QDateTime, QDateTime(1900-01-13 00:00:00.000 KST Qt::TimeSpec(LocalTime)))  , style: 13
 	*/
 
-	/* 
-     testing fo read google spreadsheet file (made by google docs) 
+	/* Testing fo read google spreadsheet file (made by google docs) 
   	 https://github.com/j2doll/QXlsx/blob/master/image/LibreOffice-Google-XLSX.png
 
 	1   QVariant(double, 1) OK:it's auto style (1)
@@ -118,6 +118,8 @@ int readLibreOffice()
 
 int readMSExcel201x()
 {
+	// Document xlsx("date-time.xlsx"); // ms office online
+
 	return 0;
 }
 
