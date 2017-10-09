@@ -154,18 +154,24 @@ QVariant Cell::readValue() const
 		if (styleNo == 13) // (HH:mm:ss) 
 		{
  			double dValue = d->value.toDouble(); 
-			int iValue = int(dValue);
-			double deciamlPointValue = dValue - double(iValue);
+			int day = int(dValue); // unit is day. 
+			double deciamlPointValue1 = dValue - double(day);
 
-			double dMin = deciamlPointValue * (double(1.0) / double(60.0));
+			double dHour = deciamlPointValue1 * (double(1.0) / double(24.0));
+			int hour = int(dHour);
+
+			double deciamlPointValue2 = deciamlPointValue1 - (double(hour) * (double(1.0) / double(24.0)));
+			double dMin = deciamlPointValue2 * (double(1.0) / double(60.0));
 			int min = int(dMin);
-	
-			double dSuplus = deciamlPointValue - double( double(60) * double(min) ); 
-			double dSec = dSuplus * (double(1.0) / double(3600.0));
+
+			double deciamlPointValue3 = deciamlPointValue2 - (double(min) * (double(1.0) / double(60.0)));
+			double dSec = deciamlPointValue3 * (double(1.0) / double(60.0));
 			int sec = int(dSec);
-			
+	
+			int totalHour = hour + (day * 24);
+
 			QString strTime;
-			strTime = QString("%1:%2:%3").arg(iValue).arg(min).arg(sec);
+			strTime = QString("%1:%2:%3").arg(totalHour).arg(min).arg(sec);
 			ret = strTime;
 
 			return ret;

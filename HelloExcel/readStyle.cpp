@@ -83,7 +83,7 @@ int readGoogleSpreadsheet()
 	10   QVariant(QString, "1900. 1. 9")  , style: 10
 	11   QVariant(QTime, QTime("00:00:00.000"))  , style: 11
 	12   QVariant(QString, "1900. 1. 11 AM 12:00:00")  , style: 12
-	13   QVariant(QDateTime, QDateTime(1900-01-13 00:00:00.000 KST Qt::TimeSpec(LocalTime)))  , style: 13
+	13   QVariant(QString, "312:0:0")  , style: 13
 	*/
 
 	/* Testing fo read google spreadsheet file (made by google docs) 
