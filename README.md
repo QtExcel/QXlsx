@@ -9,6 +9,11 @@
 * QXlsx is excel file(*.xlsx) reader/writer library. 
 * It is written for static library using Qt 5.
 
+## License
+* GPL License https://www.gnu.org/licenses/gpl-3.0.en.html
+* Original source code from Debao Zhang(2014) : https://github.com/dbzhang800/QtXlsxWriter
+* Qt License (see Qt Company site) : https://www.qt.io/
+
 ## Hello excel 
 ### Writing excel file
 ```cpp
@@ -42,11 +47,6 @@ else
 * Qt 5.5.0 (Ubuntu 17/Linux i686)
 * Qt 5.2.0 (Ubuntu 14/Linux x64)
 * Qt 5.0.1 (MingW/Windows 32bit) 
-
-## License
-* GPL License https://www.gnu.org/licenses/gpl-3.0.en.html
-* Original source code from Debao Zhang(2014) : https://github.com/dbzhang800/QtXlsxWriter
-* Qt License (see Qt Company site) : https://www.qt.io/
    
 ## Contact
 * [j2doll@gmail.com](mailto:j2doll@gmail.com)
