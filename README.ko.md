@@ -11,7 +11,7 @@
 
 ## 라이선스
 * GPL 라이선스 : https://www.gnu.org/licenses/gpl-3.0.en.html
-* 최초 소스코드의 출처: Debao Zhang(2014) : https://github.com/dbzhang800/QtXlsxWriter
+* 최초 소스코드 출처: Debao Zhang(2014) : https://github.com/dbzhang800/QtXlsxWriter
 * Qt 라이선스는 Qt Company 싸이트 참조 : https://www.qt.io/developers/
 
 ## 활용 예제 Hello excel 
