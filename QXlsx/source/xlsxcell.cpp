@@ -132,28 +132,33 @@ QVariant Cell::readValue() const
 		QDateTime dt = dateTime(); 
 		ret = dt;
 
+		Format fmt = this->format();
+		QString strFormat = fmt.numberFormat();
+		if (!strFormat.isEmpty())
+		{
+			// TODO: use number format 
+		}
+
 		qint32 styleNo = d->styleNumber;
 
 		if (styleNo == 10)
 		{
-			// TODO: change string to time (1900. 1. 9)
 		}
 
-		if (styleNo == 11) // only time. (HH:mm:ss) 
+		if (styleNo == 11) 
 		{
-			QTime timeValue = dt.time();
-			ret = timeValue;
-			return ret;
+			// QTime timeValue = dt.time(); // only time. (HH:mm:ss) 
+			// ret = timeValue;
+			// return ret;
 		}
 
 		if (styleNo == 12) 
 		{
-			// TODO: change string to time (1900. 1. 11 AM 12:00:00)
 		}
 
 		if (styleNo == 13) // (HH:mm:ss) 
 		{
- 			double dValue = d->value.toDouble(); 
+			double dValue = d->value.toDouble(); 
 			int day = int(dValue); // unit is day. 
 			double deciamlPointValue1 = dValue - double(day);
 
@@ -178,7 +183,7 @@ QVariant Cell::readValue() const
 		}
 
 		return ret; 
- 	}
+	}
 
 	if (hasFormula())
 	{
