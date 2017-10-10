@@ -130,12 +130,14 @@ QVariant Cell::readValue() const
 	QVariant ret; // return value 
 	ret = d->value;
 
+	Format fmt = this->format();
+	int noFormatIndex = fmt.numberFormatIndex(); 
+
 	if (isDateTime())
 	{
 		QDateTime dt = dateTime(); 
 		ret = dt;
-
-		Format fmt = this->format();
+		
 		QString strFormat = fmt.numberFormat();
 		if (!strFormat.isEmpty())
 		{
