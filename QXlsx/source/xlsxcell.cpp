@@ -96,7 +96,8 @@ Cell::Cell(const Cell * const cell):
  */
 Cell::~Cell()
 {
-	delete d_ptr;
+	if ( NULL != d_ptr )
+		delete d_ptr;
 }
 
 /*!
@@ -105,6 +106,7 @@ Cell::~Cell()
 Cell::CellType Cell::cellType() const
 {
 	Q_D(const Cell);
+
 	return d->cellType;
 }
 
@@ -114,6 +116,7 @@ Cell::CellType Cell::cellType() const
 QVariant Cell::value() const
 {
 	Q_D(const Cell); 
+
 	return d->value; 
 }
 
@@ -202,6 +205,7 @@ QVariant Cell::readValue() const
 Format Cell::format() const
 {
 	Q_D(const Cell);
+
 	return d->format;
 }
 
@@ -211,6 +215,7 @@ Format Cell::format() const
 bool Cell::hasFormula() const
 {
 	Q_D(const Cell);
+
 	return d->formula.isValid();
 }
 
@@ -220,6 +225,7 @@ bool Cell::hasFormula() const
 CellFormula Cell::formula() const
 {
 	Q_D(const Cell);
+
 	return d->formula;
 }
 
@@ -235,10 +241,6 @@ bool Cell::isDateTime() const
 	QString strValue = d->value.toString().toUtf8(); 
 	bool isValidFormat = d->format.isValid();
 	bool isDateTimeFormat = d->format.isDateTimeFormat();
-
-	// NOTICE: google spreadsheet data is not adoptable.
-	//  cell style(10): cellType is SharedStringType. strValue is '1900. 1. 9'.
-	//  cell style(12): cellType is SharedStringType. strValue is '1900. 1. 11 AM 12:00:00'.
 
 	if ( cellType == NumberType && 
 		 dValue >= 0 &&
@@ -257,8 +259,10 @@ bool Cell::isDateTime() const
 QDateTime Cell::dateTime() const
 {
 	Q_D(const Cell);
+
 	if (!isDateTime())
 		return QDateTime();
+
 	return datetimeFromNumber(d->value.toDouble(), d->parent->workbook()->isDate1904());
 }
 
