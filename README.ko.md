@@ -49,5 +49,5 @@ else
 * Qt 5.0.1 (MingW/Windows 32bit) 
    
 ## 문의
-* https://github.com/j2doll
 * j2doll@gmail.com
+* 상업용 소프트웨어에 활용이 필요하시면 연락 주십시오
