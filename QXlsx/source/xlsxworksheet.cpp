@@ -1947,8 +1947,7 @@ void WorksheetPrivate::loadXmlSheetData(QXmlStreamReader &reader)
 			} 
 			else if (reader.name() == QLatin1String("c")) // Cell
 			{ 
-
-
+				
 				//Cell
 				QXmlStreamAttributes attributes = reader.attributes();
 				QString r = attributes.value(QLatin1String("r")).toString();
@@ -1957,23 +1956,12 @@ void WorksheetPrivate::loadXmlSheetData(QXmlStreamReader &reader)
 				//get format
 				Format format;
 				qint32 styleIndex = -1;
-				if (attributes.hasAttribute(QLatin1String("s"))) // a Style defined in the styles.xml file.
+				if (attributes.hasAttribute(QLatin1String("s"))) // Style (defined in the styles.xml file)
 				{ 
 					//"s" == style index
 					int idx = attributes.value(QLatin1String("s")).toString().toInt();
 					format = workbook->styles()->xfFormat(idx);
 					styleIndex = idx;
-
-					// NOTICE: cell style 
-					/*
-
-					*/
-
-
-
-					////Empty format exists in styles xf table of real .xlsx files, see issue #65.
-					//if (!format.isValid())
-					//    qDebug()<<QStringLiteral("<c s=\"%1\">Invalid style index: ").arg(idx)<<idx;
 				}
 
 				Cell::CellType cellType = Cell::NumberType;
@@ -1983,33 +1971,31 @@ void WorksheetPrivate::loadXmlSheetData(QXmlStreamReader &reader)
 					if (typeString == QLatin1String("s"))
 					{
 						cellType = Cell::SharedStringType; 
-						
-						// NOTICE:  
-						// QUESTION; if cell type is 's'tring type. Then, Is the cell always string type? 
-						/*
-						// TESTING: 
-						// NOTICE: somtimes 's' is not string type. it may be date-time type. 
-						if ( styleIndex == 10 ||
-							 styleIndex == 12 )
-						{
-							cellType = Cell::NumberType;
-						}
-						*/
 					}
 					else if (typeString == QLatin1String("inlineStr"))
+					{
 						cellType = Cell::InlineStringType;
+					}
 					else if (typeString == QLatin1String("str"))
+					{
 						cellType = Cell::StringType;
+					}
 					else if (typeString == QLatin1String("b"))
+					{
 						cellType = Cell::BooleanType;
+					}
 					else if (typeString == QLatin1String("e"))
+					{
 						cellType = Cell::ErrorType;
+					}
 					else
+					{
 						cellType = Cell::NumberType;
+					}
 				}
 
 				// create a heap of new cell
-				QSharedPointer<Cell> cell(new Cell(QVariant() ,cellType, format, q, styleIndex));
+				QSharedPointer<Cell> cell(new Cell(QVariant(), cellType, format, q, styleIndex));
 
 				while (!reader.atEnd() && !(reader.name() == QLatin1String("c") && reader.tokenType() == QXmlStreamReader::EndElement)) 
 				{

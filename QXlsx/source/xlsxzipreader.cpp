@@ -48,7 +48,7 @@ ZipReader::~ZipReader()
 
 void ZipReader::init()
 {
-#if QT_VERSION >= 0x050600
+#if QT_VERSION >= 0x050600 // Qt 5.6 or over 
     QVector<QZipReader::FileInfo> allFiles = m_reader->fileInfoList();
 #else
     QList<QZipReader::FileInfo> allFiles = m_reader->fileInfoList();
