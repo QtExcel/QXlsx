@@ -23,8 +23,11 @@ xlsx.saveAs("Test.xlsx"); // save the document as 'Test.xlsx'
 ```
 ### Reading excel file
 ```cpp
-// get cell pointer.
-Cell* cell = xlsx.cellAt(1, 2); // row is 1. column is 2.
+Document xlsx("Test.xlsx"); // load excel file
+if (!xlsx.isLoadPackage()) { // failed to load excel 		
+	return; 
+}
+Cell* cell = xlsx.cellAt(1, 2); // get cell pointer. (row is 1. column is 2.)
 if ( cell == NULL )
 	continue; // cell vaule is not set 
 QVariant var = cell->readValue(); // read cell value (number(double), QDateTime, QString ...)
