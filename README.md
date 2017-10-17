@@ -23,11 +23,12 @@ xlsx.saveAs("Test.xlsx");
 ```
 ### Reading excel file
 ```cpp
+// get cell pointer.
 Cell* cell = xlsx.cellAt(1, 2); // row is 1. column is 2.
 if ( cell == NULL )
 	continue; // cell vaule is not set 
-QVariant var = cell->readValue();
-qint32 styleNo = cell->styleNumber();
+QVariant var = cell->readValue(); // read cell value (number(double), QDateTime, QString ...)
+qint32 styleNo = cell->styleNumber(); // read cell style number
 if ( styleNo >= 0 )
 	qDebug() << row << " " << var << " , style:" << styleNo;
 else
