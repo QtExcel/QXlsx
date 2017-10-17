@@ -18,16 +18,16 @@
 ### 엑셀 파일 쓰기 예제
 ```cpp
 QXlsx::Document xlsx;
-xlsx.write("A1", "Hello Qt!");
-xlsx.saveAs("Test.xlsx");
+xlsx.write("A1", "Hello Qt!"); // 셀(A,1)에 'Hello Qt!'값을 설정. 공유 문자열 타입으로 설정됨.
+xlsx.saveAs("Test.xlsx"); // 'Test.xlsx'라는 이름으로 엑셀 파일을 저장.
 ```
 ### 엑셀 파일 읽기 예제
 ```cpp
-Cell* cell = xlsx.cellAt(1, 2); // row is 1. column is 2.
+Cell* cell = xlsx.cellAt(1, 2); // Cell의 pointer를 얻음 (행(row)는 1번째, 열(column)은 2번째)
 if ( cell == NULL )
-	continue; // cell vaule is not set 
-QVariant var = cell->readValue();
-qint32 styleNo = cell->styleNumber();
+	continue; // 해당 행렬의 cell값이 설정되어 있지 않음 
+QVariant var = cell->readValue(); // 셀값을 읽음 (숫자(double), 날자(QDateTime), 문자열(QString) ...)
+qint32 styleNo = cell->styleNumber(); // 셀의 스타일 번호를 읽음
 if ( styleNo >= 0 )
 	qDebug() << row << " " << var << " , style:" << styleNo;
 else
@@ -35,19 +35,11 @@ else
 ```
 
 ## 빌드하는 방법
-참조: https://github.com/j2doll/QXlsx/wiki
+* 참조: https://github.com/j2doll/QXlsx/wiki
 
 ## 테스트 환경
-* Qt 5.9.1 (Visual Studio 2017/Windows 64bit) 
-* Qt 5.9.1 (Visual Studio 2017/Windows 32bit) 
-* Qt 5.9.1 (MingW/Windows 32bit) 
-* Qt 5.9.1 (Ubuntu 16/Linux x64) 
-* Qt 5.5.1 (MingW/Windows 32bit)
-* Qt 5.6.0 (MingW/Windows 32bit) 
-* Qt 5.5.0 (Ubuntu 17/Linux i686)
-* Qt 5.2.0 (Ubuntu 14/Linux x64)
-* Qt 5.0.1 (MingW/Windows 32bit) 
-   
+* 참조: https://github.com/j2doll/QXlsx/wiki/Test-Environment
+
 ## 문의
 * j2doll@gmail.com
 
