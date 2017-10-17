@@ -23,7 +23,12 @@ xlsx.saveAs("Test.xlsx"); // 'Test.xlsx'라는 이름으로 엑셀 파일을 저
 ```
 ### 엑셀 파일 읽기 예제
 ```cpp
-Cell* cell = xlsx.cellAt(1, 2); // Cell의 pointer를 얻음 (행(row)는 1번째, 열(column)은 2번째)
+Document xlsx("Test.xlsx"); // 엑셀 파일 읽기
+if (!xlsx.isLoadPackage()) { // 엑셀 파일 읽기 실패
+	return; 
+}
+int row = 1; int col = 2;
+Cell* cell = xlsx.cellAt(row, col); // Cell의 pointer를 얻음 (행(row)는 1번째, 열(column)은 2번째)
 if ( cell == NULL )
 	continue; // 해당 행렬의 cell값이 설정되어 있지 않음 
 QVariant var = cell->readValue(); // 셀값을 읽음 (숫자(double), 날자(QDateTime), 문자열(QString) ...)
