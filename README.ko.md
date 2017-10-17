@@ -40,6 +40,12 @@ else
 ## 테스트 환경
 * 참조: https://github.com/j2doll/QXlsx/wiki/Test-Environment
 
+## 테스트할 것
+다음과 같은 테스트들이 수행되어야 합니다
+- 마이크로소프트 오피스(엑셀) 온라인 테스트
+- 구글 닥스(스프레드쉬트) 테스트
+- 리브레오피스
+
 ## 문의
 * j2doll@gmail.com
 
