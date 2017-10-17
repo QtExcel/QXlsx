@@ -27,7 +27,8 @@ Document xlsx("Test.xlsx"); // load excel file
 if (!xlsx.isLoadPackage()) { // failed to load excel 		
 	return; 
 }
-Cell* cell = xlsx.cellAt(1, 2); // get cell pointer. (row is 1. column is 2.)
+int row = 1; int col = 2;
+Cell* cell = xlsx.cellAt(row, col); // get cell pointer. (row is 1. column is 2.)
 if ( cell == NULL )
 	continue; // cell vaule is not set 
 QVariant var = cell->readValue(); // read cell value (number(double), QDateTime, QString ...)
