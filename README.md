@@ -40,7 +40,13 @@ else
 
 ## Test environment
 * see https://github.com/j2doll/QXlsx/wiki/Test-Environment
-   
+
+## To test
+The following tests should be performed.
+- testing Microsoft Office(Excel) Online
+- testing Google Docs(Spreadsheet)
+- testing LibreOffice
+
 ## Contact
 * [j2doll@gmail.com](mailto:j2doll@gmail.com)
 * Hi! My native language is not English. My English is not fluent. Please use EASY English. :-) 
