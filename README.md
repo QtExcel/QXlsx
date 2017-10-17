@@ -18,8 +18,8 @@
 ### Writing excel file
 ```cpp
 QXlsx::Document xlsx;
-xlsx.write("A1", "Hello Qt!");
-xlsx.saveAs("Test.xlsx");
+xlsx.write("A1", "Hello Qt!"); // write "Hello Qt!" to cell(A,1). it's shared string.
+xlsx.saveAs("Test.xlsx"); // save the document as 'Test.xlsx'
 ```
 ### Reading excel file
 ```cpp
