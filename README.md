@@ -2,11 +2,11 @@
 
 > *Read this in other languages: [English](README.md), [한국어](README.ko.md)*
 
-![](image/IMG_0016.PNG)
+![](etc/IMG_0016.PNG)
 
 ## Excel reader/writer library
 
-* QXlsx is excel file(*.xlsx) reader/writer library. 
+* QXlsx is excel file(*.xlsx) reader/writer library.
 * It is written for static library using Qt 5.
 
 ## License
@@ -14,7 +14,7 @@
 * Original source code from Debao Zhang(2014) : https://github.com/dbzhang800/QtXlsxWriter
 * Qt License (see Qt Company site) : https://www.qt.io/
 
-## Hello excel 
+## Hello excel
 ### Writing excel file
 ```cpp
 QXlsx::Document xlsx;
@@ -25,12 +25,12 @@ xlsx.saveAs("Test.xlsx"); // save the document as 'Test.xlsx'
 ```cpp
 Document xlsx("Test.xlsx"); // load excel file
 if (!xlsx.isLoadPackage()) { // failed to load excel 		
-	return; 
+	return;
 }
 int row = 1; int col = 2;
 Cell* cell = xlsx.cellAt(row, col); // get cell pointer. (row is 1. column is 2.)
 if ( cell == NULL )
-	continue; // cell vaule is not set 
+	continue; // cell vaule is not set
 QVariant var = cell->readValue(); // read cell value (number(double), QDateTime, QString ...)
 qint32 styleNo = cell->styleNumber(); // read cell style number
 if ( styleNo >= 0 )
@@ -43,7 +43,7 @@ else
 * see https://github.com/j2doll/QXlsx/wiki
 
 ## Test environment
-* see https://github.com/j2doll/QXlsx/wiki/Test-Environment
+<<[etc/test-env.md]
 
 ## To test
 The following tests should be performed.
@@ -53,4 +53,4 @@ The following tests should be performed.
 
 ## Contact
 * [j2doll@gmail.com](mailto:j2doll@gmail.com)
-* Hi! My native language is not English. My English is not fluent. Please use EASY English. :-) 
+* Hi! My native language is not English. My English is not fluent. Please use EASY English. :-)
