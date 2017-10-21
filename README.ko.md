@@ -43,7 +43,7 @@ else
 * 참조: https://github.com/j2doll/QXlsx/wiki
 
 ## 테스트 환경
-[etc/test-env.md]
+* 참조: https://github.com/j2doll/QXlsx/wiki/Test-Environment
 
 ## 테스트할 것
 다음과 같은 테스트들이 수행되어야 합니다

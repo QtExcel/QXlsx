@@ -43,8 +43,7 @@ else
 * see https://github.com/j2doll/QXlsx/wiki
 
 ## Test environment
-
-{{etc/test-env.md}}
+* see https://github.com/j2doll/QXlsx/wiki/Test-Environment
 
 ## To test
 The following tests should be performed.
