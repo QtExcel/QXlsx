@@ -48,27 +48,30 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 win32-g++
 {
+    message("compiling for win32 g++")
     INCLUDEPATH += header/win32-gcc # mingw32
 }
 
 win32-msvc2013
 {
+    message("compiling for visual studio 2013")
     INCLUDEPATH += header/msvc2013 # visual c++ 2013
 }
 
 win32-msvc2015
 {
+    message("compiling for visual studio 2015")
     INCLUDEPATH += header/msvc2015 # visual c++ 2015
 }
 
 win32-msvc2017
 {
+    message("compiling for visual studio 2017")
     INCLUDEPATH += header/msvc2017 # visual c++ 2017
 }
 
 unix 
 {
-   INCLUDEPATH += header/unix-gcc
    !contains(QT_ARCH, x86_64){
        LIB=lib32
        message("compiling for 32bit linux system")
@@ -76,12 +79,16 @@ unix
        LIB=lib64
        message("compiling for 64bit linux system")
    }
+
+   INCLUDEPATH += header/unix-gcc
+
     # target.path = /usr/lib
     # INSTALLS += target
 }
 
 mac 
 {
+    message("compiling for visual mac")
     INCLUDEPATH += header/mac
 }
 
