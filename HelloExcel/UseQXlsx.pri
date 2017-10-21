@@ -19,7 +19,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-QT += core 
+QT += core
 LIBS += -lQXlsx # link QXlsx library
 
 ################################################################################
@@ -51,6 +51,9 @@ win32-g++
         contains(QT_VERSION, 5.9.1) {
             LIBS += -L"../build-QXlsx-Desktop_Qt_5_9_1_MinGW_32bit-Debug/debug"
         }
+        contains(QT_VERSION, 5.9.2) {
+            LIBS += -L"../build-QXlsx-Desktop_Qt_5_9_2_MinGW_32bit-Debug/debug"
+        }
     } else {
         contains(QT_VERSION, 5.6.0) {
             LIBS += -L"../build-QXlsx-Desktop_Qt_5_6_0_MinGW_32bit-Release/release"
@@ -69,6 +72,9 @@ win32-g++
         }
         contains(QT_VERSION, 5.9.1) {
             LIBS += -L"../build-QXlsx-Desktop_Qt_5_9_1_MinGW_32bit-Release/release"
+        }
+        contains(QT_VERSION, 5.9.2) {
+            LIBS += -L"../build-QXlsx-Desktop_Qt_5_9_2_MinGW_32bit-Release/release"
         }
     }
 }
