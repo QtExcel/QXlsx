@@ -11,7 +11,7 @@
 
 ## License
 * QXlsx is licensed under the GPL License https://www.gnu.org/licenses/gpl-3.0.en.html
-* Clone of QtXlsx Debao Zhang(2014) : https://github.com/dbzhang800/QtXlsxWriter
+* QtXlsx Debao Zhang(2014) : https://github.com/dbzhang800/QtXlsxWriter
 * Qt License (see Qt Company site) : https://www.qt.io/
 
 ## Hello excel
