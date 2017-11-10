@@ -10,8 +10,8 @@
 * QXlsx는 Qt 5.x를 사용하는 정적 라이브러리로 제작되었습니다.
 
 ## 라이센스
-* QXlsx는 GPL 라이센스를 준수합니다. : https://www.gnu.org/licenses/gpl-3.0.en.html
-* 최초 소스코드 출처: Debao Zhang(2014) : https://github.com/dbzhang800/QtXlsxWriter
+* QXlsx는 GPL 라이센스를 사용합니다 : https://www.gnu.org/licenses/gpl-3.0.en.html
+* QtXlsx Debao Zhang(2014) : https://github.com/dbzhang800/QtXlsxWriter
 * Qt 라이센스는 Qt Company 싸이트를 참조하십시오. : https://www.qt.io/developers/
 
 ## 활용 예제 Hello excel
