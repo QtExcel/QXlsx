@@ -36,6 +36,12 @@ win32-g++
         contains(QT_VERSION, 5.6.0) {
             LIBS += -L"../build-QXlsx-Desktop_Qt_5_6_0_MinGW_32bit-Debug/debug"
         }
+        contains(QT_VERSION, 5.6.1) {
+            LIBS += -L"../build-QXlsx-Desktop_Qt_5_6_1_MinGW_32bit-Debug/debug"
+        }
+        contains(QT_VERSION, 5.6.2) {
+            LIBS += -L"../build-QXlsx-Desktop_Qt_5_6_2_MinGW_32bit-Debug/debug"
+        }
         contains(QT_VERSION, 5.7.0) {
             LIBS += -L"../build-QXlsx-Desktop_Qt_5_7_0_MinGW_32bit-Debug/debug"
         }
@@ -56,6 +62,12 @@ win32-g++
         }
     } else {
         contains(QT_VERSION, 5.6.0) {
+            LIBS += -L"../build-QXlsx-Desktop_Qt_5_6_0_MinGW_32bit-Release/release"
+        }
+        contains(QT_VERSION, 5.6.1) {
+            LIBS += -L"../build-QXlsx-Desktop_Qt_5_6_0_MinGW_32bit-Release/release"
+        }
+        contains(QT_VERSION, 5.6.2) {
             LIBS += -L"../build-QXlsx-Desktop_Qt_5_6_0_MinGW_32bit-Release/release"
         }
         contains(QT_VERSION, 5.7.0) {
