@@ -60,11 +60,21 @@ int main(int argc, char *argv[])
 {
 	QCoreApplication app(argc, argv);
 
-	// hello();
+	if ( argc == 2 )
+	{
+		QString strArg1 = argv[1];
+		
+		if ( strArg1 == QString("hello") )
+		{
+			hello();
+			return 0;
+		}
+		
+		 return 0;
+	}
 
+	hello();
 	readStyle();
-	return 0; 
-
 	calendar();
 	chart();
 	chartsheet();
