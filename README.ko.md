@@ -90,4 +90,5 @@ else
 ![](markdown.data/LibreOffice-Google-XLSX.png)
 
 ## 문의
-* j2doll@gmail.com
+* [https://github.com/j2doll/QXlsx](https://github.com/j2doll/QXlsx)
+* [j2doll@gmail.com](mailto:j2doll@gmail.com)
