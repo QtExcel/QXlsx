@@ -47,7 +47,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 # custom setting for compiler & system
 
 win32-g++ {
-    message("compiling for win32 g++")
+    message("compiling for windows g++. mingw or msys or cygwin.")
     INCLUDEPATH += header/win32-gcc 
 }
 win32-msvc2013 {
