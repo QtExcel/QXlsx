@@ -10,7 +10,7 @@
   * QXlsx는 개발언어로 C++를 사용합니다.
   * QXlsx는 Qt 5.x를 사용하는 정적 라이브러리로 제작되었습니다. (2017)
 
-![](markdown.data/qt-64.png) ![](markdown.data/XLSX-64.png) ![](markdown.data/cxx.png)
+![](markdown.data/qt-64.png =32x32) ![](markdown.data/XLSX-64.png =32x32) ![](markdown.data/cxx.png =32x32)
 
 ## 라이선스
 * QXlsx는 MIT 라이선스를 사용합니다 : https://opensource.org/licenses/MIT
