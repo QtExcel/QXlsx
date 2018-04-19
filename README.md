@@ -10,7 +10,7 @@
   * Development language of QXlsx is C++.
   * It is written for static library using Qt 5.x. (2017)
   
-![](markdown.data/qt-64.png =32x32) ![](markdown.data/XLSX-64.png =32x32) ![](markdown.data/cxx.png =32x32)
+<img src="./markdown.data/qt-64.png" width="32" height="32" /> <img src="./markdown.data/XLSX-64.png" width="32" height="32" /> <img src="./markdown.data/cxx.pngg" width="32" height="32" />
   
 ## License
 * QXlsx is licensed under the MIT License https://opensource.org/licenses/MIT
