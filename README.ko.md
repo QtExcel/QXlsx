@@ -56,15 +56,15 @@ else
   qmake QXlsx.pro
   make debug (you may use 'make release'.)
 ```
-* HelloExample 빌드
+* TestExcel 빌드
 ```sh
-  cd HelloExcel
-  qmake HelloExcel.pro
+  cd TestExcel
+  qmake TestExcel.pro
   make
 ```
-* HelloExample 실행
+* TestExcel 실행
 ```sh
- ./HelloExample
+ ./TestExcel
 ```
 
 ## 테스트 환경
