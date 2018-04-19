@@ -30,3 +30,9 @@
 *.exe
 *.out
 *.app
+
+# Qt intermediate files
+Makefile
+*.Debug
+*.Release
+.qmake.stash
