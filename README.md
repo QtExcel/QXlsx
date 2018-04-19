@@ -17,12 +17,14 @@
 * Qt License (See Qt Company site) : https://www.qt.io/
 
 ## Sample (Hello excel)
+
 ### Writing excel file
 ```cpp
 QXlsx::Document xlsx;
 xlsx.write("A1", "Hello Qt!"); // write "Hello Qt!" to cell(A,1). it's shared string.
 xlsx.saveAs("Test.xlsx"); // save the document as 'Test.xlsx'
 ```
+
 ### Reading excel file
 ```cpp
 Document xlsx("Test.xlsx"); // load excel file
@@ -43,19 +45,16 @@ else
 
 ## How to build
 * Install Qt 5 from [Qt Company](https://www.qt.io) (2017-)
- 
 * Clone github source code
 ```sh
   git clone https://github.com/j2doll/QXlsx.git
 ```
-
 * Build QXlsx project 
 ```sh
   cd QXlsx
   qmake QXlsx.pro
   make
 ```
-
 * Build HelloExample
 ```sh
   cd HelloExcel
@@ -63,33 +62,32 @@ else
   qmake HelloExcel.pro
   make
 ```
-
 * Run HelloExample
 ```sh
  ./HelloExample
 ```
 
 ## Test environment
-* Test Environment is below.
-  * 5.9.2 (MingW/Windows 32bit)
-  * Qt 5.9.1 (Visual Studio 2017/Windows 64bit)
-  * Qt 5.9.1 (Visual Studio 2017/Windows 32bit)
-  * Qt 5.9.1 (MingW/Windows 32bit)
-  * Qt 5.9.1 (Ubuntu 16/Linux x64)
-  * Qt 5.6.0 (MingW/Windows 32bit)
-  * Qt 5.5.1 (MingW/Windows 32bit)
-  * Qt 5.5.0 (Ubuntu 17/Linux i686)
-  * Qt 5.2.0 (Ubuntu 14/Linux x64)
-  * Qt 5.0.1 (MingW/Windows 32bit)
+Test Environment is below.
+- 5.9.2 (MingW/Windows 32bit)
+- Qt 5.9.1 (Visual Studio 2017/Windows 64bit)
+- Qt 5.9.1 (Visual Studio 2017/Windows 32bit)
+- Qt 5.9.1 (MingW/Windows 32bit)
+- Qt 5.9.1 (Ubuntu 16/Linux x64)
+- Qt 5.6.0 (MingW/Windows 32bit)
+- Qt 5.5.1 (MingW/Windows 32bit)
+- Qt 5.5.0 (Ubuntu 17/Linux i686)
+- Qt 5.2.0 (Ubuntu 14/Linux x64)
+- Qt 5.0.1 (MingW/Windows 32bit)
 
 ## To Test
 The following tests should be performed.
-* Microsoft Excel 
-* Google Spreadsheet
-* LibreOffice Calc Spreasheet
+- Microsoft Excel 
+- Google Spreadsheet
+- LibreOffice Calc Spreasheet
 
 ![](markdown.data/LibreOffice-Google-XLSX.png)
 
-## Contact
+## Contacts
 * [j2doll@gmail.com](mailto:j2doll@gmail.com)
 * Hi! I'm j2doll. My native language is not English and my English is not fluent. Please, use EASY English. :-)
