@@ -36,3 +36,18 @@ Makefile
 *.Debug
 *.Release
 .qmake.stash
+QXlsx/debug/*
+QXlsx/release/*
+
+# visual studio
+*.pdb
+*.filters
+*.user
+*.props
+
+
+
+
+
+
+
