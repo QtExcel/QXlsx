@@ -19,14 +19,14 @@
 
 ## 활용 예제 (Hello excel)
 
-### 엑셀 파일 쓰기 예제
+### 엑셀(xlsx) 파일 쓰기
 ```cpp
 QXlsx::Document xlsx;
 xlsx.write("A1", "Hello Qt!"); // 셀(A,1)에 'Hello Qt!'값을 설정. 공유 문자열 타입으로 설정됨.
 xlsx.saveAs("Test.xlsx"); // 'Test.xlsx'라는 이름으로 엑셀 파일을 저장.
 ```
 
-### 엑셀 파일 읽기 예제
+### 엑셀(xlsx) 파일 읽기
 ```cpp
 Document xlsx("Test.xlsx"); // 엑셀 파일 읽기
 if (!xlsx.isLoadPackage()) { // 엑셀 파일 읽기 실패

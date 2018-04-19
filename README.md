@@ -19,14 +19,14 @@
 
 ## Sample (Hello excel)
 
-### Writing excel file
+### Writing excel file(*.xlsx)
 ```cpp
 QXlsx::Document xlsx;
 xlsx.write("A1", "Hello Qt!"); // write "Hello Qt!" to cell(A,1). it's shared string.
 xlsx.saveAs("Test.xlsx"); // save the document as 'Test.xlsx'
 ```
 
-### Reading excel file
+### Reading excel file(*.xlsx)
 ```cpp
 Document xlsx("Test.xlsx"); // load excel file
 if (!xlsx.isLoadPackage()) { // failed to load excel 		
