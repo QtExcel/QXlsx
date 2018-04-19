@@ -1,5 +1,4 @@
 ################################################################################
-# UseQXlsx.pri
 #
 # QXlsx https://github.com/j2doll/QXlsx
 #
@@ -18,130 +17,138 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
+################################################################################
+# UseQXlsx.pri
 
 QT += core
-LIBS += -lQXlsx # link QXlsx library
+
+# link QXlsx library 
+LIBS += -lQXlsx 
 
 ################################################################################
 # set include & libs path for your own test environment
 
-################################################################################
-# case : Qt5 & MingW(gcc) & QtCreator & Windows
-
-win32-g++
-{
-    INCLUDEPATH += "../QXlsx/QXlsx/header"
-
-    CONFIG(debug, debug|release) {
-        contains(QT_VERSION, 5.6.0) {
-            LIBS += -L"../build-QXlsx-Desktop_Qt_5_6_0_MinGW_32bit-Debug/debug"
-        }
-        contains(QT_VERSION, 5.6.1) {
-            LIBS += -L"../build-QXlsx-Desktop_Qt_5_6_1_MinGW_32bit-Debug/debug"
-        }
-        contains(QT_VERSION, 5.6.2) {
-            LIBS += -L"../build-QXlsx-Desktop_Qt_5_6_2_MinGW_32bit-Debug/debug"
-        }
-        contains(QT_VERSION, 5.7.0) {
-            LIBS += -L"../build-QXlsx-Desktop_Qt_5_7_0_MinGW_32bit-Debug/debug"
-        }
-        contains(QT_VERSION, 5.7.1) {
-            LIBS += -L"../build-QXlsx-Desktop_Qt_5_7_0_MinGW_32bit-Debug/debug"
-        }
-        contains(QT_VERSION, 5.8.0) {
-            LIBS += -L"../build-QXlsx-Desktop_Qt_5_8_0_MinGW_32bit-Debug/debug"
-        }
-        contains(QT_VERSION, 5.9.0) {
-            LIBS += -L"../build-QXlsx-Desktop_Qt_5_9_0_MinGW_32bit-Debug/debug"
-        }
-        contains(QT_VERSION, 5.9.1) {
-            LIBS += -L"../build-QXlsx-Desktop_Qt_5_9_1_MinGW_32bit-Debug/debug"
-        }
-        contains(QT_VERSION, 5.9.2) {
-            LIBS += -L"../build-QXlsx-Desktop_Qt_5_9_2_MinGW_32bit-Debug/debug"
-        }
-    } else {
-        contains(QT_VERSION, 5.6.0) {
-            LIBS += -L"../build-QXlsx-Desktop_Qt_5_6_0_MinGW_32bit-Release/release"
-        }
-        contains(QT_VERSION, 5.6.1) {
-            LIBS += -L"../build-QXlsx-Desktop_Qt_5_6_0_MinGW_32bit-Release/release"
-        }
-        contains(QT_VERSION, 5.6.2) {
-            LIBS += -L"../build-QXlsx-Desktop_Qt_5_6_0_MinGW_32bit-Release/release"
-        }
-        contains(QT_VERSION, 5.7.0) {
-            LIBS += -L"../build-QXlsx-Desktop_Qt_5_7_0_MinGW_32bit-Release/release"
-        }
-        contains(QT_VERSION, 5.7.1) {
-            LIBS += -L"../build-QXlsx-Desktop_Qt_5_7_0_MinGW_32bit-Release/release"
-        }
-        contains(QT_VERSION, 5.8.0) {
-            LIBS += -L"../build-QXlsx-Desktop_Qt_5_8_0_MinGW_32bit-Release/release"
-        }
-        contains(QT_VERSION, 5.9.0) {
-            LIBS += -L"../build-QXlsx-Desktop_Qt_5_9_0_MinGW_32bit-Release/release"
-        }
-        contains(QT_VERSION, 5.9.1) {
-            LIBS += -L"../build-QXlsx-Desktop_Qt_5_9_1_MinGW_32bit-Release/release"
-        }
-        contains(QT_VERSION, 5.9.2) {
-            LIBS += -L"../build-QXlsx-Desktop_Qt_5_9_2_MinGW_32bit-Release/release"
-        }
-    }
+win32-g++ {
+	contains(QMAKE_HOST.arch, x86_64):{	
+		message("Host is 64bit. msys2") # we will gonna use msys2/x64
+		INCLUDEPATH += "../QXlsx/header"			
+		CONFIG(debug, debug|release) {		
+			message("Host is debug mode")
+			LIBS += -L"../QXlsx/debug"
+		} else {
+			message("Host is release mode")
+			LIBS += -L"../QXlsx/release"
+		}
+	} else {
+		message("Host is mingw") # it can be msys or cygwin 32bit	
+		INCLUDEPATH += "../QXlsx/QXlsx/header"	
+		CONFIG(debug, debug|release) {
+			message("Host is debug mode")
+			contains(QT_VERSION, 5.6.0) {
+				LIBS += -L"../build-QXlsx-Desktop_Qt_5_6_0_MinGW_32bit-Debug/debug"
+			}
+			contains(QT_VERSION, 5.6.1) {
+				LIBS += -L"../build-QXlsx-Desktop_Qt_5_6_1_MinGW_32bit-Debug/debug"
+			}
+			contains(QT_VERSION, 5.6.2) {
+				LIBS += -L"../build-QXlsx-Desktop_Qt_5_6_2_MinGW_32bit-Debug/debug"
+			}
+			contains(QT_VERSION, 5.7.0) {
+				LIBS += -L"../build-QXlsx-Desktop_Qt_5_7_0_MinGW_32bit-Debug/debug"
+			}
+			contains(QT_VERSION, 5.7.1) {
+				LIBS += -L"../build-QXlsx-Desktop_Qt_5_7_0_MinGW_32bit-Debug/debug"
+			}
+			contains(QT_VERSION, 5.8.0) {
+				LIBS += -L"../build-QXlsx-Desktop_Qt_5_8_0_MinGW_32bit-Debug/debug"
+			}
+			contains(QT_VERSION, 5.9.0) {
+				LIBS += -L"../build-QXlsx-Desktop_Qt_5_9_0_MinGW_32bit-Debug/debug"
+			}
+			contains(QT_VERSION, 5.9.1) {
+				LIBS += -L"../build-QXlsx-Desktop_Qt_5_9_1_MinGW_32bit-Debug/debug"
+			}
+			contains(QT_VERSION, 5.9.2) {
+				LIBS += -L"../build-QXlsx-Desktop_Qt_5_9_2_MinGW_32bit-Debug/debug"
+			}
+			contains(QT_VERSION, 5.10.0) {
+				LIBS += -L"../build-QXlsx-Desktop_Qt_5_10_0_MinGW_32bit-Debug/debug"
+			}
+			contains(QT_VERSION, 5.10.1) {
+				LIBS += -L"../build-QXlsx-Desktop_Qt_5_10_1_MinGW_32bit-Debug/debug"
+			}		
+		} else {
+			message("Host is release mode")
+			contains(QT_VERSION, 5.6.0) {
+				LIBS += -L"../build-QXlsx-Desktop_Qt_5_6_0_MinGW_32bit-Release/release"
+			}
+			contains(QT_VERSION, 5.6.1) {
+				LIBS += -L"../build-QXlsx-Desktop_Qt_5_6_0_MinGW_32bit-Release/release"
+			}
+			contains(QT_VERSION, 5.6.2) {
+				LIBS += -L"../build-QXlsx-Desktop_Qt_5_6_0_MinGW_32bit-Release/release"
+			}
+			contains(QT_VERSION, 5.7.0) {
+				LIBS += -L"../build-QXlsx-Desktop_Qt_5_7_0_MinGW_32bit-Release/release"
+			}
+			contains(QT_VERSION, 5.7.1) {
+				LIBS += -L"../build-QXlsx-Desktop_Qt_5_7_0_MinGW_32bit-Release/release"
+			}
+			contains(QT_VERSION, 5.8.0) {
+				LIBS += -L"../build-QXlsx-Desktop_Qt_5_8_0_MinGW_32bit-Release/release"
+			}
+			contains(QT_VERSION, 5.9.0) {
+				LIBS += -L"../build-QXlsx-Desktop_Qt_5_9_0_MinGW_32bit-Release/release"
+			}
+			contains(QT_VERSION, 5.9.1) {
+				LIBS += -L"../build-QXlsx-Desktop_Qt_5_9_1_MinGW_32bit-Release/release"
+			}
+			contains(QT_VERSION, 5.9.2) {
+				LIBS += -L"../build-QXlsx-Desktop_Qt_5_9_2_MinGW_32bit-Release/release"
+			}
+			contains(QT_VERSION, 5.10.0) {
+				LIBS += -L"../build-QXlsx-Desktop_Qt_5_10_0_MinGW_32bit-Release/release"
+			}
+			contains(QT_VERSION, 5.10.1) {
+				LIBS += -L"../build-QXlsx-Desktop_Qt_5_10_1_MinGW_32bit-Release/release"
+			}		
+		}
+	}
 }
-
-################################################################################
-# case : Qt5 & Linux & gcc
-linux-g++
-{
+linux-g++ {
     INCLUDEPATH += "../QXlsx/header"
     LIBS += -L"../QXlsx/"
 }
-
-################################################################################
-# case : Qt5 & Visual Studio(VC++) & Windows
-
-win32-msvc2012
-{
+win32-msvc2012 {
     CONFIG(debug, debug|release) {
         LIBS += -L"../QXlsx/debug"
     } else {
         LIBS += -L"../QXlsx/release"
     }
 }
-
-win32-msvc2013
-{
+win32-msvc2013 {
     CONFIG(debug, debug|release) {
         LIBS += -L"../QXlsx/debug"
     } else {
         LIBS += -L"../QXlsx/release"
     }
 }
-
-win32-msvc2015
-{
+win32-msvc2015 {
     CONFIG(debug, debug|release) {
         LIBS += -L"../QXlsx/debug"
     } else {
         LIBS += -L"../QXlsx/release"
     }
 }
-
-win32-msvc2017
-{
+win32-msvc2017 {
     CONFIG(debug, debug|release) {
         LIBS += -L"../QXlsx/debug"
     } else {
         LIBS += -L"../QXlsx/release"
     }
-}
-
-################################################################################
-# case : Qt5 & XCode(gcc) & MAC OS
-
-mac
-{
-
+} 
+mac {
+    CONFIG(debug, debug|release) {
+    } else {
+    }
 }

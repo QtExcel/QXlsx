@@ -54,12 +54,11 @@ else
 ```sh
   cd QXlsx
   qmake QXlsx.pro
-  make
+  make debug (you may use 'make release'.)
 ```
 * Build HelloExample
 ```sh
   cd HelloExcel
-    Fix HelloExcel.pro for your own build environment 
   qmake HelloExcel.pro
   make
 ```
@@ -70,7 +69,8 @@ else
 
 ## Test environment
 Test Environment is below.
-- 5.9.2 (MingW/Windows 32bit)
+- Qt 5.10.1 (MSYS2/Windows 64bit)
+- Qt 5.9.2 (MingW/Windows 32bit)
 - Qt 5.9.1 (Visual Studio 2017/Windows 64bit)
 - Qt 5.9.1 (Visual Studio 2017/Windows 32bit)
 - Qt 5.9.1 (MingW/Windows 32bit)

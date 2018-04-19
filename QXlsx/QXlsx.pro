@@ -49,18 +49,30 @@ DEFINES += QT_DEPRECATED_WARNINGS
 win32-g++ {
     message("compiling for windows g++. mingw or msys or cygwin.")
     INCLUDEPATH += header/win32-gcc 
+	CONFIG(debug, debug|release) {
+	} else {
+	}	
 }
 win32-msvc2013 {
     message("compiling for visual studio 2013")
     INCLUDEPATH += header/msvc2013 
+	CONFIG(debug, debug|release) {
+	} else {
+	}		
 }
 win32-msvc2015 {
     message("compiling for visual studio 2015")
     INCLUDEPATH += header/msvc2015 
+	CONFIG(debug, debug|release) {
+	} else {
+	}		
 }
 win32-msvc2017 {
     message("compiling for visual studio 2017")
     INCLUDEPATH += header/msvc2017 
+	CONFIG(debug, debug|release) {
+	} else {
+	}		
 }
 unix {
    !contains(QT_ARCH, x86_64){
@@ -75,10 +87,17 @@ unix {
 
     # target.path = /usr/lib
     # INSTALLS += target
+	
+	CONFIG(debug, debug|release) {
+	} else {
+	}		
 }
 mac {
     message("compiling for mac os")
     INCLUDEPATH += header/mac
+	CONFIG(debug, debug|release) {
+	} else {
+	}		
 }
 
 ######################################################################

@@ -26,7 +26,7 @@ CONFIG += console
 CONFIG -= app_bundle
 TEMPLATE = app
 
-include($$PWD/UseQXlsx.pri) 
+include(./UseQXlsx.pri) # you can fix this file for your own project.
 
 ################################################################################
 # The following define makes your compiler emit warnings if you use
