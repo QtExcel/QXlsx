@@ -9,7 +9,8 @@
   * Because QtXlsx is no longer supported, I created a new project that os based on QtXlsx.
   * Development language of QXlsx is C++.
   * It is written for static library using Qt 5.x. (2017)
-![](markdown.data/qt-64.png) ![](markdown.data/XLSX-64.png)  
+  
+![](markdown.data/qt-64.png) ![](markdown.data/XLSX-64.png) ![](markdown.data/cxx.png)
   
 ## License
 * QXlsx is licensed under the MIT License https://opensource.org/licenses/MIT
