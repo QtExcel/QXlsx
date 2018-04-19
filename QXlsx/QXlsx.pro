@@ -46,32 +46,23 @@ DEFINES += QT_DEPRECATED_WARNINGS
 ######################################################################
 # custom setting for compiler & system
 
-win32-g++
-{
+win32-g++ {
     message("compiling for win32 g++")
-    INCLUDEPATH += header/win32-gcc # mingw32
+    INCLUDEPATH += header/win32-gcc 
 }
-
-win32-msvc2013
-{
+win32-msvc2013 {
     message("compiling for visual studio 2013")
-    INCLUDEPATH += header/msvc2013 # visual c++ 2013
+    INCLUDEPATH += header/msvc2013 
 }
-
-win32-msvc2015
-{
+win32-msvc2015 {
     message("compiling for visual studio 2015")
-    INCLUDEPATH += header/msvc2015 # visual c++ 2015
+    INCLUDEPATH += header/msvc2015 
 }
-
-win32-msvc2017
-{
+win32-msvc2017 {
     message("compiling for visual studio 2017")
-    INCLUDEPATH += header/msvc2017 # visual c++ 2017
+    INCLUDEPATH += header/msvc2017 
 }
-
-unix 
-{
+unix {
    !contains(QT_ARCH, x86_64){
        LIB=lib32
        message("compiling for 32bit linux system")
@@ -85,10 +76,8 @@ unix
     # target.path = /usr/lib
     # INSTALLS += target
 }
-
-mac 
-{
-    message("compiling for visual mac")
+mac {
+    message("compiling for mac os")
     INCLUDEPATH += header/mac
 }
 
