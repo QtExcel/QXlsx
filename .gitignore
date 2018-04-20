@@ -38,6 +38,11 @@ Makefile
 .qmake.stash
 QXlsx/debug/*
 QXlsx/release/*
+*.-1
+build-QXlsx-Desktop_Qt_5_10_1_MinGW_32bit-Debug/
+build-TestExcel-Desktop_Qt_5_10_1_MinGW_32bit-Debug/
+build-QXlsx-Desktop_Qt_5_10_1_MinGW_32bit-Release/
+build-TestExcel-Desktop_Qt_5_10_1_MinGW_32bit-Release/
 
 # visual studio
 *.pdb
