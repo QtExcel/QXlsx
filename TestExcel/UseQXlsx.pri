@@ -29,9 +29,11 @@ LIBS += -lQXlsx
 # set include & libs path for your own test environment
 
 win32-g++ {
+
+        INCLUDEPATH += "../QXlsx/header"
+
 	contains(QMAKE_HOST.arch, x86_64):{	
-		message("Host is 64bit. msys2") # we will gonna use msys2/x64
-		INCLUDEPATH += "../QXlsx/header"			
+                message("Host is 64bit. (maybe msys2)") # we will gonna use msys2/x64
 		CONFIG(debug, debug|release) {		
 			message("Host is debug mode")
 			LIBS += -L"../QXlsx/debug"
@@ -40,8 +42,7 @@ win32-g++ {
 			LIBS += -L"../QXlsx/release"
 		}
 	} else {
-		message("Host is mingw") # it can be msys or cygwin 32bit	
-		INCLUDEPATH += "../QXlsx/QXlsx/header"	
+                message("Host is mingw. (or msys1 or cygwin)") # it can be msys or cygwin 32bit
 		CONFIG(debug, debug|release) {
 			message("Host is debug mode")
 			contains(QT_VERSION, 5.6.0) {
@@ -114,6 +115,7 @@ win32-g++ {
 			}		
 		}
 	}
+
 }
 linux-g++ {
     INCLUDEPATH += "../QXlsx/header"
