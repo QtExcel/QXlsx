@@ -9,9 +9,9 @@
   * Because QtXlsx is no longer supported, I created a new project that os based on QtXlsx.
   * Development language of QXlsx is C++.
   * It is written for static library using Qt 5.x. (2017)
-  
+
 ![](markdown.data/comp.png)
-  
+
 ## License
 * QXlsx is licensed under the MIT License https://opensource.org/licenses/MIT
 * QtXlsx License (See Debao Zhang (2014) site) : https://github.com/dbzhang800/QtXlsxWriter
@@ -50,13 +50,15 @@ else
 ```sh
   git clone https://github.com/j2doll/QXlsx.git
 ```
-* Build QXlsx project 
+* Build QXlsx project
 ```sh
   cd QXlsx
   qmake QXlsx.pro
   make debug (you may use 'make release'.)
 ```
-* Build TestExcel 
+* Build TestExcel
+- You can use QXlsx.pri. then you need not to build QXlsx.pro.
+- See TestExcel.pro
 ```sh
   cd TestExcel
   qmake TestExcel.pro
@@ -69,7 +71,7 @@ else
 
 ## Test environment
 Test Environment is below.
-- Qt 5.10.1 (MSYS2/Windows 64bit)
+- Qt 5.10.1 (MingW/Windows 32bit)
 - Qt 5.9.2 (MingW/Windows 32bit)
 - Qt 5.9.1 (Visual Studio 2017/Windows 64bit)
 - Qt 5.9.1 (Visual Studio 2017/Windows 32bit)
@@ -83,7 +85,7 @@ Test Environment is below.
 
 ## To Test
 The following tests should be performed.
-- Microsoft Excel 
+- Microsoft Excel
 - Google Spreadsheet
 - LibreOffice Calc Spreasheet
 

@@ -6,7 +6,7 @@
 
 ## 엑셀 읽기/쓰기 라이브러리
 * QXlsx는 엑셀 파일(*.xlsx)을 읽고 쓰는 라이브러리입니다.
-  * QtXlsx가 더이상 지원되지 않기 때문에, QtXlsx에 기반한 새로운 프로젝트를 만들었습니다.
+  * QtXlsx가 더이상 지원되지 않기 때문에(2014), QtXlsx에 기반한 새로운 프로젝트를 만들었습니다. (2017-)
   * QXlsx는 개발언어로 C++를 사용합니다.
   * QXlsx는 Qt 5.x를 사용하는 정적 라이브러리로 제작되었습니다. (2017)
 
@@ -57,6 +57,8 @@ else
   make debug (you may use 'make release'.)
 ```
 * TestExcel 빌드
+- QXlsx.pri를 사용하면 QXlsx.pro를 빌드할 필요가 없습니다.
+- TestExcel.pro 파일을 참조하세요.
 ```sh
   cd TestExcel
   qmake TestExcel.pro
@@ -69,7 +71,7 @@ else
 
 ## 테스트 환경
 테스트된 환경은 다음과 같습니다.
-- Qt 5.10.1 (MSYS2/Windows 64bit)
+- Qt 5.10.1 (MingW/Windows 32bit)
 - Qt 5.9.2 (MingW/Windows 32bit)
 - Qt 5.9.1 (Visual Studio 2017/Windows 64bit)
 - Qt 5.9.1 (Visual Studio 2017/Windows 32bit)
