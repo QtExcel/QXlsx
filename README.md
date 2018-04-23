@@ -4,11 +4,11 @@
 
 ![](markdown.data/IMG_0016.PNG)
 
-## Excel reader/writer library
+## Excel(xlsx) reader/writer library
 * QXlsx is excel file(*.xlsx) reader/writer library.
-  * Because QtXlsx is no longer supported, I created a new project that os based on QtXlsx.
+  * Because QtXlsx is no longer supported(2014), I created a new project that os based on QtXlsx. (2017-)
   * Development language of QXlsx is C++.
-  * It is written for static library using Qt 5.x. (2017)
+  * It is written for static library using Qt 5.x. (2017-)
 
 ![](markdown.data/comp.png)
 
