@@ -2,9 +2,9 @@
 # QXlsx.pri 
 #
 # MIT License
+# https://github.com/j2doll/QXlsx
 # Author: j2doll
-# Contacts https://github.com/j2doll/QXlsx
-# e-amil   j2doll@gmail.com
+# e-amil: j2doll@gmail.com
 #-------------------------------------------------
 
 QT += core
