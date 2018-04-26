@@ -7,8 +7,8 @@
 ## Excel(xlsx) reader/writer library
 * QXlsx is excel file(*.xlsx) reader/writer library.
   * Because QtXlsx is no longer supported(2014), I created a new project that os based on QtXlsx. (2017-)
-  * Development language of QXlsx is C++.
-  * It is written for static library using Qt 5.x. (2017-)
+  * Development language of QXlsx is C++. (with Qt 5.x)
+  * It is written for non-library & non-shared object.
 
 ![](markdown.data/comp.png)
 
