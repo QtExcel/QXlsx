@@ -1,6 +1,6 @@
-# QXlsx
+# :bird: QXlsx
 
-> *Read this in other languages: [English](README.md), [한국어](README.ko.md)*
+> *Read this in other languages: [English](README.md), :kr: [한국어](README.ko.md)*
 
 ![](markdown.data/IMG_0016.PNG)
 
@@ -19,14 +19,14 @@
 
 ## Sample (Hello excel)
 
-### Writing excel file(*.xlsx)
+### :one: Writing excel file(*.xlsx)
 ```cpp
 QXlsx::Document xlsx;
 xlsx.write("A1", "Hello Qt!"); // write "Hello Qt!" to cell(A,1). it's shared string.
 xlsx.saveAs("Test.xlsx"); // save the document as 'Test.xlsx'
 ```
 
-### Reading excel file(*.xlsx)
+### :two: Reading excel file(*.xlsx)
 ```cpp
 Document xlsx("Test.xlsx"); // load excel file
 if (!xlsx.isLoadPackage()) { // failed to load excel 		
@@ -93,5 +93,5 @@ The following tests should be performed.
 
 ## Contacts
 * [https://github.com/j2doll/QXlsx](https://github.com/j2doll/QXlsx)
-* [j2doll@gmail.com](mailto:j2doll@gmail.com)
+* :email: [j2doll@gmail.com](mailto:j2doll@gmail.com)
 * Hi! I'm j2doll. My native language is not English and my English is not fluent. Please, use EASY English. :-)
