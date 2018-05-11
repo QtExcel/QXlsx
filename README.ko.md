@@ -1,4 +1,4 @@
-# QXlsx
+# :bird: QXlsx
 
 > *Read this in other languages: [English](README.md), [한국어](README.ko.md)*
 
@@ -12,21 +12,21 @@
 
 ![](markdown.data/comp.png)
 
-## 라이선스
-* QXlsx는 MIT 라이선스를 사용합니다 : https://opensource.org/licenses/MIT
-* QtXlsx 라이선스는 Debao Zhang(2014) 싸이트를 참조하십시오.  https://github.com/dbzhang800/QtXlsxWriter
-* Qt 라이선스는 Qt Company 싸이트를 참조하십시오. https://www.qt.io/developers/
+## 라이센스
+* QXlsx는 MIT 라이센스를 사용합니다 : https://opensource.org/licenses/MIT
+* QtXlsx 라이센스는 Debao Zhang(2014) 싸이트를 참조하십시오.  https://github.com/dbzhang800/QtXlsxWriter
+* Qt 라이센스는 Qt Company 싸이트를 참조하십시오. https://www.qt.io/developers/
 
 ## 활용 예제 (Hello excel)
 
-### 엑셀(xlsx) 파일 쓰기
+### :one: 엑셀(xlsx) 파일 쓰기
 ```cpp
 QXlsx::Document xlsx;
 xlsx.write("A1", "Hello Qt!"); // 셀(A,1)에 'Hello Qt!'값을 설정. 공유 문자열 타입으로 설정됨.
 xlsx.saveAs("Test.xlsx"); // 'Test.xlsx'라는 이름으로 엑셀 파일을 저장.
 ```
 
-### 엑셀(xlsx) 파일 읽기
+### :two: 엑셀(xlsx) 파일 읽기
 ```cpp
 Document xlsx("Test.xlsx"); // 엑셀 파일 읽기
 if (!xlsx.isLoadPackage()) { // 엑셀 파일 읽기 실패
@@ -93,4 +93,4 @@ else
 
 ## 문의
 * [https://github.com/j2doll/QXlsx](https://github.com/j2doll/QXlsx)
-* [j2doll@gmail.com](mailto:j2doll@gmail.com)
+* :email: [j2doll@gmail.com](mailto:j2doll@gmail.com)
