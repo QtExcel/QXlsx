@@ -56,9 +56,7 @@ else
   qmake QXlsx.pro
   make debug (you may use 'make release'.)
 ```
-* TestExcel 빌드
-- QXlsx.pri를 사용하면 QXlsx.pro를 빌드할 필요가 없습니다.
-- TestExcel.pro 파일을 참조하세요.
+* TestExcel 빌드 (QXlsx.pri를 사용하면 QXlsx.pro를 빌드할 필요가 없습니다. TestExcel.pro 파일을 참조하세요.)
 ```sh
   cd TestExcel
   qmake TestExcel.pro

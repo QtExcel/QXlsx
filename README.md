@@ -56,9 +56,7 @@ else
   qmake QXlsx.pro
   make debug (you may use 'make release'.)
 ```
-* Build TestExcel
-- You can use QXlsx.pri. then you need not to build QXlsx.pro.
-- See TestExcel.pro
+* Build TestExcel (You can use QXlsx.pri. then you need not to build QXlsx.pro. See TestExcel.pro)
 ```sh
   cd TestExcel
   qmake TestExcel.pro
