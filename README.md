@@ -1,4 +1,4 @@
-# :bird: QXlsx
+# QXlsx
 
 > *Read this in other languages: [English](README.md), :kr: [한국어](README.ko.md)*
 
