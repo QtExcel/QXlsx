@@ -45,28 +45,28 @@ else
 ```
 
 ## How to build
-:one: * Install Qt 5 from [Qt Company](https://www.qt.io) (2017-)
-:two: * Clone github source code
+* :one: Install Qt 5 from [Qt Company](https://www.qt.io) (2017-)
+* :two: Clone github source code
 ```sh
   git clone https://github.com/j2doll/QXlsx.git
 ```
-:three: * Build QXlsx project (it is main project.)
+* :three: Build QXlsx project (it is main project.)
 ```sh
   cd QXlsx
   qmake QXlsx.pro
   make debug (you may use 'make release'.)
 ```
-:four: * Build TestExcel (TestExcel is test project of QXlsx. see test code.)
+* :four: Build TestExcel (TestExcel is test project of QXlsx. see test code.)
 ```sh
   cd TestExcel
   qmake TestExcel.pro
   make
 ```
-:five: * Run TestExcel
+* :five: Run TestExcel
 ```sh
  ./TestExcel
 ```
-:pushpin: * Include QXlsx.pri and set QXlsx path value for your own qt project.
+* :pushpin: Include QXlsx.pri and set QXlsx path value for your own qt project.
 ```qmake
 # default relative path (you may not set this value. then default value will be used.)
 QXLSX_PARENTPATH=./
