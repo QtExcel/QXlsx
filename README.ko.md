@@ -1,6 +1,6 @@
 # QXlsx
 
-> *Read this in other languages: [English](README.md), [한국어](README.ko.md)*
+> *Read this in other languages: [English](README.md), :kr: [한국어](README.ko.md)*
 
 ![](markdown.data/IMG_0016.PNG)
 
@@ -45,26 +45,40 @@ else
 ```
 
 ## 빌드하는 방법
-* Qt 5 설치. [Qt Company](https://www.qt.io) (2017-)
-* github 소스 코드 클론
+:one: * Qt 5 설치. [Qt Company](https://www.qt.io) (2017-)
+:two: * github 소스 코드 클론
 ```sh
   git clone https://github.com/j2doll/QXlsx.git
 ```
-* QXlsx 프로젝트 빌드
+:three: * QXlsx 프로젝트 빌드
 ```sh
   cd QXlsx
   qmake QXlsx.pro
   make debug (you may use 'make release'.)
 ```
-* TestExcel 빌드 (QXlsx.pri를 사용하면 QXlsx.pro를 빌드할 필요가 없습니다. TestExcel.pro 파일을 참조하세요.)
+:four: * TestExcel 빌드 
 ```sh
   cd TestExcel
   qmake TestExcel.pro
   make
 ```
-* TestExcel 실행
+:five: * TestExcel 실행
 ```sh
  ./TestExcel
+```
+:pushpin: * 자신만의 Qt 프로젝트를 위한 QXlsx.pri 를 include 하고 QXlsx 경로값을 설정하세요.
+```qmake
+# default relative path (you may not set this value. then default value will be used.)
+QXLSX_PARENTPATH=./
+QXLSX_HEADERPATH=./header/
+QXLSX_SOURCEPATH=./source/
+
+# abs. directory sample
+# QXLSX_PARENTPATH=/hello/world/
+# QXLSX_HEADERPATH=/hello/world/header/
+# QXLSX_SOURCEPATH=/hello/world/source/
+
+include(../QXlsx/QXlsx.pri)
 ```
 
 ## 테스트 환경
