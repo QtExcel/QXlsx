@@ -45,7 +45,7 @@ else
 ```
 
 ## 설정하는 방법
-* [How to setup QXlsx project](HowToSetProject.ko.md)을 참조하세요.
+* [QXlsx 프로젝트 설정하는 방법](HowToSetProject.ko.md)을 참조하세요.
 
 ## 테스트 환경
 테스트된 환경은 다음과 같습니다.
