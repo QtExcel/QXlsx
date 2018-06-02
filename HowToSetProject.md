@@ -6,7 +6,7 @@
 - The method of applying it on Linux or Mac is similar, and I will write help if there is an additional request.
 - * Hi! I'm j2doll. My native language is not English and my English is not fluent. Please understand if I misunderstood the explanation :-)
 
-## Step
+## Steps to set
 
 :one: Clone source code from github
 
