@@ -1,16 +1,15 @@
 
-## How to setup QXlsx project
+## QXlsx 프로젝트 설정하는 방법
 
 > *Read this in other languages: [English](HowToSetProject.md), :kr: [한국어](HowToSetProject.ko.md)*
 
-- Here's an easy way to apply QXlsx.
-- Describes when to apply to Windows.
-- The method of applying it on Linux or Mac is similar, and I will write help if there is an additional request.
-- * Hi! I'm j2doll. My native language is not English and my English is not fluent. Please understand if I misunderstood the explanation :-)
+- QXlsx를 적용하는 쉬운 방법은 다음과 같습니다.
+- Windows에 적용하는 방법을 설명합니다.
+- Linux 또는 Mac에 적용하는 방법도 비슷하므로 추가 요청이 있으면 도움을 요청할 것입니다.
 
-## Steps to set
+## 설정 단계
 
-:one: Clone source code from github
+:one: github에서 소스 코드를 clone 합니다
 
 ```sh
 git clone https://github.com/j2doll/QXlsx.git
@@ -20,45 +19,45 @@ git clone https://github.com/j2doll/QXlsx.git
 
 <br /><br />
 
-:two: Execute QtCreator
+:two: QtCreator를 실행합니다
 
 ![](markdown.data/02.jpg)
 
-* If you don't know use QtCreator, see Qt Company site. [https://www.qt.io/qt-features-libraries-apis-tools-and-ide/](https://www.qt.io/qt-features-libraries-apis-tools-and-ide/)
+* QtCreator의 사용방법을 모르시면, Qt Company 싸이트를 참조하세요. [https://www.qt.io/qt-features-libraries-apis-tools-and-ide/](https://www.qt.io/qt-features-libraries-apis-tools-and-ide/)
 
 <br /><br />
 
-:three: Create your own Qt Project.
+:three: 여러분의 Qt 프로젝트를 생성하세요
 
 ![](markdown.data/03.jpg)
 
 <br /><br />
 
-:four: Sample is console application.
+:four: 예제는 콘솔 어플리케이션입니다
 
 ![](markdown.data/04.jpg)
 
 <br /><br />
 
-:five: Set project name. Current project name is HelloQXlsx.  
+:five: 프로젝트 이름을 정하세요. 현재 프로젝트 이름은 HelloQXlsx 입니다.
 
 ![](markdown.data/05.jpg)
 
 <br /><br />
 
-:six: HelloQXlsx project has been created.
+:six: HelloQXlsx 프로젝트가 생성되었습니다
 
 ![](markdown.data/06.jpg)
 
 <br /><br />
 
-:seven: Current directory for project
+:seven: 현재 경로
 
 ![](markdown.data/07.jpg)
 
 <br /><br />
 
-:eight: Copy QXlsx code to your app project  
+:eight: QXlsx 코드를 여러분의 Qt 프로젝트에 복사하세요. (윈도우즈 탐색기로 복사하셔도 됩니다)
 
 ![](markdown.data/08.jpg)
 
@@ -68,13 +67,13 @@ xcopy c:\workspace\github\QXlsx\QXlsx c:\workspace\HelloQXlsx /s /e
 
 <br /><br />
 
-:nine: Current directories and files for project
+:nine: 현재 디렉토리 및 파일들
 
 ![](markdown.data/09.jpg)
 
 <br /><br />
 
-:keycap_ten: Append code for QXlxs library on your Qt project(*.pro)
+:keycap_ten: 여러분의 Qt 프로젝트(*.pro)에 QXlsx 코드를 추가하세요
 
 ![](markdown.data/10.jpg)
 
@@ -88,7 +87,7 @@ include(./QXlsx.pri)
 
 <br /><br />
 
-:one::one: Set heaer files and namespace for sample. Then append hello world code.
+:one::one: 헤더 파일과 네임스페이스를 설정하세요. 그리고 예제를 위한 코드를 추가하세요
 
 ![](markdown.data/11.jpg)
 
@@ -120,13 +119,13 @@ int main(int argc, char *argv[])
 
 <br /><br />
 
-:one::two: Build and Run a project
+:one::two: 프로젝트를 빌드하고 실행하세요
 
 ![](markdown.data/12.jpg)
 
 <br /><br />
 
-:one::three: A execute file(*.exe) and a excel file(xlsx) is created.
+:one::three: 실행 파일(*.exe)과 엑셀 파일(*.xlsx) 파일이 생성되었습니다
 
 ![](markdown.data/13.jpg)
 
