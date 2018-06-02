@@ -4,6 +4,7 @@
 - Here's an easy way to apply QXlsx.
 - Describes when to apply to Windows.
 - The method of applying it on Linux or Mac is similar, and I will write help if there is an additional request.
+- * Hi! I'm j2doll. My native language is not English and my English is not fluent. Please understand if I misunderstood the explanation :-)
 
 ## Step
 
@@ -64,6 +65,3 @@ git clone https://github.com/j2doll/QXlsx.git
 13. Execute file and Excel file(xlsx) is created.
 
 ![](markdown.data/13.jpg)
-
-## Etc
-* Hi! I'm j2doll. My native language is not English and my English is not fluent. Please understand if I misunderstood the explanation :-)
