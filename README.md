@@ -45,41 +45,7 @@ else
 ```
 
 ## How to build
-* :one: Install Qt 5 from [Qt Company](https://www.qt.io) (2017-)
-* :two: Clone github source code
-```sh
-  git clone https://github.com/j2doll/QXlsx.git
-```
-* :three: Build QXlsx project (it is main project.)
-```sh
-  cd QXlsx
-  qmake QXlsx.pro
-  make debug (you may use 'make release'.)
-```
-* :four: Build TestExcel (TestExcel is test project of QXlsx. see test code.)
-```sh
-  cd TestExcel
-  qmake TestExcel.pro
-  make
-```
-* :five: Run TestExcel
-```sh
- ./TestExcel
-```
-* :pushpin: Include QXlsx.pri and set QXlsx path value for your own qt project.
-```qmake
-# default relative path (you may not set this value. then default value will be used.)
-QXLSX_PARENTPATH=./
-QXLSX_HEADERPATH=./header/
-QXLSX_SOURCEPATH=./source/
-
-# abs. directory sample
-# QXLSX_PARENTPATH=/hello/world/
-# QXLSX_HEADERPATH=/hello/world/header/
-# QXLSX_SOURCEPATH=/hello/world/source/
-
-include(../QXlsx/QXlsx.pri)
-```
+* See (How to setup QXlsx project)[HowToSetProject.md]
 
 ## Test environment
 Test Environment is below.
