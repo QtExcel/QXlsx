@@ -60,6 +60,10 @@ git clone https://github.com/j2doll/QXlsx.git
 
 ![](markdown.data/08.jpg)
 
+```cmd
+xcopy c:\workspace\github\QXlsx\QXlsx c:\workspace\HelloQXlsx /s /e
+```
+
 <br /><br />
 
 :nine: Current directories and files for project
