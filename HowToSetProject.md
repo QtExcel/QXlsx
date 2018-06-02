@@ -72,11 +72,45 @@ git clone https://github.com/j2doll/QXlsx.git
 
 ![](markdown.data/10.jpg)
 
+```qmake
+# QXlsx code for Application Qt project
+QXLSX_PARENTPATH=./         # current QXlsx path is . (. means curret directory)
+QXLSX_HEADERPATH=./header/  # current QXlsx header path is ./header/
+QXLSX_SOURCEPATH=./source/  # current QXlsx source path is ./source/
+include(./QXlsx.pri)
+```
+
 <br /><br />
 
 11. Set heaer files and namespace for sample. Then append hello world code.
 
 ![](markdown.data/11.jpg)
+
+```cpp
+// main.cpp
+
+#include <QCoreApplication>
+
+#include "xlsxdocument.h"
+#include "xlsxchartsheet.h"
+#include "xlsxcellrange.h"
+#include "xlsxchart.h"
+#include "xlsxrichstring.h"
+#include "xlsxworkbook.h"
+using namespace QXlsx;
+
+int main(int argc, char *argv[])
+{
+    QCoreApplication a(argc, argv);
+
+    QXlsx::Document xlsx;
+    xlsx.write("A1", "Hello Qt!"); // write "Hello Qt!" to cell(A,1). it's shared string.
+    xlsx.saveAs("Test.xlsx"); // save the document as 'Test.xlsx'
+
+    return 0;
+    // return a.exec();
+}
+```
 
 <br /><br />
 
