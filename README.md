@@ -45,7 +45,7 @@ else
 ```
 
 ## How to build
-* See (How to setup QXlsx project)[HowToSetProject.md]
+* See [How to setup QXlsx project](HowToSetProject.md)
 
 ## Test environment
 Test Environment is below.
