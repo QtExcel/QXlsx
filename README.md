@@ -44,7 +44,7 @@ else
 	qDebug() << row << " " << var;
 ```
 
-## How to build
+## How to set up
 * See [How to setup QXlsx project](HowToSetProject.md)
 
 ## Test environment

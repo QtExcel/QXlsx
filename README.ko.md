@@ -44,42 +44,8 @@ else
 	qDebug() << row << " " << var;
 ```
 
-## 빌드하는 방법
-* :one: Qt 5 설치. [Qt Company](https://www.qt.io) (2017-)
-* :two: github 소스 코드 클론
-```sh
-  git clone https://github.com/j2doll/QXlsx.git
-```
-* :three: QXlsx 프로젝트 빌드
-```sh
-  cd QXlsx
-  qmake QXlsx.pro
-  make debug (you may use 'make release'.)
-```
-* :four: TestExcel 빌드 
-```sh
-  cd TestExcel
-  qmake TestExcel.pro
-  make
-```
-* :five: TestExcel 실행
-```sh
- ./TestExcel
-```
-* :pushpin: 자신만의 Qt 프로젝트를 위한 QXlsx.pri 를 include 하고 QXlsx 경로값을 설정하세요.
-```qmake
-# default relative path (you may not set this value. then default value will be used.)
-QXLSX_PARENTPATH=./
-QXLSX_HEADERPATH=./header/
-QXLSX_SOURCEPATH=./source/
-
-# abs. directory sample
-# QXLSX_PARENTPATH=/hello/world/
-# QXLSX_HEADERPATH=/hello/world/header/
-# QXLSX_SOURCEPATH=/hello/world/source/
-
-include(../QXlsx/QXlsx.pri)
-```
+## 설정하는 방법
+* [QXlsx 프로젝트 설정하는 방법](HowToSetProject.ko.md)을 참조하세요.
 
 ## 테스트 환경
 테스트된 환경은 다음과 같습니다.
