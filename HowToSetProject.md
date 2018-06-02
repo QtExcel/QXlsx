@@ -72,7 +72,7 @@ xcopy c:\workspace\github\QXlsx\QXlsx c:\workspace\HelloQXlsx /s /e
 
 <br /><br />
 
-10. Append code for QXlxs library on your Qt project(*.pro)
+:keycap_ten: Append code for QXlxs library on your Qt project(*.pro)
 
 ![](markdown.data/10.jpg)
 
@@ -86,7 +86,7 @@ include(./QXlsx.pri)
 
 <br /><br />
 
-11. Set heaer files and namespace for sample. Then append hello world code.
+:one::one: Set heaer files and namespace for sample. Then append hello world code.
 
 ![](markdown.data/11.jpg)
 
@@ -118,13 +118,13 @@ int main(int argc, char *argv[])
 
 <br /><br />
 
-12. Build and Run a project
+:one::two: Build and Run a project
 
 ![](markdown.data/12.jpg)
 
 <br /><br />
 
-13. Execute file and Excel file(xlsx) is created.
+:one::three: Execute file and Excel file(xlsx) is created.
 
 ![](markdown.data/13.jpg)
 
