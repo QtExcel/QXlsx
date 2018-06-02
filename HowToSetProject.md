@@ -49,19 +49,19 @@ git clone https://github.com/j2doll/QXlsx.git
 
 ![](markdown.data/09.jpg)
 
-:ten: Append code for QXlxs library on your Qt project(*.pro)
+10. Append code for QXlxs library on your Qt project(*.pro)
 
 ![](markdown.data/10.jpg)
 
-:eleven: Set heaer files and namespace for sample. Then append hello world code.
+11. Set heaer files and namespace for sample. Then append hello world code.
 
 ![](markdown.data/11.jpg)
 
-:twelve: Build and Run a project
+12. Build and Run a project
 
 ![](markdown.data/12.jpg)
 
-:thirteen: Execute file and Excel file(xlsx) is created.
+13. Execute file and Excel file(xlsx) is created.
 
 ![](markdown.data/13.jpg)
 
