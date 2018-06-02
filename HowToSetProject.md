@@ -16,6 +16,8 @@ git clone https://github.com/j2doll/QXlsx.git
 
 ![](markdown.data/01.jpg)
 
+<br /><br />
+
 :two: Execute QtCreator
 
 ![](markdown.data/02.jpg)
