@@ -69,6 +69,9 @@ else
 
 ![](markdown.data/LibreOffice-Google-XLSX.png)
 
+## 업그레이드 할 일
+- xlsx의 암복호화 기능 개발
+
 ## 문의
 * [https://github.com/j2doll/QXlsx](https://github.com/j2doll/QXlsx)
 * :email: [j2doll@gmail.com](mailto:j2doll@gmail.com)

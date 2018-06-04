@@ -69,6 +69,9 @@ The following tests should be performed.
 
 ![](markdown.data/LibreOffice-Google-XLSX.png)
 
+## To Upgrade
+- Develop the encryption function of xlsx
+
 ## Contacts
 * [https://github.com/j2doll/QXlsx](https://github.com/j2doll/QXlsx)
 * :email: [j2doll@gmail.com](mailto:j2doll@gmail.com)
