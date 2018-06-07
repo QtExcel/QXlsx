@@ -71,6 +71,7 @@ else
 
 ## 업그레이드 할 일
 - xlsx의 암복호화 기능 개발
+- Android에서 빌드 및 테스트
 
 ## 문의
 * [https://github.com/j2doll/QXlsx](https://github.com/j2doll/QXlsx)

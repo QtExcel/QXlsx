@@ -71,6 +71,7 @@ The following tests should be performed.
 
 ## To Upgrade
 - Develop the encryption function of xlsx
+- Build and test on Android
 
 ## Contacts
 * [https://github.com/j2doll/QXlsx](https://github.com/j2doll/QXlsx)
