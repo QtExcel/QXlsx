@@ -76,3 +76,4 @@ The following tests should be performed.
 * [https://github.com/j2doll/QXlsx](https://github.com/j2doll/QXlsx)
 * :email: [j2doll@gmail.com](mailto:j2doll@gmail.com)
 * Hi! I'm j2doll. My native language is not English and my English is not fluent. Please, use EASY English. :-)
+* If you are interested in participating in the project, please contact us by email or issue
