@@ -74,6 +74,5 @@ else
 - Android에서 빌드 및 테스트
 
 ## 문의
-* [https://github.com/j2doll/QXlsx](https://github.com/j2doll/QXlsx)
-* :email: [j2doll@gmail.com](mailto:j2doll@gmail.com)
-* 프로젝트 참여에 관심이 있으신 분은 이슈 또는 이메일로 연락주세요
+* 이슈를 남겨 주세요. https://github.com/j2doll/QXlsx/issues
+* 프로젝트 참여에 관심이 있으신 분은 이슈로 연락주세요.
