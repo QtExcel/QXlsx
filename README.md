@@ -2,20 +2,18 @@
 
 > *Read this in other languages: [English](README.md), :kr: [한국어](README.ko.md)*
 
-![](markdown.data/IMG_0016.PNG)
+![](markdown.data/QXlsx2.jpg)
 
-## Excel(xlsx) reader/writer library
 * QXlsx is excel file(*.xlsx) reader/writer library.
   * Because QtXlsx is no longer supported(2014), I created a new project that is based on QtXlsx. (2017-)
   * Development language of QXlsx is C++. (with Qt 5.x)
   * You don't need to use static library or dynamic shared object using QXlsx.
 
-![](markdown.data/comp.png)
 
 ## License
-* QXlsx is licensed under the MIT License https://opensource.org/licenses/MIT
-* QtXlsx License (See Debao Zhang (2014) site) : https://github.com/dbzhang800/QtXlsxWriter
-* Qt License (See Qt Company site) : https://www.qt.io/
+* MIT License https://opensource.org/licenses/MIT
+* QtXlsx License (See Debao Zhang (2014) site) https://github.com/dbzhang800/QtXlsxWriter
+* Qt License (See Qt Company site) https://www.qt.io/
 
 ## Sample (Hello excel)
 
@@ -37,11 +35,7 @@ Cell* cell = xlsx.cellAt(row, col); // get cell pointer. (row is 1. column is 2.
 if ( cell == NULL )
 	continue; // cell vaule is not set
 QVariant var = cell->readValue(); // read cell value (number(double), QDateTime, QString ...)
-qint32 styleNo = cell->styleNumber(); // read cell style number
-if ( styleNo >= 0 )
-	qDebug() << row << " " << var << " , style:" << styleNo;
-else
-	qDebug() << row << " " << var;
+qDebug() << << var; // display value
 ```
 
 ## How to set up
@@ -75,5 +69,5 @@ The following tests should be performed.
 
 ## Contacts
 * Leave me a issue. https://github.com/j2doll/QXlsx/issues
-* Hi! I'm j2doll. My native language is not English and my English is not fluent. Please, use EASY English. :-)
+* Hi! I'm j2doll (aka Jay Two). My native language is not English and my English is not fluent. Please, use EASY English. :-)
 * If you are interested in participating in the project, please contact us by issue.

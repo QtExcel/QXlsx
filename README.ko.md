@@ -2,9 +2,8 @@
 
 > *Read this in other languages: [English](README.md), :kr: [한국어](README.ko.md)*
 
-![](markdown.data/IMG_0016.PNG)
+![](markdown.data/QXlsx2.jpg)
 
-## 엑셀(xlsx) 읽기/쓰기 라이브러리
 * QXlsx는 엑셀 파일(*.xlsx)을 읽고 쓰는 라이브러리입니다.
   * QtXlsx가 더이상 지원되지 않기 때문에(2014), QtXlsx에 기반한 새로운 프로젝트를 만들었습니다. (2017-)
   * QXlsx는 개발언어로 C++를 사용합니다. (Qt 5.x 사용)
@@ -13,7 +12,7 @@
 ![](markdown.data/comp.png)
 
 ## 라이센스
-* QXlsx는 MIT 라이센스를 사용합니다 : https://opensource.org/licenses/MIT
+* QXlsx는 MIT 라이센스를 사용합니다. https://opensource.org/licenses/MIT
 * QtXlsx 라이센스는 Debao Zhang(2014) 싸이트를 참조하십시오.  https://github.com/dbzhang800/QtXlsxWriter
 * Qt 라이센스는 Qt Company 싸이트를 참조하십시오. https://www.qt.io/developers/
 
@@ -37,11 +36,7 @@ Cell* cell = xlsx.cellAt(row, col); // Cell의 pointer를 얻음 (행(row)는 1�
 if ( cell == NULL )
 	continue; // 해당 행렬의 cell값이 설정되어 있지 않음
 QVariant var = cell->readValue(); // 셀값을 읽음 (숫자(double), 날자(QDateTime), 문자열(QString) ...)
-qint32 styleNo = cell->styleNumber(); // 셀의 스타일 번호를 읽음
-if ( styleNo >= 0 )
-	qDebug() << row << " " << var << " , style:" << styleNo;
-else
-	qDebug() << row << " " << var;
+qDebug() << << var; // 값 표시
 ```
 
 ## 설정하는 방법
