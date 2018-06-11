@@ -30,8 +30,8 @@ xlsx.saveAs("Test.xlsx"); // 'Test.xlsx'라는 이름으로 엑셀 파일을 저
 ### :two: 엑셀(xlsx) 파일 읽기
 ```cpp
 Document xlsx("Test.xlsx"); // 엑셀 파일 읽기
-if (!xlsx.isLoadPackage()) { // 엑셀 파일 읽기 실패
-	return;
+if (!xlsx.isLoadPackage()) { 
+	return; // 엑셀 파일 읽기 실패
 }
 int row = 1; int col = 2;
 Cell* cell = xlsx.cellAt(row, col); // Cell의 pointer를 얻음 (행(row)는 1번째, 열(column)은 2번째)
@@ -71,5 +71,5 @@ qDebug() << << var; // 값 표시
 - Android에서 빌드 및 테스트
 
 ## 문의
-* 이슈를 남겨 주세요. https://github.com/j2doll/QXlsx/issues
+* 이슈를 남겨 주세요. [https://github.com/j2doll/QXlsx/issues](https://github.com/j2doll/QXlsx/issues)
 * 프로젝트 참여에 관심이 있으신 분은 이슈로 연락주세요.

@@ -29,8 +29,8 @@ xlsx.saveAs("Test.xlsx"); // save the document as 'Test.xlsx'
 ### :two: Reading excel file(*.xlsx)
 ```cpp
 Document xlsx("Test.xlsx"); // load excel file
-if (!xlsx.isLoadPackage()) { // failed to load excel 		
-	return;
+if (!xlsx.isLoadPackage()) { 
+	return; // failed to load excel
 }
 int row = 1; int col = 2;
 Cell* cell = xlsx.cellAt(row, col); // get cell pointer. (row is 1. column is 2.)
@@ -70,6 +70,7 @@ The following tests should be performed.
 - Build and test on Android
 
 ## Contacts
-* Leave me a issue. https://github.com/j2doll/QXlsx/issues
-* Hi! I'm j2doll (aka Jay Two). My native language is not English and my English is not fluent. Please, use EASY English. :-)
-* If you are interested in participating in the project, please contact us by issue.
+* Leave me a issue. [https://github.com/j2doll/QXlsx/issues](https://github.com/j2doll/QXlsx/issues)
+	- If you are interested in participating in the project, please contact us by issue.
+* Hi! I'm j2doll (aka Jay Two). My name is Korean and it is difficult for foreigners to pronounce it. Call me j2doll. 
+* My native language is not English and my English is not fluent. Please, use EASY English. :-)
