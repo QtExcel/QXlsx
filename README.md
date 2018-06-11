@@ -3,7 +3,7 @@
 > *Read this in other languages: [English](README.md), :kr: [한국어](README.ko.md)*
 
 <p align="center"> 
-![](markdown.data/QXlsx2.jpg)
+<img src="markdown.data/QXlsx2.jpg">
 </p>
 
 * QXlsx is excel file(*.xlsx) reader/writer library.

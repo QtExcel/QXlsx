@@ -3,7 +3,7 @@
 > *Read this in other languages: [English](README.md), :kr: [한국어](README.ko.md)*
 
 <p align="center"> 
-![](markdown.data/QXlsx2.jpg)
+<img src="markdown.data/QXlsx2.jpg">
 </p>
 
 * QXlsx는 엑셀 파일(*.xlsx)을 읽고 쓰는 라이브러리입니다.
