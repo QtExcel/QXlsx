@@ -2,7 +2,7 @@
 
 > *Read this in other languages: [English](README.md), :kr: [한국어](README.ko.md)*
 
-![](markdown.data/QXlsx2.jpg)
+<center> ![](markdown.data/QXlsx2.jpg) </center>
 
 * QXlsx is excel file(*.xlsx) reader/writer library.
   * Because QtXlsx is no longer supported(2014), I created a new project that is based on QtXlsx. (2017-)
