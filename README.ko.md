@@ -2,9 +2,10 @@
 
 > *Read this in other languages: [English](README.md), :kr: [한국어](README.ko.md)*
 
-![](markdown.data/IMG_0016.PNG)
+<p align="center"> 
+<img src="markdown.data/QXlsx2.jpg">
+</p>
 
-## 엑셀(xlsx) 읽기/쓰기 라이브러리
 * QXlsx는 엑셀 파일(*.xlsx)을 읽고 쓰는 라이브러리입니다.
   * QtXlsx가 더이상 지원되지 않기 때문에(2014), QtXlsx에 기반한 새로운 프로젝트를 만들었습니다. (2017-)
   * QXlsx는 개발언어로 C++를 사용합니다. (Qt 5.x 사용)
@@ -13,9 +14,9 @@
 ![](markdown.data/comp.png)
 
 ## 라이센스
-* QXlsx는 MIT 라이센스를 사용합니다 : https://opensource.org/licenses/MIT
-* QtXlsx 라이센스는 Debao Zhang(2014) 싸이트를 참조하십시오.  https://github.com/dbzhang800/QtXlsxWriter
-* Qt 라이센스는 Qt Company 싸이트를 참조하십시오. https://www.qt.io/developers/
+* QXlsx는 MIT 라이센스를 사용합니다. [https://opensource.org/licenses/MIT](https://opensource.org/licenses/MIT)
+* QtXlsx 라이센스는 Debao Zhang(2014) 싸이트를 참조하십시오. [https://github.com/dbzhang800/QtXlsxWriter](https://github.com/dbzhang800/QtXlsxWriter) 
+* Qt 라이센스는 Qt Company 싸이트를 참조하십시오. [https://www.qt.io/developers/](https://www.qt.io/developers/) 
 
 ## 활용 예제 (Hello excel)
 
@@ -29,19 +30,15 @@ xlsx.saveAs("Test.xlsx"); // 'Test.xlsx'라는 이름으로 엑셀 파일을 저
 ### :two: 엑셀(xlsx) 파일 읽기
 ```cpp
 Document xlsx("Test.xlsx"); // 엑셀 파일 읽기
-if (!xlsx.isLoadPackage()) { // 엑셀 파일 읽기 실패
-	return;
+if (!xlsx.isLoadPackage()) { 
+	return; // 엑셀 파일 읽기 실패
 }
 int row = 1; int col = 2;
 Cell* cell = xlsx.cellAt(row, col); // Cell의 pointer를 얻음 (행(row)는 1번째, 열(column)은 2번째)
 if ( cell == NULL )
 	continue; // 해당 행렬의 cell값이 설정되어 있지 않음
 QVariant var = cell->readValue(); // 셀값을 읽음 (숫자(double), 날자(QDateTime), 문자열(QString) ...)
-qint32 styleNo = cell->styleNumber(); // 셀의 스타일 번호를 읽음
-if ( styleNo >= 0 )
-	qDebug() << row << " " << var << " , style:" << styleNo;
-else
-	qDebug() << row << " " << var;
+qDebug() << << var; // 값 표시
 ```
 
 ## 설정하는 방법
@@ -74,5 +71,5 @@ else
 - Android에서 빌드 및 테스트
 
 ## 문의
-* 이슈를 남겨 주세요. https://github.com/j2doll/QXlsx/issues
+* 이슈를 남겨 주세요. [https://github.com/j2doll/QXlsx/issues](https://github.com/j2doll/QXlsx/issues)
 * 프로젝트 참여에 관심이 있으신 분은 이슈로 연락주세요.
