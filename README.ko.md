@@ -12,9 +12,9 @@
 ![](markdown.data/comp.png)
 
 ## 라이센스
-* QXlsx는 MIT 라이센스를 사용합니다. https://opensource.org/licenses/MIT
-* QtXlsx 라이센스는 Debao Zhang(2014) 싸이트를 참조하십시오.  https://github.com/dbzhang800/QtXlsxWriter
-* Qt 라이센스는 Qt Company 싸이트를 참조하십시오. https://www.qt.io/developers/
+* QXlsx는 MIT 라이센스를 사용합니다. [https://opensource.org/licenses/MIT](https://opensource.org/licenses/MIT)
+* QtXlsx 라이센스는 Debao Zhang(2014) 싸이트를 참조하십시오. [https://github.com/dbzhang800/QtXlsxWriter](https://github.com/dbzhang800/QtXlsxWriter) 
+* Qt 라이센스는 Qt Company 싸이트를 참조하십시오. [https://www.qt.io/developers/](https://www.qt.io/developers/) 
 
 ## 활용 예제 (Hello excel)
 

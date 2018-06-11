@@ -11,9 +11,9 @@
 
 
 ## License
-* MIT License https://opensource.org/licenses/MIT
-* QtXlsx License (See Debao Zhang (2014) site) https://github.com/dbzhang800/QtXlsxWriter
-* Qt License (See Qt Company site) https://www.qt.io/
+* MIT License [https://opensource.org/licenses/MIT](https://opensource.org/licenses/MIT)
+* QtXlsx License (See Debao Zhang (2014) site) [https://github.com/dbzhang800/QtXlsxWriter](https://github.com/dbzhang800/QtXlsxWriter)
+* Qt License (See Qt Company site) [https://www.qt.io/](https://www.qt.io/) 
 
 ## Sample (Hello excel)
 
