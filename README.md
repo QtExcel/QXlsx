@@ -37,7 +37,7 @@ Cell* cell = xlsx.cellAt(row, col); // get cell pointer. (row is 1. column is 2.
 if ( cell == NULL )
 	continue; // cell vaule is not set
 QVariant var = cell->readValue(); // read cell value (number(double), QDateTime, QString ...)
-qDebug() << << var; // display value
+qDebug() << var; // display value
 ```
 
 ## How to set up
@@ -58,12 +58,14 @@ Test Environment is below.
 - Qt 5.0.1 (MingW/Windows 32bit)
 
 ## To Test
-The following tests should be performed.
-- Microsoft Excel
-- Google Spreadsheet
-- LibreOffice Calc Spreasheet
+- The following tests should be performed.
+	- Microsoft Excel
+	- Google Spreadsheet
+	- LibreOffice Calc Spreasheet
 
 ![](markdown.data/LibreOffice-Google-XLSX.png)
+
+- Unicode test ( :cloud: filename, :cloud: filepath, :sunny: data value)
 
 ## To Upgrade
 - Develop the encryption function of xlsx
@@ -74,3 +76,9 @@ The following tests should be performed.
 	- If you are interested in participating in the project, please contact us by issue.
 * Hi! I'm j2doll (aka Jay Two). My name is Korean and it is difficult for foreigners to pronounce it. Call me j2doll. 
 * My native language is not English and my English is not fluent. Please, use EASY English. :-)
+
+## Similar projects I'm going on
+* Qxlnt [https://github.com/j2doll/Qxlnt.git](https://github.com/j2doll/Qxlnt.git)
+	- Qxlnt is a helper project that allows xlnt to be used in Qt.
+	- xlnt is a excellent library for usinf xlsx Excel files.
+	- I was looking for a way to make it easy to use in Qt. Of course, cmake is compatible with Qt, but it is not convenient to use. So I created Qxlnt.
