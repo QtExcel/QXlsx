@@ -61,6 +61,8 @@
 #endif
 #endif
 
+#include <QMessageBox>
+
 #include "spreadsheet.h"
 #include "spreadsheetdelegate.h"
 #include "spreadsheetitem.h"
@@ -622,7 +624,10 @@ void SpreadSheet::setupContents()
     QXlsx::Document xlsx("ss-test.xlsx");
     if (!xlsx.isLoadPackage())
     {
-        qDebug() << "Failed to load xlsx.";
+        QMessageBox msgBox;
+        msgBox.setText("Copy ss-test.xlsx to current Qt build project. (such as build-spreadsheet-Desktop...)");
+        msgBox.exec();
+
         return;
     }
 
