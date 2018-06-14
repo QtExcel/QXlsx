@@ -66,6 +66,16 @@
 #include "spreadsheetitem.h"
 #include "printview.h"
 
+// QXlsx
+#include "xlsxdocument.h"
+#include "xlsxchartsheet.h"
+#include "xlsxcellrange.h"
+#include "xlsxchart.h"
+#include "xlsxrichstring.h"
+#include "xlsxworkbook.h"
+
+using namespace QXlsx;
+
 SpreadSheet::SpreadSheet(int rows, int cols, QWidget *parent)
         : QMainWindow(parent)
 {
@@ -490,6 +500,8 @@ void SpreadSheet::setupContextMenu()
 
 void SpreadSheet::setupContents()
 {
+    /* // coding by Qt Company
+
     QColor titleBackground(Qt::lightGray);
     QFont titleFont = table->font();
     titleFont.setBold(true);
@@ -602,6 +614,58 @@ void SpreadSheet::setupContents()
 
     table->setItem(9, 5, new SpreadSheetItem("sum F2 F9"));
     table->item(9,5)->setBackgroundColor(Qt::lightGray);
+
+    //*/
+
+    // test code for sample
+
+    QXlsx::Document xlsx("ss-test.xlsx");
+    if (!xlsx.isLoadPackage())
+    {
+        qDebug() << "Failed to load xlsx.";
+        return;
+    }
+
+    for ( int row = 1 ; row <= 10 ; ++row )
+    {
+        for ( int col = 1 ; col <= 6 ; ++col )
+        {
+            int displayCol = col - 1;
+            int displayRow = row - 1;
+
+            Cell* cell = xlsx.cellAt(row, col);
+            if (cell == NULL)
+            {
+                table->item(displayRow, displayCol)->setBackgroundColor(Qt::yellow);
+                continue;
+            }
+
+            QVariant var = cell->readValue();
+            switch( var.type() )
+            {
+                case QVariant::String :
+                {
+                    QString strVar = var.toString();
+                    table->setItem( displayRow, displayCol, new SpreadSheetItem(strVar));
+                }
+                break;
+
+                case QVariant::Int :
+                case QVariant::UInt :
+                case QVariant::LongLong :
+                case QVariant::ULongLong :
+                case QVariant::Double :
+                {
+                    double dVar = var.toDouble();
+                    QString strVar = var.toString();
+                    table->setItem( displayRow, displayCol, new SpreadSheetItem( strVar ));
+                }
+                break;
+
+            }
+        }
+    }
+
 }
 
 const char *htmlText =
