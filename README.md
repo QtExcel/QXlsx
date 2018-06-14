@@ -58,12 +58,14 @@ Test Environment is below.
 - Qt 5.0.1 (MingW/Windows 32bit)
 
 ## To Test
-The following tests should be performed.
-- Microsoft Excel
-- Google Spreadsheet
-- LibreOffice Calc Spreasheet
+- The following tests should be performed.
+	- Microsoft Excel
+	- Google Spreadsheet
+	- LibreOffice Calc Spreasheet
 
 ![](markdown.data/LibreOffice-Google-XLSX.png)
+
+- Unicode test ( :cloud: filename, :cloud: filepath, :sunny: data value)
 
 ## To Upgrade
 - Develop the encryption function of xlsx
