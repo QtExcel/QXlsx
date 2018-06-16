@@ -1,53 +1,6 @@
-/****************************************************************************
-**
-** Copyright (C) 2016 The Qt Company Ltd.
-** Contact: https://www.qt.io/licensing/
-**
-** This file is part of the demonstration applications of the Qt Toolkit.
-**
-** $QT_BEGIN_LICENSE:BSD$
-** Commercial License Usage
-** Licensees holding valid commercial Qt licenses may use this file in
-** accordance with the commercial license agreement provided with the
-** Software or, alternatively, in accordance with the terms contained in
-** a written agreement between you and The Qt Company. For licensing terms
-** and conditions see https://www.qt.io/terms-conditions. For further
-** information use the contact form at https://www.qt.io/contact-us.
-**
-** BSD License Usage
-** Alternatively, you may use this file under the terms of the BSD license
-** as follows:
-**
-** "Redistribution and use in source and binary forms, with or without
-** modification, are permitted provided that the following conditions are
-** met:
-**   * Redistributions of source code must retain the above copyright
-**     notice, this list of conditions and the following disclaimer.
-**   * Redistributions in binary form must reproduce the above copyright
-**     notice, this list of conditions and the following disclaimer in
-**     the documentation and/or other materials provided with the
-**     distribution.
-**   * Neither the name of The Qt Company Ltd nor the names of its
-**     contributors may be used to endorse or promote products derived
-**     from this software without specific prior written permission.
-**
-**
-** THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-** "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-** LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-** A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
-** OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-** SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-** LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-** DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
-** THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-** (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-** OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."
-**
-** $QT_END_LICENSE$
-**
-****************************************************************************/
+// (c) The Qt Company Ltd. BSD License
 // Some code is fixed by j2doll.
+
 
 #include <QtWidgets>
 #if defined(QT_PRINTSUPPORT_LIB)
@@ -61,6 +14,7 @@
 #endif
 #endif
 
+#include <QProcess>
 #include <QMessageBox>
 
 #include "spreadsheet.h"
@@ -77,6 +31,8 @@
 #include "xlsxworkbook.h"
 
 using namespace QXlsx;
+
+extern QApplication* g_app;
 
 SpreadSheet::SpreadSheet(int rows, int cols, QWidget *parent)
         : QMainWindow(parent)
@@ -502,132 +458,16 @@ void SpreadSheet::setupContextMenu()
 
 void SpreadSheet::setupContents()
 {
-    /* // coding by Qt Company
-
-    QColor titleBackground(Qt::lightGray);
-    QFont titleFont = table->font();
-    titleFont.setBold(true);
-
-    // column 0
-    table->setItem(0, 0, new SpreadSheetItem("Item"));
-    table->item(0, 0)->setBackgroundColor(titleBackground);
-    table->item(0, 0)->setToolTip("This column shows the purchased item/service");
-    table->item(0, 0)->setFont(titleFont);
-
-    table->setItem(1, 0, new SpreadSheetItem("AirportBus"));
-    table->setItem(2, 0, new SpreadSheetItem("Flight (Munich)"));
-    table->setItem(3, 0, new SpreadSheetItem("Lunch"));
-    table->setItem(4, 0, new SpreadSheetItem("Flight (LA)"));
-    table->setItem(5, 0, new SpreadSheetItem("Taxi"));
-    table->setItem(6, 0, new SpreadSheetItem("Dinner"));
-    table->setItem(7, 0, new SpreadSheetItem("Hotel"));
-    table->setItem(8, 0, new SpreadSheetItem("Flight (Oslo)"));
-    table->setItem(9, 0, new SpreadSheetItem("Total:"));
-
-    table->item(9, 0)->setFont(titleFont);
-    table->item(9, 0)->setBackgroundColor(Qt::lightGray);
-
-    // column 1
-    table->setItem(0, 1, new SpreadSheetItem("Date"));
-    table->item(0, 1)->setBackgroundColor(titleBackground);
-    table->item(0, 1)->setToolTip("This column shows the purchase date, double click to change");
-    table->item(0, 1)->setFont(titleFont);
-
-    table->setItem(1, 1, new SpreadSheetItem("15/6/2006"));
-    table->setItem(2, 1, new SpreadSheetItem("15/6/2006"));
-    table->setItem(3, 1, new SpreadSheetItem("15/6/2006"));
-    table->setItem(4, 1, new SpreadSheetItem("21/5/2006"));
-    table->setItem(5, 1, new SpreadSheetItem("16/6/2006"));
-    table->setItem(6, 1, new SpreadSheetItem("16/6/2006"));
-    table->setItem(7, 1, new SpreadSheetItem("16/6/2006"));
-    table->setItem(8, 1, new SpreadSheetItem("18/6/2006"));
-
-    table->setItem(9, 1, new SpreadSheetItem());
-    table->item(9, 1)->setBackgroundColor(Qt::lightGray);
-
-    // column 2
-    table->setItem(0, 2, new SpreadSheetItem("Price"));
-    table->item(0, 2)->setBackgroundColor(titleBackground);
-    table->item(0, 2)->setToolTip("This column shows the price of the purchase");
-    table->item(0, 2)->setFont(titleFont);
-
-    table->setItem(1, 2, new SpreadSheetItem("150"));
-    table->setItem(2, 2, new SpreadSheetItem("2350"));
-    table->setItem(3, 2, new SpreadSheetItem("-14"));
-    table->setItem(4, 2, new SpreadSheetItem("980"));
-    table->setItem(5, 2, new SpreadSheetItem("5"));
-    table->setItem(6, 2, new SpreadSheetItem("120"));
-    table->setItem(7, 2, new SpreadSheetItem("300"));
-    table->setItem(8, 2, new SpreadSheetItem("1240"));
-
-    table->setItem(9, 2, new SpreadSheetItem());
-    table->item(9, 2)->setBackgroundColor(Qt::lightGray);
-
-    // column 3
-    table->setItem(0, 3, new SpreadSheetItem("Currency"));
-    table->item(0, 3)->setBackgroundColor(titleBackground);
-    table->item(0, 3)->setToolTip("This column shows the currency");
-    table->item(0, 3)->setFont(titleFont);
-
-    table->setItem(1, 3, new SpreadSheetItem("NOK"));
-    table->setItem(2, 3, new SpreadSheetItem("NOK"));
-    table->setItem(3, 3, new SpreadSheetItem("EUR"));
-    table->setItem(4, 3, new SpreadSheetItem("EUR"));
-    table->setItem(5, 3, new SpreadSheetItem("USD"));
-    table->setItem(6, 3, new SpreadSheetItem("USD"));
-    table->setItem(7, 3, new SpreadSheetItem("USD"));
-    table->setItem(8, 3, new SpreadSheetItem("USD"));
-
-    table->setItem(9, 3, new SpreadSheetItem());
-    table->item(9,3)->setBackgroundColor(Qt::lightGray);
-
-    // column 4
-    table->setItem(0, 4, new SpreadSheetItem("Ex. Rate"));
-    table->item(0, 4)->setBackgroundColor(titleBackground);
-    table->item(0, 4)->setToolTip("This column shows the exchange rate to NOK");
-    table->item(0, 4)->setFont(titleFont);
-
-    table->setItem(1, 4, new SpreadSheetItem("1"));
-    table->setItem(2, 4, new SpreadSheetItem("1"));
-    table->setItem(3, 4, new SpreadSheetItem("8"));
-    table->setItem(4, 4, new SpreadSheetItem("8"));
-    table->setItem(5, 4, new SpreadSheetItem("7"));
-    table->setItem(6, 4, new SpreadSheetItem("7"));
-    table->setItem(7, 4, new SpreadSheetItem("7"));
-    table->setItem(8, 4, new SpreadSheetItem("7"));
-
-    table->setItem(9, 4, new SpreadSheetItem());
-    table->item(9,4)->setBackgroundColor(Qt::lightGray);
-
-    // column 5
-    table->setItem(0, 5, new SpreadSheetItem("NOK"));
-    table->item(0, 5)->setBackgroundColor(titleBackground);
-    table->item(0, 5)->setToolTip("This column shows the expenses in NOK");
-    table->item(0, 5)->setFont(titleFont);
-
-    table->setItem(1, 5, new SpreadSheetItem("* C2 E2"));
-    table->setItem(2, 5, new SpreadSheetItem("* C3 E3"));
-    table->setItem(3, 5, new SpreadSheetItem("* C4 E4"));
-    table->setItem(4, 5, new SpreadSheetItem("* C5 E5"));
-    table->setItem(5, 5, new SpreadSheetItem("* C6 E6"));
-    table->setItem(6, 5, new SpreadSheetItem("* C7 E7"));
-    table->setItem(7, 5, new SpreadSheetItem("* C8 E8"));
-    table->setItem(8, 5, new SpreadSheetItem("* C9 E9"));
-
-    table->setItem(9, 5, new SpreadSheetItem("sum F2 F9"));
-    table->item(9,5)->setBackgroundColor(Qt::lightGray);
-
-    //*/
-
     // test code for sample
 
     QXlsx::Document xlsx("ss-test.xlsx");
     if (!xlsx.isLoadPackage())
     {
         QMessageBox msgBox;
-        msgBox.setText("Copy ss-test.xlsx to current Qt build project. (such as build-spreadsheet-Desktop...)");
+        msgBox.setText("Copy ss-test.xlsx to current Qt build project.");
         msgBox.exec();
 
+        exit(EXIT_FAILURE);
         return;
     }
 
@@ -646,28 +486,7 @@ void SpreadSheet::setupContents()
             }
 
             QVariant var = cell->readValue();
-            switch( var.type() )
-            {
-                case QVariant::String :
-                {
-                    QString strVar = var.toString();
-                    table->setItem( displayRow, displayCol, new SpreadSheetItem(strVar));
-                }
-                break;
-
-                case QVariant::Int :
-                case QVariant::UInt :
-                case QVariant::LongLong :
-                case QVariant::ULongLong :
-                case QVariant::Double :
-                {
-                    double dVar = var.toDouble();
-                    QString strVar = var.toString();
-                    table->setItem( displayRow, displayCol, new SpreadSheetItem( strVar ));
-                }
-                break;
-
-            }
+            setVariableValueOnTable(var, displayRow, displayCol);
         }
     }
 
@@ -722,3 +541,163 @@ void SpreadSheet::print()
 #endif
 }
 
+void SpreadSheet::setVariableValueOnTable(QVariant var, int displayRow, int displayCol)
+{
+    switch( var.type() )
+    {
+        case QVariant::String :
+        {
+            QString strVar = var.toString();
+            table->setItem( displayRow, displayCol, new SpreadSheetItem(strVar));
+        }
+        break;
+
+        case QVariant::Int :
+        case QVariant::UInt :
+        case QVariant::LongLong :
+        case QVariant::ULongLong :
+        case QVariant::Double :
+        {
+            double dVar = var.toDouble();
+            QString strVar = var.toString();
+            table->setItem( displayRow, displayCol, new SpreadSheetItem( strVar ));
+        }
+        break;
+
+        case QVariant::DateTime :
+        {
+
+        }
+        break;
+
+        case QVariant::Date :
+        {
+
+        }
+        break;
+
+        case QVariant::Time :
+        {
+
+        }
+        break;
+
+    }
+}
+
+/*
+
+QColor titleBackground(Qt::lightGray);
+QFont titleFont = table->font();
+titleFont.setBold(true);
+
+// column 0
+table->setItem(0, 0, new SpreadSheetItem("Item"));
+table->item(0, 0)->setBackgroundColor(titleBackground);
+table->item(0, 0)->setToolTip("This column shows the purchased item/service");
+table->item(0, 0)->setFont(titleFont);
+
+table->setItem(1, 0, new SpreadSheetItem("AirportBus"));
+table->setItem(2, 0, new SpreadSheetItem("Flight (Munich)"));
+table->setItem(3, 0, new SpreadSheetItem("Lunch"));
+table->setItem(4, 0, new SpreadSheetItem("Flight (LA)"));
+table->setItem(5, 0, new SpreadSheetItem("Taxi"));
+table->setItem(6, 0, new SpreadSheetItem("Dinner"));
+table->setItem(7, 0, new SpreadSheetItem("Hotel"));
+table->setItem(8, 0, new SpreadSheetItem("Flight (Oslo)"));
+table->setItem(9, 0, new SpreadSheetItem("Total:"));
+
+table->item(9, 0)->setFont(titleFont);
+table->item(9, 0)->setBackgroundColor(Qt::lightGray);
+
+// column 1
+table->setItem(0, 1, new SpreadSheetItem("Date"));
+table->item(0, 1)->setBackgroundColor(titleBackground);
+table->item(0, 1)->setToolTip("This column shows the purchase date, double click to change");
+table->item(0, 1)->setFont(titleFont);
+
+table->setItem(1, 1, new SpreadSheetItem("15/6/2006"));
+table->setItem(2, 1, new SpreadSheetItem("15/6/2006"));
+table->setItem(3, 1, new SpreadSheetItem("15/6/2006"));
+table->setItem(4, 1, new SpreadSheetItem("21/5/2006"));
+table->setItem(5, 1, new SpreadSheetItem("16/6/2006"));
+table->setItem(6, 1, new SpreadSheetItem("16/6/2006"));
+table->setItem(7, 1, new SpreadSheetItem("16/6/2006"));
+table->setItem(8, 1, new SpreadSheetItem("18/6/2006"));
+
+table->setItem(9, 1, new SpreadSheetItem());
+table->item(9, 1)->setBackgroundColor(Qt::lightGray);
+
+// column 2
+table->setItem(0, 2, new SpreadSheetItem("Price"));
+table->item(0, 2)->setBackgroundColor(titleBackground);
+table->item(0, 2)->setToolTip("This column shows the price of the purchase");
+table->item(0, 2)->setFont(titleFont);
+
+table->setItem(1, 2, new SpreadSheetItem("150"));
+table->setItem(2, 2, new SpreadSheetItem("2350"));
+table->setItem(3, 2, new SpreadSheetItem("-14"));
+table->setItem(4, 2, new SpreadSheetItem("980"));
+table->setItem(5, 2, new SpreadSheetItem("5"));
+table->setItem(6, 2, new SpreadSheetItem("120"));
+table->setItem(7, 2, new SpreadSheetItem("300"));
+table->setItem(8, 2, new SpreadSheetItem("1240"));
+
+table->setItem(9, 2, new SpreadSheetItem());
+table->item(9, 2)->setBackgroundColor(Qt::lightGray);
+
+// column 3
+table->setItem(0, 3, new SpreadSheetItem("Currency"));
+table->item(0, 3)->setBackgroundColor(titleBackground);
+table->item(0, 3)->setToolTip("This column shows the currency");
+table->item(0, 3)->setFont(titleFont);
+
+table->setItem(1, 3, new SpreadSheetItem("NOK"));
+table->setItem(2, 3, new SpreadSheetItem("NOK"));
+table->setItem(3, 3, new SpreadSheetItem("EUR"));
+table->setItem(4, 3, new SpreadSheetItem("EUR"));
+table->setItem(5, 3, new SpreadSheetItem("USD"));
+table->setItem(6, 3, new SpreadSheetItem("USD"));
+table->setItem(7, 3, new SpreadSheetItem("USD"));
+table->setItem(8, 3, new SpreadSheetItem("USD"));
+
+table->setItem(9, 3, new SpreadSheetItem());
+table->item(9,3)->setBackgroundColor(Qt::lightGray);
+
+// column 4
+table->setItem(0, 4, new SpreadSheetItem("Ex. Rate"));
+table->item(0, 4)->setBackgroundColor(titleBackground);
+table->item(0, 4)->setToolTip("This column shows the exchange rate to NOK");
+table->item(0, 4)->setFont(titleFont);
+
+table->setItem(1, 4, new SpreadSheetItem("1"));
+table->setItem(2, 4, new SpreadSheetItem("1"));
+table->setItem(3, 4, new SpreadSheetItem("8"));
+table->setItem(4, 4, new SpreadSheetItem("8"));
+table->setItem(5, 4, new SpreadSheetItem("7"));
+table->setItem(6, 4, new SpreadSheetItem("7"));
+table->setItem(7, 4, new SpreadSheetItem("7"));
+table->setItem(8, 4, new SpreadSheetItem("7"));
+
+table->setItem(9, 4, new SpreadSheetItem());
+table->item(9,4)->setBackgroundColor(Qt::lightGray);
+
+// column 5
+table->setItem(0, 5, new SpreadSheetItem("NOK"));
+table->item(0, 5)->setBackgroundColor(titleBackground);
+table->item(0, 5)->setToolTip("This column shows the expenses in NOK");
+table->item(0, 5)->setFont(titleFont);
+
+table->setItem(1, 5, new SpreadSheetItem("* C2 E2"));
+table->setItem(2, 5, new SpreadSheetItem("* C3 E3"));
+table->setItem(3, 5, new SpreadSheetItem("* C4 E4"));
+table->setItem(4, 5, new SpreadSheetItem("* C5 E5"));
+table->setItem(5, 5, new SpreadSheetItem("* C6 E6"));
+table->setItem(6, 5, new SpreadSheetItem("* C7 E7"));
+table->setItem(7, 5, new SpreadSheetItem("* C8 E8"));
+table->setItem(8, 5, new SpreadSheetItem("* C9 E9"));
+
+table->setItem(9, 5, new SpreadSheetItem("sum F2 F9"));
+table->item(9,5)->setBackgroundColor(Qt::lightGray);
+
+//*/

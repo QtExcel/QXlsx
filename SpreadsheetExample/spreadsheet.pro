@@ -1,7 +1,11 @@
 #
 # spreadsheet.pro 
-# main code from qt example. https://www.qt.io
-# 
+#
+# main code from qt example. https://www.qt.io (c) The Qt Company Ltd.
+# BSD License
+#
+# Some code is fixed by j2doll.
+#
 
 QT += widgets
 
@@ -14,27 +18,19 @@ QXLSX_SOURCEPATH=../QXlsx/source/
 include(../QXlsx/QXlsx.pri)
 
 HEADERS += \
-	printview.h \
-	spreadsheet.h \
-	spreadsheetdelegate.h \
-	spreadsheetitem.h
+printview.h \
+spreadsheet.h \
+spreadsheetdelegate.h \
+spreadsheetitem.h
 
 SOURCES += \
-	main.cpp \
-	printview.cpp \
-	spreadsheet.cpp \
-	spreadsheetdelegate.cpp \
-	spreadsheetitem.cpp
+main.cpp \
+printview.cpp \
+spreadsheet.cpp \
+spreadsheetdelegate.cpp \
+spreadsheetitem.cpp
 
 RESOURCES += \
-	spreadsheet.qrc
+spreadsheet.qrc
 
-build_all:!build_pass {
-    CONFIG -= build_all
-    CONFIG += release
-}
-
-# install
-# target.path = $$[QT_INSTALL_EXAMPLES]/widgets/itemviews/spreadsheet
-# INSTALLS += target
 
