@@ -12,7 +12,7 @@
   * You don't need to use static library or dynamic shared object using QXlsx.
 
 
-## License
+## License and links
 * MIT License [https://opensource.org/licenses/MIT](https://opensource.org/licenses/MIT)
 * QtXlsx License (See Debao Zhang (2014) site) [https://github.com/dbzhang800/QtXlsxWriter](https://github.com/dbzhang800/QtXlsxWriter)
 * Qt License (See Qt Company site) [https://www.qt.io/](https://www.qt.io/) 
@@ -71,12 +71,12 @@ Test Environment is below.
 - Develop the encryption function of xlsx
 - Build and test on Android
 
-## Contacts
+## Contact
+* Hi! I'm j2doll (aka Jay Two). My name is Korean and it is difficult for foreigners to pronounce it. Call me j2doll.
 * Leave me a issue. [https://github.com/j2doll/QXlsx/issues](https://github.com/j2doll/QXlsx/issues)
 	- If you are interested in participating in the project, please contact us by issue.
-* Hi! I'm j2doll (aka Jay Two). My name is Korean and it is difficult for foreigners to pronounce it. Call me j2doll. 
-* My native language is not English and my English is not fluent. Please, use EASY English. :-)
-
+	- My native language is not English and my English is not fluent. Please, use EASY English. :-)
+	
 ## Similar projects I'm going on
 * Qxlnt [https://github.com/j2doll/Qxlnt.git](https://github.com/j2doll/Qxlnt.git)
 	- Qxlnt is a helper project that allows xlnt to be used in Qt.
