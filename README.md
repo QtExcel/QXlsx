@@ -78,7 +78,7 @@ Test Environment is below.
 	- My native language is not English and my English is not fluent. Please, use EASY English. :-)
 	
 ## Similar projects I'm going on
-* Qxlnt [https://github.com/j2doll/Qxlnt.git](https://github.com/j2doll/Qxlnt.git)
+* Qxlnt [https://github.com/j2doll/Qxlnt](https://github.com/j2doll/Qxlnt)
 	- Qxlnt is a helper project that allows xlnt to be used in Qt.
 	- xlnt is a excellent library for usinf xlsx Excel files.
 	- I was looking for a way to make it easy to use in Qt. Of course, cmake is compatible with Qt, but it is not convenient to use. So I created Qxlnt.
