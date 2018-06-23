@@ -81,7 +81,7 @@ qDebug() << var; // display value
 	- If you are interested in participating in the project, please contact us by issue.
 	- My native language is not English and my English is not fluent. Please, use EASY English. :-)
 	
-## Similar projects I'm going on
+## Similar projects going on
 * Qxlnt [https://github.com/j2doll/Qxlnt](https://github.com/j2doll/Qxlnt)
 	- Qxlnt is a helper project that allows xlnt to be used in Qt.
 	- xlnt is a excellent library for usinf xlsx Excel files.

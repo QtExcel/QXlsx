@@ -79,7 +79,7 @@ qDebug() << var; // 값 표시
 * 이슈를 남겨 주세요. [https://github.com/j2doll/QXlsx/issues](https://github.com/j2doll/QXlsx/issues)
 * 프로젝트 참여에 관심이 있으신 분은 이슈로 연락주세요.
 
-## 내가 진행하는 유사한 프로젝트
+## 진행하는 유사한 프로젝트
 * Qxlnt [https://github.com/j2doll/Qxlnt](https://github.com/j2doll/Qxlnt)
 	- Qxlnt는 xlnt가 Qt에서 사용될 수있게 해주는 도우미 프로젝트입니다.
 	- xlnt는 xlsx Excel 파일을 사용하기에 훌륭한 라이브러리입니다. 
