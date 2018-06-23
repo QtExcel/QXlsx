@@ -69,8 +69,8 @@ qDebug() << var; // display value
 - Build and test on Android
 
 ## License and links
-* [![License](https://img.shields.io/badge/license-MIT-blue.svg)]() MIT License [https://opensource.org/licenses/MIT](https://opensource.org/licenses/MIT)
-* QtXlsx License (See Debao Zhang (2014) site) [https://github.com/dbzhang800/QtXlsxWriter](https://github.com/dbzhang800/QtXlsxWriter)
+* ![](https://img.shields.io/badge/license-MIT-blue.svg) MIT License [https://opensource.org/licenses/MIT](https://opensource.org/licenses/MIT)
+* ![](https://img.shields.io/badge/license-MIT-blue.svg) QtXlsx License (See Debao Zhang (2014) site) [https://github.com/dbzhang800/QtXlsxWriter](https://github.com/dbzhang800/QtXlsxWriter)
 * Qt License (See Qt Company site) [https://www.qt.io/](https://www.qt.io/) 
 
 ## Contact
