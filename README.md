@@ -12,7 +12,8 @@
   * You don't need to use static library or dynamic shared object using QXlsx.
 
 
-![](https://img.shields.io/badge/Built%20with-Qt5-green.svg)
+[![Built-with-Qt5-Badge](https://img.shields.io/badge/Built%20with-Qt5-green.svg)](https://www.qt.io/)
+
 
 ## Sample (Hello excel)
 
