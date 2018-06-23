@@ -66,11 +66,11 @@ qDebug() << var; // display value
 
 - Unicode test ( :cloud: filename, :cloud: filepath, :sunny: data value)
 
-## To Upgrade
+## :hammer: To Upgrade
 - Develop the encryption function of xlsx
 - Build and test on Android
 
-## License and links
+## :link: License and links
 * ![](https://img.shields.io/badge/license-MIT-blue.svg) MIT License [https://opensource.org/licenses/MIT](https://opensource.org/licenses/MIT)
 * ![](https://img.shields.io/badge/license-MIT-blue.svg) QtXlsx License (See Debao Zhang (2014) site) [https://github.com/dbzhang800/QtXlsxWriter](https://github.com/dbzhang800/QtXlsxWriter)
 * Qt License (See Qt Company site) [https://www.qt.io/](https://www.qt.io/) 
@@ -81,7 +81,7 @@ qDebug() << var; // display value
 	- If you are interested in participating in the project, please contact us by issue.
 	- My native language is not English and my English is not fluent. Please, use EASY English. :-)
 	
-## Similar projects going on
+## :star: Similar projects going on
 * Qxlnt [https://github.com/j2doll/Qxlnt](https://github.com/j2doll/Qxlnt)
 	- Qxlnt is a helper project that allows xlnt to be used in Qt.
 	- xlnt is a excellent library for usinf xlsx Excel files.
