@@ -6,17 +6,13 @@
 <img src="markdown.data/QXlsx2.jpg">
 </p>
 
+[![Built-with-Qt5-Badge](https://img.shields.io/badge/Built%20with-Qt5-green.svg)](https://www.qt.io/) [![Built-with-cpp-Badge](https://img.shields.io/badge/Built%20with-C%2B%2B-green.svg)](https://isocpp.org/) [![Xlsx-Badge](https://img.shields.io/badge/Library-xlsx-blue.svg)](https://www.ecma-international.org/publications/standards/Ecma-376.htm)
+
 * QXlsx는 엑셀 파일(*.xlsx)을 읽고 쓰는 라이브러리입니다.
   * QtXlsx가 더이상 지원되지 않기 때문에(2014), QtXlsx에 기반한 새로운 프로젝트를 만들었습니다. (2017-)
   * QXlsx는 개발언어로 C++를 사용합니다. (Qt 5.x 사용)
   * QXlsx는 정적 또는 동적 라이브러리를 사용하지 않아도 되도록 제작되었습니다.
 
-![](markdown.data/comp.png)
-
-## 라이센스와 링크
-* QXlsx는 MIT 라이센스를 사용합니다. [https://opensource.org/licenses/MIT](https://opensource.org/licenses/MIT)
-* QtXlsx 라이센스는 Debao Zhang(2014) 싸이트를 참조하십시오. [https://github.com/dbzhang800/QtXlsxWriter](https://github.com/dbzhang800/QtXlsxWriter) 
-* Qt 라이센스는 Qt Company 싸이트를 참조하십시오. [https://www.qt.io/developers/](https://www.qt.io/developers/) 
 
 ## 활용 예제 (Hello excel)
 
@@ -45,18 +41,20 @@ qDebug() << var; // 값 표시
 * [QXlsx 프로젝트 설정하는 방법](HowToSetProject.ko.md)을 참조하세요.
 
 ## 테스트 환경
-테스트된 환경은 다음과 같습니다.
-- Qt 5.10.1 (MingW/Windows 32bit)
-- Qt 5.9.2 (MingW/Windows 32bit)
-- Qt 5.9.1 (Visual Studio 2017/Windows 64bit)
-- Qt 5.9.1 (Visual Studio 2017/Windows 32bit)
-- Qt 5.9.1 (MingW/Windows 32bit)
-- Qt 5.9.1 (Ubuntu 16/Linux x64)
-- Qt 5.6.0 (MingW/Windows 32bit)
-- Qt 5.5.1 (MingW/Windows 32bit)
-- Qt 5.5.0 (Ubuntu 17/Linux i686)
-- Qt 5.2.0 (Ubuntu 14/Linux x64)
-- Qt 5.0.1 (MingW/Windows 32bit)
+
+| Qt        | Tool               | OS             | Build   |
+| --------- | ----------------   | -------------- | ------- |
+| Qt 5.10.1 | MingW              | Windows 32bit  | :smile: |
+| Qt 5.9.2  | MingW              | Windows 32bit  | :smile: |
+| Qt 5.9.1  | Visual Studio 2017 | Windows 64bit  | :smile: |
+| Qt 5.9.1  | Visual Studio 2017 | Windows 32bit  | :smile: |
+| Qt 5.9.1  | MingW              | Windows 32bit  | :smile: |
+| Qt 5.9.1  | gcc+make           | Ubuntu 16/x64  | :smile: |
+| Qt 5.6.0  | MingW              | Windows 32bit  | :smile: |
+| Qt 5.5.1  | MingW              | Windows 32bit  | :smile: |
+| Qt 5.5.0  | gcc+make           | Ubuntu 17/i686 | :smile: |
+| Qt 5.2.0  | gcc+make           | Ubuntu 14/x64  | :smile: |
+| Qt 5.0.1  | MingW              | Windows 32bit  | :smile: |
 
 ## 테스트 할 일
 - 다음과 같은 테스트들이 수행되어야 합니다.
@@ -68,15 +66,20 @@ qDebug() << var; // 값 표시
 
 - 유니코드 테스트 ( :cloud: 파일 이름, :cloud: 파일 경로, :sunny: 자료값)
 
-## 업그레이드 할 일
+## :hammer: 업그레이드 할 일
 - xlsx의 암복호화 기능 개발
 - Android에서 빌드 및 테스트
 
-## 문의
+## :link: 라이센스와 링크
+* ![](https://img.shields.io/badge/license-MIT-blue.svg) QXlsx는 MIT 라이센스를 사용합니다. [https://opensource.org/licenses/MIT](https://opensource.org/licenses/MIT)
+* ![](https://img.shields.io/badge/license-MIT-blue.svg) QtXlsx 라이센스는 Debao Zhang(2014) 싸이트를 참조하십시오. [https://github.com/dbzhang800/QtXlsxWriter](https://github.com/dbzhang800/QtXlsxWriter) 
+* Qt 라이센스는 Qt Company 싸이트를 참조하십시오. [https://www.qt.io/developers/](https://www.qt.io/developers/) 
+
+## :email: 문의
 * 이슈를 남겨 주세요. [https://github.com/j2doll/QXlsx/issues](https://github.com/j2doll/QXlsx/issues)
 * 프로젝트 참여에 관심이 있으신 분은 이슈로 연락주세요.
 
-## 내가 진행하는 유사한 프로젝트
+## :star: 진행하는 유사한 프로젝트
 * Qxlnt [https://github.com/j2doll/Qxlnt](https://github.com/j2doll/Qxlnt)
 	- Qxlnt는 xlnt가 Qt에서 사용될 수있게 해주는 도우미 프로젝트입니다.
 	- xlnt는 xlsx Excel 파일을 사용하기에 훌륭한 라이브러리입니다. 
