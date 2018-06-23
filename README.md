@@ -12,6 +12,8 @@
   * You don't need to use static library or dynamic shared object using QXlsx.
 
 
+![](https://img.shields.io/badge/<SUBJECT1>-<STATUS1>-blue.svg)
+
 ## Sample (Hello excel)
 
 ### :one: Writing excel file(*.xlsx)
