@@ -39,19 +39,20 @@ qDebug() << var; // 값 표시
 * [QXlsx 프로젝트 설정하는 방법](HowToSetProject.ko.md)을 참조하세요.
 
 ## 테스트 환경
-|Qt        |Tool         |    |OS            |Build  |
-|----------|------------------|--------------|-------|
-|Qt 5.10.1 |MingW             |Windows 32bit |:smile:|
-|Qt 5.9.2  |MingW             |Windows 32bit |:smile:|
-|Qt 5.9.1  |Visual Studio 2017|Windows 64bit |:smile:|
-|Qt 5.9.1  |Visual Studio 2017|Windows 32bit |:smile:|
-|Qt 5.9.1  |MingW             |Windows 32bit |:smile:|
-|Qt 5.9.1  |gcc+make          |Ubuntu 16/x64 |:smile:|
-|Qt 5.6.0  |MingW             |Windows 32bit |:smile:|
-|Qt 5.5.1  |MingW             |Windows 32bit |:smile:|
-|Qt 5.5.0  |gcc+make          |Ubuntu 17/i686|:smile:|
-|Qt 5.2.0  |gcc+make          |Ubuntu 14/x64 |:smile:|
-|Qt 5.0.1  |MingW             |Windows 32bit |:smile:|
+
+| Qt        | Tool               | OS             | Build   |
+| --------- | ----------------   | -------------- | ------- |
+| Qt 5.10.1 | MingW              | Windows 32bit  | :smile: |
+| Qt 5.9.2  | MingW              | Windows 32bit  | :smile: |
+| Qt 5.9.1  | Visual Studio 2017 | Windows 64bit  | :smile: |
+| Qt 5.9.1  | Visual Studio 2017 | Windows 32bit  | :smile: |
+| Qt 5.9.1  | MingW              | Windows 32bit  | :smile: |
+| Qt 5.9.1  | gcc+make           | Ubuntu 16/x64  | :smile: |
+| Qt 5.6.0  | MingW              | Windows 32bit  | :smile: |
+| Qt 5.5.1  | MingW              | Windows 32bit  | :smile: |
+| Qt 5.5.0  | gcc+make           | Ubuntu 17/i686 | :smile: |
+| Qt 5.2.0  | gcc+make           | Ubuntu 14/x64  | :smile: |
+| Qt 5.0.1  | MingW              | Windows 32bit  | :smile: |
 
 ## 테스트 할 일
 - 다음과 같은 테스트들이 수행되어야 합니다.
