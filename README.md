@@ -75,7 +75,7 @@ qDebug() << var; // display value
 * ![](https://img.shields.io/badge/license-MIT-blue.svg) QtXlsx License (See Debao Zhang (2014) site) [https://github.com/dbzhang800/QtXlsxWriter](https://github.com/dbzhang800/QtXlsxWriter)
 * Qt License (See Qt Company site) [https://www.qt.io/](https://www.qt.io/) 
 
-## Contact
+## :email: Contact
 * Hi! I'm j2doll (aka Jay Two). My name is Korean and it is difficult for foreigners to pronounce it. Call me j2doll.
 * Leave me a issue. [https://github.com/j2doll/QXlsx/issues](https://github.com/j2doll/QXlsx/issues)
 	- If you are interested in participating in the project, please contact us by issue.

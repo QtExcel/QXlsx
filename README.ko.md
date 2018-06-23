@@ -66,7 +66,7 @@ qDebug() << var; // 값 표시
 
 - 유니코드 테스트 ( :cloud: 파일 이름, :cloud: 파일 경로, :sunny: 자료값)
 
-## 업그레이드 할 일
+## :novice: 업그레이드 할 일
 - xlsx의 암복호화 기능 개발
 - Android에서 빌드 및 테스트
 
@@ -75,7 +75,7 @@ qDebug() << var; // 값 표시
 * ![](https://img.shields.io/badge/license-MIT-blue.svg) QtXlsx 라이센스는 Debao Zhang(2014) 싸이트를 참조하십시오. [https://github.com/dbzhang800/QtXlsxWriter](https://github.com/dbzhang800/QtXlsxWriter) 
 * Qt 라이센스는 Qt Company 싸이트를 참조하십시오. [https://www.qt.io/developers/](https://www.qt.io/developers/) 
 
-## 문의
+## :email: 문의
 * 이슈를 남겨 주세요. [https://github.com/j2doll/QXlsx/issues](https://github.com/j2doll/QXlsx/issues)
 * 프로젝트 참여에 관심이 있으신 분은 이슈로 연락주세요.
 
