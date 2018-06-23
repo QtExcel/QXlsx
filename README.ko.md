@@ -13,11 +13,6 @@
 
 ![](markdown.data/comp.png)
 
-## 라이센스와 링크
-* QXlsx는 MIT 라이센스를 사용합니다. [https://opensource.org/licenses/MIT](https://opensource.org/licenses/MIT)
-* QtXlsx 라이센스는 Debao Zhang(2014) 싸이트를 참조하십시오. [https://github.com/dbzhang800/QtXlsxWriter](https://github.com/dbzhang800/QtXlsxWriter) 
-* Qt 라이센스는 Qt Company 싸이트를 참조하십시오. [https://www.qt.io/developers/](https://www.qt.io/developers/) 
-
 ## 활용 예제 (Hello excel)
 
 ### :one: 엑셀(xlsx) 파일 쓰기
@@ -71,6 +66,11 @@ qDebug() << var; // 값 표시
 ## 업그레이드 할 일
 - xlsx의 암복호화 기능 개발
 - Android에서 빌드 및 테스트
+
+## 라이센스와 링크
+* [![License](https://img.shields.io/badge/license-MIT-blue.svg)]() QXlsx는 MIT 라이센스를 사용합니다. [https://opensource.org/licenses/MIT](https://opensource.org/licenses/MIT)
+* QtXlsx 라이센스는 Debao Zhang(2014) 싸이트를 참조하십시오. [https://github.com/dbzhang800/QtXlsxWriter](https://github.com/dbzhang800/QtXlsxWriter) 
+* Qt 라이센스는 Qt Company 싸이트를 참조하십시오. [https://www.qt.io/developers/](https://www.qt.io/developers/) 
 
 ## 문의
 * 이슈를 남겨 주세요. [https://github.com/j2doll/QXlsx/issues](https://github.com/j2doll/QXlsx/issues)

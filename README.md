@@ -11,11 +11,7 @@
   * Development language of QXlsx is C++. (with Qt 5.x)
   * You don't need to use static library or dynamic shared object using QXlsx.
 
-
-## License and links
-* MIT License [https://opensource.org/licenses/MIT](https://opensource.org/licenses/MIT)
-* QtXlsx License (See Debao Zhang (2014) site) [https://github.com/dbzhang800/QtXlsxWriter](https://github.com/dbzhang800/QtXlsxWriter)
-* Qt License (See Qt Company site) [https://www.qt.io/](https://www.qt.io/) 
+![](markdown.data/comp.png)
 
 ## Sample (Hello excel)
 
@@ -70,6 +66,11 @@ Test Environment is below.
 ## To Upgrade
 - Develop the encryption function of xlsx
 - Build and test on Android
+
+## License and links
+* [![License](https://img.shields.io/badge/license-MIT-blue.svg)]() MIT License [https://opensource.org/licenses/MIT](https://opensource.org/licenses/MIT)
+* QtXlsx License (See Debao Zhang (2014) site) [https://github.com/dbzhang800/QtXlsxWriter](https://github.com/dbzhang800/QtXlsxWriter)
+* Qt License (See Qt Company site) [https://www.qt.io/](https://www.qt.io/) 
 
 ## Contact
 * Hi! I'm j2doll (aka Jay Two). My name is Korean and it is difficult for foreigners to pronounce it. Call me j2doll.
