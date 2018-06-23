@@ -6,6 +6,8 @@
 <img src="markdown.data/QXlsx2.jpg">
 </p>
 
+[![Built-with-Qt5-Badge](https://img.shields.io/badge/Built%20with-Qt5-green.svg)](https://www.qt.io/) [![Built-with-cpp-Badge](https://img.shields.io/badge/Built%20with-C%2B%2B-green.svg)](https://isocpp.org/) [![Xlsx-Badge](https://img.shields.io/badge/Library-xlsx-blue.svg)](https://www.ecma-international.org/publications/standards/Ecma-376.htm)
+
 * QXlsx는 엑셀 파일(*.xlsx)을 읽고 쓰는 라이브러리입니다.
   * QtXlsx가 더이상 지원되지 않기 때문에(2014), QtXlsx에 기반한 새로운 프로젝트를 만들었습니다. (2017-)
   * QXlsx는 개발언어로 C++를 사용합니다. (Qt 5.x 사용)
