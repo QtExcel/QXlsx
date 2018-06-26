@@ -6,7 +6,7 @@
 <img src="markdown.data/QXlsx2.jpg">
 </p>
 
-[![Built-with-Qt5-Badge](https://img.shields.io/badge/Built%20with-Qt5-green.svg)](https://www.qt.io/) [![Built-with-cpp-Badge](https://img.shields.io/badge/Built%20with-C%2B%2B-green.svg)](https://isocpp.org/) [![Xlsx-Badge](https://img.shields.io/badge/Library-xlsx-blue.svg)](https://www.ecma-international.org/publications/standards/Ecma-376.htm)
+![](markdown.data/qxlsx-badge1.png)
 
 * QXlsx는 엑셀 파일(*.xlsx)을 읽고 쓰는 라이브러리입니다.
   * QtXlsx가 더이상 지원되지 않기 때문에(2014), QtXlsx에 기반한 새로운 프로젝트를 만들었습니다. (2017-)
@@ -71,8 +71,8 @@ qDebug() << var; // 값 표시
 - Android에서 빌드 및 테스트
 
 ## :link: 라이센스와 링크
-* ![](https://img.shields.io/badge/license-MIT-blue.svg) QXlsx는 MIT 라이센스를 사용합니다. [https://opensource.org/licenses/MIT](https://opensource.org/licenses/MIT)
-* ![](https://img.shields.io/badge/license-MIT-blue.svg) QtXlsx 라이센스는 Debao Zhang(2014) 싸이트를 참조하십시오. [https://github.com/dbzhang800/QtXlsxWriter](https://github.com/dbzhang800/QtXlsxWriter) 
+* ![](markdown.data/mit-license.png) QXlsx는 MIT 라이센스를 사용합니다. [https://opensource.org/licenses/MIT](https://opensource.org/licenses/MIT)
+* ![](markdown.data/mit-license.png) QtXlsx 라이센스는 Debao Zhang(2014) 싸이트를 참조하십시오. [https://github.com/dbzhang800/QtXlsxWriter](https://github.com/dbzhang800/QtXlsxWriter) 
 * Qt 라이센스는 Qt Company 싸이트를 참조하십시오. [https://www.qt.io/developers/](https://www.qt.io/developers/) 
 
 ## :email: 문의
