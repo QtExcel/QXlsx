@@ -6,7 +6,7 @@
 <img src="markdown.data/QXlsx2.jpg">
 </p>
 
-[![Built-with-Qt5-Badge](https://img.shields.io/badge/Built%20with-Qt5-green.svg)](https://www.qt.io/) [![Built-with-cpp-Badge](https://img.shields.io/badge/Built%20with-C%2B%2B-green.svg)](https://isocpp.org/) [![Xlsx-Badge](https://img.shields.io/badge/Library-xlsx-blue.svg)](https://www.ecma-international.org/publications/standards/Ecma-376.htm)
+![](markdown.data/qxlsx-badge1.png)
 
 * QXlsx is excel file(*.xlsx) reader/writer library.
   * Because QtXlsx is no longer supported(2014), I created a new project that is based on QtXlsx. (2017-)
@@ -71,8 +71,8 @@ qDebug() << var; // display value
 - Build and test on Android
 
 ## :link: License and links
-* ![](https://img.shields.io/badge/license-MIT-blue.svg) MIT License [https://opensource.org/licenses/MIT](https://opensource.org/licenses/MIT)
-* ![](https://img.shields.io/badge/license-MIT-blue.svg) QtXlsx License (See Debao Zhang (2014) site) [https://github.com/dbzhang800/QtXlsxWriter](https://github.com/dbzhang800/QtXlsxWriter)
+* ![](markdown.data/mit-license.png) MIT License [https://opensource.org/licenses/MIT](https://opensource.org/licenses/MIT)
+* ![](markdown.data/mit-license.png) QtXlsx License (See Debao Zhang (2014) site) [https://github.com/dbzhang800/QtXlsxWriter](https://github.com/dbzhang800/QtXlsxWriter)
 * Qt License (See Qt Company site) [https://www.qt.io/](https://www.qt.io/) 
 
 ## :email: Contact
