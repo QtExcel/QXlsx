@@ -66,12 +66,12 @@ qDebug() << var; // display value
 
 - Unicode test ( :cloud: filename, :cloud: filepath, :sunny: data value)
 
-## :hammer: To Upgrade
+## To Upgrade
 - Develop the encryption function of xlsx
 - Build and test on Android
 
-## :link: License and links
-* ![](markdown.data/mit-license.png) MIT License [https://opensource.org/licenses/MIT](https://opensource.org/licenses/MIT)
+## License and links
+* ![](markdown.data/mit-license.png) QXlsx [https://github.com/j2doll/QXlsx](https://github.com/j2doll/QXlsx)
 * ![](markdown.data/mit-license.png) QtXlsx License (See Debao Zhang (2014) site) [https://github.com/dbzhang800/QtXlsxWriter](https://github.com/dbzhang800/QtXlsxWriter)
 * Qt License (See Qt Company site) [https://www.qt.io/](https://www.qt.io/) 
 
@@ -81,8 +81,8 @@ qDebug() << var; // display value
 	- If you are interested in participating in the project, please contact us by issue.
 	- My native language is not English and my English is not fluent. Please, use EASY English. :-)
 	
-## :star: Similar projects going on
-* Qxlnt [https://github.com/j2doll/Qxlnt](https://github.com/j2doll/Qxlnt)
+## Similar projects going on
+* :star: Qxlnt [https://github.com/j2doll/Qxlnt](https://github.com/j2doll/Qxlnt)
 	- Qxlnt is a helper project that allows xlnt to be used in Qt.
 	- xlnt is a excellent library for usinf xlsx Excel files.
 	- I was looking for a way to make it easy to use in Qt. Of course, cmake is compatible with Qt, but it is not convenient to use. So I created Qxlnt.
