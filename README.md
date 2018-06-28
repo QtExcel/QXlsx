@@ -81,8 +81,13 @@ qDebug() << var; // display value
 	- If you are interested in participating in the project, please contact us by issue.
 	- My native language is not English and my English is not fluent. Please, use EASY English. :-)
 	
-## Similar projects going on
+## Similar projects
 * :star: Qxlnt [https://github.com/j2doll/Qxlnt](https://github.com/j2doll/Qxlnt)
 	- Qxlnt is a helper project that allows xlnt to be used in Qt.
 	- xlnt is a excellent library for usinf xlsx Excel files.
 	- I was looking for a way to make it easy to use in Qt. Of course, cmake is compatible with Qt, but it is not convenient to use. So I created Qxlnt.
+
+* :star: Qlibxlsxwriter [https://github.com/j2doll/Qlibxlsxwriter](https://github.com/j2doll/Qlibxlsxwriter)
+	- Qlibxlsxwriter is a helper project that allows libxlsxwriter to be used in Qt.
+	- libxlsxwriter is a C library for creating Excel XLSX files.
+
