@@ -40,7 +40,7 @@ qDebug() << var; // display value
 
 ## Test environment
 
-- [Tested environments](TestEnv.md)
+- :hammer: [Tested environments](TestEnv.md)
 
 ## To Test
 - The following tests should be performed.

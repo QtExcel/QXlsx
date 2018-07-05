@@ -40,7 +40,7 @@ qDebug() << var; // 값 표시
 
 ## 테스트 환경
 
-- [Tested environments](TestEnv.md)
+- :hammer: [Tested environments](TestEnv.md)
 
 ## 테스트 할 일
 - 다음과 같은 테스트들이 수행되어야 합니다.
