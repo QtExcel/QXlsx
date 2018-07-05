@@ -2,16 +2,14 @@
 
 > *Read this in other languages: [English](README.md), :kr: [한국어](README.ko.md)*
 
-<p align="center"> 
-<img src="markdown.data/QXlsx2.jpg">
-</p>
+<p align="center"><img src="https://github.com/j2doll/QXlsx/raw/master/markdown.data/QXlsx2.jpg"></p>
 
 ![](markdown.data/qxlsx-badge1.png)
 
 * QXlsx는 엑셀 파일(*.xlsx)을 읽고 쓰는 라이브러리입니다.
-  * QtXlsx가 더이상 지원되지 않기 때문에(2014), QtXlsx에 기반한 새로운 프로젝트를 만들었습니다. (2017-)
-  * QXlsx는 개발언어로 C++를 사용합니다. (Qt 5.x 사용)
-  * QXlsx는 정적 또는 동적 라이브러리를 사용하지 않아도 되도록 제작되었습니다.
+* QtXlsx가 더이상 지원되지 않기 때문에(2014), QtXlsx에 기반한 새로운 프로젝트를 만들었습니다. (2017-)
+* QXlsx는 개발언어로 C++를 사용합니다. (Qt 5.x 사용)
+* QXlsx는 정적 또는 동적 라이브러리를 사용하지 않아도 되도록 제작되었습니다.
 
 
 ## 활용 예제 (Hello excel)
@@ -80,12 +78,19 @@ qDebug() << var; // 값 표시
 * 프로젝트 참여에 관심이 있으신 분은 이슈로 연락주세요.
 
 ## 유사한 프로젝트
-* :star: Qxlnt [https://github.com/j2doll/Qxlnt](https://github.com/j2doll/Qxlnt)
-	- Qxlnt는 xlnt가 Qt에서 사용될 수있게 해주는 도우미 프로젝트입니다.
-	- xlnt는 xlsx Excel 파일을 사용하기에 훌륭한 라이브러리입니다. 
-	- xlnt를 Qt에서 사용하기 쉬운 방법을 찾고 있었습니다. 물론 cmake는 Qt와 호환되지만 사용하기가 쉽지 않습니다. 그래서 Qxlnt를 만들었습니다.
 
-* :star: Qlibxlsxwriter [https://github.com/j2doll/Qlibxlsxwriter](https://github.com/j2doll/Qlibxlsxwriter)
-	- Qlibxlsxwriter는 libxlsxwriter를 Qt에서 사용할 수있는 도우미 프로젝트입니다.
-	- libxlsxwriter는 Excel XLSX 파일을 만들기위한 C 라이브러리 입니다.	
+### :star: <b>Qxlnt</b> [https://github.com/j2doll/Qxlnt](https://github.com/j2doll/Qxlnt)
+
+![](https://github.com/j2doll/Qxlnt/raw/master/markdown-data/Concept-QXlnt.jpg)
+
+- Qxlnt는 xlnt가 Qt에서 사용될 수있게 해주는 도우미 프로젝트입니다.
+- xlnt는 xlsx Excel 파일을 사용하기에 훌륭한 라이브러리입니다. 
+- xlnt를 Qt에서 사용하기 쉬운 방법을 찾고 있었습니다. 물론 cmake는 Qt와 호환되지만 사용하기가 쉽지 않습니다. 그래서 Qxlnt를 만들었습니다.
+
+### :star: <b>Qlibxlsxwriter</b> [https://github.com/j2doll/Qlibxlsxwriter](https://github.com/j2doll/Qlibxlsxwriter)
+
+![](https://github.com/j2doll/Qlibxlsxwriter/raw/master/markdown.data/logo.png)
+
+- Qlibxlsxwriter는 libxlsxwriter를 Qt에서 사용할 수있는 도우미 프로젝트입니다.
+- libxlsxwriter는 Excel XLSX 파일을 만들기위한 C 라이브러리 입니다.	
 
