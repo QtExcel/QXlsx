@@ -40,7 +40,7 @@ qDebug() << var; // 값 표시
 
 ## 테스트 환경
 
-- ![Tested environments](TestEnv.md)
+- [Tested environments](TestEnv.md)
 
 ## 테스트 할 일
 - 다음과 같은 테스트들이 수행되어야 합니다.
@@ -50,16 +50,16 @@ qDebug() << var; // 값 표시
 
 ![](markdown.data/LibreOffice-Google-XLSX.png)
 
-- 유니코드 테스트 ( :cloud: 파일 이름, :cloud: 파일 경로, :sunny: 자료값)
+- 유니코드 테스트 (파일 이름 :cloud:, 파일 경로 :cloud:, 자료값 :sunny:)
 
 ## 업그레이드 할 일
 - xlsx의 암복호화 기능 개발
 - Android에서 빌드 및 테스트
 
 ## 라이센스와 링크
-* ![](markdown.data/mit-license.png) QXlsx [https://github.com/j2doll/QXlsx](https://github.com/j2doll/QXlsx)
-* ![](markdown.data/mit-license.png) QtXlsx License (See Debao Zhang (2014) site) [https://github.com/dbzhang800/QtXlsxWriter](https://github.com/dbzhang800/QtXlsxWriter)
-* Qt License (See Qt Company site) [https://www.qt.io/](https://www.qt.io/) 
+* ![](markdown.data/mit-license.png) QXlsx는 MIT 라이센스 입니다. [https://github.com/j2doll/QXlsx](https://github.com/j2doll/QXlsx)
+* ![](markdown.data/mit-license.png) QtXlsx License : Debao Zhang (2014) 싸이트를 참조하세요. [https://github.com/dbzhang800/QtXlsxWriter](https://github.com/dbzhang800/QtXlsxWriter)
+* Qt License (Qt Company 싸이트를 참조하세요.) [https://www.qt.io/](https://www.qt.io/) 
 
 ## :email: 문의
 * 이슈를 남겨 주세요. [https://github.com/j2doll/QXlsx/issues](https://github.com/j2doll/QXlsx/issues)

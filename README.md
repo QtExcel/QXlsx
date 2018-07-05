@@ -40,7 +40,7 @@ qDebug() << var; // display value
 
 ## Test environment
 
-- ![Tested environments](TestEnv.md)
+- [Tested environments](TestEnv.md)
 
 ## To Test
 - The following tests should be performed.
@@ -50,15 +50,15 @@ qDebug() << var; // display value
 
 ![](markdown.data/LibreOffice-Google-XLSX.png)
 
-- Unicode test ( :cloud: filename, :cloud: filepath, :sunny: data value)
+- Unicode test (filename :cloud:, filepath :cloud:, data value :sunny:)
 
 ## To Upgrade
 - Develop the encryption function of xlsx
 - Build and test on Android
 
 ## License and links
-* ![](markdown.data/mit-license.png) QXlsx [https://github.com/j2doll/QXlsx](https://github.com/j2doll/QXlsx)
-* ![](markdown.data/mit-license.png) QtXlsx License (See Debao Zhang (2014) site) [https://github.com/dbzhang800/QtXlsxWriter](https://github.com/dbzhang800/QtXlsxWriter)
+* ![](markdown.data/mit-license.png) QXlsx is under MIT License. [https://github.com/j2doll/QXlsx](https://github.com/j2doll/QXlsx)
+* ![](markdown.data/mit-license.png) QtXlsx License : See Debao Zhang (2014) site. [https://github.com/dbzhang800/QtXlsxWriter](https://github.com/dbzhang800/QtXlsxWriter)
 * Qt License (See Qt Company site) [https://www.qt.io/](https://www.qt.io/) 
 
 ## :email: Contact
