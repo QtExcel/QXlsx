@@ -48,7 +48,7 @@ qDebug() << var; // display value
 	- Google Spreadsheet
 	- LibreOffice Calc Spreasheet
 
-![](markdown.data/LibreOffice-Google-XLSX.png)
+<p align="center"><img src="https://github.com/j2doll/QXlsx/raw/master/markdown.data/LibreOffice-Google-XLSX.png"></p>
 
 - Unicode test (filename :cloud:, filepath :cloud:, data value :sunny:)
 
@@ -71,7 +71,7 @@ qDebug() << var; // display value
 
 ### :star: <b>Qxlnt</b> [https://github.com/j2doll/Qxlnt](https://github.com/j2doll/Qxlnt)
 
-![](https://github.com/j2doll/Qxlnt/raw/master/markdown-data/Concept-QXlnt.jpg)
+<p align="center"><img src="https://github.com/j2doll/Qxlnt/raw/master/markdown-data/Concept-QXlnt.jpg"></p>
 
 - Qxlnt is a helper project that allows xlnt to be used in Qt.
 - xlnt is a excellent library for usinf xlsx Excel files.
@@ -79,7 +79,7 @@ qDebug() << var; // display value
 
 ### :star: <b>Qlibxlsxwriter</b> [https://github.com/j2doll/Qlibxlsxwriter](https://github.com/j2doll/Qlibxlsxwriter)
 
-![](https://github.com/j2doll/Qlibxlsxwriter/raw/master/markdown.data/logo.png)
+<p align="center"><img src="https://github.com/j2doll/Qlibxlsxwriter/raw/master/markdown.data/logo.png"></p>
 
 - Qlibxlsxwriter is a helper project that allows libxlsxwriter to be used in Qt.
 - libxlsxwriter is a C library for creating Excel XLSX files.
