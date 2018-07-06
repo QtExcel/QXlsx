@@ -13,12 +13,14 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+TARGET = TestExcel
+TEMPLATE = app
+
 QT += core
 QT += gui
-TARGET = TestExcel
+
 CONFIG += console
 CONFIG -= app_bundle
-TEMPLATE = app
 
 # NOTE: You can fix value of QXlsx path of source code.
 #  QXLSX_PARENTPATH=./
