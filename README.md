@@ -47,9 +47,6 @@ qDebug() << var; // display value
 	- Microsoft Excel
 	- Google Spreadsheet
 	- LibreOffice Calc Spreasheet
-
-<p align="center"><img src="https://github.com/j2doll/QXlsx/raw/master/markdown.data/LibreOffice-Google-XLSX.png"></p>
-
 - Unicode test (filename :cloud:, filepath :cloud:, data value :sunny:)
 
 ## To Upgrade

@@ -47,9 +47,6 @@ qDebug() << var; // 값 표시
 	- 마이크로소프트 엑셀
 	- 구글 스프레드쉬트
 	- 리브레오피스 캘크 스프레드시트
-
-<p align="center"><img src="https://github.com/j2doll/QXlsx/raw/master/markdown.data/LibreOffice-Google-XLSX.png"></p>
-
 - 유니코드 테스트 (파일 이름 :cloud:, 파일 경로 :cloud:, 자료값 :sunny:)
 
 ## 업그레이드 할 일
