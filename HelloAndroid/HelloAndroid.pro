@@ -1,6 +1,8 @@
 #
 # HelloAndroid.pro
 #
+# code from https://github.com/j2doll/QXlsx
+# MIT License
 
 # TARGET = HelloAndroid
 
@@ -24,8 +26,12 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #  QXLSX_SOURCEPATH=./source/
 include(../QXlsx/QXlsx.pri)
 
+HEADERS += \
+XlsxModel.h
+
 SOURCES += \
-main.cpp
+main.cpp \
+XlsxModel.cpp
 
 RESOURCES += qml.qrc
 
