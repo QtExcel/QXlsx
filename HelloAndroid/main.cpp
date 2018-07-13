@@ -24,7 +24,7 @@
 #include "xlsxworkbook.h"
 using namespace QXlsx;
 
-#include "XlsxModel.h"
+#include "XlsxTableModel.h"
 
 int main(int argc, char *argv[])
 {
@@ -35,22 +35,24 @@ int main(int argc, char *argv[])
     QQmlApplicationEngine engine;
     QQmlContext* ctxt = engine.rootContext();
 
-    QXlsx::Document xlsx( ":/test.xlsx" );
+    QXlsx::Document xlsx( ":/test.xlsx" ); // load xlsx
     if (!xlsx.isLoadPackage())
     {
         qDebug() << "[ERROR] Failed to load xlsx";
         return (-1);
     }
+
     // A1 B1
     //    B2 C2
     // A3 B3 C3
 
     QList<QString> colTitle;
-    QList<VLIST> xlsxData;
 
     colTitle.append(QString("A"));
     colTitle.append(QString("B"));
     colTitle.append(QString("C"));
+
+    QList<VLIST> xlsxData;
 
     VLIST vl1;
     vl1.append( xlsx.read("A1") );
@@ -70,10 +72,10 @@ int main(int argc, char *argv[])
     vl3.append( xlsx.read("C3") );
     xlsxData.append( vl3 );
 
-    XlsxModel xlsxModel(colTitle, xlsxData);
-    ctxt->setContextProperty( "xlsxModel", &xlsxModel ); // set model for tableview
+    XlsxTableModel xlsxTableModel(colTitle, xlsxData);
+    ctxt->setContextProperty( "xlsxModel", &xlsxTableModel ); // set model for tableview
 
-    engine.load( QUrl(QStringLiteral("qrc:/main.qml")) );
+    engine.load( QUrl(QStringLiteral("qrc:/main.qml")) ); // load QML
     if ( engine.rootObjects().isEmpty() )
     {
         qDebug() << "Failed to load qml";
@@ -81,6 +83,5 @@ int main(int argc, char *argv[])
     }
 
     int ret = app.exec();
-
     return ret;
 }

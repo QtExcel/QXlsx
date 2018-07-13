@@ -1,6 +1,6 @@
-// XlsxModel.cpp
+// XlsxTableModel.cpp
 
-#include "XlsxModel.h"
+#include "XlsxTableModel.h"
 
 #include <QDebug>
 #include <QVariant>
@@ -8,7 +8,7 @@
 #include <sstream>
 
 
-XlsxModel::XlsxModel(QList<QString> colTitle, QList<VLIST> data, QObject *parent)
+XlsxTableModel::XlsxTableModel(QList<QString> colTitle, QList<VLIST> data, QObject *parent)
     : QAbstractTableModel(parent)
 {
         // [1] set name of column
@@ -29,7 +29,7 @@ XlsxModel::XlsxModel(QList<QString> colTitle, QList<VLIST> data, QObject *parent
         }
 }
 
-void XlsxModel::testData()
+void XlsxTableModel::testData()
 {
     // test code
 
@@ -76,21 +76,19 @@ void XlsxModel::testData()
 
 }
 
-
-
-int XlsxModel::rowCount(const QModelIndex& parent) const
+int XlsxTableModel::rowCount(const QModelIndex& parent) const
 {
     Q_UNUSED(parent)
     return m_the_data.size();
 }
 
-int XlsxModel::columnCount(const QModelIndex& parent) const
+int XlsxTableModel::columnCount(const QModelIndex& parent) const
 {
     Q_UNUSED(parent)
     return m_roleCount;
 }
 
-QVariant XlsxModel::data(const QModelIndex& index, int role) const
+QVariant XlsxTableModel::data(const QModelIndex& index, int role) const
 {
     // current column & row
     int col = index.column();
@@ -100,9 +98,7 @@ QVariant XlsxModel::data(const QModelIndex& index, int role) const
     if ( col < 0 || columnCount() <= col ||
          row < 0 || rowCount()    <= row )
     {
-        qDebug() << "[Warning]"
-                << " col=" << col
-                << ", row="  << row;
+        qDebug() << "[Warning]" << " col=" << col << ", row="  << row;
         return QVariant();
     }
 
@@ -133,17 +129,15 @@ QVariant XlsxModel::data(const QModelIndex& index, int role) const
     }
 
     qDebug()
-    << "data: "
-    << " col="    << col
-    << ", row="   << row
-    << ", role=" << role
-    << ", cmpRole=" << cmpRole
-    << ", value=" << ret.toString();
+        << "data: "
+        << " col="    << col << ", row="   << row
+        << ", role=" << role << ", cmpRole=" << cmpRole
+        << ", value=" << ret.toString();
 
     return ret;
 }
 
-QHash<int, QByteArray> XlsxModel::roleNames() const
+QHash<int, QByteArray> XlsxTableModel::roleNames() const
 {
     QHash<int, QByteArray> roles;
 
@@ -158,7 +152,7 @@ QHash<int, QByteArray> XlsxModel::roleNames() const
 }
 
 // Return ordered List of user-defined roles
-QStringList XlsxModel::customRoleNames()
+QStringList XlsxTableModel::customRoleNames()
 {
     QMap<int, QString> res;
     QHashIterator<int, QByteArray> i(roleNames());

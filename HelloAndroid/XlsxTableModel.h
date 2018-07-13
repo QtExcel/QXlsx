@@ -1,4 +1,4 @@
-// XlsxModel.h
+// XlsxTableModel.h
 
 #ifndef XLSX_MODEL_H
 #define XLSX_MODEL_H
@@ -19,7 +19,7 @@
 
 typedef QList<QVariant> VLIST;
 
-class XlsxModel : public QAbstractTableModel
+class XlsxTableModel : public QAbstractTableModel
 {
     Q_OBJECT
 
@@ -28,7 +28,7 @@ class XlsxModel : public QAbstractTableModel
 public: QStringList customRoleNames();
 
 public: // constrcutor
-    XlsxModel(QList<QString> colTitle, QList<VLIST> data, QObject *parent = NULL);
+    XlsxTableModel(QList<QString> colTitle, QList<VLIST> data, QObject *parent = NULL);
 
 public: // virtual function of parent object
     int rowCount(const QModelIndex & parent = QModelIndex()) const Q_DECL_OVERRIDE;
