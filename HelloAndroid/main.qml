@@ -6,35 +6,30 @@ import QtQuick.Controls 1.4
 
 Window {
     id: mainWindow;
-
     visible: true;
-
-    width: 640; height: 480;
-
     title: qsTr("Hello World");
+    // width: 640; height: 480;
 
     Component
     {
-        id: columnComponent
-
-        TableViewColumn { width: 100; }
+        id: columnComponent;
+        TableViewColumn { resizable : true; movable : false; /*width: 100;*/ }
     }
 
     TableView {
         id: mainTableView;
-
         anchors.fill: parent;
-
         model: xlsxModel;
 
         resources:
         {
             var roleList = xlsxModel.customRoleNames;
             var temp = [];
-            for(var i=0; i<roleList.length; i++)
+            for(var ic = 0 ; ic < roleList.length ; ic++ )
             {
-                var role  = roleList[i];
-                temp.push(columnComponent.createObject(mainTableView, { "role": role, "title": role}));
+                var role  = roleList[ic];
+                var colObj = columnComponent.createObject( mainTableView, { "role": role, "title": role } );
+                temp.push(colObj);
             }
             return temp;
         }
