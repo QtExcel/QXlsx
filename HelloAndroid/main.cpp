@@ -4,12 +4,17 @@
 #include <QObject>
 #include <QString>
 #include <QUrl>
+#include <QList>
+#include <QVariant>
 
 #include <QDebug>
 
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
+
+#include <cstdio>
+#include <iostream>
 
 #include "xlsxdocument.h"
 #include "xlsxchartsheet.h"
@@ -28,14 +33,45 @@ int main(int argc, char *argv[])
     QGuiApplication app(argc, argv);
 
     QQmlApplicationEngine engine;
-
-    XlsxModel xlsxModel;
     QQmlContext* ctxt = engine.rootContext();
-    ctxt->setContextProperty( "xlsxModel", &xlsxModel ); // set model for tableview
 
-    // TODO:
-    //  1) read xlsx from qrc(*.xlsx)
-    //  2) set xlsx data to xlsxModel
+    QXlsx::Document xlsx( ":/test.xlsx" );
+    if (!xlsx.isLoadPackage())
+    {
+        qDebug() << "[ERROR] Failed to load xlsx";
+        return (-1);
+    }
+    // A1 B1
+    //    B2 C2
+    // A3 B3 C3
+
+    QList<QString> colTitle;
+    QList<VLIST> xlsxData;
+
+    colTitle.append(QString("A"));
+    colTitle.append(QString("B"));
+    colTitle.append(QString("C"));
+
+    VLIST vl1;
+    vl1.append( xlsx.read("A1") );
+    vl1.append( xlsx.read("B1") );
+    vl1.append( xlsx.read("C1") );
+    xlsxData.append( vl1 );
+
+    VLIST vl2;
+    vl2.append( xlsx.read("A2") );
+    vl2.append( xlsx.read("B2") );
+    vl2.append( xlsx.read("C2") );
+    xlsxData.append( vl2 );
+
+    VLIST vl3;
+    vl3.append( xlsx.read("A3") );
+    vl3.append( xlsx.read("B3") );
+    vl3.append( xlsx.read("C3") );
+    xlsxData.append( vl3 );
+
+    XlsxModel xlsxModel(colTitle, xlsxData);
+    ctxt->setContextProperty( "xlsxModel", &xlsxModel ); // set model for tableview
 
     engine.load( QUrl(QStringLiteral("qrc:/main.qml")) );
     if ( engine.rootObjects().isEmpty() )

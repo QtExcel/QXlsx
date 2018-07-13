@@ -17,36 +17,32 @@
 #include <vector>
 #include <cstdlib>
 
+typedef QList<QVariant> VLIST;
+
 class XlsxModel : public QAbstractTableModel
 {
     Q_OBJECT
+
+    // method that is called by QML script
     Q_PROPERTY(QStringList customRoleNames READ customRoleNames CONSTANT)
+public: QStringList customRoleNames();
 
-    typedef QList<QVariant> VLIST;
+public: // constrcutor
+    XlsxModel(QList<QString> colTitle, QList<VLIST> data, QObject *parent = NULL);
 
-public:
-    XlsxModel(QObject *parent = NULL);
-
-// virtual function of parent object
-public:
+public: // virtual function of parent object
     int rowCount(const QModelIndex & parent = QModelIndex()) const Q_DECL_OVERRIDE;
     int columnCount(const QModelIndex &parent = QModelIndex()) const Q_DECL_OVERRIDE;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const Q_DECL_OVERRIDE;
     QHash<int, QByteArray> roleNames() const Q_DECL_OVERRIDE;
 
-public:
-    QStringList customRoleNames();
-
-public:
-    void setValues(QList<QString> colTitle, QList<VLIST> data);
+protected:
+    void testData(); // test function.
 
 protected:
-    void initData();
-
-protected:
-    QList<VLIST> m_the_data;
-    QList<QString> m_colNames;
-    quint32 m_roleCount;
+    QList<VLIST> m_the_data; // table cell data
+    QList<QString> m_colNames; // column name
+    quint32 m_roleCount; // role count (same as column count)
 
 };
 

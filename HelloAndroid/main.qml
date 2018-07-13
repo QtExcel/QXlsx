@@ -17,7 +17,7 @@ Window {
     {
         id: columnComponent
 
-        TableViewColumn { width: 100 }
+        TableViewColumn { width: 100; }
     }
 
     TableView {

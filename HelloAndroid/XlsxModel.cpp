@@ -8,13 +8,28 @@
 #include <sstream>
 
 
-XlsxModel::XlsxModel(QObject *parent)
+XlsxModel::XlsxModel(QList<QString> colTitle, QList<VLIST> data, QObject *parent)
     : QAbstractTableModel(parent)
 {
-    initData();
+        // [1] set name of column
+
+        for (int ic = 0; ic < colTitle.size() ; ic++ )
+        {
+            QString strCol = colTitle.at(ic);
+            m_colNames.append( strCol );
+        }
+        m_roleCount = m_colNames.size();
+
+        // [2]  set data
+
+        for (int dc = 0; dc < data.size() ; dc++ )
+        {
+            VLIST vList = data.at(dc);
+            m_the_data.append( vList );
+        }
 }
 
-void XlsxModel::initData()
+void XlsxModel::testData()
 {
     // test code
 
@@ -61,14 +76,7 @@ void XlsxModel::initData()
 
 }
 
-void XlsxModel::setValues(QList<QString> colTitle, QList<VLIST> data)
-{
-    // TODO: set xlsx data
 
-    // m_colNames
-    // m_roleCount
-    // m_the_data
-}
 
 int XlsxModel::rowCount(const QModelIndex& parent) const
 {
@@ -116,6 +124,8 @@ QVariant XlsxModel::data(const QModelIndex& index, int role) const
                 if ( role == cmpRole )
                 {
                     QVariant var = vList.at(jc);
+                    if ( ! var.isValid() ) var.setValue( QString("") ) ;
+                    if ( var.isNull() ) var.setValue( QString("") ) ;
                     ret = var;
                 }
             }
