@@ -6,15 +6,15 @@
 
 ![](markdown.data/qxlsx-badge1.png)
 
-* QXlsx is excel file(*.xlsx) reader/writer library.
-* Because QtXlsx is no longer supported(2014), I created a new project that is based on QtXlsx. (2017-)
-* Development language of QXlsx is C++. (with Qt 5.x)
-* You don't need to use static library or dynamic shared object using QXlsx.
-
+- QXlsx is excel file(*.xlsx) reader/writer library.
+- Because QtXlsx is no longer supported(2014), I created a new project that is based on QtXlsx. (2017-)
+- Development language of QXlsx is C++. (with Qt)
+- You don't need to use static library or dynamic shared object using QXlsx.
 
 ## Sample (Hello excel)
 
 ### :one: Writing excel file(*.xlsx)
+
 ```cpp
 QXlsx::Document xlsx;
 xlsx.write("A1", "Hello Qt!"); // write "Hello Qt!" to cell(A,1). it's shared string.
@@ -22,6 +22,7 @@ xlsx.saveAs("Test.xlsx"); // save the document as 'Test.xlsx'
 ```
 
 ### :two: Reading excel file(*.xlsx)
+
 ```cpp
 Document xlsx("Test.xlsx"); // load excel file
 if (!xlsx.isLoadPackage()) { 
@@ -36,31 +37,28 @@ qDebug() << var; // display value
 ```
 
 ## How to set up
-* See [How to setup QXlsx project](HowToSetProject.md)
+- See [How to setup QXlsx project](HowToSetProject.md)
 
 ## Test environment
 
-- :hammer: [Tested environments](TestEnv.md)
+- See [Tested environments](TestEnv.md)
 
 ## To Test
-- The following tests should be performed.
-	- Microsoft Excel
-	- Google Spreadsheet
-	- LibreOffice Calc Spreasheet
+- The following tests should be performed. 
+	- Microsoft Excel, Google Spreadsheet, LibreOffice Calc Spreasheet
 - Unicode test (filename :cloud:, filepath :cloud:, data value :sunny:)
 
 ## To Upgrade
 - Develop the encryption function of xlsx
-- Build and test on Android
 
 ## License and links
-* ![](markdown.data/mit-license.png) QXlsx is under MIT License. [https://github.com/j2doll/QXlsx](https://github.com/j2doll/QXlsx)
-* ![](markdown.data/mit-license.png) QtXlsx License : See Debao Zhang (2014) site. [https://github.com/dbzhang800/QtXlsxWriter](https://github.com/dbzhang800/QtXlsxWriter)
-* Qt License (See Qt Company site) [https://www.qt.io/](https://www.qt.io/) 
+- ![](markdown.data/mit-license.png) QXlsx is under MIT License. [https://github.com/j2doll/QXlsx](https://github.com/j2doll/QXlsx)
+- ![](markdown.data/mit-license.png) QtXlsx License : See Debao Zhang (2014) site. [https://github.com/dbzhang800/QtXlsxWriter](https://github.com/dbzhang800/QtXlsxWriter)
+- Qt License (See Qt Company site) [https://www.qt.io/](https://www.qt.io/) 
 
 ## :email: Contact
-* Hi! I'm j2doll (aka Jay Two). My name is Korean and it is difficult for foreigners to pronounce it. Call me j2doll.
-* Leave me a issue. [https://github.com/j2doll/QXlsx/issues](https://github.com/j2doll/QXlsx/issues)
+- Hi! I'm j2doll (aka Jay Two). My name is Korean and it is difficult for foreigners to pronounce it. Call me j2doll.
+- Leave me a issue. [https://github.com/j2doll/QXlsx/issues](https://github.com/j2doll/QXlsx/issues)
 	- If you are interested in participating in the project, please contact us by issue.
 	- My native language is not English and my English is not fluent. Please, use EASY English. :-)
 	

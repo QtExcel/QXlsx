@@ -6,15 +6,16 @@
 
 ![](markdown.data/qxlsx-badge1.png)
 
-* QXlsx는 엑셀 파일(*.xlsx)을 읽고 쓰는 라이브러리입니다.
-* QtXlsx가 더이상 지원되지 않기 때문에(2014), QtXlsx에 기반한 새로운 프로젝트를 만들었습니다. (2017-)
-* QXlsx는 개발언어로 C++를 사용합니다. (Qt 5.x 사용)
-* QXlsx는 정적 또는 동적 라이브러리를 사용하지 않아도 되도록 제작되었습니다.
+- QXlsx는 엑셀 파일(*.xlsx)을 읽고 쓰는 라이브러리입니다.
+- QtXlsx가 더이상 지원되지 않기 때문에(2014), QtXlsx에 기반한 새로운 프로젝트를 만들었습니다. (2017-)
+- QXlsx는 개발언어로 C++를 사용합니다. (Qt 사용)
+- QXlsx는 정적 또는 동적 라이브러리를 사용하지 않아도 되도록 제작되었습니다.
 
 
 ## 활용 예제 (Hello excel)
 
 ### :one: 엑셀(xlsx) 파일 쓰기
+
 ```cpp
 QXlsx::Document xlsx;
 xlsx.write("A1", "Hello Qt!"); // 셀(A,1)에 'Hello Qt!'값을 설정. 공유 문자열 타입으로 설정됨.
@@ -22,6 +23,7 @@ xlsx.saveAs("Test.xlsx"); // 'Test.xlsx'라는 이름으로 엑셀 파일을 저
 ```
 
 ### :two: 엑셀(xlsx) 파일 읽기
+
 ```cpp
 Document xlsx("Test.xlsx"); // 엑셀 파일 읽기
 if (!xlsx.isLoadPackage()) { 
@@ -40,27 +42,24 @@ qDebug() << var; // 값 표시
 
 ## 테스트 환경
 
-- :hammer: [Tested environments](TestEnv.md)
+- [테스트된 환경](TestEnv.md)을 참조하세요.
 
 ## 테스트 할 일
 - 다음과 같은 테스트들이 수행되어야 합니다.
-	- 마이크로소프트 엑셀
-	- 구글 스프레드쉬트
-	- 리브레오피스 캘크 스프레드시트
+	- 마이크로소프트 엑셀, 구글 스프레드쉬트, 리브레오피스 캘크 스프레드시트
 - 유니코드 테스트 (파일 이름 :cloud:, 파일 경로 :cloud:, 자료값 :sunny:)
 
 ## 업그레이드 할 일
 - xlsx의 암복호화 기능 개발
-- Android에서 빌드 및 테스트
 
 ## 라이센스와 링크
-* ![](markdown.data/mit-license.png) QXlsx는 MIT 라이센스 입니다. [https://github.com/j2doll/QXlsx](https://github.com/j2doll/QXlsx)
-* ![](markdown.data/mit-license.png) QtXlsx License : Debao Zhang (2014) 싸이트를 참조하세요. [https://github.com/dbzhang800/QtXlsxWriter](https://github.com/dbzhang800/QtXlsxWriter)
-* Qt License (Qt Company 싸이트를 참조하세요.) [https://www.qt.io/](https://www.qt.io/) 
+- ![](markdown.data/mit-license.png) QXlsx는 MIT 라이센스 입니다. [https://github.com/j2doll/QXlsx](https://github.com/j2doll/QXlsx)
+- ![](markdown.data/mit-license.png) QtXlsx License : Debao Zhang (2014) 싸이트를 참조하세요. [https://github.com/dbzhang800/QtXlsxWriter](https://github.com/dbzhang800/QtXlsxWriter)
+- Qt License (Qt Company 싸이트를 참조하세요.) [https://www.qt.io/](https://www.qt.io/) 
 
 ## :email: 문의
-* 이슈를 남겨 주세요. [https://github.com/j2doll/QXlsx/issues](https://github.com/j2doll/QXlsx/issues)
-* 프로젝트 참여에 관심이 있으신 분은 이슈로 연락주세요.
+- 이슈를 남겨 주세요. [https://github.com/j2doll/QXlsx/issues](https://github.com/j2doll/QXlsx/issues)
+- 프로젝트 참여에 관심이 있으신 분은 이슈로 연락주세요.
 
 ## 유사한 프로젝트
 
