@@ -11,6 +11,12 @@
 - Development language of QXlsx is C++. (with Qt)
 - You don't need to use static library or dynamic shared object using QXlsx.
 
+## How to use
+- See samples 
+	- TestExcel : basic samples based on QtXlsx
+	- HelloAndroid : read xlsx on Android
+	- SpreadsheetExample : simple sample
+
 ## Sample (Hello excel)
 
 ### :one: Writing excel file(*.xlsx)

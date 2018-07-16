@@ -11,6 +11,11 @@
 - QXlsx는 개발언어로 C++를 사용합니다. (Qt 사용)
 - QXlsx는 정적 또는 동적 라이브러리를 사용하지 않아도 되도록 제작되었습니다.
 
+## 활용하는 방법
+- 예제를 보세요.
+	- TestExcel : 기본 예제 (QtXlsx 기반)
+	- HelloAndroid : 안드로이드에서 xlsx 파일 열기
+	- SpreadsheetExample : 간단한 예제
 
 ## 활용 예제 (Hello excel)
 
