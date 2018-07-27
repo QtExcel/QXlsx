@@ -13,7 +13,7 @@
 
 ## How to use
 - See samples 
-	- TestExcel : basic samples based on QtXlsx
+	- TestExcel : basic samples based on QtXlsx samples
 	- HelloAndroid : read xlsx on Android
 	- SpreadsheetExample : simple sample
 

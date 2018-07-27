@@ -13,7 +13,7 @@
 
 ## 활용하는 방법
 - 예제를 보세요.
-	- TestExcel : 기본 예제 (QtXlsx 기반)
+	- TestExcel : 기본 예제 (QtXlsx 예제 기반)
 	- HelloAndroid : 안드로이드에서 xlsx 파일 열기
 	- SpreadsheetExample : 간단한 예제
 
