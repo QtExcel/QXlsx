@@ -1,8 +1,9 @@
 #
 # HelloAndroid.pro
 #
-# code from https://github.com/j2doll/QXlsx
+# QXlsx
 # MIT License
+# https://github.com/j2doll/QXlsx
 
 # TARGET = HelloAndroid
 

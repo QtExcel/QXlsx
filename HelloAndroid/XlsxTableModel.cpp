@@ -1,3 +1,7 @@
+// QXlsx
+// MIT License
+// https://github.com/j2doll/QXlsx
+
 // XlsxTableModel.cpp
 
 #include "XlsxTableModel.h"

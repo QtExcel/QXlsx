@@ -1,11 +1,15 @@
 #-------------------------------------------------
 # QXlsx.pri 
 #
+# QXlsx
 # MIT License
 # https://github.com/j2doll/QXlsx
-# Author: j2doll
-# e-amil: j2doll@gmail.com
-#-------------------------------------------------
+#
+# QtXlsx
+# https://github.com/dbzhang800/QtXlsxWriter
+# http://qtxlsx.debao.me/
+# MIT License
+
 
 QT += core
 QT += gui-private
