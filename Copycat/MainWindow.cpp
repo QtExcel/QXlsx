@@ -67,16 +67,22 @@ void MainWindow::on_action_Open_triggered()
     xlsxDoc = new QXlsx::Document(fileName);
     xlsxDoc->isLoadPackage();
 
+    tabWidget->clear();
+    // Removes all the pages, but does not delete them.
+    // Calling this function is equivalent to calling removeTab() until the tab widget is empty.
+    //
     //for ( int ic = 0 ; ic < tabWidget->count() ; ic++ ) {
     //    tabWidget->removeTab( ic );
     //}
 
-    // quint32 sheetCount = xlsxDoc->sheetNames().count();
     foreach( QString curretnSheetName, xlsxDoc->sheetNames() ) {
        QXlsx::AbstractSheet* currentSheet = xlsxDoc->sheet( curretnSheetName );
+       if ( NULL == currentSheet )
+           continue;
 
-       //
-       // new XlsxTab( this, currentSheet )
+       // XlsxTab* newSheet = new XlsxTab( this, currentSheet );
+            // TODO: append to xlsx pointer list
+       // tabWidget->addTab( newSheet );
     }
 
 
