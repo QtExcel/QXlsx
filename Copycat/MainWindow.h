@@ -29,6 +29,9 @@ private:
     QXlsx::Document* xlsxDoc;
     QTabWidget *tabWidget;
 
+private:
+    bool loadXlsx(QString xlsxFilename);
+
 };
 
 #endif // MAINWINDOW_H

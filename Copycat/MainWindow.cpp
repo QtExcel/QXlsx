@@ -55,8 +55,11 @@ void MainWindow::on_action_Open_triggered()
         return;
     }
 
-    // TODO: make loading xlsx function of MainWindow
+    bool returnLoading = loadXlsx(fileName);
+}
 
+bool MainWindow::loadXlsx(QString fileName)
+{
     // clear xlsxDoc
     if ( NULL != xlsxDoc )
     {
@@ -68,6 +71,7 @@ void MainWindow::on_action_Open_triggered()
     xlsxDoc = new QXlsx::Document(fileName);
     xlsxDoc->isLoadPackage();
 
+    // clear tab widget
     tabWidget->clear();
     // Removes all the pages, but does not delete them.
     // Calling this function is equivalent to calling removeTab() until the tab widget is empty.
@@ -90,8 +94,5 @@ void MainWindow::on_action_Open_triggered()
 
        // tabWidget->addTab( newSheet );
     }
-
-
-
 
 }
