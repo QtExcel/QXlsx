@@ -40,7 +40,7 @@ void MainWindow::on_action_Quit_triggered()
 
 void MainWindow::on_action_Open_triggered()
 {
-    // open dialog
+    // open file dialog
     QString fileName = QFileDialog::getOpenFileName(this,
         tr("Open Excel"), ".", tr("Excel Files (*.xlsx)"));
 
@@ -54,7 +54,8 @@ void MainWindow::on_action_Open_triggered()
         msgBox.exec();
         return;
     }
-    xlsxTmp.deleteLater();
+
+    // TODO: make loading xlsx function of MainWindow
 
     // clear xlsxDoc
     if ( NULL != xlsxDoc )
@@ -75,13 +76,18 @@ void MainWindow::on_action_Open_triggered()
     //    tabWidget->removeTab( ic );
     //}
 
+    // TODO: clear sub-items of every tab
+
     foreach( QString curretnSheetName, xlsxDoc->sheetNames() ) {
        QXlsx::AbstractSheet* currentSheet = xlsxDoc->sheet( curretnSheetName );
        if ( NULL == currentSheet )
            continue;
 
+       // create new tab
        // XlsxTab* newSheet = new XlsxTab( this, currentSheet );
+
             // TODO: append to xlsx pointer list
+
        // tabWidget->addTab( newSheet );
     }
 
