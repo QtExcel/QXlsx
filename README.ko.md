@@ -12,12 +12,10 @@
 - QXlsx는 정적 또는 동적 라이브러리를 사용하지 않아도 되도록 제작되었습니다.
 
 ## 활용하는 방법
-- 예제를 보세요.
+- 예제를 보세요
 	- TestExcel : 기본 예제 (QtXlsx 예제 기반)
 	- HelloAndroid : QML을 사용한 안드로이드에서 xlsx 파일 열기
-		![](markdown.data/android.jpg)
 	- Copycat : xlsx 파일을 읽어 위젯으로 표시 (할일: xlsx 파일로 저장)
-		![](markdown.data/copycat.png)
 
 ## 활용 예제 (Hello excel)
 
