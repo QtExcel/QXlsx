@@ -33,7 +33,7 @@ class Chart;
 class CellReference;
 
 class DocumentPrivate;
-class   Document : public QObject
+class Document : public QObject
 {
 	Q_OBJECT
 	Q_DECLARE_PRIVATE(Document)

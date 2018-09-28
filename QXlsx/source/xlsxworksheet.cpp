@@ -10,6 +10,22 @@
 // MIT License
 //--------------------------------------------------------------------
 
+#include <QtGlobal>
+#include <QVariant>
+#include <QDateTime>
+#include <QPoint>
+#include <QFile>
+#include <QUrl>
+#include <QRegularExpression>
+#include <QDebug>
+#include <QBuffer>
+#include <QXmlStreamWriter>
+#include <QXmlStreamReader>
+#include <QTextDocument>
+#include <QDir>
+#include <QMapIterator>
+
+#include <cmath>
 
 #include "xlsxrichstring.h"
 #include "xlsxcellreference.h"
@@ -30,21 +46,7 @@
 #include "xlsxchart.h"
 #include "xlsxcellformula.h"
 #include "xlsxcellformula_p.h"
-
-#include <QVariant>
-#include <QDateTime>
-#include <QPoint>
-#include <QFile>
-#include <QUrl>
-#include <QRegularExpression>
-#include <QDebug>
-#include <QBuffer>
-#include <QXmlStreamWriter>
-#include <QXmlStreamReader>
-#include <QTextDocument>
-#include <QDir>
-
-#include <math.h>
+#include "xlsxcelllocation.h"
 
 QT_BEGIN_NAMESPACE_XLSX
 
@@ -2369,6 +2371,38 @@ void WorksheetPrivate::validateDimension()
 SharedStrings *WorksheetPrivate::sharedStrings() const
 {
 	return workbook->sharedStrings();
+}
+
+QVector<CellLocation> Worksheet::getFullCells()
+{
+    Q_D(const Worksheet);
+
+    QVector<CellLocation> ret;
+
+    QMapIterator<int, QMap<int, QSharedPointer<Cell> > > _it(d->cellTable);
+    while ( _it.hasNext() )
+    {
+        _it.next();
+
+        int keyI = _it.key(); // key
+        QMapIterator<int, QSharedPointer<Cell> > _iit( _it.value() ); // value
+        while ( _iit.hasNext() )
+        {
+            _iit.next();
+
+            int keyII = _iit.key(); // key
+            QSharedPointer<Cell> ptrCell = _iit.value(); // value
+
+            CellLocation cl;
+            cl.row = keyI;
+            cl.col = keyII;
+            cl.cell = ptrCell;
+
+            ret.push_back( cl );
+        }
+    }
+
+    return ret;
 }
 
 QT_END_NAMESPACE_XLSX

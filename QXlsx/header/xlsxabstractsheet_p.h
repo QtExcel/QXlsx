@@ -36,13 +36,15 @@
 // We mean it.
 //
 
+#include <QtGlobal>
+#include <QString>
+#include <QSharedPointer>
+
 #include "xlsxglobal.h"
 #include "xlsxabstractsheet.h"
 #include "xlsxabstractooxmlfile_p.h"
 
-#include <QSharedPointer>
-
-namespace QXlsx {
+QT_BEGIN_NAMESPACE_XLSX
 
 class  AbstractSheetPrivate : public AbstractOOXmlFilePrivate
 {
@@ -60,5 +62,5 @@ public:
     AbstractSheet::SheetType type;
 };
 
-}
+QT_END_NAMESPACE_XLSX
 #endif // XLSXABSTRACTSHEET_P_H

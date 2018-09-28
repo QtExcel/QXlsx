@@ -3,6 +3,7 @@
 #include <QString>
 #include <QFileDialog>
 #include <QMessageBox>
+#include <QVBoxLayout>
 
 #include "MainWindow.h"
 #include "ui_MainWindow.h"
@@ -17,6 +18,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     tabWidget = new QTabWidget(this);
+    setCentralWidget(tabWidget);
 
 }
 
@@ -44,9 +46,7 @@ void MainWindow::on_action_Open_triggered()
     QString fileName = QFileDialog::getOpenFileName(this,
         tr("Open Excel"), ".", tr("Excel Files (*.xlsx)"));
 
-    // tried to load xlsx
-    QXlsx::Document xlsxTmp(fileName);
-    if (!xlsxTmp.isLoadPackage())
+    if ( ! loadXlsx(fileName) ) // load xlsx
     {
         QMessageBox msgBox;
         QString alertMsg = QString("Failed to load file.\n %1").arg(fileName);
@@ -55,11 +55,19 @@ void MainWindow::on_action_Open_triggered()
         return;
     }
 
-    bool returnLoading = loadXlsx(fileName);
+    this->setWindowTitle(fileName);
+
 }
 
 bool MainWindow::loadXlsx(QString fileName)
 {
+    // tried to load xlsx using temporary document
+    QXlsx::Document xlsxTmp(fileName);
+    if (!xlsxTmp.isLoadPackage())
+    {
+        return false;
+    }
+
     // clear xlsxDoc
     if ( NULL != xlsxDoc )
     {
@@ -67,32 +75,49 @@ bool MainWindow::loadXlsx(QString fileName)
         xlsxDoc = NULL;
     }
 
-    // load new xlsx
+    // load new xlsx using new document
     xlsxDoc = new QXlsx::Document(fileName);
     xlsxDoc->isLoadPackage();
 
     // clear tab widget
     tabWidget->clear();
     // Removes all the pages, but does not delete them.
-    // Calling this function is equivalent to calling removeTab() until the tab widget is empty.
+    // Calling this function is equivalent to calling removeTab()
+    // until the tab widget is empty.
     //
-    //for ( int ic = 0 ; ic < tabWidget->count() ; ic++ ) {
+    // for ( int ic = 0 ; ic < tabWidget->count() ; ic++ ) {
     //    tabWidget->removeTab( ic );
-    //}
+    // }
 
-    // TODO: clear sub-items of every tab
+    // clear sub-items of every tab
+    foreach ( XlsxTab* ptrTab, xlsxTabList ) {
+        if ( NULL == ptrTab )
+            continue;
+        delete ptrTab;
+    }
+    xlsxTabList.clear();
 
-    foreach( QString curretnSheetName, xlsxDoc->sheetNames() ) {
-       QXlsx::AbstractSheet* currentSheet = xlsxDoc->sheet( curretnSheetName );
-       if ( NULL == currentSheet )
-           continue;
+    int sheetIndexNumber = 0;
+    foreach( QString curretnSheetName, xlsxDoc->sheetNames() )
+    {
+        QXlsx::AbstractSheet* currentSheet = xlsxDoc->sheet( curretnSheetName );
+        if ( NULL == currentSheet )
+            continue;
 
-       // create new tab
-       // XlsxTab* newSheet = new XlsxTab( this, currentSheet );
+        XlsxTab* newSheet = new XlsxTab( this, currentSheet, sheetIndexNumber ); // create new tab
+        xlsxTabList.push_back( newSheet ); // append to xlsx pointer list
 
-            // TODO: append to xlsx pointer list
+        tabWidget->addTab( newSheet, curretnSheetName  );
 
-       // tabWidget->addTab( newSheet );
+        sheetIndexNumber++;
     }
 
+    return true;
+}
+
+void MainWindow::on_action_About_triggered()
+{
+    QMessageBox msgBox;
+    msgBox.setText(QString("Copycat\nhttps://github.com/j2doll/QXlsx"));
+    msgBox.exec();
 }

@@ -101,7 +101,8 @@ $${QXLSX_HEADERPATH}xlsxworkbook_p.h \
 $${QXLSX_HEADERPATH}xlsxworksheet.h \
 $${QXLSX_HEADERPATH}xlsxworksheet_p.h \
 $${QXLSX_HEADERPATH}xlsxzipreader_p.h \
-$${QXLSX_HEADERPATH}xlsxzipwriter_p.h
+$${QXLSX_HEADERPATH}xlsxzipwriter_p.h \
+$${QXLSX_HEADERPATH}xlsxcelllocation.h
 
 SOURCES += \
 $${QXLSX_SOURCEPATH}xlsxabstractooxmlfile.cpp \
@@ -134,7 +135,9 @@ $${QXLSX_SOURCEPATH}xlsxutility.cpp \
 $${QXLSX_SOURCEPATH}xlsxworkbook.cpp \
 $${QXLSX_SOURCEPATH}xlsxworksheet.cpp \
 $${QXLSX_SOURCEPATH}xlsxzipreader.cpp \
-$${QXLSX_SOURCEPATH}xlsxzipwriter.cpp
+$${QXLSX_SOURCEPATH}xlsxzipwriter.cpp \
+$${QXLSX_SOURCEPATH}xlsxcelllocation.cpp
+
 
 ######################################################################
 # custom setting for compiler & system

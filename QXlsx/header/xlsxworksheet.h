@@ -1,46 +1,40 @@
-/****************************************************************************
-** Copyright (c) 2013-2014 Debao Zhang <hello@debao.me>
-** All right reserved.
-**
-** Permission is hereby granted, free of charge, to any person obtaining
-** a copy of this software and associated documentation files (the
-** "Software"), to deal in the Software without restriction, including
-** without limitation the rights to use, copy, modify, merge, publish,
-** distribute, sublicense, and/or sell copies of the Software, and to
-** permit persons to whom the Software is furnished to do so, subject to
-** the following conditions:
-**
-** The above copyright notice and this permission notice shall be
-** included in all copies or substantial portions of the Software.
-**
-** THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-** EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-** MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
-** NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
-** LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
-** OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
-** WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-**
-****************************************************************************/
+//--------------------------------------------------------------------
+//
+// QXlsx
+// MIT License
+// https://github.com/j2doll/QXlsx
+//
+// QtXlsx
+// https://github.com/dbzhang800/QtXlsxWriter
+// http://qtxlsx.debao.me/
+// MIT License
+//
+
 #ifndef XLSXWORKSHEET_H
 #define XLSXWORKSHEET_H
 
-#include "xlsxabstractsheet.h"
-#include "xlsxcell.h"
-#include "xlsxcellrange.h"
-#include "xlsxcellreference.h"
+#include <QtGlobal>
+#include <QObject>
 #include <QStringList>
 #include <QMap>
 #include <QVariant>
 #include <QPointF>
 #include <QSharedPointer>
-class QIODevice;
-class QDateTime;
-class QUrl;
-class QImage;
+#include <QIODevice>
+#include <QDateTime>
+#include <QUrl>
+#include <QImage>
+
+#include "xlsxabstractsheet.h"
+#include "xlsxcell.h"
+#include "xlsxcellrange.h"
+#include "xlsxcellreference.h"
+#include "xlsxcelllocation.h"
+
 class WorksheetTest;
 
 QT_BEGIN_NAMESPACE_XLSX
+
 class DocumentPrivate;
 class Workbook;
 class Format;
@@ -53,10 +47,12 @@ class Relationships;
 class Chart;
 
 class WorksheetPrivate;
-class   Worksheet : public AbstractSheet
+class Worksheet : public AbstractSheet
 {
     Q_DECLARE_PRIVATE(Worksheet)
+
 public:
+
     bool write(const CellReference &row_column, const QVariant &value, const Format &format=Format());
     bool write(int row, int column, const QVariant &value, const Format &format=Format());
     QVariant read(const CellReference &row_column) const;
@@ -142,8 +138,10 @@ public:
 
     ~Worksheet();
 
+    QVector<CellLocation> getFullCells();
 
 private:
+
     friend class DocumentPrivate;
     friend class Workbook;
     friend class ::WorksheetTest;

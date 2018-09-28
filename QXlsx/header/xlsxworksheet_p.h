@@ -36,6 +36,14 @@
 // We mean it.
 //
 
+#include <QtGlobal>
+#include <QObject>
+#include <QString>
+#include <QVector>
+#include <QImage>
+#include <QSharedPointer>
+#include <QRegularExpression>
+
 #include "xlsxworksheet.h"
 #include "xlsxabstractsheet_p.h"
 #include "xlsxcell.h"
@@ -43,14 +51,10 @@
 #include "xlsxconditionalformatting.h"
 #include "xlsxcellformula.h"
 
-#include <QImage>
-#include <QSharedPointer>
-#include <QRegularExpression>
-
 class QXmlStreamWriter;
 class QXmlStreamReader;
 
-namespace QXlsx {
+QT_BEGIN_NAMESPACE_XLSX
 
 const int XLSX_ROW_MAX = 1048576;
 const int XLSX_COLUMN_MAX = 16384;
@@ -229,5 +233,5 @@ private:
     static double calculateColWidth(int characters);
 };
 
-}
+QT_END_NAMESPACE_XLSX
 #endif // XLSXWORKSHEET_P_H

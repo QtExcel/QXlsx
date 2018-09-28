@@ -2,6 +2,11 @@
 #define MAINWINDOW_H
 
 #include <QtGlobal>
+#include <QObject>
+#include <QString>
+#include <QVector>
+#include <QList>
+#include <QWidget>
 #include <QMainWindow>
 #include <QTabWidget>
 
@@ -24,10 +29,13 @@ private slots:
     void on_action_Quit_triggered();
     void on_action_Open_triggered();
 
+    void on_action_About_triggered();
+
 private:
     Ui::MainWindow *ui;
     QXlsx::Document* xlsxDoc;
     QTabWidget *tabWidget;
+    QVector<XlsxTab*> xlsxTabList;
 
 private:
     bool loadXlsx(QString xlsxFilename);

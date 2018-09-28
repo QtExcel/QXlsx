@@ -12,11 +12,12 @@
 #ifndef QXLSX_XLSXCELL_H
 #define QXLSX_XLSXCELL_H
 
-#include "xlsxglobal.h"
-#include "xlsxformat.h"
 #include <QtGlobal>
 #include <QVariant>
 #include <cstdio>
+
+#include "xlsxglobal.h"
+#include "xlsxformat.h"
 
 QT_BEGIN_NAMESPACE_XLSX
 
