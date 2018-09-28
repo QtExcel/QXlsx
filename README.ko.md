@@ -15,6 +15,7 @@
 - 예제를 보세요.
 	- TestExcel : 기본 예제 (QtXlsx 예제 기반)
 	- HelloAndroid : 안드로이드에서 xlsx 파일 열기
+	- Copycat : xlsx 파일을 읽어 위젯으로 표시 (할일: xlsx 파일로 저장)
 	- SpreadsheetExample : 간단한 예제
 
 ## 활용 예제 (Hello excel)
