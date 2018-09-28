@@ -138,7 +138,7 @@ public:
 
     ~Worksheet();
 
-    QVector<CellLocation> getFullCells();
+    QVector<CellLocation> getFullCells(int* maxRow, int* maxCol);
 
 private:
 

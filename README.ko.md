@@ -14,9 +14,10 @@
 ## 활용하는 방법
 - 예제를 보세요.
 	- TestExcel : 기본 예제 (QtXlsx 예제 기반)
-	- HelloAndroid : 안드로이드에서 xlsx 파일 열기
+	- HelloAndroid : QML을 사용한 안드로이드에서 xlsx 파일 열기
+		![](markdown.data/android.jpg)
 	- Copycat : xlsx 파일을 읽어 위젯으로 표시 (할일: xlsx 파일로 저장)
-	- SpreadsheetExample : 간단한 예제
+		![](markdown.data/copycat.png)
 
 ## 활용 예제 (Hello excel)
 

@@ -12,13 +12,14 @@
 - You don't need to use static library or dynamic shared object using QXlsx.
 
 ## How to use
-- See samples 
+- See examples 
 	- TestExcel : basic samples based on QtXlsx samples
-	- HelloAndroid : read xlsx on Android
+	- HelloAndroid : read xlsx on Android using QML
+		![](markdown.data/android.jpg)	
 	- Copycat : load xlsx file and display on widget (TODO: save xlsx)
-	- SpreadsheetExample : simple sample
-
-## Sample (Hello excel)
+		![](markdown.data/copycat.png)
+		
+## Example (Hello excel)
 
 ### :one: Writing excel file(*.xlsx)
 

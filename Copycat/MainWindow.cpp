@@ -20,23 +20,22 @@ MainWindow::MainWindow(QWidget *parent) :
     tabWidget = new QTabWidget(this);
     setCentralWidget(tabWidget);
 
+    this->setWindowTitle(QString("Copycat"));
 }
 
 MainWindow::~MainWindow()
 {
-    // tabWidget->close();
-
     delete ui;
 
     if ( NULL != xlsxDoc )
     {
         delete xlsxDoc;
     }
-
 }
 
 void MainWindow::on_action_Quit_triggered()
 {
+    // quit
     this->close();
 }
 
@@ -65,7 +64,7 @@ bool MainWindow::loadXlsx(QString fileName)
     QXlsx::Document xlsxTmp(fileName);
     if (!xlsxTmp.isLoadPackage())
     {
-        return false;
+        return false; // failed to load
     }
 
     // clear xlsxDoc
@@ -84,13 +83,10 @@ bool MainWindow::loadXlsx(QString fileName)
     // Removes all the pages, but does not delete them.
     // Calling this function is equivalent to calling removeTab()
     // until the tab widget is empty.
-    //
-    // for ( int ic = 0 ; ic < tabWidget->count() ; ic++ ) {
-    //    tabWidget->removeTab( ic );
-    // }
 
     // clear sub-items of every tab
-    foreach ( XlsxTab* ptrTab, xlsxTabList ) {
+    foreach ( XlsxTab* ptrTab, xlsxTabList )
+    {
         if ( NULL == ptrTab )
             continue;
         delete ptrTab;
@@ -118,6 +114,23 @@ bool MainWindow::loadXlsx(QString fileName)
 void MainWindow::on_action_About_triggered()
 {
     QMessageBox msgBox;
-    msgBox.setText(QString("Copycat\nhttps://github.com/j2doll/QXlsx"));
+    msgBox.setText( "QXlsx<br />"
+                    "<a href=\"https://github.com/j2doll/QXlsx\">https://github.com/j2doll/QXlsx</a><br />"
+                    "MIT License<br />" );
     msgBox.exec();
 }
+
+void MainWindow::on_action_New_triggered()
+{
+    QMessageBox msgBox;
+    msgBox.setText( "New" );
+    msgBox.exec();
+}
+
+void MainWindow::on_action_Save_triggered()
+{
+    QMessageBox msgBox;
+    msgBox.setText( "Save" );
+    msgBox.exec();
+}
+

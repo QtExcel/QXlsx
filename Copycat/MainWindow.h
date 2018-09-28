@@ -31,6 +31,10 @@ private slots:
 
     void on_action_About_triggered();
 
+    void on_action_New_triggered();
+
+    void on_action_Save_triggered();
+
 private:
     Ui::MainWindow *ui;
     QXlsx::Document* xlsxDoc;

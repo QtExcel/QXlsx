@@ -2373,10 +2373,12 @@ SharedStrings *WorksheetPrivate::sharedStrings() const
 	return workbook->sharedStrings();
 }
 
-QVector<CellLocation> Worksheet::getFullCells()
+QVector<CellLocation> Worksheet::getFullCells(int* maxRow, int* maxCol)
 {
     Q_D(const Worksheet);
 
+    (*maxRow) = -1;
+    (*maxCol) = -1;
     QVector<CellLocation> ret;
 
     QMapIterator<int, QMap<int, QSharedPointer<Cell> > > _it(d->cellTable);
@@ -2394,8 +2396,15 @@ QVector<CellLocation> Worksheet::getFullCells()
             QSharedPointer<Cell> ptrCell = _iit.value(); // value
 
             CellLocation cl;
+
             cl.row = keyI;
+            if ( keyI > (*maxRow) )
+                (*maxRow) = keyI;
+
             cl.col = keyII;
+            if ( keyII > (*maxCol) )
+                (*maxCol) = keyII;
+
             cl.cell = ptrCell;
 
             ret.push_back( cl );
