@@ -25,13 +25,14 @@
 #ifndef QXLSX_FORMAT_H
 #define QXLSX_FORMAT_H
 
-#include "xlsxglobal.h"
 #include <QFont>
 #include <QColor>
 #include <QByteArray>
 #include <QList>
 #include <QExplicitlySharedDataPointer>
 #include <QVariant>
+
+#include "xlsxglobal.h"
 
 class FormatTest;
 
@@ -44,7 +45,8 @@ class RichStringPrivate;
 class SharedStrings;
 
 class FormatPrivate;
-class   Format
+
+class Format
 {
 public:
     enum FontScript

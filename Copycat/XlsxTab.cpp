@@ -1,11 +1,17 @@
 // XlsxTab.cpp
 
-#include "XlsxTab.h"
-
+#include <QtGlobal>
+#include <QObject>
+#include <QString>
+#include <QSharedPointer>
 #include <QLayout>
 #include <QVBoxLayout>
 #include <QVariant>
+#include <QFont>
 #include <QDebug>
+
+#include "XlsxTab.h"
+#include "xlsxcell.h"
 
 XlsxTab::XlsxTab(QWidget* parent,
                  QXlsx::AbstractSheet* ptrSheet,
@@ -74,12 +80,78 @@ bool XlsxTab::setSheet()
           // But first cell of Qxlsx document is 1.
           int row = cl.row - 1;
           int col = cl.col - 1;
+          QSharedPointer<Cell> ptrCell = cl.cell;
 
           QVariant var = cl.cell.data()->value();
           QString str = var.toString();
 
           QTableWidgetItem *newItem = new QTableWidgetItem(str);
-          table->setItem(row, col, newItem);
+
+          // set item
+          table->setItem( row, col, newItem );
+
+          // font
+          newItem->setFont( ptrCell->format().font() );
+
+          // font color
+          newItem->setTextColor( ptrCell->format().fontColor() );
+
+          // ptrCell->format().patternBackgroundColor()
+          // ptrCell->format().patternForegroundColor()
+          // newItem->setBackgroundColor( ptrCell->format().patternBackgroundColor() );
+          // newItem->setBackgroundColor( ptrCell->format().patternForegroundColor() );
+          // newItem->setBackgroundColor( ptrCell->format().diagonalBorderColor() );
+
+          // alignment
+          int alignment = 0;
+          Format::HorizontalAlignment ha = ptrCell->format().horizontalAlignment();
+          switch(ha)
+          {
+            case Format::HorizontalAlignment::AlignHCenter :
+            case Format::HorizontalAlignment::AlignHFill :
+            case Format::HorizontalAlignment::AlignHMerge :
+            case Format::HorizontalAlignment::AlignHDistributed :
+                alignment = alignment | Qt::AlignHCenter;
+            break;
+
+            case Format::HorizontalAlignment::AlignRight :
+                alignment = alignment | Qt::AlignRight;
+            break;
+
+            case Format::HorizontalAlignment::AlignHJustify :
+                alignment = alignment | Qt::AlignJustify;
+            break;
+
+            case Format::HorizontalAlignment::AlignLeft :
+            case Format::HorizontalAlignment::AlignHGeneral :
+            default:
+                alignment = alignment | Qt::AlignLeft;
+            break;
+          }
+
+          Format::VerticalAlignment va = ptrCell->format().verticalAlignment();
+          switch(va)
+          {
+              case Format::VerticalAlignment::AlignTop :
+                  alignment = alignment |  Qt::AlignTop;
+              break;
+
+              case Format::VerticalAlignment::AlignVCenter :
+                  alignment = alignment |  Qt::AlignVCenter;
+              break;
+
+              case Format::VerticalAlignment::AlignBottom :
+                  alignment = alignment |  Qt::AlignBottom;
+              break;
+
+              case Format::VerticalAlignment::AlignVJustify :
+              case Format::VerticalAlignment::AlignVDistributed :
+              default:
+                alignment = alignment |  Qt::AlignBaseline;
+              break;
+          }
+
+          newItem->setTextAlignment( alignment );
     }
 
     return true;

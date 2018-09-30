@@ -113,11 +113,12 @@ bool MainWindow::loadXlsx(QString fileName)
 
 void MainWindow::on_action_About_triggered()
 {
-    QMessageBox msgBox;
-    msgBox.setText( "QXlsx<br />"
-                    "<a href=\"https://github.com/j2doll/QXlsx\">https://github.com/j2doll/QXlsx</a><br />"
-                    "MIT License<br />" );
-    msgBox.exec();
+    QString title = "QXlsx";
+    QString text = "QXlsx<br />"
+            "<a href=\"https://github.com/j2doll/QXlsx\">https://github.com/j2doll/QXlsx</a><br />"
+            "MIT License<br />" ;
+
+    QMessageBox::about(this, title, text);
 }
 
 void MainWindow::on_action_New_triggered()
