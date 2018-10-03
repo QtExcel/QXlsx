@@ -8,6 +8,7 @@
 #include <QVBoxLayout>
 #include <QVariant>
 #include <QFont>
+#include <QBrush>
 #include <QDebug>
 
 #include "XlsxTab.h"
@@ -22,21 +23,20 @@ XlsxTab::XlsxTab(QWidget* parent,
     sheet = NULL;
     sheetIndex = -1;
 
-    if ( NULL != ptrSheet )
+    if ( NULL == ptrSheet )
+        return;
+
+    table = new QTableWidget;
+
+    // set layout
+    QVBoxLayout *layout = new QVBoxLayout;
+    layout->addWidget(table);
+    this->setLayout(layout);
+
+    sheet = ptrSheet; // set sheet data
+    sheetIndex = SheetIndex; // set shett index
+    if ( ! setSheet() )
     {
-        table = new QTableWidget;
-
-        QVBoxLayout *layout = new QVBoxLayout;
-        layout->addWidget(table);
-
-        this->setLayout(layout);
-
-        sheet = ptrSheet; // set sheet data
-        sheetIndex = SheetIndex; // set shett index
-        if ( ! setSheet() )
-        {
-
-        }
     }
 
 }
@@ -80,12 +80,17 @@ bool XlsxTab::setSheet()
           // But first cell of Qxlsx document is 1.
           int row = cl.row - 1;
           int col = cl.col - 1;
-          QSharedPointer<Cell> ptrCell = cl.cell;
+
+          QSharedPointer<Cell> ptrCell = cl.cell; // cell pointer
+
+          // create new item of table widget
+          QTableWidgetItem* newItem = new QTableWidgetItem();
 
           QVariant var = cl.cell.data()->value();
           QString str = var.toString();
 
-          QTableWidgetItem *newItem = new QTableWidgetItem(str);
+          // set text
+          newItem->setText( str );
 
           // set item
           table->setItem( row, col, newItem );
@@ -94,13 +99,44 @@ bool XlsxTab::setSheet()
           newItem->setFont( ptrCell->format().font() );
 
           // font color
-          newItem->setTextColor( ptrCell->format().fontColor() );
+          if ( ptrCell->format().fontColor().isValid() )
+          {
+            newItem->setTextColor( ptrCell->format().fontColor() );
+          }
 
-          // ptrCell->format().patternBackgroundColor()
-          // ptrCell->format().patternForegroundColor()
-          // newItem->setBackgroundColor( ptrCell->format().patternBackgroundColor() );
-          // newItem->setBackgroundColor( ptrCell->format().patternForegroundColor() );
-          // newItem->setBackgroundColor( ptrCell->format().diagonalBorderColor() );
+          // pattern
+          Format::FillPattern fp = ptrCell->format().fillPattern();
+          Qt::BrushStyle qbs = Qt::NoBrush;
+          switch(fp)
+          {
+              case Format::FillPattern::PatternNone :       qbs = Qt::NoBrush; break;
+              case Format::FillPattern::PatternSolid :      qbs = Qt::SolidPattern; break;
+              case Format::FillPattern::PatternMediumGray :
+              case Format::FillPattern::PatternDarkGray :
+              case Format::FillPattern::PatternLightGray :
+              case Format::FillPattern::PatternDarkHorizontal :
+              case Format::FillPattern::PatternDarkVertical :
+              case Format::FillPattern::PatternDarkDown :
+              case Format::FillPattern::PatternDarkUp :
+              case Format::FillPattern::PatternDarkGrid :
+              case Format::FillPattern::PatternDarkTrellis :
+              case Format::FillPattern::PatternLightHorizontal :
+              case Format::FillPattern::PatternLightVertical :
+              case Format::FillPattern::PatternLightDown :
+              case Format::FillPattern::PatternLightUp :
+              case Format::FillPattern::PatternLightTrellis :
+              case Format::FillPattern::PatternGray125 :
+              case Format::FillPattern::PatternGray0625 :
+              case Format::FillPattern::PatternLightGrid :
+              default:
+              break;
+          }
+
+          /*
+        QBrush qbr( ptrCell->format().patternForegroundColor(), qbs );
+        newItem->setBackground( qbr );
+        newItem->setBackgroundColor( ptrCell->format().patternBackgroundColor() );
+        */
 
           // alignment
           int alignment = 0;
@@ -151,7 +187,8 @@ bool XlsxTab::setSheet()
               break;
           }
 
-          newItem->setTextAlignment( alignment );
+          newItem->setTextAlignment( alignment ); // set alignment
+
     }
 
     return true;
