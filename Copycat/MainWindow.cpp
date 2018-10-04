@@ -105,17 +105,31 @@ bool MainWindow::loadXlsx(QString fileName)
     xlsxTabList.clear();
 
     int sheetIndexNumber = 0;
+    int activeSheetNumber = -1;
+
+    AbstractSheet* activeSheet = xlsxDoc->workbook()->activeSheet();
+    // NOTICE: active sheet is lastest sheet. It's not focused sheet.
+
     foreach( QString curretnSheetName, xlsxDoc->sheetNames() )
     {
         QXlsx::AbstractSheet* currentSheet = xlsxDoc->sheet( curretnSheetName );
         if ( NULL == currentSheet )
             continue;
 
+        if ( activeSheet == currentSheet )
+        {
+            // current sheet is active sheet.
+            activeSheetNumber = sheetIndexNumber;
+        }
+
         XlsxTab* newSheet = new XlsxTab( this, currentSheet, sheetIndexNumber ); // create new tab
         xlsxTabList.push_back( newSheet ); // append to xlsx pointer list
         tabWidget->addTab( newSheet, curretnSheetName  ); // add tab widget
         sheetIndexNumber++; // increase sheet index number
     }
+
+    if ( (-1) != activeSheetNumber )
+        tabWidget->setCurrentIndex(activeSheetNumber);
 
     return true;
 }
@@ -159,79 +173,94 @@ void MainWindow::print(QPrinter *printer)
     if ( NULL == xlsxDoc )
         return;
 
+    Worksheet* wsheet = (Worksheet*) xlsxDoc->workbook()->activeSheet();
+    if ( NULL == wsheet )
+        return;
+
     QList<QString> colTitle;
-
     QList<VLIST> xlsxData;
-
     QVector<int> printColumnStretch;
-
     int sheetIndexNumber = 0;
-    foreach( QString curretnSheetName, xlsxDoc->sheetNames() )
+
+    int maxRow = -1;
+    int maxCol = -1;
+    QVector<CellLocation> clList = wsheet->getFullCells( &maxRow, &maxCol );
+
+    QString arr[maxRow][maxCol];
+
+    for ( int ic = 0; ic < clList.size(); ++ic )
     {
-        if ( curretnSheetName.isEmpty() )
-            continue;
+        CellLocation cl = clList.at(ic);
 
-        QXlsx::AbstractSheet* currentSheet = xlsxDoc->sheet( curretnSheetName );
-        if ( NULL == currentSheet )
-            continue;
+        int row = cl.row;
+        int col = cl.col;
 
-        // set active sheet
-        currentSheet->workbook()->setActiveSheet( sheetIndexNumber );
-        Worksheet* wsheet = (Worksheet*) currentSheet->workbook()->activeSheet();
+        QSharedPointer<Cell> ptrCell = cl.cell; // cell pointer
 
-        int maxRow = -1;
-        int maxCol = -1;
-        QVector<CellLocation> clList = wsheet->getFullCells( &maxRow, &maxCol );
+        QString strValue = ptrCell->value().toString();
 
-        for ( int ic = 0; ic < clList.size(); ++ic )
+        arr[row - 1][col - 1] = strValue;
+    }
+
+    for (int ir = 0 ; ir < maxRow; ir++)
+    {
+        VLIST vl;
+
+        for (int ic = 0 ; ic < maxCol; ic++)
         {
-              CellLocation cl = clList.at(ic);
+            QString strValue = arr[ir][ic];
+            if ( strValue.isNull() )
+                strValue = QString("");
 
-              // First cell of tableWidget is 0.
-              // But first cell of Qxlsx document is 1.
-              int row = cl.row - 1;
-              int col = cl.col - 1;
-
-              QSharedPointer<Cell> ptrCell = cl.cell; // cell pointer
-
-
+            vl.append( strValue );
         }
 
-        // TODO: load sheet and ship into tablemodel
-        //       ( colTitle,  xlsxData,  printColumnStretch )
+        xlsxData.append( vl );
+    }
 
-        // colTitle.append(QString("A"));
+    QVector<QString> printHeaders;
 
-        /*
-        VLIST vl1;
-        vl1.append( xlsx.read("A1") );
-        vl1.append( xlsx.read("B1") );
-        vl1.append( xlsx.read("C1") );
-        xlsxData.append( vl1 );
-        */
+    for (int ic = 0 ; ic < maxCol; ic++)
+    {
+        QString strCol = QString("%1").arg(ic + 1);
+        colTitle.append( strCol );
 
-        // printColumnStretch = QVector<int>() << 2 << 5 << 10 << 15;
+        printHeaders.append( strCol );
 
-        sheetIndexNumber++; // increase sheet index number
+        printColumnStretch.append( wsheet->columnWidth( (ic + 1) ) ); // TODO: check this code
     }
 
     XlsxTableModel xlsxTableModel(colTitle, xlsxData);
+
+    /*
+    for ( int j = 0; j < maxRow; j++ )
+    {
+        qDebug() << "===================";
+        for( int i = 0; i < maxCol; i++ )
+        {
+            QString strVal = xlsxTableModel.data( xlsxTableModel.index(j, i), Qt::DisplayRole).toString();
+            qDebug() << strVal;
+        }
+    }
+    */
 
     QPainter painter;
     if ( !painter.begin(printer) )
     {
         QMessageBox msgBox;
         msgBox.setText( "Can't start printer" );
+        msgBox.setIcon( QMessageBox::Critical );
         msgBox.exec();
         return;
     }
 
     // print table
     TablePrinter tablePrinter(&painter, printer);
-    if(!tablePrinter.printTable( &xlsxTableModel, printColumnStretch ))
+    if(!tablePrinter.printTable( &xlsxTableModel, printColumnStretch, printHeaders ))
     {
         QMessageBox msgBox;
         msgBox.setText( tablePrinter.lastError() );
+        msgBox.setIcon( QMessageBox::Warning );
         msgBox.exec();
     }
 
