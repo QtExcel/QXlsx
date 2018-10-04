@@ -9,9 +9,11 @@
 #include <QWidget>
 #include <QMainWindow>
 #include <QTabWidget>
+#include <QPrinter>
 
 #include "xlsx.h"
 #include "XlsxTab.h"
+#include "XlsxTableModel.h"
 
 namespace Ui {
 class MainWindow;
@@ -28,12 +30,11 @@ public:
 private slots:
     void on_action_Quit_triggered();
     void on_action_Open_triggered();
-
     void on_action_About_triggered();
-
     void on_action_New_triggered();
-
     void on_action_Save_triggered();
+    void on_action_Print_triggered();
+    void print(QPrinter *printer);
 
 private:
     Ui::MainWindow *ui;

@@ -59,8 +59,8 @@ qDebug() << var; // display value
 
 ## License and links
 - ![](markdown.data/mit-license.png) QXlsx is under MIT License. [https://github.com/j2doll/QXlsx](https://github.com/j2doll/QXlsx)
-- ![](markdown.data/mit-license.png) QtXlsx License : See Debao Zhang (2014) site. [https://github.com/dbzhang800/QtXlsxWriter](https://github.com/dbzhang800/QtXlsxWriter)
-- Qt License (See Qt Company site) [https://www.qt.io/](https://www.qt.io/) 
+- ![](markdown.data/mit-license.png) QtXlsx is under MIT License. [https://github.com/dbzhang800/QtXlsxWriter](https://github.com/dbzhang800/QtXlsxWriter)
+- Qt is under LGPL v3 License or Commercial Lisense. [https://www.qt.io/](https://www.qt.io/) 
 
 ## :email: Contact
 - Hi! I'm j2doll (aka Jay Two). My name is Korean and it is difficult for foreigners to pronounce it. Call me j2doll.

@@ -31,6 +31,8 @@
     <addaction name="action_Open"/>
     <addaction name="action_Save"/>
     <addaction name="separator"/>
+    <addaction name="action_Print"/>
+    <addaction name="separator"/>
     <addaction name="action_Quit"/>
    </widget>
    <widget class="QMenu" name="menu_Help">
@@ -74,6 +76,11 @@
   <action name="action_About">
    <property name="text">
     <string>&amp;About</string>
+   </property>
+  </action>
+  <action name="action_Print">
+   <property name="text">
+    <string>&amp;Print</string>
    </property>
   </action>
  </widget>

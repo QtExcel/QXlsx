@@ -4,7 +4,18 @@
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QVBoxLayout>
+#include <QPrinter>
+#include <QPrintPreviewDialog>
+#include <QPainter>
+#include <QDebug>
+#include <QVector>
+#include <QList>
+#include <QSharedPointer>
 
+#include "xlsxcelllocation.h"
+#include "xlsxcell.h"
+#include "XlsxTableModel.h"
+#include "tableprinter.h"
 #include "MainWindow.h"
 #include "ui_MainWindow.h"
 
@@ -111,16 +122,15 @@ bool MainWindow::loadXlsx(QString fileName)
 
 void MainWindow::on_action_About_triggered()
 {
-    QString title = "QXlsx";
     QString text = "QXlsx<br />"
             "<a href=\"https://github.com/j2doll/QXlsx\">https://github.com/j2doll/QXlsx</a><br />"
             "MIT License<br />" ;
-
-    QMessageBox::about(this, title, text);
+    QMessageBox::about(this, "QXlsx", text);
 }
 
 void MainWindow::on_action_New_triggered()
 {
+    // TODO: new document
     QMessageBox msgBox;
     msgBox.setText( "New" );
     msgBox.exec();
@@ -128,8 +138,102 @@ void MainWindow::on_action_New_triggered()
 
 void MainWindow::on_action_Save_triggered()
 {
+    // TODO: save document
     QMessageBox msgBox;
     msgBox.setText( "Save" );
     msgBox.exec();
 }
 
+void MainWindow::on_action_Print_triggered()
+{
+    if ( NULL == xlsxDoc )
+        return;
+
+    QPrintPreviewDialog dialog;
+    connect(&dialog, SIGNAL(paintRequested(QPrinter*)), this, SLOT(print(QPrinter*)));
+    dialog.exec();
+}
+
+void MainWindow::print(QPrinter *printer)
+{
+    if ( NULL == xlsxDoc )
+        return;
+
+    QList<QString> colTitle;
+
+    QList<VLIST> xlsxData;
+
+    QVector<int> printColumnStretch;
+
+    int sheetIndexNumber = 0;
+    foreach( QString curretnSheetName, xlsxDoc->sheetNames() )
+    {
+        if ( curretnSheetName.isEmpty() )
+            continue;
+
+        QXlsx::AbstractSheet* currentSheet = xlsxDoc->sheet( curretnSheetName );
+        if ( NULL == currentSheet )
+            continue;
+
+        // set active sheet
+        currentSheet->workbook()->setActiveSheet( sheetIndexNumber );
+        Worksheet* wsheet = (Worksheet*) currentSheet->workbook()->activeSheet();
+
+        int maxRow = -1;
+        int maxCol = -1;
+        QVector<CellLocation> clList = wsheet->getFullCells( &maxRow, &maxCol );
+
+        for ( int ic = 0; ic < clList.size(); ++ic )
+        {
+              CellLocation cl = clList.at(ic);
+
+              // First cell of tableWidget is 0.
+              // But first cell of Qxlsx document is 1.
+              int row = cl.row - 1;
+              int col = cl.col - 1;
+
+              QSharedPointer<Cell> ptrCell = cl.cell; // cell pointer
+
+
+        }
+
+        // TODO: load sheet and ship into tablemodel
+        //       ( colTitle,  xlsxData,  printColumnStretch )
+
+        // colTitle.append(QString("A"));
+
+        /*
+        VLIST vl1;
+        vl1.append( xlsx.read("A1") );
+        vl1.append( xlsx.read("B1") );
+        vl1.append( xlsx.read("C1") );
+        xlsxData.append( vl1 );
+        */
+
+        // printColumnStretch = QVector<int>() << 2 << 5 << 10 << 15;
+
+        sheetIndexNumber++; // increase sheet index number
+    }
+
+    XlsxTableModel xlsxTableModel(colTitle, xlsxData);
+
+    QPainter painter;
+    if ( !painter.begin(printer) )
+    {
+        QMessageBox msgBox;
+        msgBox.setText( "Can't start printer" );
+        msgBox.exec();
+        return;
+    }
+
+    // print table
+    TablePrinter tablePrinter(&painter, printer);
+    if(!tablePrinter.printTable( &xlsxTableModel, printColumnStretch ))
+    {
+        QMessageBox msgBox;
+        msgBox.setText( tablePrinter.lastError() );
+        msgBox.exec();
+    }
+
+    painter.end();
+}

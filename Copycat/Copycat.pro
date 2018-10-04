@@ -1,11 +1,11 @@
 #-------------------------------------------------
-#
 # Copycat.pro
-#
 #-------------------------------------------------
-# QXlsx
-# MIT License
-# https://github.com/j2doll/QXlsx
+# QXlsx, MIT License, https://github.com/j2doll/QXlsx
+#-------------------------------------------------
+# QtXlsx, MIT License, https://github.com/dbzhang800/QtXlsxWriter
+# Qt-Table-Printer, BSD 3-Clause License, https://github.com/T0ny0/Qt-Table-Printer
+# Qt, LGPL v3 or Commercial License, https://www.qt.io
 #-------------------------------------------------
 
 TARGET = Copycat
@@ -14,6 +14,7 @@ TEMPLATE = app
 QT += core
 QT += gui
 QT += widgets
+QT += printsupport
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -34,15 +35,22 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #  QXLSX_SOURCEPATH=./source/
 include(../QXlsx/QXlsx.pri)
 
+INCLUDEPATH += \
+./Qt-Table-Printer
+
 HEADERS += \
 MainWindow.h \
 XlsxTab.h \
-xlsx.h
+xlsx.h \
+./Qt-Table-Printer/tableprinter.h \
+XlsxTableModel.h
 
 SOURCES += \
 main.cpp \
 MainWindow.cpp \
-XlsxTab.cpp
+XlsxTab.cpp \
+./Qt-Table-Printer/tableprinter.cpp \
+XlsxTableModel.cpp
 
 FORMS += \
 MainWindow.ui

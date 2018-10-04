@@ -59,8 +59,8 @@ qDebug() << var; // 값 표시
 
 ## 라이센스와 링크
 - ![](markdown.data/mit-license.png) QXlsx는 MIT 라이센스 입니다. [https://github.com/j2doll/QXlsx](https://github.com/j2doll/QXlsx)
-- ![](markdown.data/mit-license.png) QtXlsx License : Debao Zhang (2014) 싸이트를 참조하세요. [https://github.com/dbzhang800/QtXlsxWriter](https://github.com/dbzhang800/QtXlsxWriter)
-- Qt License (Qt Company 싸이트를 참조하세요.) [https://www.qt.io/](https://www.qt.io/) 
+- ![](markdown.data/mit-license.png) QtXlsx는 MIT 라이센스 입니다. [https://github.com/dbzhang800/QtXlsxWriter](https://github.com/dbzhang800/QtXlsxWriter)
+- Qt 는 LGPL v3 라이센스 또는 상업용 라이센스 입니다. [https://www.qt.io/](https://www.qt.io/) 
 
 ## :email: 문의
 - 이슈를 남겨 주세요. [https://github.com/j2doll/QXlsx/issues](https://github.com/j2doll/QXlsx/issues)
