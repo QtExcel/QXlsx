@@ -60,6 +60,7 @@ qDebug() << var; // 값 표시
 ## 라이센스와 링크
 - ![](markdown.data/mit-license.png) QXlsx는 MIT 라이센스 입니다. [https://github.com/j2doll/QXlsx](https://github.com/j2doll/QXlsx)
 - ![](markdown.data/mit-license.png) QtXlsx는 MIT 라이센스 입니다. [https://github.com/dbzhang800/QtXlsxWriter](https://github.com/dbzhang800/QtXlsxWriter)
+- Qt-Table-Printer 는 BSD 3-Clause 라이센스 입니다. [https://github.com/T0ny0/Qt-Table-Printer](https://github.com/T0ny0/Qt-Table-Printer) 
 - Qt 는 LGPL v3 라이센스 또는 상업용 라이센스 입니다. [https://www.qt.io/](https://www.qt.io/) 
 
 ## :email: 문의
