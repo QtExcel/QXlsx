@@ -58,8 +58,8 @@ qDebug() << var; // display value
 - Develop the encryption function of xlsx
 
 ## License and links
-- ![](markdown.data/mit-license.png) QXlsx is under MIT License. [https://github.com/j2doll/QXlsx](https://github.com/j2doll/QXlsx)
-- ![](markdown.data/mit-license.png) QtXlsx is under MIT License. [https://github.com/dbzhang800/QtXlsxWriter](https://github.com/dbzhang800/QtXlsxWriter)
+- QXlsx is under MIT License. [https://github.com/j2doll/QXlsx](https://github.com/j2doll/QXlsx)
+- QtXlsx is under MIT License. [https://github.com/dbzhang800/QtXlsxWriter](https://github.com/dbzhang800/QtXlsxWriter)
 - Qt-Table-Printer is under BSD 3-Clause License. [https://github.com/T0ny0/Qt-Table-Printer](https://github.com/T0ny0/Qt-Table-Printer) 
 - Qt is under LGPL v3 License or Commercial Lisense. [https://www.qt.io/](https://www.qt.io/) 
 
