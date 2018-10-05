@@ -11,10 +11,12 @@
 #include <QVector>
 #include <QList>
 #include <QSharedPointer>
+#include <QInputDialog>
+#include <QStringList>
 
 #include "xlsxcelllocation.h"
 #include "xlsxcell.h"
-#include "XlsxTableModel.h"
+#include "XlsxTableModel2.h"
 #include "tableprinter.h"
 #include "MainWindow.h"
 #include "ui_MainWindow.h"
@@ -60,7 +62,8 @@ void MainWindow::on_action_Open_triggered()
     {
         QMessageBox msgBox;
         QString alertMsg = QString("Failed to load file.\n %1").arg(fileName);
-        msgBox.setText(alertMsg);
+        msgBox.setIcon( QMessageBox::Critical );
+        msgBox.setText( alertMsg );
         msgBox.exec();
         return;
     }
@@ -72,8 +75,8 @@ void MainWindow::on_action_Open_triggered()
 bool MainWindow::loadXlsx(QString fileName)
 {
     // tried to load xlsx using temporary document
-    QXlsx::Document xlsxTmp(fileName);
-    if (!xlsxTmp.isLoadPackage())
+    QXlsx::Document xlsxTmp( fileName );
+    if ( !xlsxTmp.isLoadPackage() )
     {
         return false; // failed to load
     }
@@ -86,7 +89,7 @@ bool MainWindow::loadXlsx(QString fileName)
     }
 
     // load new xlsx using new document
-    xlsxDoc = new QXlsx::Document(fileName);
+    xlsxDoc = new QXlsx::Document( fileName );
     xlsxDoc->isLoadPackage();
 
     // clear tab widget
@@ -171,11 +174,55 @@ void MainWindow::on_action_Print_triggered()
 void MainWindow::print(QPrinter *printer)
 {
     if ( NULL == xlsxDoc )
+    {
+        QMessageBox msgBox;
+        msgBox.setText( "xlsx document is empty." );
+        msgBox.setIcon( QMessageBox::Warning );
+        msgBox.exec();
         return;
+    }
 
     Worksheet* wsheet = (Worksheet*) xlsxDoc->workbook()->activeSheet();
     if ( NULL == wsheet )
+    {
+        QMessageBox msgBox;
+        msgBox.setText( "worksheet is set." );
+        msgBox.setIcon( QMessageBox::Warning );
+        msgBox.exec();
         return;
+    }
+
+    QStringList items;
+    foreach( QString curretnSheetName, xlsxDoc->sheetNames() )
+    {
+        items << curretnSheetName;
+    }
+
+    bool ok = false;
+    QString selectedItem
+        = QInputDialog::getItem( this, tr("QXlsx"), tr("Select sheet:"), items, 0, false, &ok );
+
+    if (!ok)
+    {
+        QMessageBox msgBox;
+        msgBox.setText( "Please select printable sheet" );
+        msgBox.setIcon( QMessageBox::Warning );
+        msgBox.exec();
+        return;
+    }
+
+    int idx = 0;
+    foreach (const QString& varList, items)
+    {
+        if ( varList == selectedItem )
+        {
+            break;
+        }
+        idx++;
+    }
+
+    xlsxDoc->workbook()->setActiveSheet( idx );
+    wsheet = (Worksheet*) xlsxDoc->workbook()->activeSheet(); // set active sheet
 
     QList<QString> colTitle;
     QList<VLIST> xlsxData;
@@ -192,14 +239,14 @@ void MainWindow::print(QPrinter *printer)
     {
         CellLocation cl = clList.at(ic);
 
-        int row = cl.row;
-        int col = cl.col;
+        int row = cl.row - 1;
+        int col = cl.col - 1;
 
         QSharedPointer<Cell> ptrCell = cl.cell; // cell pointer
 
         QString strValue = ptrCell->value().toString();
 
-        arr[row - 1][col - 1] = strValue;
+        arr[row][col] = strValue;
     }
 
     for (int ir = 0 ; ir < maxRow; ir++)
@@ -220,7 +267,7 @@ void MainWindow::print(QPrinter *printer)
 
     QVector<QString> printHeaders;
 
-    for (int ic = 0 ; ic < maxCol; ic++)
+    for ( int ic = 0 ; ic < maxCol; ic++ )
     {
         QString strCol = QString("%1").arg(ic + 1);
         colTitle.append( strCol );
@@ -230,19 +277,7 @@ void MainWindow::print(QPrinter *printer)
         printColumnStretch.append( wsheet->columnWidth( (ic + 1) ) ); // TODO: check this code
     }
 
-    XlsxTableModel xlsxTableModel(colTitle, xlsxData);
-
-    /*
-    for ( int j = 0; j < maxRow; j++ )
-    {
-        qDebug() << "===================";
-        for( int i = 0; i < maxCol; i++ )
-        {
-            QString strVal = xlsxTableModel.data( xlsxTableModel.index(j, i), Qt::DisplayRole).toString();
-            qDebug() << strVal;
-        }
-    }
-    */
+    XlsxTableModel2 xlsxTableModel2(colTitle, xlsxData); // model
 
     QPainter painter;
     if ( !painter.begin(printer) )
@@ -256,7 +291,7 @@ void MainWindow::print(QPrinter *printer)
 
     // print table
     TablePrinter tablePrinter(&painter, printer);
-    if(!tablePrinter.printTable( &xlsxTableModel, printColumnStretch, printHeaders ))
+    if(!tablePrinter.printTable( &xlsxTableModel2, printColumnStretch, printHeaders ))
     {
         QMessageBox msgBox;
         msgBox.setText( tablePrinter.lastError() );

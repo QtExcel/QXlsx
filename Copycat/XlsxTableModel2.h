@@ -1,4 +1,4 @@
-// XlsxTableModel.h
+// XlsxTableModel2.h
 
 // QXlsx
 // MIT License
@@ -23,25 +23,17 @@
 
 typedef QList<QVariant> VLIST;
 
-class XlsxTableModel : public QAbstractTableModel
+class XlsxTableModel2 : public QAbstractTableModel
 {
     Q_OBJECT
 
-    // method that is called by QML script
-    Q_PROPERTY(QStringList customRoleNames READ customRoleNames CONSTANT)
-public: QStringList customRoleNames();
-
 public: // constrcutor
-    XlsxTableModel(QList<QString> colTitle, QList<VLIST> data, QObject *parent = NULL);
+    XlsxTableModel2(QList<QString> colTitle, QList<VLIST> data, QObject *parent = NULL);
 
 public: // virtual function of parent object
     int rowCount(const QModelIndex & parent = QModelIndex()) const Q_DECL_OVERRIDE;
     int columnCount(const QModelIndex &parent = QModelIndex()) const Q_DECL_OVERRIDE;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const Q_DECL_OVERRIDE;
-    QHash<int, QByteArray> roleNames() const Q_DECL_OVERRIDE;
-
-protected:
-    void testData(); // test function.
 
 protected:
     QList<VLIST> m_the_data; // table cell data

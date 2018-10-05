@@ -35,6 +35,7 @@
 #include <QAbstractItemModel>
 #include <QPainter>
 #include <QPrinter>
+#include <QDebug>
 
 TablePrinter::TablePrinter(QPainter* painter, QPrinter* printer) :
     painter(painter),
@@ -147,14 +148,19 @@ bool TablePrinter::printTable(const QAbstractItemModel* model, const QVector<int
         for(int i = 0; i < columnCount; i++) { // for each column
             QString str;
             if(j >= 0) {
+                // NOTE: j is row. i is column.
                 str = model->data(model->index(j,i), Qt::DisplayRole).toString();
             } else {
                 str = headers.at(i);
             }
+            // qDebug() << "\t\t\t\t[Printer] " << " i=" << i << " j=" << j << " : " << str;
+
             QRect rect(0, 0, columnWidth[i] - rightMargin - leftMargin, maxRowHeight);
             QRect realRect;
-            testSize.drawText(rect, Qt::AlignLeft | Qt::TextWordWrap, str, &realRect);
-            if (realRect.height() > maxHeight && columnStretch[i] != 0) {
+            int flags = Qt::AlignLeft | Qt::TextWordWrap;
+            testSize.drawText( rect, flags, str, &realRect );
+            if (realRect.height() > maxHeight && columnStretch[i] != 0)
+            {
                  realRect.height() > maxRowHeight ? maxHeight = maxRowHeight : maxHeight = realRect.height();
             }
         }

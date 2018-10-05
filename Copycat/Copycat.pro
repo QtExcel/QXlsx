@@ -43,14 +43,14 @@ MainWindow.h \
 XlsxTab.h \
 xlsx.h \
 ./Qt-Table-Printer/tableprinter.h \
-XlsxTableModel.h
+XlsxTableModel2.h
 
 SOURCES += \
 main.cpp \
 MainWindow.cpp \
 XlsxTab.cpp \
 ./Qt-Table-Printer/tableprinter.cpp \
-XlsxTableModel.cpp
+XlsxTableModel2.cpp
 
 FORMS += \
 MainWindow.ui
