@@ -15,7 +15,7 @@
 - 예제를 보세요
 	- TestExcel : 기본 예제 (QtXlsx 예제 기반)
 	- HelloAndroid : QML을 사용한 안드로이드에서 xlsx 파일 열기
-	- Copycat : xlsx 파일을 읽어 위젯으로 표시 (할일: xlsx 파일로 저장)
+	- Copycat : xlsx 파일을 읽어 위젯으로 표시. xlsx 파일 인쇄. (할일: xlsx 파일로 저장)
 
 ## 활용 예제 (Hello excel)
 
@@ -82,4 +82,3 @@ qDebug() << var; // 값 표시
 
 - Qlibxlsxwriter는 libxlsxwriter를 Qt에서 사용할 수있는 도우미 프로젝트입니다.
 - libxlsxwriter는 Excel XLSX 파일을 만들기위한 C 라이브러리 입니다.	
-

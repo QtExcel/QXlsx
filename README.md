@@ -15,7 +15,7 @@
 - See examples
 	- TestExcel : basic samples based on QtXlsx samples
 	- HelloAndroid : read xlsx on Android using QML
-	- Copycat : load xlsx file and display on widget (TODO: save xlsx)
+	- Copycat : load xlsx file and display on widget. print xlsx file. (TODO: save xlsx)
 		
 ## Example (Hello excel)
 
