@@ -9,23 +9,23 @@
 #include <QDebug>
 #include <QVariant>
 
-#include <sstream>
-
 XlsxTableModel2::XlsxTableModel2(QList<QString> colTitle, QList<VLIST> data, QObject *parent)
     : QAbstractTableModel(parent)
 {
         // [1] set name of column
 
-        for (int ic = 0; ic < colTitle.size() ; ic++ )
+        for ( int ic = 0; ic < colTitle.size() ; ic++ )
         {
-            QString strCol = colTitle.at(ic);
+            std::string colString = convertFromNumberToExcelColumn( ic );
+            // QString strCol = colTitle.at(ic);
+            QString strCol = QString::fromStdString( colString );
             m_colNames.append( strCol );
         }
         m_roleCount = m_colNames.size();
 
         // [2]  set data
 
-        for (int dc = 0; dc < data.size() ; dc++ )
+        for ( int dc = 0; dc < data.size() ; dc++ )
         {
             VLIST vList = data.at(dc);
             m_the_data.append( vList );
@@ -73,10 +73,11 @@ QVariant XlsxTableModel2::data(const QModelIndex& index, int role) const
                 if ( col == jc &&
                      row == ic )
                 {
-
                     QVariant var = vList.at(jc);
-                    if ( ! var.isValid() ) var.setValue( QString("") ) ;
-                    if ( var.isNull() ) var.setValue( QString("") ) ;
+                    if ( ! var.isValid() )
+                        var.setValue( QString("") ) ;
+                    if ( var.isNull() )
+                        var.setValue( QString("") ) ;
                     ret = var;
                 }
             }
@@ -86,6 +87,39 @@ QVariant XlsxTableModel2::data(const QModelIndex& index, int role) const
     return ret;
 }
 
+std::string XlsxTableModel2::convertFromNumberToExcelColumn(int n)
+{
+    // main code from https://www.geeksforgeeks.org/find-excel-column-name-given-number/
+    // Function to print Excel column name for a given column number
 
+    std::string stdString;
 
+    char str[1000]; // To store result (Excel column name)
+    int i = 0; // To store current index in str which is result
+
+    while ( n > 0 )
+    {
+        // Find remainder
+        int rem = n % 26;
+
+        // If remainder is 0, then a 'Z' must be there in output
+        if ( rem == 0 )
+        {
+            str[i++] = 'Z';
+            n = (n/26) - 1;
+        }
+        else // If remainder is non-zero
+        {
+            str[i++] = (rem-1) + 'A';
+            n = n / 26;
+        }
+    }
+    str[i] = '\0';
+
+    // Reverse the string and print result
+    std::reverse( str, str + strlen(str) );
+
+    stdString = str;
+    return stdString;
+}
 

@@ -269,9 +269,10 @@ void MainWindow::print(QPrinter *printer)
 
     for ( int ic = 0 ; ic < maxCol; ic++ )
     {
-        QString strCol = QString("%1").arg(ic + 1);
-        colTitle.append( strCol );
+        std::string colString = convertFromNumberToExcelColumn( ( ic + 1 ) );
+        QString strCol = QString::fromStdString( colString );
 
+        colTitle.append( strCol );
         printHeaders.append( strCol );
 
         printColumnStretch.append( wsheet->columnWidth( (ic + 1) ) ); // TODO: check this code
@@ -300,4 +301,40 @@ void MainWindow::print(QPrinter *printer)
     }
 
     painter.end();
+}
+
+std::string MainWindow::convertFromNumberToExcelColumn(int n)
+{
+    // main code from https://www.geeksforgeeks.org/find-excel-column-name-given-number/
+    // Function to print Excel column name for a given column number
+
+    std::string stdString;
+
+    char str[1000]; // To store result (Excel column name)
+    int i = 0; // To store current index in str which is result
+
+    while ( n > 0 )
+    {
+        // Find remainder
+        int rem = n % 26;
+
+        // If remainder is 0, then a 'Z' must be there in output
+        if ( rem == 0 )
+        {
+            str[i++] = 'Z';
+            n = (n/26) - 1;
+        }
+        else // If remainder is non-zero
+        {
+            str[i++] = (rem-1) + 'A';
+            n = n / 26;
+        }
+    }
+    str[i] = '\0';
+
+    // Reverse the string and print result
+    std::reverse( str, str + strlen(str) );
+
+    stdString = str;
+    return stdString;
 }

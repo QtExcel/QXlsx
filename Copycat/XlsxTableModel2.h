@@ -7,6 +7,13 @@
 #ifndef XLSX_MODEL_H
 #define XLSX_MODEL_H
 
+#include <cstdio>
+#include <cstdlib>
+
+#include <string>
+#include <vector>
+#include <sstream>
+
 #include <QtGlobal>
 #include <QObject>
 #include <QString>
@@ -16,10 +23,6 @@
 #include <QMap>
 #include <QVariant>
 #include <QAbstractTableModel>
-
-#include <string>
-#include <vector>
-#include <cstdlib>
 
 typedef QList<QVariant> VLIST;
 
@@ -40,6 +43,7 @@ protected:
     QList<QString> m_colNames; // column name
     quint32 m_roleCount; // role count (same as column count)
 
+    std::string convertFromNumberToExcelColumn(int n);
 };
 
 #endif

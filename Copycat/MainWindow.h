@@ -44,7 +44,7 @@ private:
 
 private:
     bool loadXlsx(QString xlsxFilename);
-
+    std::string convertFromNumberToExcelColumn(int n);
 };
 
 #endif // MAINWINDOW_H
