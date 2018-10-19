@@ -512,7 +512,8 @@ bool DrawingTwoCellAnchor::loadFromXml(QXmlStreamReader &reader)
     return true;
 }
 
-void DrawingTwoCellAnchor::saveToXml(QXmlStreamWriter &writer) const
+
+   void DrawingTwoCellAnchor::saveToXml(QXmlStreamWriter &writer) const
 {
     writer.writeStartElement(QStringLiteral("xdr:twoCellAnchor"));
     writer.writeAttribute(QStringLiteral("editAs"), QStringLiteral("oneCell"));
@@ -522,8 +523,24 @@ void DrawingTwoCellAnchor::saveToXml(QXmlStreamWriter &writer) const
 
     saveXmlObject(writer);
 
+    writer.writeStartElement(QStringLiteral("xdr:sp"));
+    writer.writeAttribute(QStringLiteral("textlink"), QStringLiteral(""));
+    writer.writeAttribute(QStringLiteral("macro"), QStringLiteral(""));
+         writer.writeStartElement(QStringLiteral("xdr:nvSpPr"));
+            writer.writeEmptyElement(QStringLiteral("xdr:cNvPr"));
+
+            writer.writeAttribute(QStringLiteral("id"), QStringLiteral("2")); //QStringLiteral("id"), QString::number(m_id)
+            writer.writeAttribute(QStringLiteral("name"), QStringLiteral("1")); //QStringLiteral("name"), QStringLiteral("Picture %1").arg(m_id)
+         writer.writeEmptyElement(QStringLiteral("xdr:cNvSpPr"));
+         writer.writeEndElement();// //xdr:nvSpPr
+
+         writer.writeEmptyElement(QStringLiteral("xdr:spPr"));
+    writer.writeEndElement();//xdr:sp  add by liufeijin 20181018 
+
     writer.writeEmptyElement(QStringLiteral("xdr:clientData"));
     writer.writeEndElement(); //xdr:twoCellAnchor
+
 }
+
 
 } // namespace QXlsx
