@@ -2,7 +2,7 @@
 
 > *Read this in other languages: [English](README.md), :kr: [한국어](README.ko.md)*
 
-<p align="center"><img src="https://github.com/j2doll/QXlsx/raw/master/markdown.data/QXlsx2.jpg"></p>
+![](markdown.data/QXlsx2.jpg) ![](markdown.data/QtDesktop.png)
 
 ![](markdown.data/qxlsx-badge1.png)
 
