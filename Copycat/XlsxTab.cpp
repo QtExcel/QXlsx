@@ -69,41 +69,68 @@ bool XlsxTab::setSheet()
     QVector<CellLocation> clList = wsheet->getFullCells( &maxRow, &maxCol );
 
     // set max count of row,col
+      // NOTE: This part should be modified later.
+      //  The maximum value of the sheet should be set to an appropriate value.
     table->setRowCount( maxRow  );
     table->setColumnCount( maxCol );
 
     for ( int ic = 0; ic < clList.size(); ++ic )
     {
+          // cell location
           CellLocation cl = clList.at(ic);
 
+          ////////////////////////////////////////////////////////////////////
           // First cell of tableWidget is 0.
           // But first cell of Qxlsx document is 1.
           int row = cl.row - 1;
           int col = cl.col - 1;
 
-          QSharedPointer<Cell> ptrCell = cl.cell; // cell pointer
+          ////////////////////////////////////////////////////////////////////
+          // cell pointer
+          QSharedPointer<Cell> ptrCell = cl.cell;
 
+          ////////////////////////////////////////////////////////////////////
           // create new item of table widget
           QTableWidgetItem* newItem = new QTableWidgetItem();
 
+          ///////////////////////////////////////////////////////////////////
+          // value of cell
           QVariant var = cl.cell.data()->value();
           QString str = var.toString();
 
+          ////////////////////////////////////////////////////////////////////
           // set text
           newItem->setText( str );
 
+          ////////////////////////////////////////////////////////////////////
           // set item
           table->setItem( row, col, newItem );
 
+            ////////////////////////////////////////////////////////////////////
+            // row height and column width
+            double dRowHeight = wsheet->rowHeight( cl.row );
+            double dColWidth = wsheet->columnWidth( cl.col );
+
+            // dRowHeight = dRowHeight * double(2.0);
+            // dColWidth = dColWidth * double(2.0);
+
+            // TODO: define ratio of widget col/row
+
+            table->setRowHeight( row, dRowHeight );
+            table->setColumnWidth( col, dColWidth );
+
+          ////////////////////////////////////////////////////////////////////
           // font
           newItem->setFont( ptrCell->format().font() );
 
+          ////////////////////////////////////////////////////////////////////
           // font color
           if ( ptrCell->format().fontColor().isValid() )
           {
             newItem->setTextColor( ptrCell->format().fontColor() );
           }
 
+          ////////////////////////////////////////////////////////////////////
           // pattern
           Format::FillPattern fp = ptrCell->format().fillPattern();
           Qt::BrushStyle qbs = Qt::NoBrush;
@@ -132,13 +159,15 @@ bool XlsxTab::setSheet()
               break;
           }
 
-          /*
+        /*
         QBrush qbr( ptrCell->format().patternForegroundColor(), qbs );
         newItem->setBackground( qbr );
         newItem->setBackgroundColor( ptrCell->format().patternBackgroundColor() );
         */
 
-          // alignment
+          ////////////////////////////////////////////////////////////////////
+          // set alignment
+
           int alignment = 0;
           Format::HorizontalAlignment ha = ptrCell->format().horizontalAlignment();
           switch(ha)
@@ -187,7 +216,9 @@ bool XlsxTab::setSheet()
               break;
           }
 
-          newItem->setTextAlignment( alignment ); // set alignment
+          newItem->setTextAlignment( alignment );
+
+          ////////////////////////////////////////////////////////////////////
 
     }
 
