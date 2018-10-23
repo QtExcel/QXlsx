@@ -2,7 +2,7 @@
 
 > *Read this in other languages: [English](README.md), :kr: [한국어](README.ko.md)*
 
-![](markdown.data/QtDesktop.png)
+![](markdown.data/QXlsx-Desktop.png)
 
 ![](markdown.data/qxlsx-badge1.png)
 
