@@ -694,4 +694,5 @@ void Workbook::addChartFile(QSharedPointer<Chart> chart)
         d->chartFiles.append(chart);
 }
 
+
 QT_END_NAMESPACE_XLSX

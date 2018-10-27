@@ -46,6 +46,7 @@
 #include <QPointF>
 #include <QBuffer>
 #include <QDir>
+#include<QDebug>
 
 QT_BEGIN_NAMESPACE_XLSX
 
@@ -227,6 +228,7 @@ bool DocumentPrivate::loadPackage(QIODevice *device)
 		const QString path = mf->fileName();
 		const QString suffix = path.mid(path.lastIndexOf(QLatin1Char('.'))+1);
 		mf->set(zipReader.fileData(path), suffix);
+
 	}
 
 	isLoad = true; 
@@ -1064,6 +1066,40 @@ bool Document::isLoadPackage() const
 Document::~Document()
 {
 	delete d_ptr;
+}
+// add by liufeijin 20181025
+
+bool Document::changeimage(int filenoinmidea, QString newfile){
+    Q_D(const Document);
+    QImage newpic;
+
+     newpic=QImage(newfile);
+
+         QList<QSharedPointer<MediaFile> > mediaFileToLoad = d->workbook->mediaFiles();
+         QSharedPointer<MediaFile> mf = mediaFileToLoad[filenoinmidea];
+
+         const QString suffix = newfile.mid(newfile.lastIndexOf(QLatin1Char('.'))+1);
+         QString mimetypemy;
+          if(QString::compare("jpg", suffix, Qt::CaseInsensitive)==0)
+               mimetypemy="image/jpeg";
+          if(QString::compare("bmp", suffix, Qt::CaseInsensitive)==0)
+               mimetypemy="image/bmp";
+          if(QString::compare("gif", suffix, Qt::CaseInsensitive)==0)
+               mimetypemy="image/gif";
+          if(QString::compare("png", suffix, Qt::CaseInsensitive)==0)
+               mimetypemy="image/png";
+
+         QByteArray ba;
+         QBuffer buffer(&ba);
+         buffer.setBuffer(&ba);
+         buffer.open(QIODevice::WriteOnly);
+         newpic.save(&buffer,suffix.toLocal8Bit().data());
+
+         mf->set(ba,suffix,mimetypemy);
+         mediaFileToLoad[filenoinmidea]=mf;
+
+return true;
+
 }
 
 QT_END_NAMESPACE_XLSX
