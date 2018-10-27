@@ -76,6 +76,7 @@ public:
     DrawingAnchor(Drawing *drawing, ObjectType objectType);
     virtual ~DrawingAnchor();
     void setObjectPicture(const QImage &img);
+    void setObjectShape(const QImage &img);
     void setObjectGraphicFrame(QSharedPointer<Chart> chart);
 
     virtual bool loadFromXml(QXmlStreamReader &reader) = 0;
@@ -106,8 +107,13 @@ protected:
     ObjectType m_objectType;
     QSharedPointer<MediaFile> m_pictureFile;
     QSharedPointer<Chart> m_chartFile;
-
+    QString  editASName;
     int m_id;
+    //// below only for twocellanchor shape
+    QPoint posTA;   // for shape liufeij 20181024
+    QSize extTA;    // for shape liufeij 20181024
+    int rotWithShapeTA;  //// for shape liufeij 20181024
+    int dpiTA;           //// for shape liufeij 20181024
 };
 
 class DrawingAbsoluteAnchor : public DrawingAnchor

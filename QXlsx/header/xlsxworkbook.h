@@ -87,6 +87,8 @@ public:
     void addChartFile(QSharedPointer<Chart> chartFile);
     QList<QSharedPointer<Chart> > chartFiles() const;
 
+
+
 private:
     friend class Worksheet;
     friend class Chartsheet;
