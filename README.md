@@ -62,8 +62,8 @@ qDebug() << var; // display value
 - ![](markdown.data/mit-license.png) QtXlsx License : See Debao Zhang (2014) site. [https://github.com/dbzhang800/QtXlsxWriter](https://github.com/dbzhang800/QtXlsxWriter)
 - Qt License (See Qt Company site) [https://www.qt.io/](https://www.qt.io/) 
 
-mark: 1:fix the problems that pictures，footer,header,pagesetting losing when save the excel file by QXlsx.
-      2:Add a method for changing the picture in shape 
-      3:Add a methode for changing starting page number for each sheet (excel rev. 2010 above)
-      
-      to be fixed  shareformula losing after writing excel.
+mark: - 1:fix the problems that pictures，footer,header,pagesetting losing when save the excel file by QXlsx.
+      - 2:Add a method for changing the picture in shape 
+      - 3:Add a methode for changing starting page number for each sheet (excel rev. 2010 above)
+      -
+       - to be fixed  shareformula losing after writing excel.
