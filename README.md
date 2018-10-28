@@ -62,26 +62,8 @@ qDebug() << var; // display value
 - ![](markdown.data/mit-license.png) QtXlsx License : See Debao Zhang (2014) site. [https://github.com/dbzhang800/QtXlsxWriter](https://github.com/dbzhang800/QtXlsxWriter)
 - Qt License (See Qt Company site) [https://www.qt.io/](https://www.qt.io/) 
 
-## :email: Contact
-- Hi! I'm j2doll (aka Jay Two). My name is Korean and it is difficult for foreigners to pronounce it. Call me j2doll.
-- Leave me a issue. [https://github.com/j2doll/QXlsx/issues](https://github.com/j2doll/QXlsx/issues)
-	- If you are interested in participating in the project, please contact us by issue.
-	- My native language is not English and my English is not fluent. Please, use EASY English. :-)
-	
-## Similar projects
-
-### :star: <b>Qxlnt</b> [https://github.com/j2doll/Qxlnt](https://github.com/j2doll/Qxlnt)
-
-<p align="center"><img src="https://github.com/j2doll/Qxlnt/raw/master/markdown-data/Concept-QXlnt.jpg"></p>
-
-- Qxlnt is a helper project that allows xlnt to be used in Qt.
-- xlnt is a excellent C++ library for using xlsx Excel files. :+1:
-- I was looking for a way to make it easy to use in Qt. Of course, cmake is compatible with Qt, but it is not convenient to use. So I created Qxlnt.
-
-### :star: <b>Qlibxlsxwriter</b> [https://github.com/j2doll/Qlibxlsxwriter](https://github.com/j2doll/Qlibxlsxwriter)
-
-<p align="center"><img src="https://github.com/j2doll/Qlibxlsxwriter/raw/master/markdown.data/logo.png"></p>
-
-- Qlibxlsxwriter is a helper project that allows libxlsxwriter to be used in Qt.
-- libxlsxwriter is a C library for creating Excel XLSX files.
-
+mark: 1:fix the problems that pictures，footer,header,pagesetting losing when save the excel file by QXlsx.
+      2:Add a method for changing the picture in shape 
+      3:Add a methode for changing starting page number for each sheet (excel rev. 2010 above)
+      
+      to be fixed  shareformula losing after writing excel.
