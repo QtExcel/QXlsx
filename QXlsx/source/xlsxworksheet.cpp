@@ -1230,13 +1230,44 @@ void Worksheet::saveToXmlFile(QIODevice *device) const
 	foreach (const ConditionalFormatting cf, d->conditionalFormattingList)
 		cf.saveToXml(writer);
 	d->saveXmlDataValidations(writer);
-	d->saveXmlHyperlinks(writer);
+    // write  pagesettings  add by liufeijin 20181028
+    writer.writeEmptyElement(QStringLiteral("pageSetup"));
+    writer.writeAttribute(QStringLiteral("r:id"), d->prid);
+    writer.writeAttribute(QStringLiteral("verticalDpi"), QString::number(d->verticalDpi));
+    writer.writeAttribute(QStringLiteral("horizontalDpi"),QString::number( d->horizontalDpi));
+    writer.writeAttribute(QStringLiteral("useFirstPageNumber"), QString::number(d->useFirstPageNumber));
+    writer.writeAttribute(QStringLiteral("orientation"), d->orientation);
+    writer.writeAttribute(QStringLiteral("firstPageNumber"), QString::number(d->firstPageNumber));
+    writer.writeAttribute(QStringLiteral("scale"),QString::number( d->scale));
+    writer.writeAttribute(QStringLiteral("paperSize"), QString::number(d->paperSize));
+
+    writer.writeEmptyElement(QStringLiteral("pageMargins"));
+    writer.writeAttribute(QStringLiteral("left"), QString::number(d->Pleft,'f',17));
+    writer.writeAttribute(QStringLiteral("right"), QString::number(d->Pright,'f',17));
+    writer.writeAttribute(QStringLiteral("top"),QString::number(d->Ptop,'f',17));
+    writer.writeAttribute(QStringLiteral("bottom"), QString::number(d->Pbotton,'f',17));
+    writer.writeAttribute(QStringLiteral("header"), QString::number(d->Pheader,'f',17));
+    writer.writeAttribute(QStringLiteral("footer"), QString::number(d->Pfooter,'f',17));
+
+    if((!d->MoodFooter.isNull())||!(d->MoodFooter.isNull())){
+        writer.writeStartElement(QStringLiteral("headerFooter")); // headerFooter
+            if (!d->ModdHeader.isNull()){
+                writer.writeTextElement(QStringLiteral("oddHeader"), d->ModdHeader);}
+            if(!d->MoodFooter.isNull()){
+                writer.writeTextElement(QStringLiteral("oddFooter"), d->MoodFooter);}
+         writer.writeEndElement();// headerFooter
+    }
+    d->saveXmlHyperlinks(writer);
 	d->saveXmlDrawings(writer);
 
 	writer.writeEndElement();//worksheet
 	writer.writeEndDocument();
 }
-
+bool Worksheet::setStartPage(int spagen){
+    Q_D(Worksheet);
+    d->firstPageNumber=spagen;
+    return true;
+}
 void WorksheetPrivate::saveXmlSheetData(QXmlStreamWriter &writer) const
 {
 	calculateSpans();
@@ -2320,7 +2351,47 @@ bool Worksheet::loadFromXmlFile(QIODevice *device)
 				d->conditionalFormattingList.append(cf);
 			} else if (reader.name() == QLatin1String("hyperlinks")) {
 				d->loadXmlHyperlinks(reader);
-			} else if (reader.name() == QLatin1String("drawing")) {
+            } else if(reader.name() == QLatin1String("pageSetup")){
+                QXmlStreamAttributes attributes = reader.attributes();
+                d->paperSize = attributes.value(QLatin1String("paperSize")).toInt();
+                d->scale = attributes.value(QLatin1String("scale")).toInt();
+                d->firstPageNumber = attributes.value(QLatin1String("firstPageNumber")).toInt();
+                d->orientation = attributes.value(QLatin1String("orientation")).toString();
+                d->useFirstPageNumber = attributes.value(QLatin1String("useFirstPageNumber")).toInt();
+                d->horizontalDpi = attributes.value(QLatin1String("horizontalDpi")).toInt();
+                d->verticalDpi = attributes.value(QLatin1String("verticalDpi")).toInt();
+                d->prid=attributes.value(QLatin1String("r:id")).toInt();
+            } else if(reader.name() == QLatin1String("pageMargins")){
+                QXmlStreamAttributes attributes = reader.attributes();
+                d->Pfooter= attributes.value(QLatin1String("footer")).toDouble();
+                d->Pheader = attributes.value(QLatin1String("header")).toDouble();
+                d->Pbotton = attributes.value(QLatin1String("bottom")).toDouble();
+                d->Ptop = attributes.value(QLatin1String("top")).toDouble();
+                d->Pright = attributes.value(QLatin1String("right")).toDouble();
+                d->Pleft = attributes.value(QLatin1String("lefi")).toDouble();
+            } else if(reader.name() == QLatin1String("headerFooter")){
+                    reader.readNextStartElement();
+                    if ((reader.tokenType() == QXmlStreamReader::StartElement)&&\
+                             reader.name() == QLatin1String("oddHeader")) {
+                        d->ModdHeader=reader.readElementText();
+
+                    }else if ((reader.tokenType() == QXmlStreamReader::StartElement)&&\
+                              reader.name() == QLatin1String("oddFooter") ){
+                             d->MoodFooter=reader.readElementText();
+
+                    }
+                    reader.readNextStartElement();
+                    if ((reader.tokenType() == QXmlStreamReader::StartElement)&&\
+                             reader.name() == QLatin1String("oddHeader")) {
+                        d->ModdHeader=reader.readElementText();
+
+                    }else if ((reader.tokenType() == QXmlStreamReader::StartElement)&&\
+                              reader.name() == QLatin1String("oddFooter") ){
+                             d->MoodFooter=reader.readElementText();
+
+                    }
+
+            } else if (reader.name() == QLatin1String("drawing")) {
 				QString rId = reader.attributes().value(QStringLiteral("r:id")).toString();
 				QString name = d->relationships->getRelationshipById(rId).target;
 				QString path = QDir::cleanPath(splitPath(filePath())[0] + QLatin1String("/") + name);
