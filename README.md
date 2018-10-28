@@ -86,3 +86,7 @@ qDebug() << var; // display value
 - Qlibxlsxwriter is a helper project that allows libxlsxwriter to be used in Qt.
 - libxlsxwriter is a C library for creating Excel XLSX files.
 
+### :star: <b>QSimpleXlsxWriter</b> [https://github.com/j2doll/QSimpleXlsxWriter](https://github.com/j2doll/QSimpleXlsxWriter)
+
+- Use SimpleXlsxWriter in Qt.
+- SimpleXlsxWriter is C++ library for creating XLSX files for MS Excel 2007 and above.
