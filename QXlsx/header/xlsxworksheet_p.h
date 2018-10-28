@@ -211,6 +211,21 @@ public:
     int default_row_height;
     bool default_row_zeroed;
 
+    // pagesetup and print settings  add by liufeijin 20181028
+    int paperSize;
+    int scale;
+    int firstPageNumber;
+    QString orientation;
+    int useFirstPageNumber;
+    int horizontalDpi; // 1440
+    int verticalDpi;   //1440;
+    QString prid;     //"rId1";
+
+    // pageMargins add by liufeijin 20181028
+    double Pfooter,Pheader,Pbotton,Ptop,Pright,Pleft;
+    // header footer contain add by liufeijin 20181028
+    QString MoodFooter,ModdHeader;
+
     XlsxSheetFormatProps sheetFormatProps;
 
     bool windowProtection;
