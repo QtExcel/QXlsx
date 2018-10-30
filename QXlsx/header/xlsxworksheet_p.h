@@ -212,17 +212,11 @@ public:
     bool default_row_zeroed;
 
     // pagesetup and print settings  add by liufeijin 20181028
-    int paperSize;
-    int scale;
-    int firstPageNumber;
-    QString orientation;
-    int useFirstPageNumber;
-    int horizontalDpi; // 1440
-    int verticalDpi;   //1440;
-    QString prid;     //"rId1";
+    QString PpaperSize,Pscale,PfirstPageNumber,Porientation,PuseFirstPageNumber,PhorizontalDpi,PverticalDpi, Prid,Pcopies;
+
 
     // pageMargins add by liufeijin 20181028
-    double Pfooter,Pheader,Pbotton,Ptop,Pright,Pleft;
+    QString PMfooter,PMheader,PMbotton,PMtop,PMright,PMleft;
     // header footer contain add by liufeijin 20181028
     QString MoodFooter,ModdHeader;
 

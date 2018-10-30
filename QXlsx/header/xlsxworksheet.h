@@ -139,7 +139,7 @@ public:
     void setOutlineSymbolsVisible(bool visible);
     bool isWhiteSpaceVisible() const;
     void setWhiteSpaceVisible(bool visible);
-    bool setStartPage(int spagen);
+    bool setStartPage(int spagen); //add by liufeijin20181028
 
     ~Worksheet();
 
