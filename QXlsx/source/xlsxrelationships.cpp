@@ -28,6 +28,7 @@
 #include <QDir>
 #include <QFile>
 #include <QBuffer>
+#include<QDebug>
 
 namespace QXlsx {
 
@@ -96,7 +97,6 @@ void Relationships::addRelationship(const QString &type, const QString &target, 
     relation.type = type;
     relation.target = target;
     relation.targetMode = targetMode;
-
     m_relationships.append(relation);
 }
 

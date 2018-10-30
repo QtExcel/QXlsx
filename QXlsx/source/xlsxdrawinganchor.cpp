@@ -176,6 +176,8 @@ void DrawingAnchor::loadXmlObject(QXmlStreamReader &reader)
     if (reader.name() == QLatin1String("sp")) {
         //Shape
         m_objectType = Shape;
+        sp_textlink=reader.attributes().value(QLatin1String("textlink")).toString();
+        sp_macro=reader.attributes().value(QLatin1String("macro")).toString();
         loadXmlObjectShape(reader);
     } else if (reader.name() == QLatin1String("grpSp")) {
         //Group Shape
@@ -188,6 +190,7 @@ void DrawingAnchor::loadXmlObject(QXmlStreamReader &reader)
     } else if (reader.name() == QLatin1String("cxnSp")) {
         //Connection Shape
         m_objectType = ConnectionShape;
+        cxnSp_macro=reader.attributes().value(QLatin1String("macro")).toString();
         loadXmlObjectConnectionShape(reader);
     } else if (reader.name() == QLatin1String("pic")) {
         //Picture
@@ -198,7 +201,81 @@ void DrawingAnchor::loadXmlObject(QXmlStreamReader &reader)
 
 void DrawingAnchor::loadXmlObjectConnectionShape(QXmlStreamReader &reader)
 {
-    Q_UNUSED(reader)
+    Q_ASSERT(reader.name() == QLatin1String("cxnSp"));
+    bool hasoffext=false;
+    while (!reader.atEnd()) {
+        reader.readNextStartElement();
+        if (reader.tokenType() == QXmlStreamReader::StartElement) {
+            if (reader.name() == QLatin1String("cNvPr")){
+                xsp_cNvPR_name= reader.attributes().value(QLatin1String("name")).toString();
+                xsp_cNvPR_id= reader.attributes().value(QLatin1String("id")).toString();
+             }else if(reader.name() == QLatin1String("spPr")){
+                 xbwMode= reader.attributes().value(QLatin1String("bwMode")).toString();
+            }else if(reader.name() == QLatin1String("xfrm")){
+                cxnSp_filpV= reader.attributes().value(QLatin1String("flipV")).toString();
+            }else if (reader.name() == QLatin1String("off")) {
+               posTA = loadXmlPos(reader);
+               hasoffext=true;
+            } else if (reader.name() == QLatin1String("ext")&&hasoffext) {
+               extTA = loadXmlExt(reader);
+               hasoffext=false;
+            }else if(reader.name() == QLatin1String("prstGeom")){
+                xprstGeom_prst= reader.attributes().value(QLatin1String("prst")).toString().trimmed();
+            }else if(reader.name() == QLatin1String("ln")){
+                xIn_algn= reader.attributes().value(QLatin1String("algn")).toString().trimmed();
+                xIn_cmpd= reader.attributes().value(QLatin1String("cmpd")).toString().trimmed();
+                xIn_cap= reader.attributes().value(QLatin1String("cap")).toString().trimmed();
+                xIn_w= reader.attributes().value(QLatin1String("w")).toString().trimmed();
+            }else if(reader.name() == QLatin1String("headEnd")){
+                x_headEnd_w= reader.attributes().value(QLatin1String("w")).toString().trimmed();
+                x_headEnd_len= reader.attributes().value(QLatin1String("len")).toString().trimmed();
+                x_headEnd_tyep= reader.attributes().value(QLatin1String("type")).toString().trimmed();
+            }else if(reader.name() == QLatin1String("tailEnd")){
+                x_tailEnd_w= reader.attributes().value(QLatin1String("w")).toString().trimmed();
+                x_tailEnd_len= reader.attributes().value(QLatin1String("len")).toString().trimmed();
+                x_tailEnd_tyep= reader.attributes().value(QLatin1String("type")).toString().trimmed();
+            }else if(reader.name() == QLatin1String("lnRef")){
+                Style_inref_idx= reader.attributes().value(QLatin1String("idx")).toString().trimmed();
+                reader.readNextStartElement();
+                if (reader.tokenType() == QXmlStreamReader::StartElement) {
+                    if(reader.name() == QLatin1String("schemeClr")){
+                        Style_inref_val=reader.attributes().value(QLatin1String("val")).toString().trimmed();
+                    }
+                }
+            }else if(reader.name() == QLatin1String("fillRef")){
+                style_fillref_idx= reader.attributes().value(QLatin1String("idx")).toString().trimmed();
+                reader.readNextStartElement();
+                if (reader.tokenType() == QXmlStreamReader::StartElement) {
+                    if(reader.name() == QLatin1String("schemeClr")){
+                       style_fillref_val=reader.attributes().value(QLatin1String("val")).toString().trimmed();
+                    }
+                }
+            }else if(reader.name() == QLatin1String("effectRef")){
+                style_effectref_idx= reader.attributes().value(QLatin1String("idx")).toString().trimmed();
+                reader.readNextStartElement();
+                if (reader.tokenType() == QXmlStreamReader::StartElement) {
+                    if(reader.name() == QLatin1String("schemeClr")){
+                      style_effectref_val=reader.attributes().value(QLatin1String("val")).toString().trimmed();
+                    }
+                }
+            }else if(reader.name() == QLatin1String("fontRef")){
+                style_forntref_idx= reader.attributes().value(QLatin1String("idx")).toString().trimmed();
+                reader.readNextStartElement();
+                if (reader.tokenType() == QXmlStreamReader::StartElement) {
+                    if(reader.name() == QLatin1String("schemeClr")){
+                        style_forntref_val=reader.attributes().value(QLatin1String("val")).toString().trimmed();
+                    }
+                }
+            }
+
+        } else if (reader.tokenType() == QXmlStreamReader::EndElement
+                   && reader.name() == QLatin1String("cxnSp")) {
+            break;
+        }
+    }
+
+    return;
+
 }
 
 void DrawingAnchor::loadXmlObjectGraphicFrame(QXmlStreamReader &reader)
@@ -285,9 +362,11 @@ void DrawingAnchor::loadXmlObjectShape(QXmlStreamReader &reader)
         reader.readNextStartElement();
         if (reader.tokenType() == QXmlStreamReader::StartElement) {
             if (reader.name() == QLatin1String("blip")) {
-                QString rId = reader.attributes().value(QLatin1String("r:embed")).toString();
+                QString rId;
+                sp_blip_rembed= reader.attributes().value(QLatin1String("r:embed")).toString();
+                sp_blip_cstate=reader.attributes().value(QLatin1String("cstate")).toString();
+                rId=sp_blip_rembed;
                 QString name = m_drawing->relationships()->getRelationshipById(rId).target;
-
                 QString path = QDir::cleanPath(splitPath(m_drawing->filePath())[0] + QLatin1String("/") + name);
                    bool exist = false;
                    QList<QSharedPointer<MediaFile> > mfs = m_drawing->workbook->mediaFiles();
@@ -311,6 +390,58 @@ void DrawingAnchor::loadXmlObjectShape(QXmlStreamReader &reader)
             }else if(reader.name() == QLatin1String("blipFill")){
                rotWithShapeTA= reader.attributes().value(QLatin1String("rotWithShape")).toInt();
                dpiTA= reader.attributes().value(QLatin1String("dpi")).toInt();
+            }else if(reader.name() == QLatin1String("cNvPr")){
+               xsp_cNvPR_name= reader.attributes().value(QLatin1String("name")).toString();
+               xsp_cNvPR_id= reader.attributes().value(QLatin1String("id")).toString();
+            }else if(reader.name() == QLatin1String("spPr")){
+                xbwMode= reader.attributes().value(QLatin1String("bwMode")).toString();
+            }else if(reader.name() == QLatin1String("prstGeom")){
+                xprstGeom_prst= reader.attributes().value(QLatin1String("prst")).toString();
+            }else if(reader.name() == QLatin1String("ln")){
+                xIn_algn= reader.attributes().value(QLatin1String("algn")).toString();
+                xIn_cmpd= reader.attributes().value(QLatin1String("cmpd")).toString();
+                xIn_cap= reader.attributes().value(QLatin1String("cap")).toString();
+                xIn_w= reader.attributes().value(QLatin1String("w")).toString();
+            }else if(reader.name() == QLatin1String("headEnd")){
+                x_headEnd_w= reader.attributes().value(QLatin1String("w")).toString();
+                x_headEnd_len= reader.attributes().value(QLatin1String("len")).toString();
+                x_headEnd_tyep= reader.attributes().value(QLatin1String("type")).toString();
+            }else if(reader.name() == QLatin1String("tailEnd")){
+                x_tailEnd_w= reader.attributes().value(QLatin1String("w")).toString();
+                x_tailEnd_len= reader.attributes().value(QLatin1String("len")).toString();
+                x_tailEnd_tyep= reader.attributes().value(QLatin1String("type")).toString();
+            }else if(reader.name() == QLatin1String("lnRef")){
+                Style_inref_idx= reader.attributes().value(QLatin1String("idx")).toString().trimmed();
+                reader.readNextStartElement();
+                if (reader.tokenType() == QXmlStreamReader::StartElement) {
+                    if(reader.name() == QLatin1String("schemeClr")){
+                        Style_inref_val=reader.attributes().value(QLatin1String("val")).toString().trimmed();
+                    }
+                }
+            }else if(reader.name() == QLatin1String("fillRef")){
+                style_fillref_idx= reader.attributes().value(QLatin1String("idx")).toString().trimmed();
+                reader.readNextStartElement();
+                if (reader.tokenType() == QXmlStreamReader::StartElement) {
+                    if(reader.name() == QLatin1String("schemeClr")){
+                       style_fillref_val=reader.attributes().value(QLatin1String("val")).toString().trimmed();
+                    }
+                }
+            }else if(reader.name() == QLatin1String("effectRef")){
+                style_effectref_idx= reader.attributes().value(QLatin1String("idx")).toString().trimmed();
+                reader.readNextStartElement();
+                if (reader.tokenType() == QXmlStreamReader::StartElement) {
+                    if(reader.name() == QLatin1String("schemeClr")){
+                      style_effectref_val=reader.attributes().value(QLatin1String("val")).toString().trimmed();
+                    }
+                }
+            }else if(reader.name() == QLatin1String("fontRef")){
+                style_forntref_idx= reader.attributes().value(QLatin1String("idx")).toString().trimmed();
+                reader.readNextStartElement();
+                if (reader.tokenType() == QXmlStreamReader::StartElement) {
+                    if(reader.name() == QLatin1String("schemeClr")){
+                        style_forntref_val=reader.attributes().value(QLatin1String("val")).toString().trimmed();
+                    }
+                }
             }
 
         } else if (reader.tokenType() == QXmlStreamReader::EndElement
@@ -363,7 +494,109 @@ void DrawingAnchor::saveXmlObject(QXmlStreamWriter &writer) const
 
 void DrawingAnchor::saveXmlObjectConnectionShape(QXmlStreamWriter &writer) const
 {
-    Q_UNUSED(writer)
+    writer.writeStartElement(QStringLiteral("xdr:cxnSp"));  ///?
+    writer.writeAttribute(QStringLiteral("macro"), cxnSp_macro);
+
+        writer.writeStartElement(QStringLiteral("xdr:nvCxnSpPr"));
+           writer.writeEmptyElement(QStringLiteral("xdr:cNvPr"));
+           writer.writeAttribute(QStringLiteral("id"), xsp_cNvPR_id);
+           writer.writeAttribute(QStringLiteral("name"), xsp_cNvPR_name);
+           writer.writeEmptyElement(QStringLiteral("xdr:cNvCxnSpPr"));
+        writer.writeEndElement(); //xdr:nvCxnSpPr
+
+    writer.writeStartElement(QStringLiteral("xdr:spPr"));
+    if(!xbwMode.isNull()){
+         writer.writeAttribute(QStringLiteral("bwMode"), xbwMode);
+    }
+
+        writer.writeStartElement(QStringLiteral("a:xfrm"));
+        if(!cxnSp_filpV.isEmpty()){
+        writer.writeAttribute(QStringLiteral("flipV"), cxnSp_filpV);}
+        writer.writeEmptyElement(QStringLiteral("a:off"));
+        writer.writeAttribute(QStringLiteral("x"), QString::number(posTA.x()));
+        writer.writeAttribute(QStringLiteral("y"), QString::number(posTA.y()));
+        writer.writeEmptyElement(QStringLiteral("a:ext"));
+        writer.writeAttribute(QStringLiteral("cx"), QString::number(extTA.width()));
+        writer.writeAttribute(QStringLiteral("cy"), QString::number(extTA.height()));
+        writer.writeEndElement(); //a:xfrm
+
+        writer.writeStartElement(QStringLiteral("a:prstGeom"));
+        writer.writeAttribute(QStringLiteral("prst"), xprstGeom_prst);
+        writer.writeEmptyElement(QStringLiteral("a:avLst"));
+        writer.writeEndElement(); //a:prstGeom
+
+
+         writer.writeStartElement(QStringLiteral("a:ln"));
+            if(!xIn_w.isEmpty()&&!xIn_cap.isEmpty()){
+                if(!xIn_w.isEmpty()){
+                    writer.writeAttribute(QStringLiteral("w"), xIn_w);
+                }
+                if(!xIn_cap.isEmpty()){
+                    writer.writeAttribute(QStringLiteral("cap"), xIn_cap);
+                }
+                if(!xIn_cmpd.isEmpty()){
+                    writer.writeAttribute(QStringLiteral("cmpd"), xIn_cmpd);
+                }
+                if(!xIn_algn.isEmpty()){
+                    writer.writeAttribute(QStringLiteral("algn"), xIn_algn);
+                }
+            }
+             if((!x_headEnd_tyep.isEmpty())||(!x_headEnd_w.isEmpty())||(!x_headEnd_len.isEmpty())){
+                 writer.writeEmptyElement(QStringLiteral("a:headEnd"));
+                 if(!x_headEnd_tyep.isEmpty()){
+                    writer.writeAttribute(QStringLiteral("type"),x_headEnd_tyep);
+                 }
+                 if(!x_headEnd_w.isEmpty()){
+                   writer.writeAttribute(QStringLiteral("w"),x_headEnd_w);
+                 }
+                 if(!x_headEnd_len.isEmpty()){
+                   writer.writeAttribute(QStringLiteral("len"),x_headEnd_len);
+                 }
+             }
+             if((!x_tailEnd_tyep.isEmpty())||(!x_tailEnd_w.isEmpty())||(!x_tailEnd_len.isEmpty())){
+                  writer.writeEmptyElement(QStringLiteral("a:tailEnd"));
+                  if(!x_tailEnd_tyep.isEmpty()){
+                      writer.writeAttribute(QStringLiteral("type"),x_tailEnd_tyep);}
+                  if(!x_tailEnd_w.isEmpty()){
+                      writer.writeAttribute(QStringLiteral("w"),x_tailEnd_w);}
+                  if(!x_tailEnd_len.isEmpty()){
+                      writer.writeAttribute(QStringLiteral("len"),x_tailEnd_len);}
+              }
+
+         writer.writeEndElement();//a:ln
+
+
+      writer.writeEndElement(); //xdr:spPr
+      // writer style
+
+      writer.writeStartElement(QStringLiteral("xdr:style"));// style
+             writer.writeStartElement(QStringLiteral("a:lnRef"));//lnRef
+             writer.writeAttribute(QStringLiteral("idx"),Style_inref_idx);
+                writer.writeStartElement(QStringLiteral("a:schemeClr"));//val
+                writer.writeAttribute(QStringLiteral("val"),Style_inref_val);
+                writer.writeEndElement(); // val
+             writer.writeEndElement(); // lnRef
+             writer.writeStartElement(QStringLiteral("a:fillRef"));//fillRef
+             writer.writeAttribute(QStringLiteral("idx"),style_fillref_idx);
+                writer.writeStartElement(QStringLiteral("a:schemeClr"));//val
+                writer.writeAttribute(QStringLiteral("val"),style_fillref_val);
+                writer.writeEndElement(); // val
+             writer.writeEndElement(); // fillRef
+             writer.writeStartElement(QStringLiteral("a:effectRef"));//effectRef
+             writer.writeAttribute(QStringLiteral("idx"),style_effectref_idx);
+                writer.writeStartElement(QStringLiteral("a:schemeClr"));//val
+                writer.writeAttribute(QStringLiteral("val"),style_effectref_val);
+                writer.writeEndElement(); // val
+             writer.writeEndElement(); // effectRef
+             writer.writeStartElement(QStringLiteral("a:fontRef"));//fontRef
+             writer.writeAttribute(QStringLiteral("idx"),style_forntref_idx);
+                writer.writeStartElement(QStringLiteral("a:schemeClr"));//val
+                writer.writeAttribute(QStringLiteral("val"),style_forntref_val);
+                writer.writeEndElement(); // val
+             writer.writeEndElement(); // fontRef
+      writer.writeEndElement(); // style
+
+      writer.writeEndElement(); //xdr:sp
 }
 
 void DrawingAnchor::saveXmlObjectGraphicFrame(QXmlStreamWriter &writer) const
@@ -449,21 +682,27 @@ void DrawingAnchor::saveXmlObjectShape(QXmlStreamWriter &writer) const
 {
   //  Q_UNUSED(writer)
    // Q_ASSERT(m_objectType == Shape && !m_pictureFile.isNull());
-    writer.writeStartElement(QStringLiteral("xdr:sp"));  ///?
-    writer.writeAttribute(QStringLiteral("macro"), QStringLiteral(""));
-    writer.writeAttribute(QStringLiteral("textlink"),QStringLiteral(""));
+    writer.writeStartElement(QStringLiteral("xdr:sp"));  //xdr:sp
+        writer.writeAttribute(QStringLiteral("macro"), sp_macro);
+        writer.writeAttribute(QStringLiteral("textlink"),sp_textlink);
 
+    writer.writeStartElement(QStringLiteral("xdr:nvSpPr"));//xdr:nvSpPr
 
-        writer.writeStartElement(QStringLiteral("xdr:nvSpPr"));
-           writer.writeEmptyElement(QStringLiteral("xdr:cNvPr"));
-           writer.writeAttribute(QStringLiteral("id"), QString::number(m_id+1));
-           writer.writeAttribute(QStringLiteral("name"), QStringLiteral("%1").arg(m_id));
-           writer.writeEmptyElement(QStringLiteral("xdr:cNvSpPr"));
-        writer.writeEndElement(); //xdr:nvSpPr
+           writer.writeStartElement(QStringLiteral("xdr:cNvPr"));
+              writer.writeAttribute(QStringLiteral("id"), xsp_cNvPR_id);
+              writer.writeAttribute(QStringLiteral("name"), xsp_cNvPR_name);
+              writer.writeStartElement(QStringLiteral("a:extLst"));
+              writer.writeEndElement();
+           writer.writeEndElement();//xdr:cNvPr
+
+          writer.writeEmptyElement(QStringLiteral("xdr:cNvSpPr"));
+
+    writer.writeEndElement(); //xdr:nvSpPr
 
     writer.writeStartElement(QStringLiteral("xdr:spPr"));
-    if(!m_pictureFile.isNull()){
-       m_drawing->relationships()->addDocumentRelationship(QStringLiteral("/image"), QStringLiteral("../media/image%1.%2").arg(m_pictureFile->index()+1).arg(m_pictureFile->suffix()));
+    if(!xbwMode.isNull()){
+         writer.writeAttribute(QStringLiteral("bwMode"), xbwMode);
+    }
         writer.writeStartElement(QStringLiteral("a:xfrm"));
         writer.writeEmptyElement(QStringLiteral("a:off"));
         writer.writeAttribute(QStringLiteral("x"), QString::number(posTA.x()));
@@ -474,29 +713,100 @@ void DrawingAnchor::saveXmlObjectShape(QXmlStreamWriter &writer) const
         writer.writeEndElement(); //a:xfrm
 
         writer.writeStartElement(QStringLiteral("a:prstGeom"));
-        writer.writeAttribute(QStringLiteral("prst"), QStringLiteral("rect"));
+        writer.writeAttribute(QStringLiteral("prst"), xprstGeom_prst);
         writer.writeEmptyElement(QStringLiteral("a:avLst"));
         writer.writeEndElement(); //a:prstGeom
 
-
+    if(!m_pictureFile.isNull()){
+        m_drawing->relationships()->addDocumentRelationship(QStringLiteral("/image"), QStringLiteral("../media/image%1.%2").arg(m_pictureFile->index()+1).arg(m_pictureFile->suffix()));
         writer.writeStartElement(QStringLiteral("a:blipFill"));
         writer.writeAttribute(QStringLiteral("dpi"), QString::number(dpiTA));
         writer.writeAttribute(QStringLiteral("rotWithShape"),QString::number(rotWithShapeTA));
 
-           writer.writeEmptyElement(QStringLiteral("a:blip"));
-           writer.writeAttribute(QStringLiteral("r:embed"), QStringLiteral("rId%1").arg(m_drawing->relationships()->count()));  //m_drawing->relationships()->count())
-             writer.writeAttribute(QStringLiteral("xmlns:r"), QStringLiteral("http://schemas.openxmlformats.org/officeDocument/2006/relationships"));
-
+         writer.writeStartElement(QStringLiteral("a:blip"));
+           writer.writeAttribute(QStringLiteral("r:embed"),QStringLiteral("rId%1").arg(m_drawing->relationships()->count()));  //sp_blip_rembed  QStringLiteral("rId%1").arg(m_drawing->relationships()->count()) can't made new pic
+           writer.writeAttribute(QStringLiteral("xmlns:r"), QStringLiteral("http://schemas.openxmlformats.org/officeDocument/2006/relationships"));
+           if(!sp_blip_cstate.isNull()){
+             writer.writeAttribute(QStringLiteral("cstate"), sp_blip_cstate);
+           }
+          writer.writeEndElement();//a:blip
              writer.writeEmptyElement(QStringLiteral("a:srcRect"));
              writer.writeStartElement(QStringLiteral("a:stretch"));
                     writer.writeEmptyElement(QStringLiteral("a:fillRect"));
              writer.writeEndElement(); //a:stretch
-
-             writer.writeEndElement();//a:blipFill
-
+         writer.writeEndElement();//a:blipFill
       }
-      writer.writeEndElement(); //xdr:spPr
-      writer.writeEndElement(); //xdr:sp
+    writer.writeStartElement(QStringLiteral("a:ln"));
+       if(!xIn_w.isEmpty()&&!xIn_cap.isEmpty()){
+           if(!xIn_w.isEmpty()){
+               writer.writeAttribute(QStringLiteral("w"), xIn_w);
+           }
+           if(!xIn_cap.isEmpty()){
+               writer.writeAttribute(QStringLiteral("cap"), xIn_cap);
+           }
+           if(!xIn_cmpd.isEmpty()){
+               writer.writeAttribute(QStringLiteral("cmpd"), xIn_cmpd);
+           }
+           if(!xIn_algn.isEmpty()){
+               writer.writeAttribute(QStringLiteral("algn"), xIn_algn);
+           }
+       }
+        if((!x_headEnd_tyep.isEmpty())||(!x_headEnd_w.isEmpty())||(!x_headEnd_len.isEmpty())){
+            writer.writeEmptyElement(QStringLiteral("a:headEnd"));
+            if(!x_headEnd_tyep.isEmpty()){
+               writer.writeAttribute(QStringLiteral("type"),x_headEnd_tyep);
+            }
+            if(!x_headEnd_w.isEmpty()){
+              writer.writeAttribute(QStringLiteral("w"),x_headEnd_w);
+            }
+            if(!x_headEnd_len.isEmpty()){
+              writer.writeAttribute(QStringLiteral("len"),x_headEnd_len);
+            }
+        }
+        if((!x_tailEnd_tyep.isEmpty())||(!x_tailEnd_w.isEmpty())||(!x_tailEnd_len.isEmpty())){
+             writer.writeEmptyElement(QStringLiteral("a:tailEnd"));
+             if(!x_tailEnd_tyep.isEmpty()){
+                 writer.writeAttribute(QStringLiteral("type"),x_tailEnd_tyep);}
+             if(!x_tailEnd_w.isEmpty()){
+                 writer.writeAttribute(QStringLiteral("w"),x_tailEnd_w);}
+             if(!x_tailEnd_len.isEmpty()){
+                 writer.writeAttribute(QStringLiteral("len"),x_tailEnd_len);}
+         }
+
+    writer.writeEndElement();//a:ln
+
+
+ writer.writeEndElement(); //xdr:spPr
+ // writer style
+
+ writer.writeStartElement(QStringLiteral("xdr:style"));// style
+        writer.writeStartElement(QStringLiteral("a:lnRef"));//lnRef
+        writer.writeAttribute(QStringLiteral("idx"),Style_inref_idx);
+           writer.writeStartElement(QStringLiteral("a:schemeClr"));//val
+           writer.writeAttribute(QStringLiteral("val"),Style_inref_val);
+           writer.writeEndElement(); // val
+        writer.writeEndElement(); // lnRef
+        writer.writeStartElement(QStringLiteral("a:fillRef"));//fillRef
+        writer.writeAttribute(QStringLiteral("idx"),style_fillref_idx);
+           writer.writeStartElement(QStringLiteral("a:schemeClr"));//val
+           writer.writeAttribute(QStringLiteral("val"),style_fillref_val);
+           writer.writeEndElement(); // val
+        writer.writeEndElement(); // fillRef
+        writer.writeStartElement(QStringLiteral("a:effectRef"));//effectRef
+        writer.writeAttribute(QStringLiteral("idx"),style_effectref_idx);
+           writer.writeStartElement(QStringLiteral("a:schemeClr"));//val
+           writer.writeAttribute(QStringLiteral("val"),style_effectref_val);
+           writer.writeEndElement(); // val
+        writer.writeEndElement(); // effectRef
+        writer.writeStartElement(QStringLiteral("a:fontRef"));//fontRef
+        writer.writeAttribute(QStringLiteral("idx"),style_forntref_idx);
+           writer.writeStartElement(QStringLiteral("a:schemeClr"));//val
+           writer.writeAttribute(QStringLiteral("val"),style_forntref_val);
+           writer.writeEndElement(); // val
+        writer.writeEndElement(); // fontRef
+ writer.writeEndElement(); // style
+
+     writer.writeEndElement(); //xdr:sp
 }
 
 //absolute anchor
