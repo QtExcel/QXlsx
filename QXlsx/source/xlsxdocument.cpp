@@ -1066,4 +1066,38 @@ Document::~Document()
 	delete d_ptr;
 }
 
+//  add by liufeijin 20181025 {{
+bool Document::changeimage(int filenoinmidea, QString newfile){
+	Q_D(const Document);
+	QImage newpic;
+	
+	newpic=QImage(newfile);
+	
+	QList<QSharedPointer<MediaFile> > mediaFileToLoad = d->workbook->mediaFiles();
+	QSharedPointer<MediaFile> mf = mediaFileToLoad[filenoinmidea];
+	
+	const QString suffix = newfile.mid(newfile.lastIndexOf(QLatin1Char('.'))+1);
+	QString mimetypemy;
+	if(QString::compare("jpg", suffix, Qt::CaseInsensitive)==0)
+	   mimetypemy="image/jpeg";
+	if(QString::compare("bmp", suffix, Qt::CaseInsensitive)==0)
+	   mimetypemy="image/bmp";
+	if(QString::compare("gif", suffix, Qt::CaseInsensitive)==0)
+	   mimetypemy="image/gif";
+	if(QString::compare("png", suffix, Qt::CaseInsensitive)==0)
+	   mimetypemy="image/png";
+	
+	QByteArray ba;
+	QBuffer buffer(&ba);
+	buffer.setBuffer(&ba);
+	buffer.open(QIODevice::WriteOnly);
+	newpic.save(&buffer,suffix.toLocal8Bit().data());
+	
+	mf->set(ba,suffix,mimetypemy);
+	mediaFileToLoad[filenoinmidea]=mf;
+	
+	return true;
+}
+// liufeijin }}
+
 QT_END_NAMESPACE_XLSX

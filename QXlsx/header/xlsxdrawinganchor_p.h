@@ -76,6 +76,7 @@ public:
     DrawingAnchor(Drawing *drawing, ObjectType objectType);
     virtual ~DrawingAnchor();
     void setObjectPicture(const QImage &img);
+	
     void setObjectGraphicFrame(QSharedPointer<Chart> chart);
 
     virtual bool loadFromXml(QXmlStreamReader &reader) = 0;
@@ -108,6 +109,30 @@ protected:
     QSharedPointer<Chart> m_chartFile;
 
     int m_id;
+
+	// liufeij {{
+	void setObjectShape(const QImage &img); // liufeij
+
+	QString  editASName; 
+    // below only for twocellanchor shape
+    QPoint posTA;   // for shape liufeij 20181024
+    QSize extTA;    // for shape liufeij 20181024
+    int rotWithShapeTA;  //// for shape liufeij 20181024
+    int dpiTA;           //// for shape liufeij 20181024
+    QString sp_textlink,sp_macro,sp_blip_cstate,sp_blip_rembed;
+
+	// BELOW only for cxnSp shape
+	QString cxnSp_filpV,cxnSp_macro;
+	// belwo for cxnsp and sp
+	QString xsp_cNvPR_name,xsp_cNvPR_id; //x measns shape and cxnSp together using
+	QString xbwMode;         // same as above
+	QString xIn_algn,xIn_cmpd,xIn_cap,xIn_w; //cxnSp only need xIn_w
+	QString xprstGeom_prst;
+	QString x_headEnd_w,x_headEnd_len,x_headEnd_tyep;
+	QString x_tailEnd_w,x_tailEnd_len,x_tailEnd_tyep;
+	QString Style_inref_idx,style_fillref_idx,style_effectref_idx,style_forntref_idx;
+	QString Style_inref_val,style_fillref_val,style_effectref_val,style_forntref_val;
+	// liufeij }}
 };
 
 class DrawingAbsoluteAnchor : public DrawingAnchor

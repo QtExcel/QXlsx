@@ -1224,12 +1224,68 @@ void Worksheet::saveToXmlFile(QIODevice *device) const
 	foreach (const ConditionalFormatting cf, d->conditionalFormattingList)
 		cf.saveToXml(writer);
 	d->saveXmlDataValidations(writer);
+
+	//{{ liufeijin
+    // write  pagesettings  add by liufeijin 20181028
+
+    writer.writeEmptyElement(QStringLiteral("pageMargins"));
+    if(!d->PMleft.isEmpty()){
+    writer.writeAttribute(QStringLiteral("left"), d->PMleft);}
+    if(!d->PMright.isEmpty()){
+    writer.writeAttribute(QStringLiteral("right"), d->PMright);}
+    if(!d->PMtop.isEmpty()){
+    writer.writeAttribute(QStringLiteral("top"),d->PMtop);}
+    if(!d->PMbotton.isEmpty()){
+    writer.writeAttribute(QStringLiteral("bottom"), d->PMbotton);}
+    if(!d->PMheader.isEmpty()){
+    writer.writeAttribute(QStringLiteral("header"), d->PMheader);}
+    if(!d->PMfooter.isEmpty()){
+    writer.writeAttribute(QStringLiteral("footer"), d->PMfooter);}
+
+    writer.writeEmptyElement(QStringLiteral("pageSetup"));
+    if(!d->PverticalDpi.isEmpty()){
+    writer.writeAttribute(QStringLiteral("verticalDpi"), d->PverticalDpi);}
+    if(!d->PhorizontalDpi.isEmpty()){
+    writer.writeAttribute(QStringLiteral("horizontalDpi"), d->PhorizontalDpi);}
+    if(!d->PuseFirstPageNumber.isEmpty()){
+    writer.writeAttribute(QStringLiteral("useFirstPageNumber"), d->PuseFirstPageNumber);}
+    if(!d->PfirstPageNumber.isEmpty()){
+    writer.writeAttribute(QStringLiteral("firstPageNumber"), d->PfirstPageNumber);}
+    if(!d->Pscale.isEmpty()){
+    writer.writeAttribute(QStringLiteral("scale"), d->Pscale);}
+    if(!d->PpaperSize.isEmpty()){
+    writer.writeAttribute(QStringLiteral("paperSize"), d->PpaperSize);}
+    if(!d->Porientation.isEmpty()){
+    writer.writeAttribute(QStringLiteral("orientation"), d->Porientation);}
+    if(!d->Pcopies.isEmpty()){
+    writer.writeAttribute(QStringLiteral("copies"), d->Pcopies);}
+  //  if(!d->Prid.isEmpty()){
+  //  writer.writeAttribute(QStringLiteral("r:id"), d->Prid);}
+
+    if((!d->MoodFooter.isNull())||!(d->MoodFooter.isNull())){
+        writer.writeStartElement(QStringLiteral("headerFooter")); // headerFooter
+            if (!d->ModdHeader.isNull()){
+                writer.writeTextElement(QStringLiteral("oddHeader"), d->ModdHeader);}
+            if(!d->MoodFooter.isNull()){
+                writer.writeTextElement(QStringLiteral("oddFooter"), d->MoodFooter);}
+         writer.writeEndElement();// headerFooter
+    }
+	//}}
+
 	d->saveXmlHyperlinks(writer);
 	d->saveXmlDrawings(writer);
 
 	writer.writeEndElement();//worksheet
 	writer.writeEndDocument();
 }
+
+//{{ liufeijin 
+bool Worksheet::setStartPage(int spagen){
+    Q_D(Worksheet);
+    d->PfirstPageNumber=QString::number(spagen);
+    return true;
+}
+//}}
 
 void WorksheetPrivate::saveXmlSheetData(QXmlStreamWriter &writer) const
 {
@@ -2314,6 +2370,32 @@ bool Worksheet::loadFromXmlFile(QIODevice *device)
 				d->conditionalFormattingList.append(cf);
 			} else if (reader.name() == QLatin1String("hyperlinks")) {
 				d->loadXmlHyperlinks(reader);
+//{{
+} else if(reader.name() == QLatin1String("pageSetup")){
+                QXmlStreamAttributes attributes = reader.attributes();
+                d->PpaperSize = attributes.value(QLatin1String("paperSize")).toString().trimmed();
+                d->Pscale = attributes.value(QLatin1String("scale")).toString().trimmed();
+                d->PfirstPageNumber = attributes.value(QLatin1String("firstPageNumber")).toString().trimmed();
+                d->Porientation = attributes.value(QLatin1String("orientation")).toString().trimmed();
+                d->PuseFirstPageNumber = attributes.value(QLatin1String("useFirstPageNumber")).toString().trimmed();
+                d->PhorizontalDpi = attributes.value(QLatin1String("horizontalDpi")).toString().trimmed();
+                d->PverticalDpi = attributes.value(QLatin1String("verticalDpi")).toString().trimmed();
+                d->Prid=attributes.value(QLatin1String("r:id")).toString().trimmed();
+                d->Pcopies=attributes.value(QLatin1String("copies")).toString().trimmed();
+            } else if(reader.name() == QLatin1String("pageMargins")){
+                QXmlStreamAttributes attributes = reader.attributes();
+                d->PMfooter= attributes.value(QLatin1String("footer")).toString().trimmed();
+                d->PMheader = attributes.value(QLatin1String("header")).toString().trimmed();
+                d->PMbotton = attributes.value(QLatin1String("bottom")).toString().trimmed();
+                d->PMtop = attributes.value(QLatin1String("top")).toString().trimmed();
+                d->PMright = attributes.value(QLatin1String("right")).toString().trimmed();
+                d->PMleft = attributes.value(QLatin1String("left")).toString().trimmed();
+            } else if(reader.name() == QLatin1String("headerFooter")){
+                    reader.readNextStartElement();
+                    if ((reader.tokenType() == QXmlStreamReader::StartElement)&&\
+                             reader.name() == QLatin1String("oddHeader")) {
+                        d->ModdHeader=reader.readElementText();
+//}}
 			} else if (reader.name() == QLatin1String("drawing")) {
 				QString rId = reader.attributes().value(QStringLiteral("r:id")).toString();
 				QString name = d->relationships->getRelationshipById(rId).target;

@@ -119,6 +119,8 @@ public:
 
 	bool isLoadPackage() const; 
 
+	bool changeimage(int filenoinmidea,QString newfile); // add by liufeijin20181025
+
 private:
 	Q_DISABLE_COPY(Document)
 	DocumentPrivate * const d_ptr;
