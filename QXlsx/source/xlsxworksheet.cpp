@@ -2370,6 +2370,7 @@ bool Worksheet::loadFromXmlFile(QIODevice *device)
 				d->conditionalFormattingList.append(cf);
 			} else if (reader.name() == QLatin1String("hyperlinks")) {
 				d->loadXmlHyperlinks(reader);
+
 //{{
 } else if(reader.name() == QLatin1String("pageSetup")){
                 QXmlStreamAttributes attributes = reader.attributes();
@@ -2395,7 +2396,9 @@ bool Worksheet::loadFromXmlFile(QIODevice *device)
                     if ((reader.tokenType() == QXmlStreamReader::StartElement)&&\
                              reader.name() == QLatin1String("oddHeader")) {
                         d->ModdHeader=reader.readElementText();
+            }
 //}}
+
 			} else if (reader.name() == QLatin1String("drawing")) {
 				QString rId = reader.attributes().value(QStringLiteral("r:id")).toString();
 				QString name = d->relationships->getRelationshipById(rId).target;
