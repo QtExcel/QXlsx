@@ -86,11 +86,5 @@ qDebug() << var; // 값 표시
 
 ### :star: <b>QSimpleXlsxWriter</b> [https://github.com/j2doll/QSimpleXlsxWriter](https://github.com/j2doll/QSimpleXlsxWriter)
 
-- Use SimpleXlsxWriter in Qt.
-- SimpleXlsxWriter is C++ library for creating XLSX files for MS Excel 2007 and above.
-
-### :star: <b>QSimpleXlsxWriter</b> [https://github.com/j2doll/QSimpleXlsxWriter](https://github.com/j2doll/QSimpleXlsxWriter)
-
-- Use SimpleXlsxWriter in Qt.
-- SimpleXlsxWriter is C++ library for creating XLSX files for MS Excel 2007 and above.
-
+- SimpleXlsxWriter를 Qt에서 사용하세요.
+- SimpleXlsxWriter는 MS 엑셀 2007 이상 버전에서 사용 가능한 XLSX 파일을 생성할 수 있는 C++ 라이브러리입니다.
