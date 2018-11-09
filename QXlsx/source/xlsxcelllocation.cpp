@@ -17,7 +17,7 @@ CellLocation::CellLocation()
     col = -1;
     row = -1;
 
-    cell = NULL;
+    cell.clear();
 }
 
 QT_END_NAMESPACE_XLSX
