@@ -1,3 +1,4 @@
+// MainWindow.cpp
 
 #include <QtGlobal>
 #include <QString>
@@ -13,6 +14,7 @@
 #include <QSharedPointer>
 #include <QInputDialog>
 #include <QStringList>
+#include <QVarLengthArray>
 
 #include "xlsxcelllocation.h"
 #include "xlsxcell.h"
@@ -233,7 +235,21 @@ void MainWindow::print(QPrinter *printer)
     int maxCol = -1;
     QVector<CellLocation> clList = wsheet->getFullCells( &maxRow, &maxCol );
 
-    QString arr[maxRow][maxCol];
+	// Fixed for Visual C++, cause VC++ does not support C99. 
+	// https://docs.microsoft.com/en-us/cpp/c-language/ansi-conformance?view=vs-2017
+    // QString arr[maxRow][maxCol];
+
+	QVector <QVector <QString> > arr;
+
+	for (int i = 0; i < maxRow; i++)
+	{
+		QVector<QString> tempVector;
+		for (int j = 0; j < maxCol; j++)
+		{
+			tempVector.push_back(QString("")); 
+		}
+		arr.push_back(tempVector);
+	}
 
     for ( int ic = 0; ic < clList.size(); ++ic )
     {
