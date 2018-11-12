@@ -66,6 +66,8 @@ qDebug() << var; // 값 표시
 ## :email: 문의
 - 이슈를 남겨 주세요. [https://github.com/j2doll/QXlsx/issues](https://github.com/j2doll/QXlsx/issues)
 - 프로젝트 참여에 관심이 있으신 분은 이슈로 연락주세요.
+- README.md를 모국어로 번역하려면 저에게 연락하십시오.
+	- 이슈(issue)를 제기하거나 pull request를 사용하시면 됩니다. (예: README.ko.md)
 
 ## 유사한 프로젝트
 

@@ -58,16 +58,18 @@ qDebug() << var; // display value
 - Develop the encryption function of xlsx
 
 ## License and links
-- QXlsx is under MIT License. [https://github.com/j2doll/QXlsx](https://github.com/j2doll/QXlsx)
-- QtXlsx is under MIT License. [https://github.com/dbzhang800/QtXlsxWriter](https://github.com/dbzhang800/QtXlsxWriter)
-- Qt-Table-Printer is under BSD 3-Clause License. [https://github.com/T0ny0/Qt-Table-Printer](https://github.com/T0ny0/Qt-Table-Printer) 
-- Qt is under LGPL v3 License or Commercial Lisense. [https://www.qt.io/](https://www.qt.io/) 
+- QXlsx is under MIT license. [https://github.com/j2doll/QXlsx](https://github.com/j2doll/QXlsx)
+- QtXlsx is under MIT license. [https://github.com/dbzhang800/QtXlsxWriter](https://github.com/dbzhang800/QtXlsxWriter)
+- Qt-Table-Printer is under BSD 3-Clause license. [https://github.com/T0ny0/Qt-Table-Printer](https://github.com/T0ny0/Qt-Table-Printer) 
+- Qt is under LGPL v3 license or Commercial license. [https://www.qt.io/](https://www.qt.io/) 
 
 ## :email: Contact
 - Hi! I'm j2doll (aka Jay Two). My name is Korean and it is difficult for foreigners to pronounce it. Call me j2doll.
 - Leave me a issue. [https://github.com/j2doll/QXlsx/issues](https://github.com/j2doll/QXlsx/issues)
 	- If you are interested in participating in the project, please contact us by issue.
 	- My native language is not English and my English is not fluent. Please, use EASY English. :-)
+- If you would like to translate README.md into your native language, please contact me.
+	- You can either raise an issue or use a pull request. (such as README.ko.md)
 	
 ## Similar projects
 
