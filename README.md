@@ -61,6 +61,7 @@ qDebug() << var; // display value
 - QXlsx is under MIT license. [https://github.com/j2doll/QXlsx](https://github.com/j2doll/QXlsx)
 - QtXlsx is under MIT license. [https://github.com/dbzhang800/QtXlsxWriter](https://github.com/dbzhang800/QtXlsxWriter)
 - Qt-Table-Printer is under BSD 3-Clause license. [https://github.com/T0ny0/Qt-Table-Printer](https://github.com/T0ny0/Qt-Table-Printer) 
+- recurse is under MIT license. [https://github.com/pkoretic/recurse](https://github.com/pkoretic/recurse)
 - Qt is under LGPL v3 license or Commercial license. [https://www.qt.io/](https://www.qt.io/) 
 
 ## :email: Contact
