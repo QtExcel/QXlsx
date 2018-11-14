@@ -16,6 +16,7 @@
 	- TestExcel : 기본 예제 (QtXlsx 예제 기반)
 	- HelloAndroid : QML을 사용한 안드로이드에서 xlsx 파일 열기
 	- Copycat : xlsx 파일을 읽어 위젯으로 표시. xlsx 파일 인쇄. (할일: xlsx 파일로 저장)
+	- WebServer : xlsx 파일을 읽어 웹으로 표시 (http://127.0.0.1:3001)	
 
 ## 활용 예제 (Hello excel)
 
