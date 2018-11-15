@@ -56,7 +56,10 @@ qDebug() << var; // display value
 - Unicode test (filename :cloud:, filepath :cloud:, data value :sunny:)
 
 ## To Upgrade
-- Develop the encryption function of xlsx
+- See [what to upgrade](ToUpgrade.md).
+
+## Contributions
+- See [contributors](https://github.com/j2doll/QXlsx/graphs/contributors).
 
 ## License and links
 - QXlsx is under MIT license. [https://github.com/j2doll/QXlsx](https://github.com/j2doll/QXlsx)

@@ -56,7 +56,10 @@ qDebug() << var; // 값 표시
 - 유니코드 테스트 (파일 이름 :cloud:, 파일 경로 :cloud:, 자료값 :sunny:)
 
 ## 업그레이드 할 일
-- xlsx의 암복호화 기능 개발
+- [업그레드 할 일](ToUpgrade.md) 참조.
+
+## 컨트리뷰터
+- [Contributors](https://github.com/j2doll/QXlsx/graphs/contributors) 참조.
 
 ## 라이센스와 링크
 - QXlsx 는 MIT 라이센스 입니다. [https://github.com/j2doll/QXlsx](https://github.com/j2doll/QXlsx)
