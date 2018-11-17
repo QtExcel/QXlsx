@@ -12,7 +12,7 @@
 - QXlsx는 정적 또는 동적 라이브러리를 사용하지 않아도 되도록 제작되었습니다.
 
 ## 활용하는 방법
-- 예제를 보세요
+- [예제](Example.md)를 보세요
 	- TestExcel : 기본 예제 (QtXlsx 예제 기반)
 	- HelloAndroid : QML을 사용한 안드로이드에서 xlsx 파일 열기
 	- Copycat : xlsx 파일을 읽어 위젯으로 표시. xlsx 파일 인쇄. (할일: xlsx 파일로 저장)
@@ -44,22 +44,21 @@ qDebug() << var; // 값 표시
 ```
 
 ## 설정하는 방법
-* [QXlsx 프로젝트 설정하는 방법](HowToSetProject.ko.md)을 참조하세요.
+* [QXlsx 프로젝트 설정하는 방법](HowToSetProject.ko.md) 참조
 
 ## 테스트 환경
 
-- [테스트된 환경](TestEnv.md)을 참조하세요.
+- [테스트된 환경](TestEnv.md) 참조
 
 ## 테스트 할 일
-- 다음과 같은 테스트들이 수행되어야 합니다.
-	- 마이크로소프트 엑셀, 구글 스프레드쉬트, 리브레오피스 캘크 스프레드시트
-- 유니코드 테스트 (파일 이름 :cloud:, 파일 경로 :cloud:, 자료값 :sunny:)
+
+- [테스트 할 일](ToTest.md) 참조
 
 ## 업그레이드 할 일
-- [업그레드 할 일](ToUpgrade.md) 참조.
+- [업그레드 할 일](ToUpgrade.md) 참조하
 
 ## 컨트리뷰터
-- [Contributors](https://github.com/j2doll/QXlsx/graphs/contributors) 참조.
+- [컨트리뷰터](https://github.com/j2doll/QXlsx/graphs/contributors) 참조.
 
 ## 라이센스와 링크
 - QXlsx 는 MIT 라이센스 입니다. [https://github.com/j2doll/QXlsx](https://github.com/j2doll/QXlsx)

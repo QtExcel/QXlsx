@@ -12,7 +12,7 @@
 - You don't need to use static library or dynamic shared object using QXlsx.
 
 ## How to use
-- See examples
+- See [examples](Example.md)
 	- TestExcel : basic samples based on QtXlsx samples
 	- HelloAndroid : read xlsx on Android using QML
 	- Copycat : load xlsx file and display on widget. print xlsx file. (TODO: save xlsx)
@@ -44,21 +44,22 @@ qDebug() << var; // display value
 ```
 
 ## How to set up
-- See [How to setup QXlsx project](HowToSetProject.md)
+- See [how to setup QXlsx project](HowToSetProject.md)
 
-## Test environment
+## Tested environment
 
-- See [Tested environments](TestEnv.md)
+- See [tested environments](TestEnv.md)
 
 ## To Test
-- The following tests should be performed. 
-	- Microsoft Excel, Google Spreadsheet, LibreOffice Calc Spreasheet
-- Unicode test (filename :cloud:, filepath :cloud:, data value :sunny:)
+
+- See [to test](ToTest.md)
 
 ## To Upgrade
+
 - See [what to upgrade](ToUpgrade.md).
 
 ## Contributions
+
 - See [contributors](https://github.com/j2doll/QXlsx/graphs/contributors).
 
 ## License and links
