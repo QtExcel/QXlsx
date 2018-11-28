@@ -1246,6 +1246,9 @@ void Worksheet::saveToXmlFile(QIODevice *device) const
     writer.writeAttribute(QStringLiteral("footer"), d->PMfooter);}
     */
 
+    /*
+     * Commented out for Microsoft Excel by j2doll
+     *
     writer.writeEmptyElement(QStringLiteral("pageSetup"));
     if(!d->PverticalDpi.isEmpty()){
     writer.writeAttribute(QStringLiteral("verticalDpi"), d->PverticalDpi);}
@@ -1265,6 +1268,8 @@ void Worksheet::saveToXmlFile(QIODevice *device) const
     writer.writeAttribute(QStringLiteral("copies"), d->Pcopies);}
   //  if(!d->Prid.isEmpty()){
   //  writer.writeAttribute(QStringLiteral("r:id"), d->Prid);}
+
+    */
 
     if((!d->MoodFooter.isNull())||!(d->MoodFooter.isNull())){
         writer.writeStartElement(QStringLiteral("headerFooter")); // headerFooter
@@ -2376,6 +2381,10 @@ bool Worksheet::loadFromXmlFile(QIODevice *device)
 				d->loadXmlHyperlinks(reader);
 
 //{{
+
+                /*
+                 * Commented out for Microsoft Excel by j2doll
+                 *
 } else if(reader.name() == QLatin1String("pageSetup")){
                 QXmlStreamAttributes attributes = reader.attributes();
                 d->PpaperSize = attributes.value(QLatin1String("paperSize")).toString().trimmed();
@@ -2387,6 +2396,7 @@ bool Worksheet::loadFromXmlFile(QIODevice *device)
                 d->PverticalDpi = attributes.value(QLatin1String("verticalDpi")).toString().trimmed();
                 d->Prid=attributes.value(QLatin1String("r:id")).toString().trimmed();
                 d->Pcopies=attributes.value(QLatin1String("copies")).toString().trimmed();
+                */
 
                 /*
                  * Commented out for Microsoft Excel by j2doll
