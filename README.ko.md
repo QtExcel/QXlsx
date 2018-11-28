@@ -11,12 +11,17 @@
 - QXlsx는 개발언어로 C++를 사용합니다. (Qt 사용)
 - QXlsx는 정적 또는 동적 라이브러리를 사용하지 않아도 되도록 제작되었습니다.
 
-## 활용하는 방법
+## 사용하는 방법
 - [예제](Example.md)를 보세요
+	- HelloWorld : 헬로우 월드 예제 (가장 기본적인 구조)
 	- TestExcel : 기본 예제 (QtXlsx 예제 기반)
 	- HelloAndroid : QML을 사용한 안드로이드에서 xlsx 파일 열기
 	- Copycat : xlsx 파일을 읽어 위젯으로 표시. xlsx 파일 인쇄. (할일: xlsx 파일로 저장)
 	- WebServer : xlsx 파일을 읽어 웹으로 표시 (`http://127.0.0.1:3001`)	
+
+## 설정하는 방법 (설치)
+
+- [QXlsx 프로젝트 설정하는 방법](HowToSetProject.ko.md) 참조
 
 ## 활용 예제 (Hello excel)
 
@@ -43,19 +48,15 @@ QVariant var = cell->readValue(); // 셀값을 읽음 (숫자(double), 날자(QD
 qDebug() << var; // 값 표시
 ```
 
-## 설정하는 방법
-* [QXlsx 프로젝트 설정하는 방법](HowToSetProject.ko.md) 참조
-
 ## 테스트 환경
 
 - [테스트된 환경](TestEnv.md) 참조
 
-## 테스트 할 일
+## 할 일
 
-- [테스트 할 일](ToTest.md) 참조
+- [테스트 할 일](ToTest.md)
 
-## 업그레이드 할 일
-- [업그레드 할 일](ToUpgrade.md) 참조하
+- [업그레드 할 일](ToUpgrade.md)
 
 ## 컨트리뷰터
 - [컨트리뷰터](https://github.com/j2doll/QXlsx/graphs/contributors) 참조.

@@ -1228,6 +1228,9 @@ void Worksheet::saveToXmlFile(QIODevice *device) const
 	//{{ liufeijin
     // write  pagesettings  add by liufeijin 20181028
 
+    /*
+     * Commented out for Microsoft Excel by j2doll
+     *
     writer.writeEmptyElement(QStringLiteral("pageMargins"));
     if(!d->PMleft.isEmpty()){
     writer.writeAttribute(QStringLiteral("left"), d->PMleft);}
@@ -1241,6 +1244,7 @@ void Worksheet::saveToXmlFile(QIODevice *device) const
     writer.writeAttribute(QStringLiteral("header"), d->PMheader);}
     if(!d->PMfooter.isEmpty()){
     writer.writeAttribute(QStringLiteral("footer"), d->PMfooter);}
+    */
 
     writer.writeEmptyElement(QStringLiteral("pageSetup"));
     if(!d->PverticalDpi.isEmpty()){
@@ -2383,6 +2387,10 @@ bool Worksheet::loadFromXmlFile(QIODevice *device)
                 d->PverticalDpi = attributes.value(QLatin1String("verticalDpi")).toString().trimmed();
                 d->Prid=attributes.value(QLatin1String("r:id")).toString().trimmed();
                 d->Pcopies=attributes.value(QLatin1String("copies")).toString().trimmed();
+
+                /*
+                 * Commented out for Microsoft Excel by j2doll
+                 *
             } else if(reader.name() == QLatin1String("pageMargins")){
                 QXmlStreamAttributes attributes = reader.attributes();
                 d->PMfooter= attributes.value(QLatin1String("footer")).toString().trimmed();
@@ -2391,6 +2399,8 @@ bool Worksheet::loadFromXmlFile(QIODevice *device)
                 d->PMtop = attributes.value(QLatin1String("top")).toString().trimmed();
                 d->PMright = attributes.value(QLatin1String("right")).toString().trimmed();
                 d->PMleft = attributes.value(QLatin1String("left")).toString().trimmed();
+            */
+
             } else if(reader.name() == QLatin1String("headerFooter")){
                     reader.readNextStartElement();
                     if ((reader.tokenType() == QXmlStreamReader::StartElement)&&\

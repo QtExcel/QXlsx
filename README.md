@@ -13,10 +13,15 @@
 
 ## How to use
 - See [examples](Example.md)
+	- HelloWorld : Hello world example (The most basic structure)
 	- TestExcel : basic samples based on QtXlsx samples
 	- HelloAndroid : read xlsx on Android using QML
 	- Copycat : load xlsx file and display on widget. print xlsx file. (TODO: save xlsx)
 	- WebServer : load xlsx and display to web (`http://127.0.0.1:3001`)
+
+## How to set up (Installation)
+
+- See [how to setup QXlsx project](HowToSetProject.md)	
 		
 ## Example (Hello excel)
 
@@ -43,20 +48,15 @@ QVariant var = cell->readValue(); // read cell value (number(double), QDateTime,
 qDebug() << var; // display value
 ```
 
-## How to set up
-- See [how to setup QXlsx project](HowToSetProject.md)
-
 ## Tested environment
 
 - See [tested environments](TestEnv.md)
 
-## To Test
+## To Do
 
-- See [to test](ToTest.md)
+- [To test](ToTest.md)
 
-## To Upgrade
-
-- See [what to upgrade](ToUpgrade.md).
+- [What to upgrade](ToUpgrade.md).
 
 ## Contributions
 
