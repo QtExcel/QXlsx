@@ -1,0 +1,23 @@
+# .travis.yml
+
+language: c++
+compiler: gcc
+sudo: require
+dist: trusty
+
+before_install:
+  # - sudo add-apt-repository ppa:beineri/opt-qt532-trusty -y
+  # - sudo apt-get update -qq
+
+install:
+  - sudo apt-get update
+  - sudo apt-get install qt5-default qttools5-dev-tools
+
+script:
+  - cd QXlsx
+  - qmake QXlsx.pro
+  - make
+
+after_success:
+  # ----
+
