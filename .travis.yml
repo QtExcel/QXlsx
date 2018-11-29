@@ -6,7 +6,7 @@
 language: c++
 compiler: gcc
 sudo: require
-dist: trusty
+dist: xenial # Ubuntu Xenial 16.04, Trusty 14.04, Precise 12.04
 
 before_install:
  - sudo add-apt-repository --yes ppa:ubuntu-sdk-team/ppa
@@ -15,22 +15,24 @@ before_install:
  - sudo apt-get install qt5-default qttools5-dev-tools qtbase5-private-dev
 
 install:
-  # - sudo apt-get update
-  # - sudo apt-get install qt5-default qttools5-dev-tools
 
 script:
+ # QXlsx library
   - cd QXlsx
   - qmake QXlsx.pro
   - make
+  
+ # HelloWorld example  
   - cd ../HelloWorld
   - qmake HelloWorld.pro
   - make
   - ./HelloWorld
+  
+ # TestExcel exmaple  
   - cd ../TestExcel
   - qmake TestExcel.pro
   - make
   - ./TestExcel
 
 after_success:
-  # ----
 
