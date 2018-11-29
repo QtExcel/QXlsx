@@ -4,7 +4,7 @@
 
 <p align="center"><img src="https://github.com/j2doll/QXlsx/raw/master/markdown.data/QXlsx-Desktop.png"></p>
 
-![](markdown.data/qxlsx-badge1.png)
+[![Build Status](https://travis-ci.com/j2doll/QXlsx.svg?branch=master)](https://travis-ci.com/j2doll/QXlsx)
 
 - QXlsx is excel file(*.xlsx) reader/writer library.
 - Because QtXlsx is no longer supported(2014), I created a new project that is based on QtXlsx. (2017-)
