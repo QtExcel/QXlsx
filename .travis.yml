@@ -1,4 +1,7 @@
-# .travis.yml
+# .travis.yml (Travis CI)
+#
+# QXlsx https://github.com/j2doll/QXlsx
+#
 
 language: c++
 compiler: gcc
@@ -18,6 +21,12 @@ install:
 script:
   - cd QXlsx
   - qmake QXlsx.pro
+  - make
+  - cd ../HelloWorld
+  - qmake HelloWorld.pro
+  - make
+  - cd ../TestExcel
+  - qmake TestExcel.pro
   - make
 
 after_success:
