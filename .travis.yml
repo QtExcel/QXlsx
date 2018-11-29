@@ -25,9 +25,11 @@ script:
   - cd ../HelloWorld
   - qmake HelloWorld.pro
   - make
+  - ./HelloWorld
   - cd ../TestExcel
   - qmake TestExcel.pro
   - make
+  - ./TestExcel
 
 after_success:
   # ----
