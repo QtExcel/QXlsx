@@ -48,8 +48,8 @@ qDebug() << var; // display value
 
 ## Tested environment
 
-Linux/gcc/Qt | Windows/VC++/Qt
-:----------: | :-------------:
+Travis CI | AppVeyor
+:-------: | :-------:
 [![Build Status](https://travis-ci.com/j2doll/QXlsx.svg?branch=master)](https://travis-ci.com/j2doll/QXlsx) | [![Build status](https://ci.appveyor.com/api/projects/status/jkod8257gg66vm6e?svg=true)](https://ci.appveyor.com/project/j2doll/qxlsx)
 
 - See [tested environments](TestEnv.md)
