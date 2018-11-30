@@ -24,8 +24,15 @@ init:
   - call "%VCVARS%" %platform%
   - cd /D "%APPVEYOR_BUILD_FOLDER%"
 
+before_build:
+
 build_script:
-  # QXlsx library
+
+  # Get version of Windows
+  - ver 
+  - wmic os get osarchitecture
+
+  # Build QXlsx library
   - cd QXlsx
   - qmake QXlsx.pro
   - nmake
@@ -39,8 +46,14 @@ build_script:
   - HelloWorld
   - cd ..
 
-  # TestExcel
-  # - cd ../TestExcel
-  #- qmake TestExcel.pro
-  # - nmake
+  # Build TestExcel
+  - cd ../TestExcel
+  - qmake TestExcel.pro
+  - nmake
+  # Execute TestExcel
+  - cd release
+  - TestExcel
+  - cd ..  
+
+after_build:
 
