@@ -27,7 +27,7 @@ init:
 build_script:
   - cd QXlsx
   - qmake QXlsx.pro
-  - namke
+  - nmake
 
-  
+
 
