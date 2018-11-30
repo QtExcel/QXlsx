@@ -1,0 +1,16 @@
+#
+# AppVetor
+#
+# QXlsx
+# https://github.com/j2doll/QXlsx
+#
+
+install:
+  - set QTDIR=C:\Qt\5.7.0\mingw53_32
+  - set PATH=%PATH%;%QTDIR%\bin;C:\MinGW\bin
+
+build_script:
+  - cd QXlsx
+  - qmake QXlsx.pro
+  - mingw32-make
+
