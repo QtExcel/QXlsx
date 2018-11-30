@@ -5,7 +5,7 @@
 <p align="center"><img src="https://github.com/j2doll/QXlsx/raw/master/markdown.data/QXlsx-Desktop.png"></p>
 
 Linux/gcc/Qt | Windows/VC++/Qt
------------- | ---------------
+:----------: | :-------------:
 [![Build Status](https://travis-ci.com/j2doll/QXlsx.svg?branch=master)](https://travis-ci.com/j2doll/QXlsx) | [![Build status](https://ci.appveyor.com/api/projects/status/jkod8257gg66vm6e?svg=true)](https://ci.appveyor.com/project/j2doll/qxlsx)
 
 - QXlsx is excel file(*.xlsx) reader/writer library.
