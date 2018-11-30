@@ -5,21 +5,29 @@
 # https://github.com/j2doll/QXlsx
 #
 
+image: Visual Studio 2015
+
 environment:
-  # MinGW
-  - name: win32
-    platform: mingw
-    qt: 5.7.0\mingw53_32
-    suffix: mingw
+  DEPLOY_DIR: Quaternion-%APPVEYOR_BUILD_VERSION%
+  matrix:
+  - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
+    QTDIR: C:\Qt\5.9\msvc2017_64
+    VCVARS: "C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Community\\VC\\Auxiliary\\Build\\vcvars64.bat"
+    PLATFORM:
+  - QTDIR: C:\Qt\5.9\msvc2015
+    VCVARS: "C:\\Program Files (x86)\\Microsoft Visual Studio 14.0\\VC\\vcvarsall.bat"
+    PLATFORM: x86
 
 init:
-  - set QTDIR=C:\Qt\5.7.0\mingw53_32
-
-install:
-  - set PATH=%PATH%;%QTDIR%\bin;C:\MinGW\bin
+  - call "%QTDIR%\bin\qtenv2.bat"
+  - set PATH=C:\Qt\Tools\QtCreator\bin;%PATH%
+  - call "%VCVARS%" %platform%
+  - cd /D "%APPVEYOR_BUILD_FOLDER%"
 
 build_script:
   - cd QXlsx
   - qmake QXlsx.pro
-  - mingw32-make
+  - namke
+
+  
 
