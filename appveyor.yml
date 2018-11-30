@@ -29,8 +29,8 @@ before_build:
 build_script:
 
   # Get version of Windows
-  - ver 
-  - wmic os get osarchitecture
+  - ver # Microsoft Windows [Version 10.0.14393]
+  - wmic os get osarchitecture # OSArchitecture  64-bit
 
   # Build QXlsx library
   - cd QXlsx
