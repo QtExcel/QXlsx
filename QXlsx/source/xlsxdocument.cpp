@@ -317,6 +317,14 @@ bool DocumentPrivate::savePackage(QIODevice *device) const
 		zipWriter.addFile(QStringLiteral("xl/sharedStrings.xml"), workbook->sharedStrings()->saveToXmlData());
 	}
 
+    // save calc chain [dev16]
+    contentTypes->addCalcChain();
+    zipWriter.addFile(QStringLiteral("xl/calcChain.xml"), workbook->styles()->saveToXmlData());
+
+    //
+    // contentTypes->addVmlName();
+    // zipWriter.addFile(QStringLiteral("vml"), workbook->styles()->saveToXmlData());
+
 	// save styles xml file
 	contentTypes->addStyles();
 	zipWriter.addFile(QStringLiteral("xl/styles.xml"), workbook->styles()->saveToXmlData());
