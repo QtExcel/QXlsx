@@ -25,9 +25,22 @@ init:
   - cd /D "%APPVEYOR_BUILD_FOLDER%"
 
 build_script:
+  # QXlsx library
   - cd QXlsx
   - qmake QXlsx.pro
   - nmake
 
+  # Build HelloWorld
+  - cd ../HelloWorld
+  - qmake HelloWorld.pro
+  - nmake
+  # Execute HelloWorld
+  - cd release
+  - HelloWorld
+  - cd ..
 
+  # TestExcel
+  # - cd ../TestExcel
+  #- qmake TestExcel.pro
+  # - nmake
 
