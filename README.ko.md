@@ -4,10 +4,6 @@
 
 <p align="center"><img src="https://github.com/j2doll/QXlsx/raw/master/markdown.data/QXlsx-Desktop.png"></p>
 
-Linux/gcc/Qt | Windows/VC++/Qt
-:----------: | :-------------:
-[![Build Status](https://travis-ci.com/j2doll/QXlsx.svg?branch=master)](https://travis-ci.com/j2doll/QXlsx) | [![Build status](https://ci.appveyor.com/api/projects/status/jkod8257gg66vm6e?svg=true)](https://ci.appveyor.com/project/j2doll/qxlsx)
-
 - QXlsx는 엑셀 파일(*.xlsx)을 읽고 쓰는 라이브러리입니다.
 - QtXlsx가 더이상 지원되지 않기 때문에(2014), QtXlsx에 기반한 새로운 프로젝트를 만들었습니다. (2017-)
 - QXlsx는 개발언어로 C++를 사용합니다. (Qt 사용)
@@ -51,6 +47,10 @@ qDebug() << var; // 값 표시
 ```
 
 ## 테스트 환경
+
+Travis CI | AppVeyor
+:-------: | :-------:
+[![Build Status](https://travis-ci.com/j2doll/QXlsx.svg?branch=master)](https://travis-ci.com/j2doll/QXlsx) | [![Build status](https://ci.appveyor.com/api/projects/status/jkod8257gg66vm6e?svg=true)](https://ci.appveyor.com/project/j2doll/qxlsx)
 
 - [테스트된 환경](TestEnv.md) 참조
 
