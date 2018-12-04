@@ -17,13 +17,9 @@
 	- Copycat : xlsx 파일을 읽어 위젯으로 표시. xlsx 파일 인쇄. (할일: xlsx 파일로 저장)
 	- WebServer : xlsx 파일을 읽어 웹으로 표시 (`http://127.0.0.1:3001`)	
 
-## 설정하는 방법 (설치)
+### 활용 예제 (Hello excel)
 
-- [QXlsx 프로젝트 설정하는 방법](HowToSetProject.ko.md) 참조
-
-## 활용 예제 (Hello excel)
-
-### :one: 엑셀(xlsx) 파일 쓰기
+#### :one: 엑셀(xlsx) 파일 쓰기
 
 ```cpp
 QXlsx::Document xlsx;
@@ -31,7 +27,7 @@ xlsx.write("A1", "Hello Qt!"); // 셀(A,1)에 'Hello Qt!'값을 설정. 공유 �
 xlsx.saveAs("Test.xlsx"); // 'Test.xlsx'라는 이름으로 엑셀 파일을 저장.
 ```
 
-### :two: 엑셀(xlsx) 파일 읽기
+#### :two: 엑셀(xlsx) 파일 읽기
 
 ```cpp
 Document xlsx("Test.xlsx"); // 엑셀 파일 읽기
@@ -45,6 +41,10 @@ if ( cell == NULL )
 QVariant var = cell->readValue(); // 셀값을 읽음 (숫자(double), 날자(QDateTime), 문자열(QString) ...)
 qDebug() << var; // 값 표시
 ```
+
+## 설정하는 방법 (설치)
+
+- [QXlsx 프로젝트 설정하는 방법](HowToSetProject.ko.md) 참조
 
 ## 테스트 환경
 

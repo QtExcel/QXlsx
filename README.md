@@ -16,14 +16,10 @@
 	- HelloAndroid : read xlsx on Android using QML
 	- Copycat : load xlsx file and display on widget. print xlsx file. (TODO: save xlsx)
 	- WebServer : load xlsx and display to web (`http://127.0.0.1:3001`)
-
-## How to set up (Installation)
-
-- See [how to setup QXlsx project](HowToSetProject.md)	
 		
-## Example (Hello excel)
+### Example (Hello excel)
 
-### :one: Writing excel file(*.xlsx)
+#### :one: Writing excel file(*.xlsx)
 
 ```cpp
 QXlsx::Document xlsx;
@@ -31,7 +27,7 @@ xlsx.write("A1", "Hello Qt!"); // write "Hello Qt!" to cell(A,1). it's shared st
 xlsx.saveAs("Test.xlsx"); // save the document as 'Test.xlsx'
 ```
 
-### :two: Reading excel file(*.xlsx)
+#### :two: Reading excel file(*.xlsx)
 
 ```cpp
 Document xlsx("Test.xlsx"); // load excel file
@@ -45,6 +41,10 @@ if ( cell == NULL )
 QVariant var = cell->readValue(); // read cell value (number(double), QDateTime, QString ...)
 qDebug() << var; // display value
 ```
+
+## How to set up (Installation)
+
+- See [how to setup QXlsx project](HowToSetProject.md)	
 
 ## Tested environment
 
