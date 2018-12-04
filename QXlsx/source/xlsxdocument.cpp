@@ -1075,7 +1075,8 @@ Document::~Document()
 }
 
 //  add by liufeijin 20181025 {{
-bool Document::changeimage(int filenoinmidea, QString newfile){
+bool Document::changeimage(int filenoinmidea, QString newfile)
+{
 	Q_D(const Document);
 	QImage newpic;
 	
@@ -1107,5 +1108,6 @@ bool Document::changeimage(int filenoinmidea, QString newfile){
 	return true;
 }
 // liufeijin }}
+
 
 QT_END_NAMESPACE_XLSX

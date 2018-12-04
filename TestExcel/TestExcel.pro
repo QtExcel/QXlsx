@@ -63,4 +63,6 @@ richtext.cpp \
 rowcolumn.cpp \
 style.cpp \
 worksheetoperations.cpp \
-readStyle.cpp
+readStyle.cpp \
+pageMargins.cpp
+

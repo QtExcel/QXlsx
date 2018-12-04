@@ -216,16 +216,30 @@ public:
     bool default_row_zeroed;
 
 	// liufeijin {{
-    // pagesetup and print settings  add by liufeijin 20181028
-    QString PpaperSize,Pscale,PfirstPageNumber,Porientation,PuseFirstPageNumber,PhorizontalDpi,PverticalDpi, Prid,Pcopies;
 
+    // pagesetup and print settings  add by liufeijin 20181028
+    QString PpaperSize;
+    QString Pscale;
+    QString PfirstPageNumber;
+    QString Porientation;
+    QString PuseFirstPageNumber;
+    QString PhorizontalDpi;
+    QString PverticalDpi;
+    QString Prid;
+    QString Pcopies;
 
     // pageMargins add by liufeijin 20181028
-    QString PMfooter,PMheader,PMbotton,PMtop,PMright,PMleft;
-    // header footer contain add by liufeijin 20181028
-    QString MoodFooter,ModdHeader;
-	// liufeijin }}
+    QString PMheader;
+    QString PMfooter;
+    QString PMtop;
+    QString PMbotton;
+    QString PMleft;
+    QString PMright;
 
+    // header footer contain add by liufeijin 20181028
+    QString MoodFooter;
+    QString ModdHeader;
+	// liufeijin }}
 
     XlsxSheetFormatProps sheetFormatProps;
 

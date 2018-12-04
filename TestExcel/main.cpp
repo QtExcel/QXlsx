@@ -44,6 +44,7 @@ extern int rowcolumn();
 extern int style();
 extern int worksheetoperations();
 extern int readStyle(); 
+extern int pages();
 
 int main(int argc, char *argv[])
 {
@@ -81,6 +82,7 @@ int main(int argc, char *argv[])
 	rowcolumn();
 	style();
 	worksheetoperations();
+    pages();
 	
 	return 0;
 }
