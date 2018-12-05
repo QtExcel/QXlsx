@@ -1231,7 +1231,6 @@ void Worksheet::saveToXmlFile(QIODevice *device) const
     // NOTE: empty element is not problem. but, empty structure of element is not parsed by Excel.
 
     // pageMargins
-        /*
     if ( false == d->PMleft.isEmpty() &&
          false == d->PMright.isEmpty() &&
          false == d->PMtop.isEmpty() &&
@@ -1239,7 +1238,6 @@ void Worksheet::saveToXmlFile(QIODevice *device) const
          false == d->PMheader.isEmpty() &&
          false == d->PMfooter.isEmpty()
          )
-        */
     {
         writer.writeStartElement(QStringLiteral("pageMargins"));
 
@@ -1254,7 +1252,6 @@ void Worksheet::saveToXmlFile(QIODevice *device) const
     }
 
     // pageSetup
-        /*
     if ( false == d->PverticalDpi.isEmpty() &&
          false == d->PhorizontalDpi.isEmpty() &&
          false == d->PuseFirstPageNumber.isEmpty() &&
@@ -1264,7 +1261,6 @@ void Worksheet::saveToXmlFile(QIODevice *device) const
          false == d->Porientation.isEmpty() &&
          false == d->Pcopies.isEmpty()
        )
-        */
     {
         writer.writeStartElement(QStringLiteral("pageSetup"));
 
@@ -1276,6 +1272,7 @@ void Worksheet::saveToXmlFile(QIODevice *device) const
         writer.writeAttribute(QStringLiteral("paperSize"),          d->PpaperSize);
         writer.writeAttribute(QStringLiteral("orientation"),        d->Porientation);
         writer.writeAttribute(QStringLiteral("copies"),             d->Pcopies);
+
         //  if(!d->Prid.isEmpty()){
         //  writer.writeAttribute(QStringLiteral("r:id"), d->Prid);}
 
@@ -1283,7 +1280,8 @@ void Worksheet::saveToXmlFile(QIODevice *device) const
     }
 
     // headerFooter
-    // if( (!d->MoodFooter.isNull()) || !(d->MoodFooter.isNull()) )
+    if( !(d->MoodFooter.isNull()) ||
+        !(d->MoodFooter.isNull()) )
     {
         writer.writeStartElement(QStringLiteral("headerFooter")); // headerFooter
 
@@ -1292,7 +1290,6 @@ void Worksheet::saveToXmlFile(QIODevice *device) const
 
         writer.writeEndElement();// headerFooter
     }
-	//}}
 
 	d->saveXmlHyperlinks(writer);
 	d->saveXmlDrawings(writer);
@@ -1302,9 +1299,12 @@ void Worksheet::saveToXmlFile(QIODevice *device) const
 }
 
 //{{ liufeijin 
-bool Worksheet::setStartPage(int spagen){
+bool Worksheet::setStartPage(int spagen)
+{
     Q_D(Worksheet);
+
     d->PfirstPageNumber=QString::number(spagen);
+
     return true;
 }
 //}}
@@ -2392,11 +2392,7 @@ bool Worksheet::loadFromXmlFile(QIODevice *device)
 				d->conditionalFormattingList.append(cf);
 			} else if (reader.name() == QLatin1String("hyperlinks")) {
 				d->loadXmlHyperlinks(reader);
-
-//{{
-
-            } else if(reader.name() == QLatin1String("pageSetup")){
-
+            } else if(reader.name() == QLatin1String("pageSetup")) {
                 QXmlStreamAttributes attributes = reader.attributes();
 
                 d->PpaperSize = attributes.value(QLatin1String("paperSize")).toString().trimmed();
@@ -2408,9 +2404,7 @@ bool Worksheet::loadFromXmlFile(QIODevice *device)
                 d->PverticalDpi = attributes.value(QLatin1String("verticalDpi")).toString().trimmed();
                 d->Prid=attributes.value(QLatin1String("r:id")).toString().trimmed();
                 d->Pcopies=attributes.value(QLatin1String("copies")).toString().trimmed();
-
-            } else if(reader.name() == QLatin1String("pageMargins")){
-
+            } else if(reader.name() == QLatin1String("pageMargins")) {
                 QXmlStreamAttributes attributes = reader.attributes();
 
                 d->PMfooter= attributes.value(QLatin1String("footer")).toString().trimmed();
@@ -2419,17 +2413,13 @@ bool Worksheet::loadFromXmlFile(QIODevice *device)
                 d->PMtop = attributes.value(QLatin1String("top")).toString().trimmed();
                 d->PMright = attributes.value(QLatin1String("right")).toString().trimmed();
                 d->PMleft = attributes.value(QLatin1String("left")).toString().trimmed();
-
             } else if(reader.name() == QLatin1String("headerFooter")){
-
                 reader.readNextStartElement();
                 if ( (reader.tokenType() == QXmlStreamReader::StartElement) &&
-                     (reader.name() == QLatin1String("oddHeader"))
-                    )
+                     (reader.name() == QLatin1String("oddHeader")) )
                 {
                     d->ModdHeader=reader.readElementText();
                 }
-
 			} else if (reader.name() == QLatin1String("drawing")) {
 				QString rId = reader.attributes().value(QStringLiteral("r:id")).toString();
 				QString name = d->relationships->getRelationshipById(rId).target;
@@ -2438,8 +2428,10 @@ bool Worksheet::loadFromXmlFile(QIODevice *device)
 				d->drawing->setFilePath(path);
 			} else if (reader.name() == QLatin1String("extLst")) {
 				//Todo: add extLst support
-				while (!reader.atEnd() && !(reader.name() == QLatin1String("extLst")
-											&& reader.tokenType() == QXmlStreamReader::EndElement)) {
+                while ( !reader.atEnd() &&
+                        !(reader.name() == QLatin1String("extLst") &&
+                          reader.tokenType() == QXmlStreamReader::EndElement))
+                {
 					reader.readNextStartElement();
 				}
 			}

@@ -217,7 +217,7 @@ public:
 
 	// liufeijin {{
 
-    // pagesetup and print settings  add by liufeijin 20181028
+    // pagesetup and print settings add by liufeijin 20181028
     QString PpaperSize;
     QString Pscale;
     QString PfirstPageNumber;
@@ -228,7 +228,7 @@ public:
     QString Prid;
     QString Pcopies;
 
-    // pageMargins add by liufeijin 20181028
+    // pageMargins
     QString PMheader;
     QString PMfooter;
     QString PMtop;
@@ -236,9 +236,10 @@ public:
     QString PMleft;
     QString PMright;
 
-    // header footer contain add by liufeijin 20181028
+    // header footer
     QString MoodFooter;
     QString ModdHeader;
+
 	// liufeijin }}
 
     XlsxSheetFormatProps sheetFormatProps;
