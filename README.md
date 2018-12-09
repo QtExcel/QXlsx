@@ -13,7 +13,7 @@
 - See [examples](Example.md)
 	- HelloWorld : Hello world example (The most basic structure)
 	- TestExcel : basic samples based on QtXlsx samples
-	- HelloAndroid : read xlsx on Android using QML
+	- HelloAndroid : read xlsx on Android
 	- Copycat : load xlsx file and display on widget. print xlsx file. (TODO: save xlsx)
 	- WebServer : load xlsx and display to web (`http://127.0.0.1:3001`)
 		
