@@ -883,18 +883,22 @@ bool Styles::readFill(QXmlStreamReader &reader, Format &fill)
                         if (reader.tokenType() == QXmlStreamReader::StartElement) {
                             if (reader.name() == QLatin1String("fgColor")) {
                                 XlsxColor c;
-                                c.loadFromXml(reader);
-                                if (fill.fillPattern() == Format::PatternSolid)
-                                    fill.setProperty(FormatPrivate::P_Fill_BgColor, c);
-                                else
-                                    fill.setProperty(FormatPrivate::P_Fill_FgColor, c);
+                                if ( c.loadFromXml(reader) )
+                                {
+                                    if (fill.fillPattern() == Format::PatternSolid)
+                                        fill.setProperty(FormatPrivate::P_Fill_BgColor, c);
+                                    else
+                                        fill.setProperty(FormatPrivate::P_Fill_FgColor, c);
+                                }
                             } else if (reader.name() == QLatin1String("bgColor")) {
                                 XlsxColor c;
-                                c.loadFromXml(reader);
-                                if (fill.fillPattern() == Format::PatternSolid)
-                                    fill.setProperty(FormatPrivate::P_Fill_FgColor, c);
-                                else
-                                    fill.setProperty(FormatPrivate::P_Fill_BgColor, c);
+                                if ( c.loadFromXml(reader) )
+                                {
+                                    if (fill.fillPattern() == Format::PatternSolid)
+                                        fill.setProperty(FormatPrivate::P_Fill_FgColor, c);
+                                    else
+                                        fill.setProperty(FormatPrivate::P_Fill_BgColor, c);
+                                }
                             }
                         }
                     }
@@ -992,6 +996,12 @@ bool Styles::readBorder(QXmlStreamReader &reader, Format &border)
     return true;
 }
 
+bool Styles::readCellStyleXfs(QXmlStreamReader &reader)
+{
+
+    return true;
+}
+
 bool Styles::readSubBorder(QXmlStreamReader &reader, const QString &name, Format::BorderStyle &style, XlsxColor &color)
 {
     Q_ASSERT(reader.name() == name);
@@ -1084,14 +1094,23 @@ bool Styles::readCellXfs(QXmlStreamReader &reader)
                     if (id >= m_fillsList.size()) {
                         qDebug("Error read styles.xml, cellXfs fillId");
                     } else {
-                        bool apply = parseXsdBoolean(xfAttrs.value(QLatin1String("applyFill")).toString());
-                        if(apply) {
+
+                        // dev20 branch
+                        // NOTE: MIcrosoft Excel does not have 'applyFill' tag.
+                        //
+
+                        // bool apply = parseXsdBoolean(xfAttrs.value(QLatin1String("applyFill")).toString());
+                        // if (apply)
+
+                        {
                             Format fillFormat = m_fillsList[id];
-                            for (int i=FormatPrivate::P_Fill_STARTID; i<FormatPrivate::P_Fill_ENDID; ++i) {
+                            for (int i=FormatPrivate::P_Fill_STARTID; i<FormatPrivate::P_Fill_ENDID; ++i)
+                            {
                                 if (fillFormat.hasProperty(i))
                                     format.setProperty(i, fillFormat.property(i));
                             }
                         }
+
                     }
                 }
 
@@ -1276,9 +1295,13 @@ bool Styles::loadFromXmlFile(QIODevice *device)
                 readBorders(reader);
             } else if (reader.name() == QLatin1String("cellStyleXfs")) {
 
+                readCellStyleXfs(reader);
+
             } else if (reader.name() == QLatin1String("cellXfs")) {
                 readCellXfs(reader);
             } else if (reader.name() == QLatin1String("cellStyles")) {
+
+                // cellStyles
 
             } else if (reader.name() == QLatin1String("dxfs")) {
                 readDxfs(reader);

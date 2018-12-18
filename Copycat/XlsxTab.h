@@ -19,6 +19,7 @@ class XlsxTab : public QWidget
     Q_OBJECT
 public:
     explicit XlsxTab(QWidget* parent = nullptr,
+                     QXlsx::Document* ptrDoc = nullptr,
                      QXlsx::AbstractSheet* ptrSheet = nullptr,
                      int SheetIndex = -1);
     virtual ~XlsxTab();
@@ -29,6 +30,7 @@ public slots:
 
 private:
     QTableWidget* table;
+    QXlsx::Document* document;
     QXlsx::AbstractSheet* sheet;
     int sheetIndex;
 private:

@@ -13,8 +13,10 @@
 
 #include "XlsxTab.h"
 #include "xlsxcell.h"
+#include "xlsxformat.h"
 
 XlsxTab::XlsxTab(QWidget* parent,
+                 QXlsx::Document* ptrDoc,
                  QXlsx::AbstractSheet* ptrSheet,
                  int SheetIndex)
     : QWidget(parent)
@@ -33,6 +35,7 @@ XlsxTab::XlsxTab(QWidget* parent,
     layout->addWidget(table);
     this->setLayout(layout);
 
+    document = ptrDoc; // set document
     sheet = ptrSheet; // set sheet data
     sheetIndex = SheetIndex; // set shett index
     if ( ! setSheet() )
@@ -116,8 +119,8 @@ bool XlsxTab::setSheet()
 
             // TODO: define ratio of widget col/row
 
-            table->setRowHeight( row, dRowHeight );
-            table->setColumnWidth( col, dColWidth );
+            // table->setRowHeight( row, dRowHeight );
+            // table->setColumnWidth( col, dColWidth );
 
           ////////////////////////////////////////////////////////////////////
           // font
@@ -128,6 +131,25 @@ bool XlsxTab::setSheet()
           if ( ptrCell->format().fontColor().isValid() )
           {
             newItem->setTextColor( ptrCell->format().fontColor() );
+          }
+
+          ////////////////////////////////////////////////////////////////////
+          // background color
+
+          {
+              QColor clrForeGround = ptrCell->format().patternForegroundColor();
+              if ( clrForeGround.isValid() )
+              {
+                    // qDebug() << "[debug] ForeGround : " << clrForeGround;
+              }
+
+              QColor clrBackGround = ptrCell->format().patternBackgroundColor();
+              if ( clrBackGround.isValid() )
+              {
+                    // TODO: You must use various patterns.
+                    newItem->setBackground( Qt::SolidPattern );
+                    newItem->setBackgroundColor( clrBackGround );
+              }
           }
 
           ////////////////////////////////////////////////////////////////////

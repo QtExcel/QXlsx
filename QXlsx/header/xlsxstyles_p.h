@@ -64,7 +64,7 @@ struct XlsxFormatNumberData
     QString formatString;
 };
 
-class  Styles : public AbstractOOXmlFile
+class Styles : public AbstractOOXmlFile
 {
 public:
     Styles(CreateFlag flag);
@@ -111,6 +111,8 @@ private:
     bool readDxf(QXmlStreamReader &reader);
     bool readColors(QXmlStreamReader &reader);
     bool readIndexedColors(QXmlStreamReader &reader);
+
+    bool readCellStyleXfs(QXmlStreamReader &reader);
 
     QHash<QString, int> m_builtinNumFmtsHash;
     QMap<int, QSharedPointer<XlsxFormatNumberData> > m_customNumFmtIdMap;

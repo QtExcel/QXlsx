@@ -127,7 +127,7 @@ bool MainWindow::loadXlsx(QString fileName)
             activeSheetNumber = sheetIndexNumber;
         }
 
-        XlsxTab* newSheet = new XlsxTab( this, currentSheet, sheetIndexNumber ); // create new tab
+        XlsxTab* newSheet = new XlsxTab( this, xlsxDoc, currentSheet, sheetIndexNumber ); // create new tab
         xlsxTabList.push_back( newSheet ); // append to xlsx pointer list
         tabWidget->addTab( newSheet, curretnSheetName  ); // add tab widget
         sheetIndexNumber++; // increase sheet index number
