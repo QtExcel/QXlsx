@@ -1,13 +1,6 @@
-//--------------------------------------------------------------------
-//
-// QXlsx
-// MIT License
-// https://github.com/j2doll/QXlsx
-//
-// QtXlsx
-// https://github.com/dbzhang800/QtXlsxWriter
-// http://qtxlsx.debao.me/
-// MIT License
+// xlsxdocument.h
+// QXlsx // MIT License // https://github.com/j2doll/QXlsx
+// QtXlsx // MIT License // https://github.com/dbzhang800/QtXlsxWriter // http://qtxlsx.debao.me/
 
 #ifndef QXLSX_XLSXDOCUMENT_H
 #define QXLSX_XLSXDOCUMENT_H

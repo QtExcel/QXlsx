@@ -1,15 +1,10 @@
 // chart.cpp
+// QXlsx // MIT License // https://github.com/j2doll/QXlsx
+// QtXlsx // MIT License // https://github.com/dbzhang800/QtXlsxWriter // http://qtxlsx.debao.me/
 
-// QXlsx
-// MIT License
-// https://github.com/j2doll/QXlsx
-//
-// QtXlsx
-// https://github.com/dbzhang800/QtXlsxWriter
-// http://qtxlsx.debao.me/
-// MIT License
-
+#include <QtGlobal>
 #include <QtCore>
+#include <QDebug>
 #include "xlsxdocument.h"
 #include "xlsxcellrange.h"
 #include "xlsxchart.h"
@@ -46,12 +41,8 @@ int chart()
     bar3DChart->setChartType(Chart::CT_Bar3D);
     bar3DChart->addSeries(CellRange("A1:C9"));
 
-/*
-   - Excel files created with this routine will have problems with Microsoft Excel. (Excel 2013/2016)
-   - Excel files created with this routine will be well in Google spreadsheets. (Setember 2018)
-   - Excel files created with this routine will be well in LibreOffice. (ver.6.1)
-   - Issue is reported from SangPilPark(github)
-
+    // issue #10 is fixed. https://github.com/j2doll/QXlsx/issues/10
+    // {{
     Chart *lineChart = xlsx.insertChart(43, 3, QSize(300, 300));
     lineChart->setChartType(Chart::CT_Line);
     lineChart->addSeries(CellRange("A1:C9"));
@@ -67,8 +58,7 @@ int chart()
     Chart *area3DChart = xlsx.insertChart(63, 9, QSize(300, 300));
     area3DChart->setChartType(Chart::CT_Area3D);
     area3DChart->addSeries(CellRange("A1:C9"));
-
-//*/
+    // }}
 
     Chart *scatterChart = xlsx.insertChart(83, 3, QSize(300, 300));
     scatterChart->setChartType(Chart::CT_Scatter);
