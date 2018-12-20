@@ -32,12 +32,14 @@ class QIODevice;
 class QByteArray;
 
 QT_BEGIN_NAMESPACE_XLSX
+
 class Relationships;
 class AbstractOOXmlFilePrivate;
 
 class AbstractOOXmlFile
 {
     Q_DECLARE_PRIVATE(AbstractOOXmlFile)
+
 public:
     enum CreateFlag
     {
@@ -45,6 +47,7 @@ public:
         F_LoadFromExists
     };
 
+public:
     virtual ~AbstractOOXmlFile();
 
     virtual void saveToXmlFile(QIODevice *device) const = 0;

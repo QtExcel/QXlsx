@@ -1,15 +1,6 @@
-// QXlsx
-// MIT License
-// https://github.com/j2doll/QXlsx
-//
-// QtXlsx
-// https://github.com/dbzhang800/QtXlsxWriter
-// http://qtxlsx.debao.me/
-// MIT License
-
-//
 // main.cpp
-//
+// QXlsx // MIT License // https://github.com/j2doll/QXlsx
+// QtXlsx // MIT License // https://github.com/dbzhang800/QtXlsxWriter // http://qtxlsx.debao.me/
 
 #include <QCoreApplication>
 #include <QtCore>
