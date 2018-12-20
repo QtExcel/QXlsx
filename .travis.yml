@@ -11,6 +11,15 @@ dist: xenial # Ubuntu Xenial 16.04, Trusty 14.04, Precise 12.04
 before_install:
  - sudo add-apt-repository --yes ppa:ubuntu-sdk-team/ppa
  - sudo apt-get update -qq
+
+# gcc 7
+ - sudo apt install g++-7 
+ - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-7 60 --slave /usr/bin/g++ g++ /usr/bin/g++-7 
+ - sudo update-alternatives --config gcc
+ - gcc --version
+ - g++ --version
+
+# Qt
  - sudo apt-get install qtbase5-dev qtdeclarative5-dev libqt5webkit5-dev libsqlite3-dev
  - sudo apt-get install qt5-default qttools5-dev-tools qtbase5-private-dev
 
