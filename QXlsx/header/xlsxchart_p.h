@@ -40,7 +40,13 @@
 #include "xlsxabstractooxmlfile_p.h"
 #include "xlsxchart.h"
 
+#include <QtGlobal>
+#include <QObject>
+#include <QString>
 #include <QSharedPointer>
+#include <QVector>
+#include <QMap>
+#include <QList>
 
 class QXmlStreamReader;
 class QXmlStreamWriter;
@@ -51,8 +57,8 @@ class XlsxSeries
 {
 public:
     //At present, we care about number cell ranges only!
-    QString numberDataSource_numRef; //yval, val
-    QString axDataSource_numRef; //xval, cat
+    QString numberDataSource_numRef; // yval, val
+    QString axDataSource_numRef; // xval, cat
 };
 
 class XlsxAxis
@@ -66,8 +72,9 @@ public:
         T_Ser
     };
 
-    enum Pos
+    enum AxisPos
     {
+        None = -1,
         Left,
         Right,
         Top,
@@ -76,15 +83,23 @@ public:
 
     XlsxAxis(){}
 
-    XlsxAxis(Type t, Pos p, int id, int crossId)
+    XlsxAxis(Type t, XlsxAxis::AxisPos  p, int id, int crossId, QString axisTitle = QString(""))
         :type(t), axisPos(p), axisId(id), crossAx(crossId)
     {
+        if ( !axisTitle.isEmpty() )
+        {
+            axisNames[ p ] = axisTitle;
+        }
     }
 
     Type type;
-    Pos axisPos; //l,r,b,t
+    XlsxAxis::AxisPos axisPos; // l(left),r(right),b(bottom),t(top)
     int axisId;
     int crossAx;
+
+    // dev22 {{
+    QMap< XlsxAxis::AxisPos, QString > axisNames;
+    // }}
 };
 
 class ChartPrivate : public AbstractOOXmlFilePrivate
@@ -114,8 +129,10 @@ public:
 
     Chart::ChartType chartType;
 
-    QList<QSharedPointer<XlsxSeries> > seriesList;
-    QList<QSharedPointer<XlsxAxis> > axisList;
+    QList< QSharedPointer<XlsxSeries> > seriesList;
+    QList< QSharedPointer<XlsxAxis> > axisList;
+
+    QMap< XlsxAxis::AxisPos, QString > axisNames; // dev22
 
     AbstractSheet *sheet;
 };

@@ -40,6 +40,8 @@ class Worksheet;
 class ChartPrivate;
 class CellRange;
 class DrawingAnchor;
+// class XlsxAxis;
+// enum XlsxAxisPos : short;
 
 class Chart : public AbstractOOXmlFile
 {
@@ -65,11 +67,20 @@ public:
         CT_Bubble
     };
 
+    enum ChartAxisPos
+    {
+        Left,
+        Right,
+        Top,
+        Bottom
+    };
+
     ~Chart();
 
     void addSeries(const CellRange &range, AbstractSheet *sheet=0);
     void setChartType(ChartType type);
     void setChartStyle(int id);
+    void setAxisTitle(Chart::ChartAxisPos pos, QString axisTitle);
 
     void saveToXmlFile(QIODevice *device) const;
     bool loadFromXmlFile(QIODevice *device);
