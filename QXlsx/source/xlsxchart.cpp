@@ -164,10 +164,11 @@ void Chart::setAxisTitle(Chart::ChartAxisPos pos, QString axisTitle)
     if ( axisTitle.isEmpty() )
         return;
 
-    if ( pos == Chart::ChartAxisPos::Left ) d->axisNames[ XlsxAxis::AxisPos::Left ] = axisTitle;
-    else if ( pos == Chart::ChartAxisPos::Top ) d->axisNames[ XlsxAxis::AxisPos::Top ] = axisTitle;
-    else if ( pos == Chart::ChartAxisPos::Right ) d->axisNames[ XlsxAxis::AxisPos::Right ] = axisTitle;
-    else if ( pos == Chart::ChartAxisPos::Bottom ) d->axisNames[ XlsxAxis::AxisPos::Bottom ] = axisTitle;
+    // dev24 : fixed for old compiler
+    if ( pos == Chart::Left ) d->axisNames[ XlsxAxis::Left ] = axisTitle;
+    else if ( pos == Chart::Top ) d->axisNames[ XlsxAxis::Top ] = axisTitle;
+    else if ( pos == Chart::Right ) d->axisNames[ XlsxAxis::Right ] = axisTitle;
+    else if ( pos == Chart::Bottom ) d->axisNames[ XlsxAxis::Bottom ] = axisTitle;
     else
     {
         // ??
@@ -429,9 +430,9 @@ void ChartPrivate::saveXmlBarChart(QXmlStreamWriter &writer) const
 
     if ( axisList.isEmpty() )
     {
-        //The order the axes??
-        const_cast<ChartPrivate*>(this)->axisList.append(QSharedPointer<XlsxAxis>(new XlsxAxis(XlsxAxis::T_Cat, XlsxAxis::AxisPos::Bottom, 0, 1, axisNames[XlsxAxis::AxisPos::Bottom] )));
-        const_cast<ChartPrivate*>(this)->axisList.append(QSharedPointer<XlsxAxis>(new XlsxAxis(XlsxAxis::T_Val, XlsxAxis::AxisPos::Left, 1, 0, axisNames[XlsxAxis::AxisPos::Left] )));
+        // The order the axes??
+        const_cast<ChartPrivate*>(this)->axisList.append(QSharedPointer<XlsxAxis>(new XlsxAxis(XlsxAxis::T_Cat, XlsxAxis::Bottom, 0, 1, axisNames[XlsxAxis::Bottom] )));
+        const_cast<ChartPrivate*>(this)->axisList.append(QSharedPointer<XlsxAxis>(new XlsxAxis(XlsxAxis::T_Val, XlsxAxis::Left, 1, 0, axisNames[XlsxAxis::Left] )));
     }
 
     //Note: Bar3D have 2~3 axes
@@ -459,10 +460,10 @@ void ChartPrivate::saveXmlLineChart(QXmlStreamWriter &writer) const
 
     if (axisList.isEmpty())
     {
-        const_cast<ChartPrivate*>(this)->axisList.append(QSharedPointer<XlsxAxis>(new XlsxAxis(XlsxAxis::T_Cat, XlsxAxis::AxisPos::Bottom, 0, 1, axisNames[XlsxAxis::AxisPos::Bottom] )));
-        const_cast<ChartPrivate*>(this)->axisList.append(QSharedPointer<XlsxAxis>(new XlsxAxis(XlsxAxis::T_Val, XlsxAxis::AxisPos::Left, 1, 0, axisNames[XlsxAxis::AxisPos::Left] )));
+        const_cast<ChartPrivate*>(this)->axisList.append(QSharedPointer<XlsxAxis>(new XlsxAxis(XlsxAxis::T_Cat, XlsxAxis::Bottom, 0, 1, axisNames[XlsxAxis::Bottom] )));
+        const_cast<ChartPrivate*>(this)->axisList.append(QSharedPointer<XlsxAxis>(new XlsxAxis(XlsxAxis::T_Val, XlsxAxis::Left, 1, 0, axisNames[XlsxAxis::Left] )));
         if (chartType==Chart::CT_Line3D)
-            const_cast<ChartPrivate*>(this)->axisList.append(QSharedPointer<XlsxAxis>(new XlsxAxis(XlsxAxis::T_Ser, XlsxAxis::AxisPos::Bottom, 2, 0)));
+            const_cast<ChartPrivate*>(this)->axisList.append(QSharedPointer<XlsxAxis>(new XlsxAxis(XlsxAxis::T_Ser, XlsxAxis::Bottom, 2, 0)));
     }
 
     Q_ASSERT((axisList.size()==2||chartType==Chart::CT_Line)|| (axisList.size()==3 && chartType==Chart::CT_Line3D));
@@ -488,8 +489,8 @@ void ChartPrivate::saveXmlScatterChart(QXmlStreamWriter &writer) const
 
     if (axisList.isEmpty())
     {
-        const_cast<ChartPrivate*>(this)->axisList.append(QSharedPointer<XlsxAxis>(new XlsxAxis(XlsxAxis::T_Val, XlsxAxis::AxisPos::Bottom, 0, 1, axisNames[XlsxAxis::AxisPos::Bottom] )));
-        const_cast<ChartPrivate*>(this)->axisList.append(QSharedPointer<XlsxAxis>(new XlsxAxis(XlsxAxis::T_Val, XlsxAxis::AxisPos::Left, 1, 0, axisNames[XlsxAxis::AxisPos::Left] )));
+        const_cast<ChartPrivate*>(this)->axisList.append(QSharedPointer<XlsxAxis>(new XlsxAxis(XlsxAxis::T_Val, XlsxAxis::Bottom, 0, 1, axisNames[XlsxAxis::Bottom] )));
+        const_cast<ChartPrivate*>(this)->axisList.append(QSharedPointer<XlsxAxis>(new XlsxAxis(XlsxAxis::T_Val, XlsxAxis::Left, 1, 0, axisNames[XlsxAxis::Left] )));
     }
 
     Q_ASSERT(axisList.size()==2);
@@ -516,8 +517,8 @@ void ChartPrivate::saveXmlAreaChart(QXmlStreamWriter &writer) const
 
     if (axisList.isEmpty())
     {
-        const_cast<ChartPrivate*>(this)->axisList.append(QSharedPointer<XlsxAxis>(new XlsxAxis(XlsxAxis::T_Cat, XlsxAxis::AxisPos::Bottom, 0, 1)));
-        const_cast<ChartPrivate*>(this)->axisList.append(QSharedPointer<XlsxAxis>(new XlsxAxis(XlsxAxis::T_Val, XlsxAxis::AxisPos::Left, 1, 0)));
+        const_cast<ChartPrivate*>(this)->axisList.append(QSharedPointer<XlsxAxis>(new XlsxAxis(XlsxAxis::T_Cat, XlsxAxis::Bottom, 0, 1)));
+        const_cast<ChartPrivate*>(this)->axisList.append(QSharedPointer<XlsxAxis>(new XlsxAxis(XlsxAxis::T_Val, XlsxAxis::Left, 1, 0)));
     }
 
     //Note: Area3D have 2~3 axes
@@ -619,15 +620,15 @@ bool ChartPrivate::loadXmlAxis(QXmlStreamReader &reader)
                 QXmlStreamAttributes attrs = reader.attributes();
                 QStringRef pos = attrs.value(QLatin1String("val"));
                 if ( pos == QLatin1String("l") )
-                    axis->axisPos = XlsxAxis::AxisPos::Left;
+                    axis->axisPos = XlsxAxis::Left;
                 else if ( pos == QLatin1String("r") )
-                    axis->axisPos = XlsxAxis::AxisPos::Right;
+                    axis->axisPos = XlsxAxis::Right;
                 else if ( pos == QLatin1String("b") )
-                    axis->axisPos = XlsxAxis::AxisPos::Bottom;
+                    axis->axisPos = XlsxAxis::Bottom;
                 else if ( pos == QLatin1String("t") )
-                    axis->axisPos = XlsxAxis::AxisPos::Top;
+                    axis->axisPos = XlsxAxis::Top;
                 else
-                    axis->axisPos = XlsxAxis::AxisPos::None;
+                    axis->axisPos = XlsxAxis::None;
             }
             else if ( reader.name() == QLatin1String("axId") )
             {
@@ -657,20 +658,20 @@ void ChartPrivate::saveXmlAxes(QXmlStreamWriter &writer) const
         QString name;
         switch (axis->type)
         {
-            case XlsxAxis::T_Cat:  name = QStringLiteral("c:catAx"); break;
-            case XlsxAxis::T_Val:  name = QStringLiteral("c:valAx"); break;
-            case XlsxAxis::T_Ser:  name = QStringLiteral("c:serAx"); break;
-            case XlsxAxis::T_Date: name = QStringLiteral("c:dateAx"); break;
+            case XlsxAxis::T_Cat :  name = QStringLiteral("c:catAx"); break;
+            case XlsxAxis::T_Val :  name = QStringLiteral("c:valAx"); break;
+            case XlsxAxis::T_Ser :  name = QStringLiteral("c:serAx"); break;
+            case XlsxAxis::T_Date : name = QStringLiteral("c:dateAx"); break;
             default: break;
         }
 
         QString pos;
         switch (axis->axisPos)
         {
-            case XlsxAxis::AxisPos::Top:    pos = QStringLiteral("t"); break;
-            case XlsxAxis::AxisPos::Bottom: pos = QStringLiteral("b"); break;
-            case XlsxAxis::AxisPos::Left:   pos = QStringLiteral("l"); break;
-            case XlsxAxis::AxisPos::Right:  pos = QStringLiteral("r"); break;
+            case XlsxAxis::Top :    pos = QStringLiteral("t"); break;
+            case XlsxAxis::Bottom : pos = QStringLiteral("b"); break;
+            case XlsxAxis::Left :   pos = QStringLiteral("l"); break;
+            case XlsxAxis::Right :  pos = QStringLiteral("r"); break;
             default: break; // ??
         }
 

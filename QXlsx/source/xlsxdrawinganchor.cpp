@@ -394,8 +394,15 @@ void DrawingAnchor::loadXmlObjectShape(QXmlStreamReader &reader)
                extTA = loadXmlExt(reader);
                hasoffext=false;
             }else if(reader.name() == QLatin1String("blipFill")){
-               rotWithShapeTA= reader.attributes().value(QLatin1String("rotWithShape")).toInt();
-               dpiTA= reader.attributes().value(QLatin1String("dpi")).toInt();
+
+                // dev24 : fixed for old Qt 5
+
+                rotWithShapeTA = reader.attributes().value(QLatin1String("rotWithShape")).toString().toInt();
+                dpiTA = reader.attributes().value(QLatin1String("dpi")).toString().toInt();
+
+                // rotWithShapeTA = reader.attributes().value(QLatin1String("rotWithShape")).toInt();
+                // dpiTA = reader.attributes().value(QLatin1String("dpi")).toInt();
+
             }else if(reader.name() == QLatin1String("cNvPr")){
                xsp_cNvPR_name= reader.attributes().value(QLatin1String("name")).toString();
                xsp_cNvPR_id= reader.attributes().value(QLatin1String("id")).toString();

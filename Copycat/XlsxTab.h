@@ -3,6 +3,8 @@
 #ifndef XLSXTAB_H
 #define XLSXTAB_H
 
+#include <cstdio>
+
 #include <QtGlobal>
 #include <QObject>
 #include <QString>
@@ -18,9 +20,9 @@ class XlsxTab : public QWidget
 {
     Q_OBJECT
 public:
-    explicit XlsxTab(QWidget* parent = nullptr,
-                     QXlsx::Document* ptrDoc = nullptr,
-                     QXlsx::AbstractSheet* ptrSheet = nullptr,
+    explicit XlsxTab(QWidget* parent = NULL,
+                     QXlsx::Document* ptrDoc = NULL,
+                     QXlsx::AbstractSheet* ptrSheet = NULL,
                      int SheetIndex = -1);
     virtual ~XlsxTab();
 

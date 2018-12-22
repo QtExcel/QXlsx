@@ -4,6 +4,8 @@
 - Hello world example
 
 ```cpp
+// main.cpp
+
 // [0] include QXlsx headers 
 #include "xlsxdocument.h"
 #include "xlsxchartsheet.h"
@@ -40,7 +42,7 @@ int main(int argc, char *argv[])
 ```
 
 ## TestExcel
-- Basic samples based on QtXlsx samples
+- :zap: Basic examples based on QtXlsx examples
 
 ## HelloAndroid : Android Example
 - See 'HelloAndroid' example using QML and native C++.
@@ -56,6 +58,7 @@ int main(int argc, char *argv[])
 
 ## WebServer : WebServer Example
 - Load xlsx file and display on Web.
+- C++ 14 is required.
 - Connect to `http://127.0.0.1:3001`
 
 ![](markdown.data/webserver.png)

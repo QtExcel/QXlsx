@@ -147,8 +147,8 @@ void sat_calc::generate_report()
     Chart * Crom = output.insertChart( 3, 5, QSize(600, 500) );
     Crom->setChartType( Chart::CT_Scatter );
     Crom->addSeries( CellRange(chrom_data_array) );
-    Crom->setAxisTitle( Chart::ChartAxisPos::Left, QString("left title") ); // dev22
-    Crom->setAxisTitle( Chart::ChartAxisPos::Bottom, QString("bottom title") ); // dev22
+    Crom->setAxisTitle( Chart::Left, QString("left title") ); // dev24
+    Crom->setAxisTitle( Chart::Bottom, QString("bottom title") ); // dev24
 
     qDebug() << "[debug] chrom_data_array : " << chrom_data_array;
 

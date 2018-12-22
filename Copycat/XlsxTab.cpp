@@ -10,6 +10,7 @@
 #include <QFont>
 #include <QBrush>
 #include <QDebug>
+#include <QTextCharFormat>
 
 #include "XlsxTab.h"
 #include "xlsxcell.h"
@@ -158,25 +159,25 @@ bool XlsxTab::setSheet()
           Qt::BrushStyle qbs = Qt::NoBrush;
           switch(fp)
           {
-              case Format::FillPattern::PatternNone :       qbs = Qt::NoBrush; break;
-              case Format::FillPattern::PatternSolid :      qbs = Qt::SolidPattern; break;
-              case Format::FillPattern::PatternMediumGray :
-              case Format::FillPattern::PatternDarkGray :
-              case Format::FillPattern::PatternLightGray :
-              case Format::FillPattern::PatternDarkHorizontal :
-              case Format::FillPattern::PatternDarkVertical :
-              case Format::FillPattern::PatternDarkDown :
-              case Format::FillPattern::PatternDarkUp :
-              case Format::FillPattern::PatternDarkGrid :
-              case Format::FillPattern::PatternDarkTrellis :
-              case Format::FillPattern::PatternLightHorizontal :
-              case Format::FillPattern::PatternLightVertical :
-              case Format::FillPattern::PatternLightDown :
-              case Format::FillPattern::PatternLightUp :
-              case Format::FillPattern::PatternLightTrellis :
-              case Format::FillPattern::PatternGray125 :
-              case Format::FillPattern::PatternGray0625 :
-              case Format::FillPattern::PatternLightGrid :
+              case Format::PatternNone :       qbs = Qt::NoBrush; break;
+              case Format::PatternSolid :      qbs = Qt::SolidPattern; break;
+              case Format::PatternMediumGray :
+              case Format::PatternDarkGray :
+              case Format::PatternLightGray :
+              case Format::PatternDarkHorizontal :
+              case Format::PatternDarkVertical :
+              case Format::PatternDarkDown :
+              case Format::PatternDarkUp :
+              case Format::PatternDarkGrid :
+              case Format::PatternDarkTrellis :
+              case Format::PatternLightHorizontal :
+              case Format::PatternLightVertical :
+              case Format::PatternLightDown :
+              case Format::PatternLightUp :
+              case Format::PatternLightTrellis :
+              case Format::PatternGray125 :
+              case Format::PatternGray0625 :
+              case Format::PatternLightGrid :
               default:
               break;
           }
@@ -194,23 +195,23 @@ bool XlsxTab::setSheet()
           Format::HorizontalAlignment ha = ptrCell->format().horizontalAlignment();
           switch(ha)
           {
-            case Format::HorizontalAlignment::AlignHCenter :
-            case Format::HorizontalAlignment::AlignHFill :
-            case Format::HorizontalAlignment::AlignHMerge :
-            case Format::HorizontalAlignment::AlignHDistributed :
+            case Format::AlignHCenter :
+            case Format::AlignHFill :
+            case Format::AlignHMerge :
+            case Format::AlignHDistributed :
                 alignment = alignment | Qt::AlignHCenter;
             break;
 
-            case Format::HorizontalAlignment::AlignRight :
+            case Format::AlignRight :
                 alignment = alignment | Qt::AlignRight;
             break;
 
-            case Format::HorizontalAlignment::AlignHJustify :
+            case Format::AlignHJustify :
                 alignment = alignment | Qt::AlignJustify;
             break;
 
-            case Format::HorizontalAlignment::AlignLeft :
-            case Format::HorizontalAlignment::AlignHGeneral :
+            case Format::AlignLeft :
+            case Format::AlignHGeneral :
             default:
                 alignment = alignment | Qt::AlignLeft;
             break;
@@ -219,22 +220,23 @@ bool XlsxTab::setSheet()
           Format::VerticalAlignment va = ptrCell->format().verticalAlignment();
           switch(va)
           {
-              case Format::VerticalAlignment::AlignTop :
+              case Format::AlignTop :
                   alignment = alignment |  Qt::AlignTop;
               break;
 
-              case Format::VerticalAlignment::AlignVCenter :
+              case Format::AlignVCenter :
                   alignment = alignment |  Qt::AlignVCenter;
               break;
 
-              case Format::VerticalAlignment::AlignBottom :
+              case Format::AlignBottom :
                   alignment = alignment |  Qt::AlignBottom;
               break;
 
-              case Format::VerticalAlignment::AlignVJustify :
-              case Format::VerticalAlignment::AlignVDistributed :
+              case Format::AlignVJustify :
+              case Format::AlignVDistributed :
               default:
-                alignment = alignment |  Qt::AlignBaseline;
+                // alignment = alignment | (int)(Qt::AlignBaseline);
+                alignment = alignment | QTextCharFormat::AlignBaseline;
               break;
           }
 
