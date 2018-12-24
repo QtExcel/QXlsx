@@ -12,34 +12,29 @@ before_install:
  - sudo add-apt-repository --yes ppa:ubuntu-sdk-team/ppa
  - sudo apt-get update -qq
 
-# Qt
+install:
+ # Qt
  - sudo apt-get install qtbase5-dev qtdeclarative5-dev libqt5webkit5-dev libsqlite3-dev
  - sudo apt-get install qt5-default qttools5-dev-tools qtbase5-private-dev
 
-install:
-
 script:
 
- # check gcc version
- - gcc --version
- - g++ --version
-
  # QXlsx library
-  - cd QXlsx
-  - qmake QXlsx.pro
-  - make
+ - cd QXlsx
+ - qmake QXlsx.pro
+ - make
   
  # HelloWorld example  
-  - cd ../HelloWorld
-  - qmake HelloWorld.pro
-  - make
-  - ./HelloWorld
+ - cd ../HelloWorld
+ - qmake HelloWorld.pro
+ - make
+ - ./HelloWorld
   
  # TestExcel exmaple  
-  - cd ../TestExcel
-  - qmake TestExcel.pro
-  - make
-  - ./TestExcel
+ - cd ../TestExcel
+ - qmake TestExcel.pro
+ - make
+ - ./TestExcel
 
 after_success:
 
