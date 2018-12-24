@@ -9,8 +9,8 @@ sudo: require
 dist: xenial # Ubuntu Xenial 16.04, Trusty 14.04, Precise 12.04
 
 before_install:
-- sudo add-apt-repository --yes ppa:ubuntu-sdk-team/ppa
-- sudo apt-get update -qq
+ - sudo add-apt-repository --yes ppa:ubuntu-sdk-team/ppa
+ - sudo apt-get update -qq
 
 # Qt
  - sudo apt-get install qtbase5-dev qtdeclarative5-dev libqt5webkit5-dev libsqlite3-dev
@@ -20,9 +20,9 @@ install:
 
 script:
 
-# check gcc version
-- gcc --version
-- g++ --version
+ # check gcc version
+ - gcc --version
+ - g++ --version
 
  # QXlsx library
   - cd QXlsx
