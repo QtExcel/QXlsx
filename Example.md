@@ -65,7 +65,7 @@ int main(int argc, char *argv[])
 
 ## Copycat : Windows Widget Example
 - Load xlsx file and display on Qt widgets. 
-- Print xlsx to papaer.
+- Print xlsx to paper.
 - TODO: save xlsx.
 
 ![](markdown.data/copycat.png)
