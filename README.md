@@ -11,36 +11,11 @@
 
 ## How to use
 - See [examples](Example.md)
-	- HelloWorld : Hello world example (The most basic structure)
+	- HelloWorld : Hello world example (the most basic structure)
 	- TestExcel : basic samples based on QtXlsx samples
 	- HelloAndroid : read xlsx on Android
-	- Copycat : load xlsx file and display on widget. print xlsx file. (TODO: save xlsx)
-	- WebServer : load xlsx and display to web (`http://127.0.0.1:3001`)
-		
-### Example (Hello excel)
-
-#### :one: Writing excel file(*.xlsx)
-
-```cpp
-QXlsx::Document xlsx;
-xlsx.write("A1", "Hello Qt!"); // write "Hello Qt!" to cell(A,1). it's shared string.
-xlsx.saveAs("Test.xlsx"); // save the document as 'Test.xlsx'
-```
-
-#### :two: Reading excel file(*.xlsx)
-
-```cpp
-Document xlsx("Test.xlsx"); // load excel file
-if (!xlsx.isLoadPackage()) { 
-	return; // failed to load excel
-}
-int row = 1; int col = 2;
-Cell* cell = xlsx.cellAt(row, col); // get cell pointer. (row is 1. column is 2.)
-if ( cell == NULL )
-	continue; // cell vaule is not set
-QVariant var = cell->readValue(); // read cell value (number(double), QDateTime, QString ...)
-qDebug() << var; // display value
-```
+	- Copycat : load xlsx file and display on widget. print xlsx file.
+	- WebServer : load xlsx and display to web
 
 ## How to set up (Installation)
 

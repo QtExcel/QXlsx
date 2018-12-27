@@ -81,6 +81,7 @@ public:
     void setChartType(ChartType type);
     void setChartStyle(int id);
     void setAxisTitle(Chart::ChartAxisPos pos, QString axisTitle);
+    void setChartTitle(QString strchartTitle);
 
     void saveToXmlFile(QIODevice *device) const;
     bool loadFromXmlFile(QIODevice *device);

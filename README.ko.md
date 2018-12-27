@@ -12,35 +12,10 @@
 ## 사용하는 방법
 - [예제](Example.md)를 보세요
 	- HelloWorld : 헬로우 월드 예제 (가장 기본적인 구조)
-	- TestExcel : 기본 예제 (QtXlsx 예제 기반)
+	- TestExcel : QtXlsx 예제에 기반한 기본 예제
 	- HelloAndroid : 안드로이드에서 xlsx 파일 열기
-	- Copycat : xlsx 파일을 읽어 위젯으로 표시. xlsx 파일 인쇄. (할일: xlsx 파일로 저장)
-	- WebServer : xlsx 파일을 읽어 웹으로 표시 (`http://127.0.0.1:3001`)	
-
-### 활용 예제 (Hello excel)
-
-#### :one: 엑셀(xlsx) 파일 쓰기
-
-```cpp
-QXlsx::Document xlsx;
-xlsx.write("A1", "Hello Qt!"); // 셀(A,1)에 'Hello Qt!'값을 설정. 공유 문자열 타입으로 설정됨.
-xlsx.saveAs("Test.xlsx"); // 'Test.xlsx'라는 이름으로 엑셀 파일을 저장.
-```
-
-#### :two: 엑셀(xlsx) 파일 읽기
-
-```cpp
-Document xlsx("Test.xlsx"); // 엑셀 파일 읽기
-if (!xlsx.isLoadPackage()) { 
-	return; // 엑셀 파일 읽기 실패
-}
-int row = 1; int col = 2;
-Cell* cell = xlsx.cellAt(row, col); // Cell의 pointer를 얻음 (행(row)는 1번째, 열(column)은 2번째)
-if ( cell == NULL )
-	continue; // 해당 행렬의 cell값이 설정되어 있지 않음
-QVariant var = cell->readValue(); // 셀값을 읽음 (숫자(double), 날자(QDateTime), 문자열(QString) ...)
-qDebug() << var; // 값 표시
-```
+	- Copycat : xlsx 파일을 읽어 위젯으로 표시. xlsx 파일 인쇄.
+	- WebServer : xlsx 파일을 읽어 웹으로 표시	
 
 ## 설정하는 방법 (설치)
 

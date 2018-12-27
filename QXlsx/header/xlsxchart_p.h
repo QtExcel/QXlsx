@@ -118,6 +118,7 @@ public:
     bool loadXmlAxis(QXmlStreamReader &reader);
 
     void saveXmlChart(QXmlStreamWriter &writer) const;
+    void saveXmlChartTitle(QXmlStreamWriter &writer) const;
     void saveXmlPieChart(QXmlStreamWriter &writer) const;
     void saveXmlBarChart(QXmlStreamWriter &writer) const;
     void saveXmlLineChart(QXmlStreamWriter &writer) const;
@@ -127,12 +128,15 @@ public:
     void saveXmlSer(QXmlStreamWriter &writer, XlsxSeries *ser, int id) const;
     void saveXmlAxes(QXmlStreamWriter &writer) const;
 
+public:
     Chart::ChartType chartType;
 
     QList< QSharedPointer<XlsxSeries> > seriesList;
     QList< QSharedPointer<XlsxAxis> > axisList;
 
     QMap< XlsxAxis::AxisPos, QString > axisNames; // dev22
+
+    QString chartTitle;
 
     AbstractSheet *sheet;
 };

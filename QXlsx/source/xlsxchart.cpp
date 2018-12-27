@@ -159,7 +159,7 @@ void Chart::setChartStyle(int id)
 
 void Chart::setAxisTitle(Chart::ChartAxisPos pos, QString axisTitle)
 {
-     Q_D(Chart);
+    Q_D(Chart);
 
     if ( axisTitle.isEmpty() )
         return;
@@ -174,6 +174,14 @@ void Chart::setAxisTitle(Chart::ChartAxisPos pos, QString axisTitle)
         // ??
     }
 
+}
+
+// dev25
+void Chart::setChartTitle(QString strchartTitle)
+{
+    Q_D(Chart);
+
+    d->chartTitle = strchartTitle;
 }
 
 
@@ -359,7 +367,17 @@ QString ChartPrivate::loadXmlNumRef(QXmlStreamReader &reader)
 
 void ChartPrivate::saveXmlChart(QXmlStreamWriter &writer) const
 {
+    //----------------------------------------------------
+    // c:chart
     writer.writeStartElement(QStringLiteral("c:chart"));
+
+    //----------------------------------------------------
+    // c:title
+
+    saveXmlChartTitle(writer); // wrtie 'chart title'
+
+    //----------------------------------------------------
+    // c:plotArea
 
     writer.writeStartElement(QStringLiteral("c:plotArea"));
 
@@ -388,6 +406,7 @@ void ChartPrivate::saveXmlChart(QXmlStreamWriter &writer) const
         saveXmlDoughnutChart(writer);
         break;
     default:
+        // ??
         break;
     }
 
@@ -397,6 +416,57 @@ void ChartPrivate::saveXmlChart(QXmlStreamWriter &writer) const
 
     writer.writeEndElement(); // c:chart
 }
+
+// dev25 {{ // wrtie 'chart title'
+void ChartPrivate::saveXmlChartTitle(QXmlStreamWriter &writer) const
+{
+    if ( chartTitle.isEmpty() )
+        return;
+
+    writer.writeStartElement(QStringLiteral("c:title"));
+
+    writer.writeStartElement(QStringLiteral("c:tx"));
+
+    writer.writeStartElement(QStringLiteral("c:rich"));
+
+    writer.writeEmptyElement(QStringLiteral("a:bodyPr")); // <a:bodyPr/>
+
+    writer.writeEmptyElement(QStringLiteral("a:lstStyle")); // <a:lstStyle/>
+
+    writer.writeStartElement(QStringLiteral("a:p"));
+
+    // <a:pPr lvl="0">
+    writer.writeStartElement(QStringLiteral("a:pPr"));
+     writer.writeAttribute(QStringLiteral("lvl"), QStringLiteral("0"));
+
+    // <a:defRPr b="0"/>
+    writer.writeStartElement(QStringLiteral("a:defRPr"));
+     writer.writeAttribute(QStringLiteral("b"), QStringLiteral("0"));
+    writer.writeEndElement();  // a:defRPr
+
+    writer.writeEndElement();  // a:pPr
+
+    writer.writeStartElement(QStringLiteral("a:r"));
+
+    // <a:t>chart name</a:t>
+    writer.writeTextElement(QStringLiteral("a:t"), chartTitle);
+
+    writer.writeEndElement();  // a:r
+
+    writer.writeEndElement();  // a:p
+
+    writer.writeEndElement();  // c:rich
+
+    writer.writeEndElement();  // c:tx
+
+    // <c:overlay val="0"/>
+    writer.writeStartElement(QStringLiteral("c:overlay"));
+     writer.writeAttribute(QStringLiteral("val"), QStringLiteral("0"));
+    writer.writeEndElement();  // c:overlay
+
+    writer.writeEndElement();  // c:title
+}
+// }}
 
 void ChartPrivate::saveXmlPieChart(QXmlStreamWriter &writer) const
 {

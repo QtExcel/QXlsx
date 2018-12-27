@@ -1,10 +1,20 @@
 # QXlsx Examples
 
 ## HelloWorld
+
 - Hello world example
 
 ```cpp
 // main.cpp
+
+#include <QtGlobal>
+#include <QCoreApplication>
+#include <QtCore>
+#include <QVariant>
+#include <QDebug>
+
+#include <iostream>
+using namespace std;
 
 // [0] include QXlsx headers 
 #include "xlsxdocument.h"
@@ -42,23 +52,27 @@ int main(int argc, char *argv[])
 ```
 
 ## TestExcel
+
 - :zap: Basic examples based on QtXlsx examples
 
 ## HelloAndroid : Android Example
+
 - See 'HelloAndroid' example using QML and native C++.
+
 - Qt 5.11.1 / QtCreator 4.6.2 / gcc 4.9 / Android x86 (using Emulator [Android Oreo]) / Android Studio 3.1.3 (Android NDK 17.1)
 
 ![](markdown.data/android.jpg)
 
 ## Copycat : Windows Widget Example
 - Load xlsx file and display on Qt widgets. 
-- Print xlsx to papaer. (TODO: save xlsx)
+- Print xlsx to papaer.
+- TODO: save xlsx.
 
 ![](markdown.data/copycat.png)
 
 ## WebServer : WebServer Example
 - Load xlsx file and display on Web.
-- C++ 14 is required.
 - Connect to `http://127.0.0.1:3001`
+- C++ 14 is required. Old compilers is not supported.
 
 ![](markdown.data/webserver.png)
