@@ -111,6 +111,7 @@ public:
 	bool saveAs(QIODevice *device) const;
 
 	bool isLoadPackage() const; 
+	bool load() const; // equals to isLoadPackage()
 
 	bool changeimage(int filenoinmidea,QString newfile); // add by liufeijin20181025
 

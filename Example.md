@@ -36,14 +36,14 @@ int main(int argc, char *argv[])
 
     // [2] Reading excel file(*.xlsx)
     Document xlsxR("Test.xlsx"); // load excel file
-    if (xlsxR.isLoadPackage())
+    if (xlsxR.load())
     { 
         int row = 1; int col = 1;
         Cell* cell = xlsxR.cellAt(row, col); // get cell pointer.
         if ( cell != NULL )
         {
             QVariant var = cell->readValue(); // read cell value (number(double), QDateTime, QString ...)
-            qDebug() << var; // display value
+            qDebug() << var; // display value. it is 'Hello Qt!'.
         }
     }
 

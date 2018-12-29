@@ -1066,6 +1066,11 @@ bool Document::isLoadPackage() const
 	return d->isLoad; 
 }
 
+bool Document::load() const
+{
+	return isLoadPackage();
+}
+
 /*!
  * Destroys the document and cleans up.
  */

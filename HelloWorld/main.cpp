@@ -1,14 +1,5 @@
-// QXlsx
-// MIT License
-// https://github.com/j2doll/QXlsx
-//
-// QtXlsx
-// https://github.com/dbzhang800/QtXlsxWriter
-// http://qtxlsx.debao.me/
-// MIT License
-
-//
 // main.cpp
+// QXlsx // MIT License // https://github.com/j2doll/QXlsx
 //
 
 #include <QtGlobal>
@@ -37,7 +28,7 @@ int main(int argc, char *argv[])
 	// [1]  Writing excel file(*.xlsx)
     QXlsx::Document xlsxW;
     xlsxW.write("A1", "Hello Qt!"); // write "Hello Qt!" to cell(A,1). it's shared string.
-    if (xlsxW.saveAs("Test.xlsx")) // save the document as 'Test.xlsx'
+    if ( xlsxW.saveAs("Test.xlsx") ) // save the document as 'Test.xlsx'
     {
         qDebug() << "[debug] success to write xlsx file";
     }
@@ -50,7 +41,7 @@ int main(int argc, char *argv[])
 
 	// [2] Reading excel file(*.xlsx)
     Document xlsxR("Test.xlsx"); // load excel file
-    if (xlsxR.isLoadPackage())
+    if ( xlsxR.load() )
 	{ 
         qDebug() << "[debug] success to load xlsx file.";
 
@@ -59,8 +50,7 @@ int main(int argc, char *argv[])
         if ( cell != NULL )
         {
             QVariant var = cell->readValue(); // read cell value (number(double), QDateTime, QString ...)
-
-            qDebug() << var; // display value
+            qDebug() << "[debug] cell(1,1) is " << var; // Display value. It is 'Hello Qt!'.
         }
         else
         {
