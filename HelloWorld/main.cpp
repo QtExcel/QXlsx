@@ -40,8 +40,8 @@ int main(int argc, char *argv[])
     qDebug() << "[debug] current directory is " << QDir::currentPath();
 
     // [2] Reading excel file(*.xlsx)
-    Document xlsxR("Test.xlsx"); // load excel file
-    if ( xlsxR.load() )
+    Document xlsxR("Test.xlsx"); 
+    if ( xlsxR.load() ) // load excel file
     {
         qDebug() << "[debug] success to load xlsx file.";
 
