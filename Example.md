@@ -35,8 +35,8 @@ int main(int argc, char *argv[])
     xlsxW.saveAs("Test.xlsx"); // save the document as 'Test.xlsx'
 
     // [2] Reading excel file(*.xlsx)
-    Document xlsxR("Test.xlsx"); // load excel file
-    if (xlsxR.load())
+    Document xlsxR("Test.xlsx"); 
+    if (xlsxR.load()) // load excel file
     { 
         int row = 1; int col = 1;
         Cell* cell = xlsxR.cellAt(row, col); // get cell pointer.
