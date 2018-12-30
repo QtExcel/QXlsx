@@ -12,7 +12,7 @@
 #include <iostream>
 using namespace std;
 
-// [0] include QXlsx headers 
+// [0] include QXlsx headers
 #include "xlsxdocument.h"
 #include "xlsxchartsheet.h"
 #include "xlsxcellrange.h"
@@ -23,9 +23,9 @@ using namespace QXlsx;
 
 int main(int argc, char *argv[])
 {
-	QCoreApplication app(argc, argv);
+    QCoreApplication app(argc, argv);
 
-	// [1]  Writing excel file(*.xlsx)
+    // [1]  Writing excel file(*.xlsx)
     QXlsx::Document xlsxW;
     xlsxW.write("A1", "Hello Qt!"); // write "Hello Qt!" to cell(A,1). it's shared string.
     if ( xlsxW.saveAs("Test.xlsx") ) // save the document as 'Test.xlsx'
@@ -39,13 +39,13 @@ int main(int argc, char *argv[])
 
     qDebug() << "[debug] current directory is " << QDir::currentPath();
 
-	// [2] Reading excel file(*.xlsx)
+    // [2] Reading excel file(*.xlsx)
     Document xlsxR("Test.xlsx"); // load excel file
     if ( xlsxR.load() )
-	{ 
+    {
         qDebug() << "[debug] success to load xlsx file.";
 
-		int row = 1; int col = 1;
+        int row = 1; int col = 1;
         Cell* cell = xlsxR.cellAt(row, col); // get cell pointer.
         if ( cell != NULL )
         {
@@ -56,11 +56,11 @@ int main(int argc, char *argv[])
         {
             qDebug() << "[debug][error] cell(1,1) is not set.";
         }
-	}
+    }
     else
     {
         qDebug() << "[debug][error] failed to load xlsx file.";
     }
- 
-	return 0;
+
+    return 0;
 }
