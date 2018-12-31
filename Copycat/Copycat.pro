@@ -39,19 +39,22 @@ INCLUDEPATH += \
 ./Qt-Table-Printer
 
 HEADERS += \
+./Qt-Table-Printer/tableprinter.h \
 MainWindow.h \
 XlsxTab.h \
 xlsx.h \
-./Qt-Table-Printer/tableprinter.h \
-XlsxTableModel2.h
+CopycatTableModel.h
 
 SOURCES += \
+./Qt-Table-Printer/tableprinter.cpp \
 main.cpp \
 MainWindow.cpp \
 XlsxTab.cpp \
-./Qt-Table-Printer/tableprinter.cpp \
-XlsxTableModel2.cpp
+CopycatTableModel.cpp
 
 FORMS += \
 MainWindow.ui
+
+RESOURCES += \
+resources.qrc
 

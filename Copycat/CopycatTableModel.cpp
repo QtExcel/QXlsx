@@ -1,15 +1,12 @@
-// QXlsx
-// MIT License
-// https://github.com/j2doll/QXlsx
+// CopycatTableModel.cpp
+// QXlsx // MIT License // https://github.com/j2doll/QXlsx
 
-// XlsxTableModel.cpp
-
-#include "XlsxTableModel2.h"
+#include "CopycatTableModel.h"
 
 #include <QDebug>
 #include <QVariant>
 
-XlsxTableModel2::XlsxTableModel2(QList<QString> colTitle, QList<VLIST> data, QObject *parent)
+CopycatTableModel::CopycatTableModel(QList<QString> colTitle, QList<VLIST> data, QObject *parent)
     : QAbstractTableModel(parent)
 {
         // [1] set name of column
@@ -32,19 +29,19 @@ XlsxTableModel2::XlsxTableModel2(QList<QString> colTitle, QList<VLIST> data, QOb
         }
 }
 
-int XlsxTableModel2::rowCount(const QModelIndex& parent) const
+int CopycatTableModel::rowCount(const QModelIndex& parent) const
 {
     Q_UNUSED(parent)
     return m_the_data.size();
 }
 
-int XlsxTableModel2::columnCount(const QModelIndex& parent) const
+int CopycatTableModel::columnCount(const QModelIndex& parent) const
 {
     Q_UNUSED(parent)
     return m_roleCount;
 }
 
-QVariant XlsxTableModel2::data(const QModelIndex& index, int role) const
+QVariant CopycatTableModel::data(const QModelIndex& index, int role) const
 {
     // current column & row
     int col = index.column();
@@ -87,7 +84,7 @@ QVariant XlsxTableModel2::data(const QModelIndex& index, int role) const
     return ret;
 }
 
-std::string XlsxTableModel2::convertFromNumberToExcelColumn(int n)
+std::string CopycatTableModel::convertFromNumberToExcelColumn(int n)
 {
     // main code from https://www.geeksforgeeks.org/find-excel-column-name-given-number/
     // Function to print Excel column name for a given column number

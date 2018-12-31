@@ -1,8 +1,5 @@
-// XlsxTableModel2.h
-
-// QXlsx
-// MIT License
-// https://github.com/j2doll/QXlsx
+// CopycatTableModel.h
+// QXlsx // MIT License // https://github.com/j2doll/QXlsx
 
 #ifndef XLSX_MODEL_H
 #define XLSX_MODEL_H
@@ -26,12 +23,12 @@
 
 typedef QList<QVariant> VLIST;
 
-class XlsxTableModel2 : public QAbstractTableModel
+class CopycatTableModel : public QAbstractTableModel
 {
     Q_OBJECT
 
 public: // constrcutor
-    XlsxTableModel2(QList<QString> colTitle, QList<VLIST> data, QObject *parent = NULL);
+    CopycatTableModel(QList<QString> colTitle, QList<VLIST> data, QObject *parent = NULL);
 
 public: // virtual function of parent object
     int rowCount(const QModelIndex & parent = QModelIndex()) const Q_DECL_OVERRIDE;

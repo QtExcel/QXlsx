@@ -13,7 +13,7 @@
 
 #include "xlsx.h"
 #include "XlsxTab.h"
-#include "XlsxTableModel2.h"
+#include "CopycatTableModel.h"
 
 namespace Ui {
 class MainWindow;

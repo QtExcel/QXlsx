@@ -76,6 +76,7 @@ private:
   QFont contentFont;
   QColor headerColor;
   QColor contentColor;
+
   // cell margins
   int topMargin;
   int bottomMargin;

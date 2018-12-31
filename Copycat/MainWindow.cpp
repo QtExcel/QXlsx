@@ -18,7 +18,7 @@
 
 #include "xlsxcelllocation.h"
 #include "xlsxcell.h"
-#include "XlsxTableModel2.h"
+#include "CopycatTableModel.h"
 #include "tableprinter.h"
 #include "MainWindow.h"
 #include "ui_MainWindow.h"
@@ -36,6 +36,8 @@ MainWindow::MainWindow(QWidget *parent) :
     setCentralWidget(tabWidget);
 
     this->setWindowTitle(QString("Copycat"));
+
+    setWindowIcon(QIcon(":/excel.ico"));
 }
 
 MainWindow::~MainWindow()
@@ -141,9 +143,10 @@ bool MainWindow::loadXlsx(QString fileName)
 
 void MainWindow::on_action_About_triggered()
 {
-    QString text = "QXlsx<br />"
-            "<a href=\"https://github.com/j2doll/QXlsx\">https://github.com/j2doll/QXlsx</a><br />"
-            "MIT License<br />" ;
+    QString text =
+        "QXlsx Copycat<br />"
+        "<a href=\"https://github.com/j2doll/QXlsx\">https://github.com/j2doll/QXlsx</a><br />" ;
+
     QMessageBox::about(this, "QXlsx", text);
 }
 
@@ -151,7 +154,7 @@ void MainWindow::on_action_New_triggered()
 {
     // TODO: new document
     QMessageBox msgBox;
-    msgBox.setText( "New" );
+    msgBox.setText( "TODO: New xlsx" );
     msgBox.exec();
 }
 
@@ -159,7 +162,7 @@ void MainWindow::on_action_Save_triggered()
 {
     // TODO: save document
     QMessageBox msgBox;
-    msgBox.setText( "Save" );
+    msgBox.setText( "TODO: Save xlsx" );
     msgBox.exec();
 }
 
@@ -294,7 +297,7 @@ void MainWindow::print(QPrinter *printer)
         printColumnStretch.append( wsheet->columnWidth( (ic + 1) ) ); // TODO: check this code
     }
 
-    XlsxTableModel2 xlsxTableModel2(colTitle, xlsxData); // model
+    CopycatTableModel copycatTableModel(colTitle, xlsxData); // model
 
     QPainter painter;
     if ( !painter.begin(printer) )
@@ -308,13 +311,17 @@ void MainWindow::print(QPrinter *printer)
 
     // print table
     TablePrinter tablePrinter(&painter, printer);
-    if(!tablePrinter.printTable( &xlsxTableModel2, printColumnStretch, printHeaders ))
+    if ( !tablePrinter.printTable( &copycatTableModel, printColumnStretch, printHeaders ) )
     {
         QMessageBox msgBox;
         msgBox.setText( tablePrinter.lastError() );
         msgBox.setIcon( QMessageBox::Warning );
         msgBox.exec();
+        return;
     }
+
+    // tablePrinter.setCellMargin( l, r, t, b );
+    // tablePrinter.setPageMargin( l, r, t, b );
 
     painter.end();
 }
