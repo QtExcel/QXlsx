@@ -1,13 +1,7 @@
 // mergecells.cpp
 
-// QXlsx
-// MIT License
-// https://github.com/j2doll/QXlsx
-//
-// QtXlsx
-// https://github.com/dbzhang800/QtXlsxWriter
-// http://qtxlsx.debao.me/
-// MIT License
+#include <QtGlobal>
+#include <QDebug>
 
 #include "xlsxdocument.h"
 #include "xlsxformat.h"

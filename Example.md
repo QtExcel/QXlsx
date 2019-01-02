@@ -53,7 +53,25 @@ int main(int argc, char *argv[])
 
 ## TestExcel
 
-- :zap: Basic examples based on QtXlsx examples
+- :zap: Basic examples (based on QtXlsx examples)
+    - calendar
+    - chart
+    - chart sheet
+    - data validation
+    - demo
+    - document property
+    - extract data
+    - formula
+    - hyperlink
+    - image
+    - merge cells
+    - number format
+    - page margins
+    - read style
+    - richtext
+    - row column
+    - style
+    - worksheet operations
 
 ## HelloAndroid : Android Example
 

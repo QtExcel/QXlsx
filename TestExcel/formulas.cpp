@@ -1,15 +1,9 @@
-// formula.cpp
+// formulas.cpp
 
-// QXlsx
-// MIT License
-// https://github.com/j2doll/QXlsx
-//
-// QtXlsx
-// https://github.com/dbzhang800/QtXlsxWriter
-// http://qtxlsx.debao.me/
-// MIT License
-
+#include <QtGlobal>
 #include <QtCore>
+#include <QDebug>
+
 #include "xlsxdocument.h"
 #include "xlsxformat.h"
 #include "xlsxworksheet.h"

@@ -1,15 +1,8 @@
 // style.cpp
 
-// QXlsx
-// MIT License
-// https://github.com/j2doll/QXlsx
-//
-// QtXlsx
-// https://github.com/dbzhang800/QtXlsxWriter
-// http://qtxlsx.debao.me/
-// MIT License
-
+#include <QtGlobal>
 #include <QtCore>
+
 #include "xlsxdocument.h"
 #include "xlsxformat.h"
 

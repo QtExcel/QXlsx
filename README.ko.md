@@ -10,7 +10,7 @@
 - QXlsx는 정적 또는 동적 라이브러리를 사용하지 않아도 되도록 제작되었습니다.
 
 ## 사용하는 방법
-- [예제](Example.md)를 보세요
+- [예제](Example.md)를 참조하세요.
 	- HelloWorld : 헬로우 월드 예제 (가장 기본적인 구조)
 	- TestExcel : QtXlsx 예제에 기반한 기본 예제
 	- HelloAndroid : 안드로이드에서 xlsx 파일 열기
@@ -33,7 +33,7 @@ Travis CI | AppVeyor
 
 - [테스트 할 일](ToTest.md)
 
-- [업그레드 할 일](ToUpgrade.md)
+- [업그레이드 할 일](ToUpgrade.md)
 
 ## 컨트리뷰터
 - [컨트리뷰터](https://github.com/j2doll/QXlsx/graphs/contributors) 참조.

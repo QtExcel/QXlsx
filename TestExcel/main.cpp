@@ -1,9 +1,9 @@
 // main.cpp
-// QXlsx // MIT License // https://github.com/j2doll/QXlsx
-// QtXlsx // MIT License // https://github.com/dbzhang800/QtXlsxWriter // http://qtxlsx.debao.me/
 
+#include <QtGlobal>
 #include <QCoreApplication>
 #include <QtCore>
+#include <QDebug>
 
 #include <iostream>
 using namespace std;
