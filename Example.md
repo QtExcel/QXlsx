@@ -73,6 +73,8 @@ int main(int argc, char *argv[])
     - style
     - worksheet operations
 
+![](markdown.data/testexcel.png)
+
 ## HelloAndroid : Android Example
 
 - See 'HelloAndroid' example using QML and native C++.
