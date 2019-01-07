@@ -31,7 +31,7 @@ Travis CI | AppVeyor
 
 ## 이슈
 
-[![Waffle.io - Columns and their card count](https://badge.waffle.io/QtExcel/QXlsx.svg?columns=all)](https://waffle.io/QtExcel/QXlsx) [https://waffle.io/QtExcel/QXlsx](https://waffle.io/QtExcel/QXlsx)
+[![Waffle.io - Columns and their card count](https://badge.waffle.io/QtExcel/QXlsx.svg?columns=all)](https://waffle.io/QtExcel/QXlsx) 
 
 ## 할 일
 
