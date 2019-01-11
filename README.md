@@ -34,8 +34,13 @@ Travis CI | AppVeyor
 [![Waffle.io - Columns and their card count](https://badge.waffle.io/QtExcel/QXlsx.svg?columns=all)](https://waffle.io/QtExcel/QXlsx) 
 
 ## To Do
+
+<details><summary>TO DO</summary>
+<p>
 - [To test](ToTest.md)
 - [What to upgrade](ToUpgrade.md).
+</p>
+</details>
 
 ## Contributions
 - See [contributors](https://github.com/QtExcel/QXlsx/graphs/contributors).
