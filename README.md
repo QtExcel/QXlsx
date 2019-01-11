@@ -37,8 +37,11 @@ Travis CI | AppVeyor
 
 <details><summary>TO DO</summary>
 <p>
+
 - [To test](ToTest.md)
+
 - [What to upgrade](ToUpgrade.md).
+
 </p>
 </details>
 
