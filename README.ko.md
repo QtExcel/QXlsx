@@ -35,9 +35,15 @@ Travis CI | AppVeyor
 
 ## 할 일
 
+<details><summary>TO DO</summary>
+<p>
+
 - [테스트 할 일](ToTest.md)
 
 - [업그레이드 할 일](ToUpgrade.md)
+
+</p>
+</details>
 
 ## 컨트리뷰터
 - [컨트리뷰터](https://github.com/QtExcel/QXlsx/graphs/contributors) 참조.
