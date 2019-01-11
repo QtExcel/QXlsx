@@ -23,9 +23,9 @@
 
 ## 테스트 환경
 
-Travis CI | AppVeyor
-:-------: | :-------:
-[![Build Status](https://travis-ci.com/QtExcel/QXlsx.svg?branch=master)](https://travis-ci.com/QtExcel/QXlsx) | [![Build status](https://ci.appveyor.com/api/projects/status/jkod8257gg66vm6e?svg=true)](https://ci.appveyor.com/project/QtExcel/qxlsx)
+Travis CI | AppVeyor  | CodeFactor
+:-------: | :-------: | :--------:
+[![Build Status](https://travis-ci.com/QtExcel/QXlsx.svg?branch=master)](https://travis-ci.com/QtExcel/QXlsx) | [![Build status](https://ci.appveyor.com/api/projects/status/jkod8257gg66vm6e?svg=true)](https://ci.appveyor.com/project/QtExcel/qxlsx) | [![CodeFactor](https://www.codefactor.io/repository/github/qtexcel/qxlsx/badge)](https://www.codefactor.io/repository/github/qtexcel/qxlsx)
 
 - [테스트된 환경](TestEnv.md) 참조
 
@@ -35,7 +35,7 @@ Travis CI | AppVeyor
 
 ## 할 일
 
-<details><summary>TO DO</summary>
+<details><summary>CLICK ME</summary>
 <p>
 
 - [테스트 할 일](ToTest.md)
