@@ -177,6 +177,7 @@ int CellFormula::sharedIndex() const
 bool CellFormula::saveToXml(QXmlStreamWriter &writer) const
 {
     writer.writeStartElement(QStringLiteral("f"));
+
     QString t;
     switch (d->type) {
     case CellFormula::ArrayType:
@@ -188,14 +189,28 @@ bool CellFormula::saveToXml(QXmlStreamWriter &writer) const
     default:
         break;
     }
+
     if (!t.isEmpty())
         writer.writeAttribute(QStringLiteral("t"), t);
+
     if (d->reference.isValid())
         writer.writeAttribute(QStringLiteral("ref"), d->reference.toString());
+
     if (d->ca)
         writer.writeAttribute(QStringLiteral("ca"), QStringLiteral("1"));
+
+    // branch: shared-formula
+    // {{
     if (d->type == CellFormula::SharedType)
+    {
+        if (d->formula.isEmpty())
+            d->si = 0;
+        else
+            d->si = 1;
+
         writer.writeAttribute(QStringLiteral("si"), QString::number(d->si));
+    }
+    // }}
 
     if (!d->formula.isEmpty())
         writer.writeCharacters(d->formula);
