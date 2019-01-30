@@ -4,8 +4,13 @@
 #include "xlsxcellformula_p.h"
 #include "xlsxutility_p.h"
 
+#include <QtGlobal>
+#include <QObject>
+#include <QString>
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
+
+#include <QDebug>
 
 QT_BEGIN_NAMESPACE_XLSX
 
@@ -151,10 +156,13 @@ int CellFormula::sharedIndex() const
 
 /* aca (Always Calculate Array) // not-implmented attribute
  *
- * Only applies to array formulas. true indicates that the entire array
- * shall be calculated in full. If false the individual cells of the array
- *  shall be calculated as needed. The aca value shall be ignored unless
- * the value of the corresponding t attribute is array.
+ * Only applies to array formulas.
+ *
+ * true indicates that the entire array shall be calculated in full.
+ * If false the individual cells of the array shall be calculated as needed.
+ *
+ * The aca value shall be ignored unless the value of the corresponding
+ *  t attribute is array.
  *
  *  [Note: The primary case where an array formula must be calculated in
  * part instead of in full is when some cells in the array depend on other
@@ -258,7 +266,6 @@ bool CellFormula::saveToXml(QXmlStreamWriter &writer) const
     case CellFormula::SharedType:
         t = QStringLiteral("shared");
         break;
-
         // branch: shared-formula {{
     case CellFormula::NormalType:
         t = QStringLiteral("normal");
@@ -267,7 +274,6 @@ bool CellFormula::saveToXml(QXmlStreamWriter &writer) const
         t = QStringLiteral("dataTable");
         break;
         // }}
-
     default: // ERROR: undefined type
         return false;
         break;
@@ -280,7 +286,9 @@ bool CellFormula::saveToXml(QXmlStreamWriter &writer) const
     writer.writeStartElement(QStringLiteral("f"));
 
     if (!t.isEmpty())
-        writer.writeAttribute(QStringLiteral("t"), t);
+    {
+        writer.writeAttribute(QStringLiteral("t"), t); // write type(t)
+    }
 
     // ref (Range of Cells)
     //
@@ -309,14 +317,16 @@ bool CellFormula::saveToXml(QXmlStreamWriter &writer) const
     // functions, like =(), and circular references. end example]
     // The possible values for this attribute are defined by the W3C XML
     // Schema boolean datatype.
-
+    //
     // 3.2.2 boolean
     // 3.2.2.1 Lexical representation
     // An instance of a datatype that is defined as ·boolean· can have the
     // following legal literals {true, false, 1, 0}.
 
     if (d->ca)
+    {
         writer.writeAttribute(QStringLiteral("ca"), QStringLiteral("1"));
+    }
 
     // si (Shared Group Index)
     // Optional attribute to optimize load performance by sharing formulas.
@@ -336,7 +346,9 @@ bool CellFormula::saveToXml(QXmlStreamWriter &writer) const
     }
 
     if (!d->formula.isEmpty())
-        writer.writeCharacters(d->formula);
+    {
+        writer.writeCharacters(d->formula); // write formula
+    }
 
     writer.writeEndElement(); // f
 
@@ -385,7 +397,8 @@ bool CellFormula::loadFromXml(QXmlStreamReader &reader)
          d->type == CellFormula::ArrayType ||
          d->type == CellFormula::DataTableType )
     {
-        if (attributes.hasAttribute(QLatin1String("ref"))) {
+        if (attributes.hasAttribute(QLatin1String("ref")))
+        {
             QString refString = attributes.value(QLatin1String("ref")).toString();
             d->reference = CellRange(refString);
         }
@@ -403,10 +416,12 @@ bool CellFormula::loadFromXml(QXmlStreamReader &reader)
         d->ca = parseXsdBoolean(ca, false);
 
         if (attributes.hasAttribute(QLatin1String("si")))
+        {
             d->si = attributes.value(QLatin1String("si")).toString().toInt();
+        }
     }
 
-    d->formula = reader.readElementText();
+    d->formula = reader.readElementText(); // read formula
 
     return true;
 }
