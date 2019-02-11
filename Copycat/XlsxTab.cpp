@@ -29,7 +29,7 @@ XlsxTab::XlsxTab(QWidget* parent,
     if ( NULL == ptrSheet )
         return;
 
-    table = new XlsxTableWidget;
+    table = new XlsxTableWidget( this );
     Q_ASSERT( NULL != table );
 
     // set layout
