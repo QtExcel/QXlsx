@@ -29,7 +29,8 @@ XlsxTab::XlsxTab(QWidget* parent,
     if ( NULL == ptrSheet )
         return;
 
-    table = new QTableWidget;
+    table = new XlsxTableWidget;
+    Q_ASSERT( NULL != table );
 
     // set layout
     QVBoxLayout *layout = new QVBoxLayout;
@@ -110,10 +111,14 @@ bool XlsxTab::setSheet()
           // set item
           table->setItem( row, col, newItem );
 
+          // TODO: set label of table widget ('A', 'B', 'C', ...)
+              // QTableWidgetItem *QTableWidget::horizontalHeaderItem(int column) const
+              // QTableWidgetItem *QTableWidget::verticalHeaderItem(int row) const
+
             ////////////////////////////////////////////////////////////////////
             // row height and column width
             double dRowHeight = wsheet->rowHeight( cl.row );
-            double dColWidth = wsheet->columnWidth( cl.col );
+            double dColWidth  = wsheet->columnWidth( cl.col );
 
             // dRowHeight = dRowHeight * double(2.0);
             // dColWidth = dColWidth * double(2.0);

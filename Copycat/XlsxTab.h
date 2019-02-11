@@ -12,6 +12,7 @@
 #include <QTableWidget>
 
 #include "xlsx.h"
+#include "XlsxTableWidget.h"
 
 /**
  * @brief xlsx sub-tab widget
@@ -26,16 +27,16 @@ public:
                      int SheetIndex = -1);
     virtual ~XlsxTab();
 
+public slots:
 signals:
 
-public slots:
-
-private:
-    QTableWidget* table;
+protected:
+    XlsxTableWidget* table;
     QXlsx::Document* document;
     QXlsx::AbstractSheet* sheet;
     int sheetIndex;
-private:
+
+protected:
     bool setSheet();
 
 };

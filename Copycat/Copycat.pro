@@ -43,14 +43,16 @@ HEADERS += \
 MainWindow.h \
 XlsxTab.h \
 xlsx.h \
-CopycatTableModel.h
+CopycatTableModel.h \
+XlsxTableWidget.h
 
 SOURCES += \
 ./Qt-Table-Printer/tableprinter.cpp \
 main.cpp \
 MainWindow.cpp \
 XlsxTab.cpp \
-CopycatTableModel.cpp
+CopycatTableModel.cpp \
+XlsxTableWidget.cpp
 
 FORMS += \
 MainWindow.ui
