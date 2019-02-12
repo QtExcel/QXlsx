@@ -3,7 +3,7 @@
 #include <QDebug>
 #include <QTime>
 
-#include <Qlist>
+#include <QList>
 #include <QTableWidgetSelectionRange>
 
 #include "XlsxTableWidget.h"
