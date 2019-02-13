@@ -36,19 +36,14 @@ class AbstractSheetPrivate;
 class AbstractSheet : public AbstractOOXmlFile
 {
     Q_DECLARE_PRIVATE(AbstractSheet)
-public:
-    enum SheetType {
-        ST_WorkSheet,
-        ST_ChartSheet,
-        ST_DialogSheet,
-        ST_MacroSheet
-    };
 
-    enum SheetState {
-        SS_Visible,
-        SS_Hidden,
-        SS_VeryHidden
-    };
+public:
+    Workbook *workbook() const;
+
+public:
+    // NOTE: If all Qt  compiler supports C++1x, recommend to use a 'class enum'.
+    enum SheetType { ST_WorkSheet, ST_ChartSheet, ST_DialogSheet, ST_MacroSheet };
+    enum SheetState { SS_Visible,SS_Hidden, SS_VeryHidden };
 
     QString sheetName() const;
     SheetType sheetType() const;
@@ -58,8 +53,6 @@ public:
     bool isVisible() const;
     void setHidden(bool hidden);
     void setVisible(bool visible);
-
-    Workbook *workbook() const;
 
 protected:
     friend class Workbook;

@@ -11,7 +11,7 @@
 XlsxTableWidget::XlsxTableWidget(QWidget* parent)
     : QTableWidget(parent)
 {
-
+    //
 }
 
 XlsxTableWidget::~XlsxTableWidget()
@@ -29,6 +29,8 @@ void XlsxTableWidget::mousePressEvent(QMouseEvent *event)
 
         QList<QTableWidgetItem *> items = this->selectedItems();
 
+        // selected range
+
         QList<QTableWidgetSelectionRange> ranges = this->selectedRanges();
         for (int ic = 0 ; ic < ranges.size(); ic++ )
         {
@@ -44,15 +46,18 @@ void XlsxTableWidget::mousePressEvent(QMouseEvent *event)
             int leftCol = range.leftColumn();
             int rightCol = range.rightColumn();
 
-            qDebug() << QTime::currentTime();
+            qDebug()
+            << QTime::currentTime();
 
-            qDebug() << "row: "     << rowCount << " : "
-                     << " top:"     << topRow
-                     << ", bottom:" << bottomRow ;
+            qDebug()
+            << "row: "     << rowCount << " : "
+            << " top:"     << topRow
+            << ", bottom:" << bottomRow ;
 
-            qDebug() << "col: "   << colCount << " : "
-                     << " left:"  << leftCol
-                     << " right:" << rightCol ;
+            qDebug()
+            << "col: "   << colCount << " : "
+            << " left:"  << leftCol
+            << " right:" << rightCol ;
 
         }
 

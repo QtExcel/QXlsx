@@ -153,12 +153,18 @@ struct XlsxColumnInfo
     bool collapsed;
 };
 
-class  WorksheetPrivate : public AbstractSheetPrivate
+// #ifndef QMapIntSharedPointerCell
+// typedef QMap<int, QSharedPointer<Cell> > QMapIntSharedPointerCell;
+// #endif
+
+class WorksheetPrivate : public AbstractSheetPrivate
 {
     Q_DECLARE_PUBLIC(Worksheet)
+
 public:
     WorksheetPrivate(Worksheet *p, Worksheet::CreateFlag flag);
     ~WorksheetPrivate();
+
     int checkDimensions(int row, int col, bool ignore_row=false, bool ignore_col=false);
     Format cellFormat(int row, int col) const;
     QString generateDimensionString() const;
@@ -172,6 +178,7 @@ public:
     void saveXmlHyperlinks(QXmlStreamWriter &writer) const;
     void saveXmlDrawings(QXmlStreamWriter &writer) const;
     void saveXmlDataValidations(QXmlStreamWriter &writer) const;
+
     int rowPixelsSize(int row) const;
     int colPixelsSize(int col) const;
 
@@ -184,13 +191,15 @@ public:
     void loadXmlHyperlinks(QXmlStreamReader &reader);
 
     QList<QSharedPointer<XlsxRowInfo> > getRowInfoList(int rowFirst, int rowLast);
-    QList <QSharedPointer<XlsxColumnInfo> > getColumnInfoList(int colFirst, int colLast);
+    QList<QSharedPointer<XlsxColumnInfo> > getColumnInfoList(int colFirst, int colLast);
     QList<int> getColumnIndexes(int colFirst, int colLast);
     bool isColumnRangeValid(int colFirst, int colLast);
 
     SharedStrings *sharedStrings() const;
 
+public:
     QMap<int, QMap<int, QSharedPointer<Cell> > > cellTable;
+
     QMap<int, QMap<int, QString> > comments;
     QMap<int, QMap<int, QSharedPointer<XlsxHyperlinkData> > > urlTable;
     QList<CellRange> merges;
@@ -215,9 +224,7 @@ public:
     int default_row_height;
     bool default_row_zeroed;
 
-	// liufeijin {{
-
-    // pagesetup and print settings add by liufeijin 20181028
+    // pagesetup and print settings add by liufeijin 20181028, liufeijin
     QString PpaperSize;
     QString Pscale;
     QString PfirstPageNumber;
@@ -228,7 +235,7 @@ public:
     QString Prid;
     QString Pcopies;
 
-    // pageMargins
+    // pageMargins, liufeijin
     QString PMheader;
     QString PMfooter;
     QString PMtop;
@@ -236,11 +243,9 @@ public:
     QString PMleft;
     QString PMright;
 
-    // header footer
+    // header footer, liufeijin
     QString MoodFooter;
     QString ModdHeader;
-
-	// liufeijin }}
 
     XlsxSheetFormatProps sheetFormatProps;
 
@@ -256,7 +261,9 @@ public:
     bool showWhiteSpace;
 
     QRegularExpression urlPattern;
+
 private:
+
     static double calculateColWidth(int characters);
 };
 

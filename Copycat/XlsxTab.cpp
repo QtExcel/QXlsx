@@ -33,9 +33,9 @@ XlsxTab::XlsxTab(QWidget* parent,
     Q_ASSERT( NULL != table );
 
     // set layout
-    QVBoxLayout *layout = new QVBoxLayout;
-    layout->addWidget(table);
-    this->setLayout(layout);
+    vLayout = new QVBoxLayout;
+    vLayout->addWidget(table);
+    this->setLayout(vLayout);
 
     document = ptrDoc; // set document
     sheet = ptrSheet; // set sheet data
@@ -48,10 +48,17 @@ XlsxTab::XlsxTab(QWidget* parent,
 
 XlsxTab::~XlsxTab()
 {
+
+    if ( NULL != vLayout )
+    {
+        vLayout->deleteLater();
+    }
+
     if ( NULL != table )
     {
         table->deleteLater();
     }
+
 }
 
 bool XlsxTab::setSheet()
@@ -253,3 +260,40 @@ bool XlsxTab::setSheet()
 
     return true;
 }
+
+std::string XlsxTab::convertFromNumberToExcelColumn(int n)
+{
+    // main code from https://www.geeksforgeeks.org/find-excel-column-name-given-number/
+    // Function to print Excel column name for a given column number
+
+    std::string stdString;
+
+    char str[1000]; // To store result (Excel column name)
+    int i = 0; // To store current index in str which is result
+
+    while ( n > 0 )
+    {
+        // Find remainder
+        int rem = n % 26;
+
+        // If remainder is 0, then a 'Z' must be there in output
+        if ( rem == 0 )
+        {
+            str[i++] = 'Z';
+            n = (n/26) - 1;
+        }
+        else // If remainder is non-zero
+        {
+            str[i++] = (rem-1) + 'A';
+            n = n / 26;
+        }
+    }
+    str[i] = '\0';
+
+    // Reverse the string and print result
+    std::reverse( str, str + strlen(str) );
+
+    stdString = str;
+    return stdString;
+}
+

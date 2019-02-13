@@ -189,17 +189,27 @@ AbstractSheet *Workbook::addSheet(const QString &name, int sheetId, AbstractShee
     Q_D(Workbook);
     if (sheetId > d->last_sheet_id)
         d->last_sheet_id = sheetId;
-    AbstractSheet *sheet=0;
-    if (type == AbstractSheet::ST_WorkSheet) {
+
+    AbstractSheet *sheet = NULL;
+    if (type == AbstractSheet::ST_WorkSheet)
+    {
+        // create work sheet (value sheet)
         sheet = new Worksheet(name, sheetId, this, F_LoadFromExists);
-    } else if (type == AbstractSheet::ST_ChartSheet) {
+    }
+    else if (type == AbstractSheet::ST_ChartSheet)
+    {
+        // create chart sheet
         sheet = new Chartsheet(name, sheetId, this, F_LoadFromExists);
-    } else {
+    }
+    else
+    {
         qWarning("unsupported sheet type.");
         Q_ASSERT(false);
     }
+
     d->sheets.append(QSharedPointer<AbstractSheet>(sheet));
     d->sheetNames.append(name);
+
     return sheet;
 }
 
@@ -233,15 +243,26 @@ AbstractSheet *Workbook::insertSheet(int index, const QString &name, AbstractShe
     }
 
     ++d->last_sheet_id;
-    AbstractSheet *sheet;
-    if (type == AbstractSheet::ST_WorkSheet)
+
+    AbstractSheet *sheet = NULL;
+    if ( type == AbstractSheet::ST_WorkSheet )
+    {
         sheet = new Worksheet(sheetName, d->last_sheet_id, this, F_NewFromScratch);
-    else
+    }
+    else if ( type == AbstractSheet::ST_ChartSheet )
+    {
         sheet = new Chartsheet(sheetName, d->last_sheet_id, this, F_NewFromScratch);
+    }
+    else
+    {
+        qWarning("unsupported sheet type.");
+        Q_ASSERT(false);
+    }
 
     d->sheets.insert(index, QSharedPointer<AbstractSheet>(sheet));
     d->sheetNames.insert(index, sheetName);
     d->activesheetIndex = index;
+
     return sheet;
 }
 

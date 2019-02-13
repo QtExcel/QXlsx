@@ -1,14 +1,4 @@
-//--------------------------------------------------------------------
-//
-// QXlsx
-// MIT License
-// https://github.com/j2doll/QXlsx
-//
-// QtXlsx
-// https://github.com/dbzhang800/QtXlsxWriter
-// http://qtxlsx.debao.me/
-// MIT License
-//--------------------------------------------------------------------
+// xlsxworksheet.cpp
 
 #include <QtGlobal>
 #include <QVariant>
@@ -24,6 +14,7 @@
 #include <QTextDocument>
 #include <QDir>
 #include <QMapIterator>
+#include <QMap>
 
 #include <cmath>
 
@@ -2485,33 +2476,58 @@ QVector<CellLocation> Worksheet::getFullCells(int* maxRow, int* maxCol)
 {
     Q_D(const Worksheet);
 
+    // return values
     (*maxRow) = -1;
     (*maxCol) = -1;
     QVector<CellLocation> ret;
 
-    QMapIterator<int, QMap<int, QSharedPointer<Cell> > > _it(d->cellTable);
+    // QString privateName = d->name; // name of sheet (not object type)
+    // qDebug() << privateName ;
+
+    if ( d->type == AbstractSheet::ST_WorkSheet  )
+    {
+        // use current sheet
+    }
+    else if ( d->type == AbstractSheet::ST_ChartSheet )
+    {
+        return ret;
+    }
+    else
+    {
+        qWarning("unsupported sheet type.");
+        Q_ASSERT(false);
+        return ret;
+    }
+
+    QMapIterator< int, QMap< int, QSharedPointer<Cell> > > _it( d->cellTable );
+
     while ( _it.hasNext() )
     {
         _it.next();
 
-        int keyI = _it.key(); // key
+        int keyI = _it.key(); // key (cell row)
         QMapIterator<int, QSharedPointer<Cell> > _iit( _it.value() ); // value
+
         while ( _iit.hasNext() )
         {
             _iit.next();
 
-            int keyII = _iit.key(); // key
+            int keyII = _iit.key(); // key (cell column)
             QSharedPointer<Cell> ptrCell = _iit.value(); // value
 
             CellLocation cl;
 
             cl.row = keyI;
             if ( keyI > (*maxRow) )
+            {
                 (*maxRow) = keyI;
+            }
 
             cl.col = keyII;
             if ( keyII > (*maxCol) )
+            {
                 (*maxCol) = keyII;
+            }
 
             cl.cell = ptrCell;
 

@@ -5,11 +5,14 @@
 
 #include <cstdio>
 
+#include <string>
+
 #include <QtGlobal>
 #include <QObject>
 #include <QString>
 #include <QWidget>
 #include <QTableWidget>
+#include <QVBoxLayout>
 
 #include "xlsx.h"
 #include "XlsxTableWidget.h"
@@ -31,13 +34,17 @@ public slots:
 signals:
 
 protected:
-    XlsxTableWidget* table;
     QXlsx::Document* document;
     QXlsx::AbstractSheet* sheet;
     int sheetIndex;
 
 protected:
+    XlsxTableWidget* table;
+    QVBoxLayout *vLayout;
+
+protected:
     bool setSheet();
+    std::string convertFromNumberToExcelColumn(int n);
 
 };
 

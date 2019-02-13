@@ -44,14 +44,11 @@ int main(int argc, char *argv[])
 	if ( argc == 2 )
 	{
 		QString strArg1 = argv[1];
-		
 		if ( strArg1 == QString("hello") )
 		{
 			hello();
 			return 0;
 		}
-		
-		 return 0;
 	}
 
 	hello();

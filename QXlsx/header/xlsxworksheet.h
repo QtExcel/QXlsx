@@ -51,28 +51,46 @@ class Worksheet : public AbstractSheet
 {
     Q_DECLARE_PRIVATE(Worksheet)
 
-public:
+private:
+    friend class DocumentPrivate;
+    friend class Workbook;
+    friend class ::WorksheetTest;
+    Worksheet(const QString &sheetName, int sheetId, Workbook *book, CreateFlag flag);
+    Worksheet *copy(const QString &distName, int distId) const;
 
+public:
+    ~Worksheet();
+
+public:
     bool write(const CellReference &row_column, const QVariant &value, const Format &format=Format());
     bool write(int row, int column, const QVariant &value, const Format &format=Format());
+
     QVariant read(const CellReference &row_column) const;
     QVariant read(int row, int column) const;
+
     bool writeString(const CellReference &row_column, const QString &value, const Format &format=Format());
     bool writeString(int row, int column, const QString &value, const Format &format=Format());
     bool writeString(const CellReference &row_column, const RichString &value, const Format &format=Format());
     bool writeString(int row, int column, const RichString &value, const Format &format=Format());
+
     bool writeInlineString(const CellReference &row_column, const QString &value, const Format &format=Format());
     bool writeInlineString(int row, int column, const QString &value, const Format &format=Format());
+
     bool writeNumeric(const CellReference &row_column, double value, const Format &format=Format());
     bool writeNumeric(int row, int column, double value, const Format &format=Format());
+
     bool writeFormula(const CellReference &row_column, const CellFormula &formula, const Format &format=Format(), double result=0);
     bool writeFormula(int row, int column, const CellFormula &formula, const Format &format=Format(), double result=0);
+
     bool writeBlank(const CellReference &row_column, const Format &format=Format());
     bool writeBlank(int row, int column, const Format &format=Format());
+
     bool writeBool(const CellReference &row_column, bool value, const Format &format=Format());
     bool writeBool(int row, int column, bool value, const Format &format=Format());
+
     bool writeDateTime(const CellReference &row_column, const QDateTime& dt, const Format &format=Format());
     bool writeDateTime(int row, int column, const QDateTime& dt, const Format &format=Format());
+
     bool writeTime(const CellReference &row_column, const QTime& t, const Format &format=Format());
     bool writeTime(int row, int column, const QTime& t, const Format &format=Format());
 
@@ -98,6 +116,7 @@ public:
     bool setColumnWidth(int colFirst, int colLast, double width);
     bool setColumnFormat(int colFirst, int colLast, const Format &format);
     bool setColumnHidden(int colFirst, int colLast, bool hidden);
+
     double columnWidth(int column);
     Format columnFormat(int column);
     bool isColumnHidden(int column);
@@ -137,18 +156,9 @@ public:
     void setWhiteSpaceVisible(bool visible);
  	bool setStartPage(int spagen); //add by liufeijin20181028
 
-    ~Worksheet();
-
     QVector<CellLocation> getFullCells(int* maxRow, int* maxCol);
 
 private:
-
-    friend class DocumentPrivate;
-    friend class Workbook;
-    friend class ::WorksheetTest;
-    Worksheet(const QString &sheetName, int sheetId, Workbook *book, CreateFlag flag);
-    Worksheet *copy(const QString &distName, int distId) const;
-
     void saveToXmlFile(QIODevice *device) const;
     bool loadFromXmlFile(QIODevice *device);
 };

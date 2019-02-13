@@ -36,13 +36,13 @@ private slots:
     void on_action_Print_triggered();
     void print(QPrinter *printer);
 
-private:
+protected:
     Ui::MainWindow *ui;
     QXlsx::Document* xlsxDoc;
     QTabWidget *tabWidget;
     QVector<XlsxTab*> xlsxTabList;
 
-private:
+protected:
     bool loadXlsx(QString xlsxFilename);
     std::string convertFromNumberToExcelColumn(int n);
 };
