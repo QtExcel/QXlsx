@@ -151,7 +151,9 @@ bool DocumentPrivate::loadPackage(QIODevice *device)
 		return false;
 	QString xlworkbook_Path = rels_xl[0].target;
 	QString xlworkbook_Dir = splitPath(xlworkbook_Path)[0];
-	workbook->relationships()->loadFromXmlData(zipReader.fileData(getRelFilePath(xlworkbook_Path)));
+    QString relFilePath = getRelFilePath(xlworkbook_Path);
+
+    workbook->relationships()->loadFromXmlData( zipReader.fileData(relFilePath) );
 	workbook->setFilePath(xlworkbook_Path);
 	workbook->loadFromXmlData(zipReader.fileData(xlworkbook_Path));
 
@@ -160,7 +162,18 @@ bool DocumentPrivate::loadPackage(QIODevice *device)
 	if (!rels_styles.isEmpty()) {
 		//In normal case this should be styles.xml which in xl
 		QString name = rels_styles[0].target;
-		QString path = xlworkbook_Dir + QLatin1String("/") + name;
+
+        // dev34
+        QString path;
+        if ( xlworkbook_Dir == "." ) // root
+        {
+            path = name;
+        }
+        else
+        {
+            path = xlworkbook_Dir + QLatin1String("/") + name;
+        }
+
 		QSharedPointer<Styles> styles (new Styles(Styles::F_LoadFromExists));
 		styles->loadFromXmlData(zipReader.fileData(path));
 		workbook->d_func()->styles = styles;
@@ -187,7 +200,8 @@ bool DocumentPrivate::loadPackage(QIODevice *device)
 	//load sheets
 	for (int i=0; i<workbook->sheetCount(); ++i) {
 		AbstractSheet *sheet = workbook->sheet(i);
-		QString rel_path = getRelFilePath(sheet->filePath());
+        QString strFilePath = sheet->filePath();
+        QString rel_path = getRelFilePath(strFilePath);
 		//If the .rel file exists, load it.
 		if (zipReader.filePaths().contains(rel_path))
 			sheet->relationships()->loadFromXmlData(zipReader.fileData(rel_path));

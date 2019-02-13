@@ -59,12 +59,20 @@ QStringList splitPath(const QString &path)
  */
 QString getRelFilePath(const QString &filePath)
 {
-    int idx = filePath.lastIndexOf(QLatin1Char('/'));
-    if (idx == -1)
-        return QString();
+    QString ret;
 
-    return QString(filePath.left(idx) + QLatin1String("/_rels/")
-                   + filePath.mid(idx+1) + QLatin1String(".rels"));
+    int idx = filePath.lastIndexOf(QLatin1Char('/'));
+    if (idx == -1) // not found
+    {
+        // return QString();
+
+        // dev34
+        ret = QString("_rels/") + QString("%0.rels").arg(filePath);
+        return ret;
+    }
+
+    ret = QString( filePath.left(idx) + QLatin1String("/_rels/") +  filePath.mid(idx+1) + QLatin1String(".rels"));
+    return ret;
 }
 
 double datetimeToNumber(const QDateTime &dt, bool is1904)

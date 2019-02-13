@@ -558,7 +558,8 @@ bool Workbook::loadFromXmlFile(QIODevice *device)
     Q_D(Workbook);
 
     QXmlStreamReader reader(device);
-    while (!reader.atEnd()) {
+    while (!reader.atEnd())
+    {
          QXmlStreamReader::TokenType token = reader.readNext();
          if (token == QXmlStreamReader::StartElement)
          {
@@ -606,7 +607,8 @@ bool Workbook::loadFromXmlFile(QIODevice *device)
 
                  AbstractSheet *sheet = addSheet(name, sheetId, type);
                  sheet->setSheetState(state);
-                 const QString fullPath = QDir::cleanPath(splitPath(filePath())[0] +QLatin1String("/")+ relationship.target);
+                 QString strFilePath = filePath();
+                 const QString fullPath = QDir::cleanPath(splitPath(strFilePath)[0] + QLatin1String("/") + relationship.target);
                  sheet->setFilePath(fullPath);
              }
              else if (reader.name() == QLatin1String("workbookPr"))

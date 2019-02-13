@@ -24,13 +24,17 @@ int test( QVector<QVariant> params )
 {
     qDebug() << " current path : " << QDir::currentPath();
 
-    Document doc( "test.xlsx" );
+    // QString testFile = "test.xlsx"; // shared formula xlsx
+    QString testFile = "Align.xlsx";
+    // QString testFile = ".xlsx" //
+
+    Document doc( testFile );
     if ( ! doc.load() )
     {
         qDebug() << "Failed to load 'test.xlsx'";
         return (-1);
     }
-    qDebug() << "load 'test2.xlsx'";
+    qDebug() << "load 'test.xlsx'";
 
     if ( ! doc.saveAs( "test2.xlsx" ) )
     {
