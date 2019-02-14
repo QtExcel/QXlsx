@@ -250,6 +250,7 @@ bool DocumentPrivate::loadPackage(QIODevice *device)
 bool DocumentPrivate::savePackage(QIODevice *device) const
 {
 	Q_Q(const Document);
+
 	ZipWriter zipWriter(device);
 	if (zipWriter.error())
 		return false;
@@ -263,7 +264,9 @@ bool DocumentPrivate::savePackage(QIODevice *device) const
 	QList<QSharedPointer<AbstractSheet> > worksheets = workbook->getSheetsByTypes(AbstractSheet::ST_WorkSheet);
 	if (!worksheets.isEmpty())
 		docPropsApp.addHeadingPair(QStringLiteral("Worksheets"), worksheets.size());
-	for (int i=0; i<worksheets.size(); ++i) {
+
+    for (int i = 0 ; i < worksheets.size(); ++i)
+    {
 		QSharedPointer<AbstractSheet> sheet = worksheets[i];
 		contentTypes->addWorksheetName(QStringLiteral("sheet%1").arg(i+1));
 		docPropsApp.addPartTitle(sheet->sheetName());
@@ -278,7 +281,8 @@ bool DocumentPrivate::savePackage(QIODevice *device) const
 	QList<QSharedPointer<AbstractSheet> > chartsheets = workbook->getSheetsByTypes(AbstractSheet::ST_ChartSheet);
 	if (!chartsheets.isEmpty())
 		docPropsApp.addHeadingPair(QStringLiteral("Chartsheets"), chartsheets.size());
-	for (int i=0; i<chartsheets.size(); ++i) {
+    for (int i=0; i<chartsheets.size(); ++i)
+    {
 		QSharedPointer<AbstractSheet> sheet = chartsheets[i];
 		contentTypes->addWorksheetName(QStringLiteral("sheet%1").arg(i+1));
 		docPropsApp.addPartTitle(sheet->sheetName());
@@ -290,7 +294,8 @@ bool DocumentPrivate::savePackage(QIODevice *device) const
 	}
 
 	// save external links xml files
-	for (int i=0; i<workbook->d_func()->externalLinks.count(); ++i) {
+    for (int i=0; i<workbook->d_func()->externalLinks.count(); ++i)
+    {
 		SimpleOOXmlFile *link = workbook->d_func()->externalLinks[i].data();
 		contentTypes->addExternalLinkName(QStringLiteral("externalLink%1").arg(i+1));
 
@@ -306,7 +311,8 @@ bool DocumentPrivate::savePackage(QIODevice *device) const
 	zipWriter.addFile(QStringLiteral("xl/_rels/workbook.xml.rels"), workbook->relationships()->saveToXmlData());
 
 	// save drawing xml files
-	for (int i=0; i<workbook->drawings().size(); ++i) {
+    for (int i=0; i<workbook->drawings().size(); ++i)
+    {
 		contentTypes->addDrawingName(QStringLiteral("drawing%1").arg(i+1));
 
 		Drawing *drawing = workbook->drawings()[i];
@@ -335,10 +341,6 @@ bool DocumentPrivate::savePackage(QIODevice *device) const
     contentTypes->addCalcChain();
     zipWriter.addFile(QStringLiteral("xl/calcChain.xml"), workbook->styles()->saveToXmlData());
 
-    //
-    // contentTypes->addVmlName();
-    // zipWriter.addFile(QStringLiteral("vml"), workbook->styles()->saveToXmlData());
-
 	// save styles xml file
 	contentTypes->addStyles();
 	zipWriter.addFile(QStringLiteral("xl/styles.xml"), workbook->styles()->saveToXmlData());
@@ -348,14 +350,16 @@ bool DocumentPrivate::savePackage(QIODevice *device) const
 	zipWriter.addFile(QStringLiteral("xl/theme/theme1.xml"), workbook->theme()->saveToXmlData());
 
 	// save chart xml files
-	for (int i=0; i<workbook->chartFiles().size(); ++i) {
+    for (int i=0; i<workbook->chartFiles().size(); ++i)
+    {
 		contentTypes->addChartName(QStringLiteral("chart%1").arg(i+1));
 		QSharedPointer<Chart> cf = workbook->chartFiles()[i];
 		zipWriter.addFile(QStringLiteral("xl/charts/chart%1.xml").arg(i+1), cf->saveToXmlData());
 	}
 
 	// save image files
-	for (int i=0; i<workbook->mediaFiles().size(); ++i) {
+    for (int i=0; i<workbook->mediaFiles().size(); ++i)
+    {
 		QSharedPointer<MediaFile> mf = workbook->mediaFiles()[i];
 		if (!mf->mimeType().isEmpty())
 			contentTypes->addDefault(mf->suffix(), mf->mimeType());

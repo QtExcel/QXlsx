@@ -32,28 +32,20 @@ class Cell
 	Q_DECLARE_PRIVATE(Cell)
 public:
 
-	enum CellType {
+
+    enum CellType
+    {
+        // ECMA 376, 18.18.11. ST_CellType (Cell Type)
 		BooleanType,      //t="b"
 		NumberType,       //t="n" (default)
 		ErrorType,        //t="e"
 		SharedStringType, //t="s"
 		StringType,       //t="str"
-		InlineStringType  //t="inlineStr"
+        InlineStringType,  //t="inlineStr"
+        DateType,   // "d" [dev34]
+
+        CustomType,
 	};
-	/* cell type  of MIcrosoft Excel
-		01) General − This is the default cell format of Cell.
-		02) Number − This displays cell as number with separator.
-		03) Currency − This displays cell as currency i.e. with currency sign.
-		04) Accounting − Similar to Currency, used for accounting purpose.
-		05) Date − Various date formats are available under this like 17-09-2013, 17th-Sep-2013, etc.
-		06) Time − Various Time formats are available under this, like 1.30PM, 13.30, etc.
-		07) Percentage − This displays cell as percentage with decimal places like 50.00%.
-		08) Fraction − This displays cell as fraction like 1/4, 1/2 etc.
-		09) Scientific − This displays cell as exponential like 5.6E+01.
-		10) Text − This displays cell as normal text.
-		11) Special − Special formats of cell like Zip code, Phone Number.
-		12) Custom − You can use custom format by using this.
-	*/
 
 	CellType cellType() const;
 	QVariant value() const;

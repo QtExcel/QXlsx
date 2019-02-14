@@ -30,9 +30,11 @@
 #include <QSharedPointer>
 
 QT_BEGIN_NAMESPACE_XLSX
+
 class Workbook;
 class Drawing;
 class AbstractSheetPrivate;
+
 class AbstractSheet : public AbstractOOXmlFile
 {
     Q_DECLARE_PRIVATE(AbstractSheet)

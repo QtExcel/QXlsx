@@ -165,6 +165,7 @@ public:
     WorksheetPrivate(Worksheet *p, Worksheet::CreateFlag flag);
     ~WorksheetPrivate();
 
+public:
     int checkDimensions(int row, int col, bool ignore_row=false, bool ignore_col=false);
     Format cellFormat(int row, int col) const;
     QString generateDimensionString() const;
@@ -209,7 +210,8 @@ public:
 
     QList<DataValidation> dataValidationsList;
     QList<ConditionalFormatting> conditionalFormattingList;
-    QMap<int, CellFormula> sharedFormulaMap;
+
+    QMap<int, CellFormula> sharedFormulaMap; // shared formula map
 
     CellRange dimension;
     int previous_row;

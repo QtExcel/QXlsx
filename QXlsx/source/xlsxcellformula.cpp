@@ -151,7 +151,7 @@ bool CellFormula::isValid() const
  */
 int CellFormula::sharedIndex() const
 {
-    return d && d->type == SharedType ? d->si : -1;
+    return d && d->type == SharedType ? d->si : (-1);
 }
 
 /* aca (Always Calculate Array) // not-implmented attribute
@@ -342,6 +342,9 @@ bool CellFormula::saveToXml(QXmlStreamWriter &writer) const
 
     if (d->type == CellFormula::SharedType)
     {
+        // class WorksheetPrivate
+        //   QMap<int, CellFormula> sharedFormulaMap; // shared formula map
+
          writer.writeAttribute(QStringLiteral("si"), QString::number(d->si));
     }
 

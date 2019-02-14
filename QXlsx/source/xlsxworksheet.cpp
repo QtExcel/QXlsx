@@ -413,49 +413,73 @@ bool Worksheet::write(int row, int column, const QVariant &value, const Format &
 		return false;
 
 	bool ret = true;
-	if (value.isNull()) {
+    if (value.isNull())
+    {
 		//Blank
 		ret = writeBlank(row, column, format);
-	} else if (value.userType() == QMetaType::QString) {
+    }
+    else if (value.userType() == QMetaType::QString)
+    {
 		//String
 		QString token = value.toString();
 		bool ok;
 
-		if (token.startsWith(QLatin1String("="))) {
+        if (token.startsWith(QLatin1String("=")))
+        {
 			//convert to formula
 			ret = writeFormula(row, column, CellFormula(token), format);
-		} else if (d->workbook->isStringsToHyperlinksEnabled() && token.contains(d->urlPattern)) {
+        }
+        else if (d->workbook->isStringsToHyperlinksEnabled() && token.contains(d->urlPattern))
+        {
 			//convert to url
 			ret = writeHyperlink(row, column, QUrl(token));
-		} else if (d->workbook->isStringsToNumbersEnabled() && (value.toDouble(&ok), ok)) {
+        }
+        else if (d->workbook->isStringsToNumbersEnabled() && (value.toDouble(&ok), ok))
+        {
 			//Try convert string to number if the flag enabled.
 			ret = writeString(row, column, value.toString(), format);
-		} else {
+        }
+        else
+        {
 			//normal string now
 			ret = writeString(row, column, token, format);
 		}
-	} else if (value.userType() == qMetaTypeId<RichString>()) {
+    }
+    else if (value.userType() == qMetaTypeId<RichString>())
+    {
 		ret = writeString(row, column, value.value<RichString>(), format);
-	} else if (value.userType() == QMetaType::Int || value.userType() == QMetaType::UInt
+    }
+    else if (value.userType() == QMetaType::Int || value.userType() == QMetaType::UInt
 			   || value.userType() == QMetaType::LongLong || value.userType() == QMetaType::ULongLong
-			   || value.userType() == QMetaType::Double || value.userType() == QMetaType::Float) {
+               || value.userType() == QMetaType::Double || value.userType() == QMetaType::Float)
+    {
 		//Number
 
 		ret = writeNumeric(row, column, value.toDouble(), format);
-	} else if (value.userType() == QMetaType::Bool) {
+    }
+    else if (value.userType() == QMetaType::Bool)
+    {
 		//Bool
 		ret = writeBool(row,column, value.toBool(), format);
-	} else if (value.userType() == QMetaType::QDateTime || value.userType() == QMetaType::QDate) {
+    }
+    else if (value.userType() == QMetaType::QDateTime || value.userType() == QMetaType::QDate)
+    {
 		//DateTime, Date
 		//  note that, QTime cann't convert to QDateTime
 		ret = writeDateTime(row, column, value.toDateTime(), format);
-	} else if (value.userType() == QMetaType::QTime) {
+    }
+    else if (value.userType() == QMetaType::QTime)
+    {
 		//Time
 		ret = writeTime(row, column, value.toTime(), format);
-	} else if (value.userType() == QMetaType::QUrl) {
+    }
+    else if (value.userType() == QMetaType::QUrl)
+    {
 		//Url
 		ret = writeHyperlink(row, column, value.toUrl(), format);
-	} else {
+    }
+    else
+    {
 		//Wrong type
 		return false;
 	}
@@ -500,14 +524,22 @@ QVariant Worksheet::read(int row, int column) const
 	if (!cell)
 		return QVariant();
 
-	if (cell->hasFormula()) {
-		if (cell->formula().formulaType() == CellFormula::NormalType) {
+    if (cell->hasFormula())
+    {
+        if (cell->formula().formulaType() == CellFormula::NormalType)
+        {
 			return QVariant(QLatin1String("=")+cell->formula().formulaText());
-		} else if (cell->formula().formulaType() == CellFormula::SharedType) {
-			if (!cell->formula().formulaText().isEmpty()) {
+        }
+        else if (cell->formula().formulaType() == CellFormula::SharedType)
+        {
+            if (!cell->formula().formulaText().isEmpty())
+            {
 				return QVariant(QLatin1String("=")+cell->formula().formulaText());
-			} else {
-				const CellFormula &rootFormula = d->sharedFormulaMap[cell->formula().sharedIndex()];
+            }
+            else
+            {
+                int si = cell->formula().sharedIndex();
+                const CellFormula &rootFormula = d->sharedFormulaMap[ si ];
 				CellReference rootCellRef = rootFormula.reference().topLeft();
 				QString rootFormulaText = rootFormula.formulaText();
 				QString newFormulaText = convertSharedFormula(rootFormulaText, rootCellRef, CellReference(row, column));
@@ -723,6 +755,7 @@ bool Worksheet::writeFormula(const CellReference &row_column, const CellFormula 
 bool Worksheet::writeFormula(int row, int column, const CellFormula &formula_, const Format &format, double result)
 {
 	Q_D(Worksheet);
+
 	if (d->checkDimensions(row, column))
 		return false;
 
@@ -731,11 +764,14 @@ bool Worksheet::writeFormula(int row, int column, const CellFormula &formula_, c
 
 	CellFormula formula = formula_;
 	formula.d->ca = true;
-	if (formula.formulaType() == CellFormula::SharedType) {
+    if (formula.formulaType() == CellFormula::SharedType)
+    {
 		//Assign proper shared index for shared formula
-		int si=0;
-		while(d->sharedFormulaMap.contains(si))
+        int si = 0;
+        while ( d->sharedFormulaMap.contains(si) )
+        {
 			++si;
+        }
 		formula.d->si = si;
 		d->sharedFormulaMap[si] = formula;
 	}
@@ -1180,10 +1216,12 @@ void Worksheet::saveToXmlFile(QIODevice *device) const
 	//    writer.writeAttribute("x14ac:dyDescent", "0.25");
 	writer.writeEndElement();//sheetFormatPr
 
-	if (!d->colsInfo.isEmpty()) {
+    if (!d->colsInfo.isEmpty())
+    {
 		writer.writeStartElement(QStringLiteral("cols"));
 		QMapIterator<int, QSharedPointer<XlsxColumnInfo> > it(d->colsInfo);
-		while (it.hasNext()) {
+        while (it.hasNext())
+        {
 			it.next();
 			QSharedPointer<XlsxColumnInfo> col_info = it.value();
 			writer.writeStartElement(QStringLiteral("col"));
@@ -1303,8 +1341,10 @@ bool Worksheet::setStartPage(int spagen)
 void WorksheetPrivate::saveXmlSheetData(QXmlStreamWriter &writer) const
 {
 	calculateSpans();
-	for (int row_num = dimension.firstRow(); row_num <= dimension.lastRow(); row_num++) {
-		if (!(cellTable.contains(row_num) || comments.contains(row_num) || rowsInfo.contains(row_num))) {
+    for (int row_num = dimension.firstRow(); row_num <= dimension.lastRow(); row_num++)
+    {
+        if (!(cellTable.contains(row_num) || comments.contains(row_num) || rowsInfo.contains(row_num)))
+        {
 			//Only process rows with cell data / comments / formatting
 			continue;
 		}
@@ -1320,12 +1360,15 @@ void WorksheetPrivate::saveXmlSheetData(QXmlStreamWriter &writer) const
 		if (!span.isEmpty())
 			writer.writeAttribute(QStringLiteral("spans"), span);
 
-		if (rowsInfo.contains(row_num)) {
+        if (rowsInfo.contains(row_num))
+        {
 			QSharedPointer<XlsxRowInfo> rowInfo = rowsInfo[row_num];
-			if (!rowInfo->format.isEmpty()) {
+            if (!rowInfo->format.isEmpty())
+            {
 				writer.writeAttribute(QStringLiteral("s"), QString::number(rowInfo->format.xfIndex()));
 				writer.writeAttribute(QStringLiteral("customFormat"), QStringLiteral("1"));
 			}
+
 			//!Todo: support customHeight from info struct
 			//!Todo: where does this magic number '15' come from?
 			if (rowInfo->customHeight) {
@@ -1344,9 +1387,12 @@ void WorksheetPrivate::saveXmlSheetData(QXmlStreamWriter &writer) const
 		}
 
 		//Write cell data if row contains filled cells
-		if (cellTable.contains(row_num)) {
-			for (int col_num = dimension.firstColumn(); col_num <= dimension.lastColumn(); col_num++) {
-				if (cellTable[row_num].contains(col_num)) {
+        if (cellTable.contains(row_num))
+        {
+            for (int col_num = dimension.firstColumn(); col_num <= dimension.lastColumn(); col_num++)
+            {
+                if (cellTable[row_num].contains(col_num))
+                {
 					saveXmlCellData(writer, row_num, col_num, cellTable[row_num][col_num]);
 				}
 			}
@@ -1371,7 +1417,16 @@ void WorksheetPrivate::saveXmlCellData(QXmlStreamWriter &writer, int row, int co
 	else if (colsInfoHelper.contains(col) && !colsInfoHelper[col]->format.isEmpty())
 		writer.writeAttribute(QStringLiteral("s"), QString::number(colsInfoHelper[col]->format.xfIndex()));
 
-	if (cell->cellType() == Cell::SharedStringType) {
+    if (cell->hasFormula())
+    {
+        int si = cell->formula().d->si;
+        QString strFormula = cell->formula().d->formula;
+
+        qDebug() << "[hasFormula] cell type " << cell->cellType() ;
+    }
+
+    if (cell->cellType() == Cell::SharedStringType) // 's'
+    {
 		int sst_idx;
 		if (cell->isRichString())
 			sst_idx = sharedStrings()->getSharedStringIndex(cell->d_ptr->richString);
@@ -1380,15 +1435,19 @@ void WorksheetPrivate::saveXmlCellData(QXmlStreamWriter &writer, int row, int co
 
 		writer.writeAttribute(QStringLiteral("t"), QStringLiteral("s"));
 		writer.writeTextElement(QStringLiteral("v"), QString::number(sst_idx));
-	} else if (cell->cellType() == Cell::InlineStringType) {
+    }
+    else if (cell->cellType() == Cell::InlineStringType) // 'inlineStr'
+    {
 		writer.writeAttribute(QStringLiteral("t"), QStringLiteral("inlineStr"));
 		writer.writeStartElement(QStringLiteral("is"));
 		if (cell->isRichString()) {
 			//Rich text string
 			RichString string = cell->d_ptr->richString;
-			for (int i=0; i<string.fragmentCount(); ++i) {
+            for (int i=0; i<string.fragmentCount(); ++i)
+            {
 				writer.writeStartElement(QStringLiteral("r"));
-				if (string.fragmentFormat(i).hasFontData()) {
+                if (string.fragmentFormat(i).hasFontData())
+                {
 					writer.writeStartElement(QStringLiteral("rPr"));
 					//:Todo
 					writer.writeEndElement();// rPr
@@ -1400,7 +1459,9 @@ void WorksheetPrivate::saveXmlCellData(QXmlStreamWriter &writer, int row, int co
 				writer.writeEndElement();// t
 				writer.writeEndElement(); // r
 			}
-		} else {
+        }
+        else
+        {
 			writer.writeStartElement(QStringLiteral("t"));
 			QString string = cell->value().toString();
 			if (isSpaceReserveNeeded(string))
@@ -1409,22 +1470,67 @@ void WorksheetPrivate::saveXmlCellData(QXmlStreamWriter &writer, int row, int co
 			writer.writeEndElement(); // t
 		}
 		writer.writeEndElement();//is
-	} else if (cell->cellType() == Cell::NumberType){
-		if (cell->hasFormula())
-			cell->formula().saveToXml(writer);
-		if (cell->value().isValid()) {//note that, invalid value means 'v' is blank
+    }
+    else if (cell->cellType() == Cell::NumberType) // 'n'
+    {
+        if (cell->hasFormula())
+        {
+            int si = cell->formula().d->si;
+            QString strFormula = cell->formula().d->formula;
+
+            cell->formula().saveToXml(writer);
+        }
+
+        if (cell->value().isValid())
+        {   //note that, invalid value means 'v' is blank
 			double value = cell->value().toDouble();
 			writer.writeTextElement(QStringLiteral("v"), QString::number(value, 'g', 15));
 		}
-	} else if (cell->cellType() == Cell::StringType) {
+    }
+    else if (cell->cellType() == Cell::StringType) // 'str'
+    {
 		writer.writeAttribute(QStringLiteral("t"), QStringLiteral("str"));
 		if (cell->hasFormula())
 			cell->formula().saveToXml(writer);
+
 		writer.writeTextElement(QStringLiteral("v"), cell->value().toString());
-	} else if (cell->cellType() == Cell::BooleanType) {
+    }
+    else if (cell->cellType() == Cell::BooleanType) // 'b'
+    {
 		writer.writeAttribute(QStringLiteral("t"), QStringLiteral("b"));
 		writer.writeTextElement(QStringLiteral("v"), cell->value().toBool() ? QStringLiteral("1") : QStringLiteral("0"));
 	}
+    else if (cell->cellType() == Cell::DateType) // 'd'
+    {
+        writer.writeAttribute(QStringLiteral("t"), QStringLiteral("d"));
+
+        QString iso8601DateTime = cell->value().toDateTime().toString( Qt::ISODate );
+        writer.writeTextElement(QStringLiteral("v"), iso8601DateTime );
+    }
+    else if (cell->cellType() == Cell::ErrorType) // 'e'
+    {
+        writer.writeAttribute(QStringLiteral("t"), QStringLiteral("e"));
+        writer.writeTextElement(QStringLiteral("v"), cell->value().toString() );
+    }
+    else // if (cell->cellType() == Cell::CustomType)
+    {
+        // custom type
+
+        if (cell->hasFormula())
+        {
+            int si = cell->formula().d->si;
+            QString strFormula = cell->formula().d->formula;
+
+            cell->formula().saveToXml(writer);
+        }
+
+        if (cell->value().isValid())
+        {   //note that, invalid value means 'v' is blank
+            double value = cell->value().toDouble();
+            writer.writeTextElement(QStringLiteral("v"), QString::number(value, 'g', 15));
+        }
+    }
+
 	writer.writeEndElement(); //c
 }
 
@@ -2031,29 +2137,38 @@ void WorksheetPrivate::loadXmlSheetData(QXmlStreamReader &reader)
 				if (attributes.hasAttribute(QLatin1String("t"))) // Type 
 				{
 					QString typeString = attributes.value(QLatin1String("t")).toString();
-					if (typeString == QLatin1String("s"))
+                    if (typeString == QLatin1String("s")) // Shared string
 					{
 						cellType = Cell::SharedStringType; 
 					}
-					else if (typeString == QLatin1String("inlineStr"))
+                    else if (typeString == QLatin1String("inlineStr")) //  Inline String
 					{
 						cellType = Cell::InlineStringType;
 					}
-					else if (typeString == QLatin1String("str"))
+                    else if (typeString == QLatin1String("str")) // String
 					{
 						cellType = Cell::StringType;
 					}
-					else if (typeString == QLatin1String("b"))
+                    else if (typeString == QLatin1String("b")) // Boolean
 					{
 						cellType = Cell::BooleanType;
 					}
-					else if (typeString == QLatin1String("e"))
+                    else if (typeString == QLatin1String("e")) // Error
 					{
 						cellType = Cell::ErrorType;
 					}
+                    else if (typeString == QLatin1String("d")) // Date
+                    {
+                        cellType = Cell::DateType;
+                    }
+                    else if (typeString == QLatin1String("n")) // Number
+                    {
+                        cellType = Cell::NumberType;
+                    }
 					else
 					{
-						cellType = Cell::NumberType;
+                        // custom type
+                        cellType = Cell::CustomType;
 					}
 				}
 
@@ -2064,13 +2179,14 @@ void WorksheetPrivate::loadXmlSheetData(QXmlStreamReader &reader)
 				{
 					if (reader.readNextStartElement())
 					{
-						if (reader.name() == QLatin1String("f")) 
+                        if (reader.name() == QLatin1String("f")) // formula
 						{
 							CellFormula &formula = cell->d_func()->formula;
 							formula.loadFromXml(reader);
 							if (formula.formulaType() == CellFormula::SharedType && !formula.formulaText().isEmpty()) 
 							{
-								sharedFormulaMap[formula.sharedIndex()] = formula;
+                                int si = formula.sharedIndex();
+                                sharedFormulaMap[ si ] = formula;
 							}
 						} 
 						else if (reader.name() == QLatin1String("v")) // Value 
