@@ -266,15 +266,13 @@ bool CellFormula::saveToXml(QXmlStreamWriter &writer) const
     case CellFormula::SharedType:
         t = QStringLiteral("shared");
         break;
-        // branch: shared-formula {{
     case CellFormula::NormalType:
         t = QStringLiteral("normal");
         break;
     case CellFormula::DataTableType:
         t = QStringLiteral("dataTable");
         break;
-        // }}
-    default: // ERROR: undefined type
+    default: // undefined type
         return false;
         break;
     }
@@ -342,15 +340,14 @@ bool CellFormula::saveToXml(QXmlStreamWriter &writer) const
 
     if (d->type == CellFormula::SharedType)
     {
-        // class WorksheetPrivate
-        //   QMap<int, CellFormula> sharedFormulaMap; // shared formula map
-
-         writer.writeAttribute(QStringLiteral("si"), QString::number(d->si));
+        int si = d->si;
+        writer.writeAttribute(QStringLiteral("si"), QString::number(si));
     }
 
     if (!d->formula.isEmpty())
     {
-        writer.writeCharacters(d->formula); // write formula
+        QString strFormula = d->formula;
+        writer.writeCharacters(strFormula); // write formula
     }
 
     writer.writeEndElement(); // f

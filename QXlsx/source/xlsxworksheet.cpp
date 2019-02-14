@@ -1417,13 +1417,16 @@ void WorksheetPrivate::saveXmlCellData(QXmlStreamWriter &writer, int row, int co
 	else if (colsInfoHelper.contains(col) && !colsInfoHelper[col]->format.isEmpty())
 		writer.writeAttribute(QStringLiteral("s"), QString::number(colsInfoHelper[col]->format.xfIndex()));
 
+    // [debugging code] dev34
+    /*
     if (cell->hasFormula())
     {
         int si = cell->formula().d->si;
         QString strFormula = cell->formula().d->formula;
 
-        qDebug() << "[hasFormula] cell type " << cell->cellType() ;
+        // qDebug() << "[hasFormula] cell type " << cell->cellType() ;
     }
+    */
 
     if (cell->cellType() == Cell::SharedStringType) // 's'
     {
@@ -1498,6 +1501,16 @@ void WorksheetPrivate::saveXmlCellData(QXmlStreamWriter &writer, int row, int co
     else if (cell->cellType() == Cell::BooleanType) // 'b'
     {
 		writer.writeAttribute(QStringLiteral("t"), QStringLiteral("b"));
+
+        // dev34
+        if (cell->hasFormula())
+        {
+            int si = cell->formula().d->si;
+            QString strFormula = cell->formula().d->formula;
+
+            cell->formula().saveToXml(writer);
+        }
+
 		writer.writeTextElement(QStringLiteral("v"), cell->value().toBool() ? QStringLiteral("1") : QStringLiteral("0"));
 	}
     else if (cell->cellType() == Cell::DateType) // 'd'

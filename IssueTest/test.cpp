@@ -26,8 +26,8 @@ int test( QVector<QVariant> params )
 
     // QString testFile = "test.xlsx"; // shared formula xlsx
     // QString testFile = "Align.xlsx";
-    // QString testFile = "testoriginal.xlsx";
-    QString testFile = "Book1.xlsx";
+    QString testFile = "testoriginal.xlsx";
+    // QString testFile = "Book1.xlsx";
 
     Document doc( testFile );
     if ( ! doc.load() )
