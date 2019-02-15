@@ -18,31 +18,34 @@ using namespace std;
 #include "xlsxchart.h"
 #include "xlsxrichstring.h"
 #include "xlsxworkbook.h"
-using namespace QXlsx;
 
 int test( QVector<QVariant> params )
 {
     qDebug() << " current path : " << QDir::currentPath();
 
-    // QString testFile = "test.xlsx"; // shared formula xlsx
-    // QString testFile = "Align.xlsx";
-    QString testFile = "testoriginal.xlsx";
-    // QString testFile = "Book1.xlsx";
+    using namespace QXlsx;
 
-    Document doc( testFile );
-    if ( ! doc.load() )
-    {
-        qDebug() << "Failed to load 'test.xlsx'.";
-        return (-1);
-    }
-    qDebug() << "load 'test.xlsx'";
+    Document output;
 
-    if ( ! doc.saveAs( "test2.xlsx" ) )
-    {
-        qDebug() << "Failed to save 'test2.xlsx'.";
-        return (-2);
-    }
-    qDebug() << "save 'test2.xlsx'";
+    QString strSheet = "c-sheet1";
+    output.addSheet(strSheet);
+    output.selectSheet(strSheet);
+
+    output.write( 1, 1, QVariant(11) );
+    output.write( 1, 2, QVariant(12) );
+    output.write( 1, 3, QVariant(13) );
+    output.write( 2, 1, QVariant(21) );
+    output.write( 2, 2, QVariant(22) );
+    output.write( 2, 3, QVariant(23) );
+
+    Chart* ptrChart = output.insertChart( 3, 5, QSize(600, 500) );
+    ptrChart->setChartType( Chart::CT_Scatter );
+    ptrChart->addSeries( CellRange("A1:B3") );
+    ptrChart->setAxisTitle( Chart::Left, QString("left title") );
+    ptrChart->setAxisTitle( Chart::Bottom, QString("bottom title") );
+    ptrChart->setChartTitle( QString("hello chart") );
+
+    output.saveAs("test2.xlsx");
 
     return 0;
 }

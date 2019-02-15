@@ -1,6 +1,4 @@
 // xlsxdocument.h
-// QXlsx // MIT License // https://github.com/j2doll/QXlsx
-// QtXlsx // MIT License // https://github.com/dbzhang800/QtXlsxWriter // http://qtxlsx.debao.me/
 
 #include "xlsxchart_p.h"
 #include "xlsxworksheet.h"
@@ -165,13 +163,24 @@ void Chart::setAxisTitle(Chart::ChartAxisPos pos, QString axisTitle)
         return;
 
     // dev24 : fixed for old compiler
-    if ( pos == Chart::Left ) d->axisNames[ XlsxAxis::Left ] = axisTitle;
-    else if ( pos == Chart::Top ) d->axisNames[ XlsxAxis::Top ] = axisTitle;
-    else if ( pos == Chart::Right ) d->axisNames[ XlsxAxis::Right ] = axisTitle;
-    else if ( pos == Chart::Bottom ) d->axisNames[ XlsxAxis::Bottom ] = axisTitle;
+    if ( pos == Chart::Left )
+    {
+        d->axisNames[ XlsxAxis::Left ] = axisTitle;
+    }
+    else if ( pos == Chart::Top )
+    {
+        d->axisNames[ XlsxAxis::Top ] = axisTitle;
+    }
+    else if ( pos == Chart::Right )
+    {
+        d->axisNames[ XlsxAxis::Right ] = axisTitle;
+    }
+    else if ( pos == Chart::Bottom )
+    {
+        d->axisNames[ XlsxAxis::Bottom ] = axisTitle;
+    }
     else
     {
-        // ??
     }
 
 }
@@ -425,44 +434,44 @@ void ChartPrivate::saveXmlChartTitle(QXmlStreamWriter &writer) const
 
     writer.writeStartElement(QStringLiteral("c:title"));
 
-    writer.writeStartElement(QStringLiteral("c:tx"));
+        writer.writeStartElement(QStringLiteral("c:tx"));
 
-    writer.writeStartElement(QStringLiteral("c:rich"));
+            writer.writeStartElement(QStringLiteral("c:rich"));
 
-    writer.writeEmptyElement(QStringLiteral("a:bodyPr")); // <a:bodyPr/>
+                writer.writeEmptyElement(QStringLiteral("a:bodyPr")); // <a:bodyPr/>
 
-    writer.writeEmptyElement(QStringLiteral("a:lstStyle")); // <a:lstStyle/>
+                writer.writeEmptyElement(QStringLiteral("a:lstStyle")); // <a:lstStyle/>
 
-    writer.writeStartElement(QStringLiteral("a:p"));
+                writer.writeStartElement(QStringLiteral("a:p"));
 
-    // <a:pPr lvl="0">
-    writer.writeStartElement(QStringLiteral("a:pPr"));
-     writer.writeAttribute(QStringLiteral("lvl"), QStringLiteral("0"));
+                    // <a:pPr lvl="0">
+                    writer.writeStartElement(QStringLiteral("a:pPr"));
+                        writer.writeAttribute(QStringLiteral("lvl"), QStringLiteral("0"));
 
-    // <a:defRPr b="0"/>
-    writer.writeStartElement(QStringLiteral("a:defRPr"));
-     writer.writeAttribute(QStringLiteral("b"), QStringLiteral("0"));
-    writer.writeEndElement();  // a:defRPr
+                        // <a:defRPr b="0"/>
+                        writer.writeStartElement(QStringLiteral("a:defRPr"));
+                            writer.writeAttribute(QStringLiteral("b"), QStringLiteral("0"));
+                        writer.writeEndElement();  // a:defRPr
 
-    writer.writeEndElement();  // a:pPr
+                    writer.writeEndElement();  // a:pPr
 
-    writer.writeStartElement(QStringLiteral("a:r"));
+                writer.writeStartElement(QStringLiteral("a:r"));
 
-    // <a:t>chart name</a:t>
-    writer.writeTextElement(QStringLiteral("a:t"), chartTitle);
+                    // <a:t>chart name</a:t>
+                    writer.writeTextElement(QStringLiteral("a:t"), chartTitle);
 
-    writer.writeEndElement();  // a:r
+                writer.writeEndElement();  // a:r
 
-    writer.writeEndElement();  // a:p
+                writer.writeEndElement();  // a:p
 
-    writer.writeEndElement();  // c:rich
+            writer.writeEndElement();  // c:rich
 
-    writer.writeEndElement();  // c:tx
+        writer.writeEndElement();  // c:tx
 
-    // <c:overlay val="0"/>
-    writer.writeStartElement(QStringLiteral("c:overlay"));
-     writer.writeAttribute(QStringLiteral("val"), QStringLiteral("0"));
-    writer.writeEndElement();  // c:overlay
+        // <c:overlay val="0"/>
+        writer.writeStartElement(QStringLiteral("c:overlay"));
+            writer.writeAttribute(QStringLiteral("val"), QStringLiteral("0"));
+        writer.writeEndElement();  // c:overlay
 
     writer.writeEndElement();  // c:title
 }
