@@ -32,7 +32,7 @@
 #include <QDebug>
 #include <QBuffer>
 
-namespace QXlsx {
+QT_BEGIN_NAMESPACE_XLSX
 
 DocPropsCore::DocPropsCore(CreateFlag flag)
     :AbstractOOXmlFile(flag)
@@ -165,4 +165,4 @@ bool DocPropsCore::loadFromXmlFile(QIODevice *device)
     return true;
 }
 
-} //namespace
+QT_END_NAMESPACE_XLSX

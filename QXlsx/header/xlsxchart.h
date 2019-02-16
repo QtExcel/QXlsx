@@ -46,37 +46,27 @@ class DrawingAnchor;
 class Chart : public AbstractOOXmlFile
 {
     Q_DECLARE_PRIVATE(Chart)
-
 public:
-    enum ChartType {
-        CT_Area = 1, //Zero is internally used for unknown types
-        CT_Area3D,
-        CT_Line,
-        CT_Line3D,
-        CT_Stock,
-        CT_Radar,
-        CT_Scatter,
-        CT_Pie,
-        CT_Pie3D,
-        CT_Doughnut,
-        CT_Bar,
-        CT_Bar3D,
-        CT_OfPie,
-        CT_Surface,
-        CT_Surface3D,
-        CT_Bubble
+    enum ChartType { // 16 type of chart
+        CT_NoStatementChart = 0, //Zero is internally used for unknown types
+        CT_AreaChart, CT_Area3DChart, CT_LineChart,
+        CT_Line3DChart, CT_StockChart, CT_RadarChart,
+        CT_ScatterChart, CT_PieChart, CT_Pie3DChart,
+        CT_DoughnutChart, CT_BarChart, CT_Bar3DChart,
+        CT_OfPieChart, CT_SurfaceChart, CT_Surface3DChart,
+        CT_BubbleChart,
     };
-
-    enum ChartAxisPos
-    {
-        Left,
-        Right,
-        Top,
-        Bottom
-    };
-
+    enum ChartAxisPos { Left, Right, Top, Bottom  };
+private:
+    friend class AbstractSheet;
+    friend class Worksheet;
+    friend class Chartsheet;
+    friend class DrawingAnchor;
+private:
+    Chart(AbstractSheet *parent, CreateFlag flag);
+public:
     ~Chart();
-
+public:
     void addSeries(const CellRange &range, AbstractSheet *sheet=0);
     void setChartType(ChartType type);
     void setChartStyle(int id);
@@ -85,17 +75,8 @@ public:
 
     void saveToXmlFile(QIODevice *device) const;
     bool loadFromXmlFile(QIODevice *device);
-
-private:
-    friend class AbstractSheet;
-    friend class Worksheet;
-    friend class Chartsheet;
-    friend class DrawingAnchor;
-
-    Chart(AbstractSheet *parent, CreateFlag flag);
 };
 
 QT_END_NAMESPACE_XLSX
 
 #endif // QXLSX_CHART_H
-

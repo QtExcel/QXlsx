@@ -1,5 +1,4 @@
 // main.cpp
-// QXlsx // MIT License // https://github.com/j2doll/QXlsx
 
 #include <QtGlobal>
 #include <QCoreApplication>

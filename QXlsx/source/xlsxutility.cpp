@@ -34,7 +34,7 @@
 #include <QDateTime>
 #include <QDebug>
 
-namespace QXlsx {
+QT_BEGIN_NAMESPACE_XLSX
 
 bool parseXsdBoolean(const QString &value, bool defaultValue)
 {
@@ -281,4 +281,4 @@ QString convertSharedFormula(const QString &rootFormula, const CellReference &ro
     return result.join(QString());
 }
 
-} //namespace QXlsx
+QT_END_NAMESPACE_XLSX

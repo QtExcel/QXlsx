@@ -1,13 +1,10 @@
-//--------------------------------------------------------------------
-//
-// QXlsx
-// MIT License
-// https://github.com/j2doll/QXlsx
-//
-// QtXlsx
-// https://github.com/dbzhang800/QtXlsxWriter
-// http://qtxlsx.debao.me/
-// MIT License
+// xlsxcell.cpp
+
+#include <cmath>
+
+#include <QDateTime>
+#include <QDate>
+#include <QTime>
 
 #include "xlsxcell.h"
 #include "xlsxcell_p.h"
@@ -16,10 +13,6 @@
 #include "xlsxutility_p.h"
 #include "xlsxworksheet.h"
 #include "xlsxworkbook.h"
-#include <cmath>
-#include <QDateTime>
-#include <QDate>
-#include <QTime>
 
 QT_BEGIN_NAMESPACE_XLSX
 

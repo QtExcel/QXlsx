@@ -1,5 +1,4 @@
 // test.cpp
-// QXlsx // MIT License // https://github.com/j2doll/QXlsx
 
 #include <QtGlobal>
 #include <QCoreApplication>
@@ -39,7 +38,7 @@ int test( QVector<QVariant> params )
     output.write( 2, 3, QVariant(23) );
 
     Chart* ptrChart = output.insertChart( 3, 5, QSize(600, 500) );
-    ptrChart->setChartType( Chart::CT_Scatter );
+    ptrChart->setChartType( Chart::CT_ScatterChart );
     ptrChart->addSeries( CellRange("A1:B3") );
     ptrChart->setAxisTitle( Chart::Left, QString("left title") );
     ptrChart->setAxisTitle( Chart::Bottom, QString("bottom title") );

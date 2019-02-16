@@ -40,9 +40,9 @@
 #include "xlsxchartsheet.h"
 #include "xlsxabstractsheet_p.h"
 
-namespace QXlsx {
+QT_BEGIN_NAMESPACE_XLSX
 
-class  ChartsheetPrivate : public AbstractSheetPrivate
+class ChartsheetPrivate : public AbstractSheetPrivate
 {
     Q_DECLARE_PUBLIC(Chartsheet)
 public:
@@ -52,5 +52,5 @@ public:
     Chart *chart;
 };
 
-}
+QT_END_NAMESPACE_XLSX
 #endif // XLSXCHARTSHEET_P_H

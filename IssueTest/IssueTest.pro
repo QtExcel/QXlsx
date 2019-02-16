@@ -1,7 +1,6 @@
 #
 # IssueTest.pro
 #
-# QXlsx # MIT License # https://github.com/j2doll/QXlsx
 
 TARGET = IssueTest
 TEMPLATE = app

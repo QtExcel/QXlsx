@@ -21,6 +21,7 @@
 #include <QSharedPointer>
 
 #include "xlsxglobal.h"
+
 QT_BEGIN_NAMESPACE_XLSX
 
 class Cell;

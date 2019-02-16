@@ -46,7 +46,7 @@
 
 QT_BEGIN_NAMESPACE_XLSX
 
-class  AbstractSheetPrivate : public AbstractOOXmlFilePrivate
+class AbstractSheetPrivate : public AbstractOOXmlFilePrivate
 {
     Q_DECLARE_PUBLIC(AbstractSheet)
 public:

@@ -47,8 +47,6 @@
 #include <QBuffer>
 #include <QDir>
 
-QT_BEGIN_NAMESPACE_XLSX
-
 /*
 	From Wikipedia: The Open Packaging Conventions (OPC) is a
 	container-file technology initially created by Microsoft to store
@@ -83,6 +81,8 @@ QT_BEGIN_NAMESPACE_XLSX
 	The Packager class coordinates the classes that represent the
 	elements of the package and writes them into the XLSX file.
 */
+
+QT_BEGIN_NAMESPACE_XLSX
 
 DocumentPrivate::DocumentPrivate(Document *p) :
 	q_ptr(p), defaultPackageName(QStringLiteral("Book1.xlsx")),
