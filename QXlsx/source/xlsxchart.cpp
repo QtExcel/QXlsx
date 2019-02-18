@@ -1,4 +1,4 @@
-// xlsxdocument.h
+// xlsxchart.cpp
 
 #include "xlsxchart_p.h"
 #include "xlsxworksheet.h"
@@ -24,33 +24,7 @@ ChartPrivate::~ChartPrivate()
 
 }
 
-/*!
- * \class Chart
- * \inmodule QtXlsx
- * \brief Main class for the charts.
- */
 
-/*!
-  \enum Chart::ChartType
-
-  \value CT_Area
-  \value CT_Area3D,
-  \value CT_Line,
-  \value CT_Line3D,
-  \value CT_Scatter,
-  \value CT_Pie,
-  \value CT_Pie3D,
-  \value CT_Doughnut,
-  \value CT_Bar,
-  \value CT_Bar3D,
-
-  \omitvalue CT_Stock,
-  \omitvalue CT_Radar,
-  \omitvalue CT_OfPie,
-  \omitvalue CT_Surface,
-  \omitvalue CT_Surface3D,
-  \omitvalue CT_Bubble
-*/
 
 /*!
  * \internal
