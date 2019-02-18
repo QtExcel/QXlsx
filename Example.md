@@ -85,14 +85,14 @@ int main(int argc, char *argv[])
 
 ## Copycat : Windows Widget Example
 - Load xlsx file and display on Qt widgets. 
-- Print xlsx to paper.
+- Print xlsx to paper. (based on Qt-Table-Printer)
 - TODO: save xlsx.
 
 ![](markdown.data/copycat.png)
 
-## WebServer : WebServer Example
+## WebServer : Web Server Example
 - Load xlsx file and display on Web.
 - Connect to `http://127.0.0.1:3001`
-- C++ 14 is required. Old compilers is not supported.
+- C++ 14 is required. Old compilers is not supported.(based on recurse)
 
 ![](markdown.data/webserver.png)
