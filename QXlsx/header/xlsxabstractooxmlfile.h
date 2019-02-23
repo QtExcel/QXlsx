@@ -1,12 +1,12 @@
-//xlsxabstractooxmlfile.h
+// xlsxabstractooxmlfile.h
 
 #ifndef QXLSX_XLSXABSTRACTOOXMLFILE_H
 #define QXLSX_XLSXABSTRACTOOXMLFILE_H
 
-#include "xlsxglobal.h"
+#include <QIODevice>
+#include <QByteArray>
 
-class QIODevice;
-class QByteArray;
+#include "xlsxglobal.h"
 
 QT_BEGIN_NAMESPACE_XLSX
 

@@ -33,15 +33,24 @@ public:
     enum AxisPos { None = (-1), Left, Right, Top, Bottom };
 public:
     XlsxAxis(){}
-    XlsxAxis(Type t, XlsxAxis::AxisPos  p, int id, int crossId,
-             QString axisTitle = QString(""))
-        :type(t), axisPos(p), axisId(id), crossAx(crossId)
+
+    XlsxAxis( Type t,
+              XlsxAxis::AxisPos p,
+              int id,
+              int crossId,
+              QString axisTitle = QString("") )
     {
+        type = t;
+        axisPos = p;
+        axisId = id;
+        crossAx = crossId;
+
         if ( !axisTitle.isEmpty() )
         {
             axisNames[ p ] = axisTitle;
         }
     }
+
 public:
     Type type;
     XlsxAxis::AxisPos axisPos;
@@ -65,6 +74,12 @@ public:
     bool loadXmlSer(QXmlStreamReader &reader);
     QString loadXmlNumRef(QXmlStreamReader &reader);
     bool loadXmlAxis(QXmlStreamReader &reader);
+    bool loadXmlChartTitle(QXmlStreamReader &reader);
+protected:
+    bool loadXmlChartTitleTx(QXmlStreamReader &reader);
+    bool loadXmlChartTitleTxRich(QXmlStreamReader &reader);
+    bool loadXmlChartTitleTxRichP(QXmlStreamReader &reader);
+    bool loadXmlChartTitleTxRichP_R(QXmlStreamReader &reader);
 
 public:
     void saveXmlChart(QXmlStreamWriter &writer) const;
@@ -84,7 +99,7 @@ public:
     QList< QSharedPointer<XlsxAxis> > axisList;
     QMap< XlsxAxis::AxisPos, QString > axisNames;
     QString chartTitle;
-    AbstractSheet *sheet;
+    AbstractSheet* sheet;
 };
 
 QT_END_NAMESPACE_XLSX

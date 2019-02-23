@@ -20,7 +20,7 @@ using namespace std;
 
 int test( QVector<QVariant> params )
 {
-    qDebug() << " current path : " << QDir::currentPath();
+    qDebug() << "[debug] current path : " << QDir::currentPath();
 
     using namespace QXlsx;
 
@@ -45,6 +45,13 @@ int test( QVector<QVariant> params )
     ptrChart->setChartTitle( QString("hello chart") );
 
     output.saveAs("test2.xlsx");
+
+    Document output2("test2.xlsx");
+    if ( output2.load() )
+    {
+        output2.saveAs("test3.xlsx");
+        qDebug() << "[debug] test3.xlsx is saved.";
+    }
 
     return 0;
 }
