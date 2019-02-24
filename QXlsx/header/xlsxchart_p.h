@@ -91,7 +91,7 @@ public:
     void saveXmlAreaChart(QXmlStreamWriter &writer) const;
     void saveXmlDoughnutChart(QXmlStreamWriter &writer) const;
     void saveXmlSer(QXmlStreamWriter &writer, XlsxSeries *ser, int id) const;
-    void saveXmlAxes(QXmlStreamWriter &writer) const;
+    void saveXmlAxis(QXmlStreamWriter &writer) const;
 
 public:
     Chart::ChartType chartType;

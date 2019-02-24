@@ -315,6 +315,34 @@ bool ChartPrivate::loadXmlPlotArea(QXmlStreamReader &reader)
 {
     Q_ASSERT(reader.name() == QLatin1String("plotArea"));
 
+    /*
+    dchrt_CT_PlotArea =
+        element layout { dchrt_CT_Layout }?,
+        (element areaChart { dchrt_CT_AreaChart }
+            | element area3DChart { dchrt_ CT_Area3DChart }
+            | element lineChart { dchrt_CT_LineChart }
+            | element line3DChart { dchrt_CT_Line3DChart }
+            | element stockChart { dchrt_CT_StockChart }
+            | element radarChart { dchrt_CT_RadarChart }
+            | element scatterChart { dchrt_CT_ScatterChart }
+            | element pieChart { dchrt_CT_PieChart }
+            | element pie3DChart { dchrt_CT_Pie3DChart }
+            | element doughnutChart { dchrt_CT_DoughnutChart }
+            | element barChart { dchrt_CT_BarChart }
+            | element bar3DChart { dchrt_CT_Bar3DChart }
+            | element ofPieChart { dchrt_CT_OfPieChart }
+            | element surfaceChart { dchrt_CT_SurfaceChart }
+            | element surface3DChart { dchrt_CT_Surface3DChart }
+            | element bubbleChart { dchrt_CT_BubbleChart })+,
+        (element valAx { dchrt_CT_ValAx }
+            | element catAx { dchrt_CT_CatAx }
+            | element dateAx { dchrt_CT_DateAx }
+            | element serAx { dchrt_CT_SerAx })*,
+        element dTable { dchrt_CT_DTable }?,
+        element spPr { a_CT_ShapeProperties }?,
+        element extLst { dchrt_CT_ExtensionList }?
+     */
+
     while (!reader.atEnd())
     {
         reader.readNextStartElement();
@@ -323,6 +351,7 @@ bool ChartPrivate::loadXmlPlotArea(QXmlStreamReader &reader)
             if (reader.name() == QLatin1String("layout"))
             {
                 //!ToDo
+                // layout
             }
             else if (reader.name().endsWith(QLatin1String("Chart")))
             {
@@ -449,7 +478,8 @@ bool ChartPrivate::loadXmlSer(QXmlStreamReader &reader)
             else if (name == QLatin1String("extLst"))
             {
                 while (!reader.atEnd() && !(reader.tokenType() == QXmlStreamReader::EndElement
-                                            && reader.name() == name)) {
+                                            && reader.name() == name))
+                {
                     reader.readNextStartElement();
                 }
             }
@@ -513,7 +543,7 @@ void ChartPrivate::saveXmlChart(QXmlStreamWriter &writer) const
         default:  break;
     }
 
-    saveXmlAxes(writer);
+    saveXmlAxis(writer);
 
     writer.writeEndElement(); // c:plotArea
 
@@ -1013,7 +1043,7 @@ bool ChartPrivate::loadXmlAxis(QXmlStreamReader &reader)
 }
 
 
-void ChartPrivate::saveXmlAxes(QXmlStreamWriter &writer) const
+void ChartPrivate::saveXmlAxis(QXmlStreamWriter &writer) const
 {
     for ( int i = 0 ; i < axisList.size() ; ++i )
     {
@@ -1094,8 +1124,8 @@ void ChartPrivate::saveXmlAxes(QXmlStreamWriter &writer) const
             writer.writeAttribute(QStringLiteral("val"), QStringLiteral("minMax"));
         writer.writeEndElement();//c:scaling
 
-        writer.writeEmptyElement(QStringLiteral("c:axPos"));
-        writer.writeAttribute(QStringLiteral("val"), pos);
+        writer.writeEmptyElement(QStringLiteral("c:axPos")); // CT_AxPos
+        writer.writeAttribute(QStringLiteral("val"), pos); // ST_AxPos
 
         writer.writeEmptyElement(QStringLiteral("c:crossAx"));
         writer.writeAttribute(QStringLiteral("val"), QString::number(axis->crossAx));
