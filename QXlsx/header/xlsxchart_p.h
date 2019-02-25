@@ -29,7 +29,7 @@ public:
 class XlsxAxis
 {
 public:
-    enum Type { T_Cat, T_Val, T_Date, T_Ser };
+    enum Type { T_None = (-1), T_Cat, T_Val, T_Date, T_Ser };
     enum AxisPos { None = (-1), Left, Right, Top, Bottom };
 public:
     XlsxAxis(){}
@@ -80,6 +80,17 @@ protected:
     bool loadXmlChartTitleTxRich(QXmlStreamReader &reader);
     bool loadXmlChartTitleTxRichP(QXmlStreamReader &reader);
     bool loadXmlChartTitleTxRichP_R(QXmlStreamReader &reader);
+protected:
+    bool loadXmlAxisCatAx(QXmlStreamReader &reader);
+    bool loadXmlAxisDateAx(QXmlStreamReader &reader);
+    bool loadXmlAxisSerAx(QXmlStreamReader &reader);
+    bool loadXmlAxisValAx(QXmlStreamReader &reader);
+    bool loadXmlAxisEG_AxShared(QXmlStreamReader &reader, XlsxAxis* axis);
+    bool loadXmlAxisEG_AxShared_Title(QXmlStreamReader &reader, XlsxAxis* axis);
+    bool loadXmlAxisEG_AxShared_Title_Tx(QXmlStreamReader &reader, XlsxAxis* axis);
+    bool loadXmlAxisEG_AxShared_Title_Tx_Rich(QXmlStreamReader &reader, XlsxAxis* axis);
+    bool loadXmlAxisEG_AxShared_Title_Tx_Rich_P(QXmlStreamReader &reader, XlsxAxis* axis);
+    bool loadXmlAxisEG_AxShared_Title_Tx_Rich_P_T(QXmlStreamReader &reader, XlsxAxis* axis);
 
 public:
     void saveXmlChart(QXmlStreamWriter &writer) const;
@@ -92,6 +103,16 @@ public:
     void saveXmlDoughnutChart(QXmlStreamWriter &writer) const;
     void saveXmlSer(QXmlStreamWriter &writer, XlsxSeries *ser, int id) const;
     void saveXmlAxis(QXmlStreamWriter &writer) const;
+protected:
+    void saveXmlAxisCatAx(QXmlStreamWriter &writer, XlsxAxis* axis) const;
+    void saveXmlAxisDateAx(QXmlStreamWriter &writer, XlsxAxis* axis) const;
+    void saveXmlAxisSerAx(QXmlStreamWriter &writer, XlsxAxis* axis) const;
+    void saveXmlAxisValAx(QXmlStreamWriter &writer, XlsxAxis* axis) const;
+
+    void saveXmlAxisEG_AxShared(QXmlStreamWriter &writer, XlsxAxis* axis) const;
+    void saveXmlAxisEG_AxShared_Title(QXmlStreamWriter &writer, XlsxAxis* axis) const;
+    QString GetAxisPosString( XlsxAxis::AxisPos axisPos ) const;
+    QString GetAxisName(XlsxAxis* ptrXlsxAxis) const;
 
 public:
     Chart::ChartType chartType;
