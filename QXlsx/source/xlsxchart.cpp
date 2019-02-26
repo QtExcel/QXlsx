@@ -367,12 +367,10 @@ bool ChartPrivate::loadXmlPlotArea(QXmlStreamReader &reader)
 bool ChartPrivate::loadXmlPlotAreaElement(QXmlStreamReader &reader)
 {
 
-
     if (reader.name() == QLatin1String("layout"))
     {
         //!ToDo
         // layout
-        reader.skipCurrentElement();
     }
     else if (reader.name().endsWith(QLatin1String("Chart")))
     {
@@ -385,38 +383,41 @@ bool ChartPrivate::loadXmlPlotAreaElement(QXmlStreamReader &reader)
     }
     else if (reader.name() == QLatin1String("catAx")) // choose one : catAx, dateAx, serAx, valAx
     {
+        qDebug() << "loadXmlAxisCatAx()";
         loadXmlAxisCatAx(reader);
     }
     else if (reader.name() == QLatin1String("dateAx")) // choose one : catAx, dateAx, serAx, valAx
     {
+        qDebug() << "loadXmlAxisDateAx()";
         loadXmlAxisDateAx(reader);
     }
     else if (reader.name() == QLatin1String("serAx")) // choose one : catAx, dateAx, serAx, valAx
     {
+        qDebug() << "loadXmlAxisSerAx()";
         loadXmlAxisSerAx(reader);
     }
     else if (reader.name() == QLatin1String("valAx")) // choose one : catAx, dateAx, serAx, valAx
     {
-        // qDebug() << QTime::currentTime() << reader.name().toString();
+        qDebug() << "loadXmlAxisValAx()";
         loadXmlAxisValAx(reader);
     }
     else if (reader.name() == QLatin1String("dTable"))
     {
         //!ToDo
         // dTable "CT_DTable"
-        reader.skipCurrentElement();
+        // reader.skipCurrentElement();
     }
     else if (reader.name() == QLatin1String("spPr"))
     {
         //!ToDo
         // spPr "a:CT_ShapeProperties"
-        reader.skipCurrentElement();
+        // reader.skipCurrentElement();
     }
     else if (reader.name() == QLatin1String("extLst"))
     {
         //!ToDo
         // extLst "CT_ExtensionList"
-        reader.skipCurrentElement();
+        // reader.skipCurrentElement();
     }
 
     return true;
@@ -872,7 +873,8 @@ void ChartPrivate::saveXmlBarChart(QXmlStreamWriter &writer) const
     }
 
     //Note: Bar3D have 2~3 axes
-    Q_ASSERT(axisList.size()==2 || (axisList.size()==3 && chartType==Chart::CT_Bar3DChart));
+    int axisListSize = axisList.size();
+    Q_ASSERT( axisListSize == 2 || ( axisListSize == 3 && chartType == Chart::CT_Bar3DChart ) );
 
     for ( int i = 0 ; i < axisList.size() ; ++i )
     {
@@ -1110,8 +1112,8 @@ bool ChartPrivate::loadXmlAxisValAx(QXmlStreamReader &reader)
 
     if ( ! loadXmlAxisEG_AxShared( reader, axis ) )
     {
-        // qDebug() << "failed to load EG_AxShared";
-        // return false;
+        qDebug() << "failed to load EG_AxShared";
+        return false;
     }
 
     //!TODO: load element
@@ -1151,7 +1153,8 @@ bool ChartPrivate::loadXmlAxisValAx(QXmlStreamReader &reader)
 bool ChartPrivate::loadXmlAxisEG_AxShared(QXmlStreamReader &reader, XlsxAxis* axis)
 {
     Q_ASSERT( NULL != axis );
-    Q_ASSERT(reader.name() == QLatin1String("valAx"));
+    Q_ASSERT( reader.name().endsWith("Ax") );
+    QString name = reader.name().toString(); //
 
     while ( !reader.atEnd() )
     {
@@ -1249,7 +1252,7 @@ bool ChartPrivate::loadXmlAxisEG_AxShared(QXmlStreamReader &reader, XlsxAxis* ax
             // reader.readNext();
         }
         else if ( reader.tokenType() == QXmlStreamReader::EndElement &&
-                  reader.name() == "valAx" )
+                  reader.name().toString() == name )
         {
             break;
         }
