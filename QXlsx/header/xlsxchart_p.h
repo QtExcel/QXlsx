@@ -70,10 +70,12 @@ public:
 public:
     bool loadXmlChart(QXmlStreamReader &reader);
     bool loadXmlPlotArea(QXmlStreamReader &reader);
+protected:
+    bool loadXmlPlotAreaElement(QXmlStreamReader &reader);
+public:
     bool loadXmlXxxChart(QXmlStreamReader &reader);
     bool loadXmlSer(QXmlStreamReader &reader);
     QString loadXmlNumRef(QXmlStreamReader &reader);
-    bool loadXmlAxis(QXmlStreamReader &reader);
     bool loadXmlChartTitle(QXmlStreamReader &reader);
 protected:
     bool loadXmlChartTitleTx(QXmlStreamReader &reader);
@@ -86,11 +88,14 @@ protected:
     bool loadXmlAxisSerAx(QXmlStreamReader &reader);
     bool loadXmlAxisValAx(QXmlStreamReader &reader);
     bool loadXmlAxisEG_AxShared(QXmlStreamReader &reader, XlsxAxis* axis);
+    bool loadXmlAxisEG_AxShared_Scaling(QXmlStreamReader &reader, XlsxAxis* axis);
     bool loadXmlAxisEG_AxShared_Title(QXmlStreamReader &reader, XlsxAxis* axis);
+    bool loadXmlAxisEG_AxShared_Title_Overlay(QXmlStreamReader &reader, XlsxAxis* axis);
     bool loadXmlAxisEG_AxShared_Title_Tx(QXmlStreamReader &reader, XlsxAxis* axis);
     bool loadXmlAxisEG_AxShared_Title_Tx_Rich(QXmlStreamReader &reader, XlsxAxis* axis);
     bool loadXmlAxisEG_AxShared_Title_Tx_Rich_P(QXmlStreamReader &reader, XlsxAxis* axis);
-    bool loadXmlAxisEG_AxShared_Title_Tx_Rich_P_T(QXmlStreamReader &reader, XlsxAxis* axis);
+    bool loadXmlAxisEG_AxShared_Title_Tx_Rich_P_pPr(QXmlStreamReader &reader, XlsxAxis* axis);
+    bool loadXmlAxisEG_AxShared_Title_Tx_Rich_P_R(QXmlStreamReader &reader, XlsxAxis* axis);
 
 public:
     void saveXmlChart(QXmlStreamWriter &writer) const;

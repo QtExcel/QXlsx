@@ -11,7 +11,7 @@
 
 ## How to use
 - See [examples](Example.md)
-	- HelloWorld : Hello world example (the most basic structure)
+	- [HelloWorld](HelloWorld/) : Hello world example (the most basic structure)
 	- TestExcel : basic samples based on QtXlsx samples
 	- HelloAndroid : read xlsx on Android
 	- Copycat : load xlsx file and display on widget. print xlsx file.
@@ -35,24 +35,24 @@ Travis CI | AppVeyor  | CodeFactor
 
 ## To Do
 
-<details><summary>CLICK ME</summary>
-<p>
-
 - [To test](ToTest.md)
 
 - [What to upgrade](ToUpgrade.md).
 
-</p>
-</details>
-
 ## Contributions
+
 - See [contributors](https://github.com/QtExcel/QXlsx/graphs/contributors).
 
 ## License and links
+
 - QXlsx is under MIT license. [https://github.com/QtExcel/QXlsx](https://github.com/QtExcel/QXlsx)
+
 - QtXlsx is under MIT license. [https://github.com/dbzhang800/QtXlsxWriter](https://github.com/dbzhang800/QtXlsxWriter)
+
 - Qt-Table-Printer is under BSD 3-Clause license. [https://github.com/T0ny0/Qt-Table-Printer](https://github.com/T0ny0/Qt-Table-Printer) 
+
 - recurse is under MIT license. [https://github.com/pkoretic/recurse](https://github.com/pkoretic/recurse)
+
 - Qt is under LGPL v3 license or Commercial license. [https://www.qt.io/](https://www.qt.io/) 
 
 ## :email: Contact
