@@ -12,10 +12,10 @@
 ## How to use
 - See [examples](Example.md)
 	- [HelloWorld](HelloWorld/) : Hello world example (the most basic structure)
-	- TestExcel : basic samples based on QtXlsx samples
-	- HelloAndroid : read xlsx on Android
-	- Copycat : load xlsx file and display on widget. print xlsx file.
-	- WebServer : load xlsx and display to web
+	- [TestExcel](TestExcel/) : basic samples based on QtXlsx samples
+	- [HelloAndroid](HelloAndroid/) : read xlsx on Android
+	- [Copycat](Copycat/) : load xlsx file and display on widget. print xlsx file.
+	- [WebServer](WebServer/) : load xlsx and display to web
 
 ## How to set up (Installation)
 
