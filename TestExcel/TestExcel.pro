@@ -1,7 +1,7 @@
 ##########################################################################
 # TestExcel.pro
 #
-# QXlsx # MIT License # https://github.com/j2doll/QXlsx
+# QXlsx # MIT License # https://github.com/QtExcel/QXlsx
 ## QtXlsx # MIT License # https://github.com/dbzhang800/QtXlsxWriter # http://qtxlsx.debao.me/
 
 TARGET = TestExcel

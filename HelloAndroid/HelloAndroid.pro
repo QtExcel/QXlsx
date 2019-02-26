@@ -1,9 +1,7 @@
 #
 # HelloAndroid.pro
 #
-# QXlsx
-# MIT License
-# https://github.com/j2doll/QXlsx
+# QXlsx # MIT License # https://github.com/QtExcel/QXlsx
 
 # TARGET = HelloAndroid
 

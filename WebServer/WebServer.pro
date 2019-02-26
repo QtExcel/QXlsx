@@ -1,8 +1,7 @@
 #
 # WebServer.pro
 #
-# QXlsx   https://github.com/j2doll/QXlsx
-# recurse https://github.com/pkoretic/recurse
+# QXlsx   https://github.com/QtExcel/QXlsx
 
 TARGET = WebServer
 TEMPLATE = app

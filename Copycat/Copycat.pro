@@ -1,12 +1,8 @@
-#-------------------------------------------------
+#
 # Copycat.pro
-#-------------------------------------------------
-# QXlsx, MIT License, https://github.com/j2doll/QXlsx
-#-------------------------------------------------
-# QtXlsx, MIT License, https://github.com/dbzhang800/QtXlsxWriter
-# Qt-Table-Printer, BSD 3-Clause License, https://github.com/T0ny0/Qt-Table-Printer
-# Qt, LGPL v3 or Commercial License, https://www.qt.io
-#-------------------------------------------------
+#
+# QXlsx, MIT License, https://github.com/QtExcel/QXlsx
+#
 
 TARGET = Copycat
 TEMPLATE = app
