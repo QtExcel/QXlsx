@@ -34,25 +34,17 @@ Travis CI | AppVeyor  | CodeFactor
 [![Waffle.io - Columns and their card count](https://badge.waffle.io/QtExcel/QXlsx.svg?columns=all)](https://waffle.io/QtExcel/QXlsx) 
 
 ## To Do
-
 - [To test](ToTest.md)
-
 - [What to upgrade](ToUpgrade.md).
 
 ## Contributions
-
 - See [contributors](https://github.com/QtExcel/QXlsx/graphs/contributors).
 
 ## License and links
-
 - QXlsx is under MIT license. [https://github.com/QtExcel/QXlsx](https://github.com/QtExcel/QXlsx)
-
 - QtXlsx is under MIT license. [https://github.com/dbzhang800/QtXlsxWriter](https://github.com/dbzhang800/QtXlsxWriter)
-
 - Qt-Table-Printer is under BSD 3-Clause license. [https://github.com/T0ny0/Qt-Table-Printer](https://github.com/T0ny0/Qt-Table-Printer) 
-
 - recurse is under MIT license. [https://github.com/pkoretic/recurse](https://github.com/pkoretic/recurse)
-
 - Qt is under LGPL v3 license or Commercial license. [https://www.qt.io/](https://www.qt.io/) 
 
 ## :email: Contact

@@ -34,34 +34,22 @@ Travis CI | AppVeyor  | CodeFactor
 [![Waffle.io - Columns and their card count](https://badge.waffle.io/QtExcel/QXlsx.svg?columns=all)](https://waffle.io/QtExcel/QXlsx) 
 
 ## 할 일
-
 - [테스트 할 일](ToTest.md)
-
 - [업그레이드 할 일](ToUpgrade.md)
 
-
 ## 컨트리뷰터
-
 - [컨트리뷰터](https://github.com/QtExcel/QXlsx/graphs/contributors) 참조.
 
 ## 라이센스와 링크
-
 - QXlsx 는 MIT 라이센스 입니다. [https://github.com/QtExcel/QXlsx](https://github.com/QtExcel/QXlsx)
-
 - QtXlsx 는 MIT 라이센스 입니다. [https://github.com/dbzhang800/QtXlsxWriter](https://github.com/dbzhang800/QtXlsxWriter)
-
 - Qt-Table-Printer 는 BSD 3-Clause 라이센스 입니다. [https://github.com/T0ny0/Qt-Table-Printer](https://github.com/T0ny0/Qt-Table-Printer) 
-
 - recurse 는 MIT 라이센스 입니다. [https://github.com/pkoretic/recurse](https://github.com/pkoretic/recurse)
-
 - Qt 는 LGPL v3 라이센스 또는 상업용 라이센스 입니다. [https://www.qt.io/](https://www.qt.io/)
 
 ## :email: 문의
-
 - 이슈를 남겨 주세요. [https://github.com/QtExcel/QXlsx/issues](https://github.com/QtExcel/QXlsx/issues)
-
 - 프로젝트 참여에 관심이 있으신 분은 이슈로 연락주세요.
-
 - README.md를 모국어로 번역하려면 저에게 연락하십시오.
 	- 이슈(issue)를 제기하거나 pull request를 사용하시면 됩니다. (예: README.ko.md)
 
