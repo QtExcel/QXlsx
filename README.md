@@ -15,7 +15,7 @@
 	- [TestExcel](Example.md#testexcel) : basic samples based on QtXlsx samples
 	- [HelloAndroid](Example.md#helloandroid--android-example) : read xlsx on Android
 	- [Copycat](Example.md#copycat--windows-widget-example) : load xlsx file and display on widget. print xlsx file.
-	- [WebServer](Example.md#WebServer : Web Server Example) : load xlsx and display to web
+	- [WebServer](Example.md#5) : load xlsx and display to web
 
 ## How to set up (Installation)
 
