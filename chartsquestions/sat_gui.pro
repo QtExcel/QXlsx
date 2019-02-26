@@ -2,11 +2,12 @@
 # sat_gui.pro
 #
 # Copyright (c) 2018 edosad(github) All rights reserved.
-# Some code is fixed by j2doll.
+#
+# Some code is fixed by j2doll(github)
 
-QT += core gui
-
-# greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+QT += core
+QT += gui
+QT += widgets
 
 TARGET = sat_gui
 TEMPLATE = app
