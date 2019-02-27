@@ -35,7 +35,7 @@ int main(int argc, char *argv[])
         ctx.response.send(g_htmlDoc);
     });
 
-    quint16 listenPort = 3001;
+    quint16 listenPort = 3001; // default port
     auto result = app.listen( listenPort );
     if ( result.error() )
     {
@@ -50,7 +50,9 @@ int main(int argc, char *argv[])
 QString getHtml(QString strFilename)
 {
     QString ret;
+
     ret = ret + QString("<html>\n");
+
     ret = ret + QString("<head>\n");
     ret = ret + QString("<title>") + strFilename + QString("</title>\n");
     ret = ret + QString("<meta http-equiv='Content-Type' content='text/html;charset=UTF-8'>\n" );
@@ -59,10 +61,10 @@ QString getHtml(QString strFilename)
     ret = ret + QString("<body>\n");
 
     QString strTableStyle = \
-    "<style>\n"\
-    " table { border-collapse: collapse; } \n"\
-    " td, th { border: 1px solid black; } \n"\
-    "</style>\n";
+        "<style>\n"\
+        " table { border-collapse: collapse; } \n"\
+        " td, th { border: 1px solid black; } \n"\
+        "</style>\n";
     ret = ret + strTableStyle;
 
     if (!loadXlsx(strFilename, ret))
@@ -125,22 +127,19 @@ bool loadXlsx(QString fileName, QString& strHtml)
 
         for ( int ic = 0; ic < clList.size(); ++ic )
          {
-               // cell location
-               CellLocation cl = clList.at(ic);
+            // cell location
+            CellLocation cl = clList.at(ic);
 
-               int row = cl.row - 1;
-               int col = cl.col - 1;
+            int row = cl.row - 1;
+            int col = cl.col - 1;
 
-                ////////////////////////////////////////////////////////////////////
-                // cell pointer
-                QSharedPointer<Cell> ptrCell = cl.cell;
+            QSharedPointer<Cell> ptrCell = cl.cell; // cell pointer
 
-                ///////////////////////////////////////////////////////////////////
-                // value of cell
-                QVariant var = cl.cell.data()->value();
-                QString str = var.toString();
+            // value of cell
+            QVariant var = cl.cell.data()->value();
+            QString str = var.toString();
 
-                cellValues[row][col] = str;
+            cellValues[row][col] = str;
         }
 
         QString strTableRecord;

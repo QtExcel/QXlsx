@@ -52,11 +52,14 @@ XlsxTab::~XlsxTab()
     if ( NULL != vLayout )
     {
         vLayout->deleteLater();
+        vLayout = NULL;
     }
 
     if ( NULL != table )
     {
+        table->clear();
         table->deleteLater();
+        table = NULL;
     }
 
 }

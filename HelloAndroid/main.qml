@@ -3,23 +3,35 @@
 import QtQuick 2.9
 import QtQuick.Window 2.2
 import QtQuick.Controls 1.4
+import QtQuick.Controls.Styles 1.4
 
 Window {
     id : mainWindow;
     visible : true;
-    title : qsTr("Hello World");
+    title : qsTr("Hello Android");
     /* width: 640; height: 480; */
 
     Component
     {
         id : columnComponent;
-        TableViewColumn { resizable : true; movable : false; /*width: 100;*/ }
+        TableViewColumn {
+            resizable : true;
+            movable : false;
+            /*width: 100;*/
+        }
     }
 
-    TableView {
+    TableView
+    {
         id : mainTableView;
         anchors.fill : parent;
         model : xlsxModel;
+
+        frameVisible : true;
+        highlightOnFocus : true;
+
+        horizontalScrollBarPolicy : Qt.ScrollBarAlwaysOn;
+        verticalScrollBarPolicy : Qt.ScrollBarAlwaysOn;
 
         resources:
         {

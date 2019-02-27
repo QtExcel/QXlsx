@@ -1,7 +1,7 @@
 #
 # WebServer.pro
 #
-# QXlsx   https://github.com/QtExcel/QXlsx
+# QXlsx https://github.com/QtExcel/QXlsx
 
 TARGET = WebServer
 TEMPLATE = app
@@ -11,9 +11,10 @@ QT += network
 QT -= gui
 
 CONFIG += console
-CONFIG += c++14
 CONFIG -= app_bundle
 
+# C++14 or higher version is required.
+CONFIG += c++14
 QMAKE_CXXFLAGS += -std=c++14
 
 macx {

@@ -26,7 +26,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 include(../QXlsx/QXlsx.pri)
 
 HEADERS += \
-XlsxTableModel.h
+XlsxTableModel.h \
+    DynArray2D.h
 
 SOURCES += \
 main.cpp \
