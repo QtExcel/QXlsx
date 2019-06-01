@@ -1314,8 +1314,27 @@ void Worksheet::saveToXmlFile(QIODevice *device) const
     {
         writer.writeStartElement(QStringLiteral("headerFooter")); // headerFooter
 
+        // dev40 {{
+        if (!d->ModdHeader.isNull())
+        {
+            writer.writeStartElement(QStringLiteral("oddHeader"));
+            writer.writeAttribute(QStringLiteral("xml:space"), QStringLiteral("preserve"));
+            writer.writeCharacters(d->ModdHeader);
+            writer.writeEndElement();// t
+
+            // writer.writeTextElement(QStringLiteral("oddHeader"), d->ModdHeader);
+        }
+
+        if (!d->MoodFooter.isNull())
+        {
+            writer.writeTextElement(QStringLiteral("oddFooter"), d->MoodFooter);
+        }
+        // }}
+
+        /*
         writer.writeTextElement(QStringLiteral("oddHeader"), d->ModdHeader);
         writer.writeTextElement(QStringLiteral("oddFooter"), d->MoodFooter);
+        //*/
 
         writer.writeEndElement();// headerFooter
     }
@@ -2534,12 +2553,27 @@ bool Worksheet::loadFromXmlFile(QIODevice *device)
                 d->PMright = attributes.value(QLatin1String("right")).toString().trimmed();
                 d->PMleft = attributes.value(QLatin1String("left")).toString().trimmed();
             } else if(reader.name() == QLatin1String("headerFooter")){
+
+                /*
                 reader.readNextStartElement();
+
                 if ( (reader.tokenType() == QXmlStreamReader::StartElement) &&
                      (reader.name() == QLatin1String("oddHeader")) )
                 {
                     d->ModdHeader=reader.readElementText();
                 }
+                */
+
+                // dev40
+                while (reader.readNextStartElement())
+                {
+                    if (reader.name() == QLatin1String("oddHeader"))
+                        d->ModdHeader = reader.readElementText();
+
+                    if (reader.name() == QLatin1String("oddFooter"))
+                            d->MoodFooter = reader.readElementText();
+                }
+
 			} else if (reader.name() == QLatin1String("drawing")) {
 				QString rId = reader.attributes().value(QStringLiteral("r:id")).toString();
 				QString name = d->relationships->getRelationshipById(rId).target;

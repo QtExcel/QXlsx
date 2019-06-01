@@ -383,9 +383,16 @@ bool CellFormula::loadFromXml(QXmlStreamReader &reader)
         d->type = DataTableType;
     }
     else {
+        /*
         // undefined type
         // qDebug() << "Undefined type" << typeString;
         return false;
+        // */
+
+        // dev40 {{
+        // https://github.com/QtExcel/QXlsx/issues/38
+        d->type = NormalType; // Change: normal Type is not mentioned in the xml file!!!!!
+        // }}
     }
 
     // branch: shared-formula
