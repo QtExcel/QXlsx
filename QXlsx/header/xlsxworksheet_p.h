@@ -248,6 +248,7 @@ public:
     // header footer, liufeijin
     QString MoodFooter;
     QString ModdHeader;
+    QString MoodalignWithMargins;  // add align 20190619
 
     XlsxSheetFormatProps sheetFormatProps;
 
