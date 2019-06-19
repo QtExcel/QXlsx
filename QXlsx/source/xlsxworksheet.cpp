@@ -1280,45 +1280,40 @@ void Worksheet::saveToXmlFile(QIODevice *device) const
         writer.writeEndElement(); // pageMargins
     }
 
-    // pageSetup
-    if ( false == d->PverticalDpi.isEmpty() &&
-         false == d->PhorizontalDpi.isEmpty() &&
-         false == d->PuseFirstPageNumber.isEmpty() &&
-         false == d->PfirstPageNumber.isEmpty() &&
-         false == d->Pscale.isEmpty() &&
-         false == d->PpaperSize.isEmpty() &&
-         false == d->Porientation.isEmpty() &&
-         false == d->Pcopies.isEmpty()
-       )
-    {
-        writer.writeStartElement(QStringLiteral("pageSetup"));
-
-        writer.writeAttribute(QStringLiteral("verticalDpi"),        d->PverticalDpi);
-        writer.writeAttribute(QStringLiteral("horizontalDpi"),      d->PhorizontalDpi);
-        writer.writeAttribute(QStringLiteral("useFirstPageNumber"), d->PuseFirstPageNumber);
-        writer.writeAttribute(QStringLiteral("firstPageNumber"),    d->PfirstPageNumber);
-        writer.writeAttribute(QStringLiteral("scale"),              d->Pscale);
-        writer.writeAttribute(QStringLiteral("paperSize"),          d->PpaperSize);
-        writer.writeAttribute(QStringLiteral("orientation"),        d->Porientation);
-        writer.writeAttribute(QStringLiteral("copies"),             d->Pcopies);
-
-        //  if(!d->Prid.isEmpty()){
-        //  writer.writeAttribute(QStringLiteral("r:id"), d->Prid);}
-
-        writer.writeEndElement(); // pageSetup
-    }
-
+    // pageSetup   changed back by liufeijin 20190619
+    writer.writeStartElement(QStringLiteral("pageSetup"));
+    if(!d->Prid.isEmpty()){
+        writer.writeAttribute(QStringLiteral("r:id"), d->Prid);}
+     if(!d->PverticalDpi.isEmpty()){
+     writer.writeAttribute(QStringLiteral("verticalDpi"), d->PverticalDpi);}
+     if(!d->PhorizontalDpi.isEmpty()){
+     writer.writeAttribute(QStringLiteral("horizontalDpi"), d->PhorizontalDpi);}
+     if(!d->PuseFirstPageNumber.isEmpty()){
+     writer.writeAttribute(QStringLiteral("useFirstPageNumber"), d->PuseFirstPageNumber);}
+     if(!d->PfirstPageNumber.isEmpty()){
+     writer.writeAttribute(QStringLiteral("firstPageNumber"), d->PfirstPageNumber);}
+     if(!d->Pscale.isEmpty()){
+     writer.writeAttribute(QStringLiteral("scale"), d->Pscale);}
+     if(!d->PpaperSize.isEmpty()){
+     writer.writeAttribute(QStringLiteral("paperSize"), d->PpaperSize);}
+     if(!d->Porientation.isEmpty()){
+     writer.writeAttribute(QStringLiteral("orientation"), d->Porientation);}
+     if(!d->Pcopies.isEmpty()){
+     writer.writeAttribute(QStringLiteral("copies"), d->Pcopies);}
+      writer.writeEndElement(); // pageSetup
+	
     // headerFooter
     if( !(d->MoodFooter.isNull()) ||
         !(d->MoodFooter.isNull()) )
     {
         writer.writeStartElement(QStringLiteral("headerFooter")); // headerFooter
-
+       if(!d->MoodalignWithMargins.isEmpty()){
+              writer.writeAttribute(QStringLiteral("alignWithMargins"), d->MoodalignWithMargins);} // add align by liufeijin 20190619
         // dev40 {{
         if (!d->ModdHeader.isNull())
         {
             writer.writeStartElement(QStringLiteral("oddHeader"));
-            writer.writeAttribute(QStringLiteral("xml:space"), QStringLiteral("preserve"));
+           // writer.writeAttribute(QStringLiteral("xml:space"), QStringLiteral("preserve"));  // must be deleted else footer and header can't show
             writer.writeCharacters(d->ModdHeader);
             writer.writeEndElement();// t
 
