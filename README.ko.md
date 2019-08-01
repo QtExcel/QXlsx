@@ -46,6 +46,7 @@ Travis CI | AppVeyor  | CodeFactor
 - QtXlsx 는 MIT 라이센스 입니다. [https://github.com/dbzhang800/QtXlsxWriter](https://github.com/dbzhang800/QtXlsxWriter)
 - Qt-Table-Printer 는 BSD 3-Clause 라이센스 입니다. [https://github.com/T0ny0/Qt-Table-Printer](https://github.com/T0ny0/Qt-Table-Printer) 
 - recurse 는 MIT 라이센스 입니다. [https://github.com/pkoretic/recurse](https://github.com/pkoretic/recurse)
+- libfort 는 MIT 라이센스 입니다. [https://github.com/seleznevae/libfort](https://github.com/seleznevae/libfort)
 - Qt 는 LGPL v3 라이센스 또는 상업용 라이센스 입니다. [https://www.qt.io/](https://www.qt.io/)
 
 ## :email: 문의
