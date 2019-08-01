@@ -16,6 +16,7 @@
 	- HelloAndroid : read xlsx on Android
 	- Copycat : load xlsx file and display on widget. print xlsx file.
 	- WebServer : load xlsx and display to web
+	- ShowConsole : load xlsx and display to console
 
 ## How to set up (Installation)
 

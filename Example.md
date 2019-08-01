@@ -96,3 +96,9 @@ int main(int argc, char *argv[])
 - C++ 14 is required. Old compilers is not supported.(based on recurse)
 
 ![](markdown.data/webserver.png)
+
+## ShowConsole : Console Example
+- Load xlsx file and display in console.
+- C++ 11 is required. Old compilers is not supported. (based on libfort)
+
+![](markdown.data/show-console.jpg)

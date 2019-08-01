@@ -16,6 +16,7 @@
 	- HelloAndroid : 안드로이드에서 xlsx 파일 열기
 	- Copycat : xlsx 파일을 읽어 위젯으로 표시. xlsx 파일 인쇄.
 	- WebServer : xlsx 파일을 읽어 웹으로 표시	
+	- ShowConsole : xlsx 파일을 읽어 콘솔에 표시
 
 ## 설정하는 방법 (설치)
 
