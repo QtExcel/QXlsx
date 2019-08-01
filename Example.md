@@ -99,6 +99,7 @@ int main(int argc, char *argv[])
 
 ## ShowConsole : Console Example
 - Load xlsx file and display in console.
+  - [Usage] ShowConsole *.xlsx
 - C++ 11 is required. Old compilers is not supported. (based on libfort)
 
 ![](markdown.data/show-console.jpg)
