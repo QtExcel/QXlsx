@@ -1167,7 +1167,9 @@ bool ChartPrivate::loadXmlAxisEG_AxShared(QXmlStreamReader &reader, XlsxAxis* ax
             {
                 // mandatory element
 
-                int axId = reader.attributes().value("val").toInt();
+                // int axId = reader.attributes().value("val").toInt();
+                int axId = reader.attributes().value("val").string()->toInt(); // for Qt5.0
+
                 axis->axisId = axId;
             }
             else if ( reader.name() == QLatin1String("scaling") )
@@ -1237,7 +1239,9 @@ bool ChartPrivate::loadXmlAxisEG_AxShared(QXmlStreamReader &reader, XlsxAxis* ax
             {
                 // mandatory element
 
-                int crossAx = reader.attributes().value(QLatin1String("val")).toInt();
+                // int crossAx = reader.attributes().value(QLatin1String("val")).toInt();
+                int crossAx = reader.attributes().value(QLatin1String("val")).string()->toInt(); // for Qt5.0
+
                 axis->crossAx = crossAx;
             }
             else if ( reader.name() == QLatin1String("crosses") )
