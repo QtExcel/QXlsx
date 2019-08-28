@@ -45,6 +45,8 @@ protected:
 protected:
     bool setSheet();
     std::string convertFromNumberToExcelColumn(int n);
+    double cellWidthToWidgetWidth(double width);
+    double cellHeightToWidgetHeight(double height);
 
 };
 

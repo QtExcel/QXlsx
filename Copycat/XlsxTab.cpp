@@ -174,15 +174,13 @@ bool XlsxTab::setSheet()
             double dRowHeight = wsheet->rowHeight( cl.row );
             double dColWidth  = wsheet->columnWidth( cl.col );
 
-            qDebug() <<" ROW HEIGHT: "  << dRowHeight << " COLUMN WIDTH: " << dColWidth;
+            // qDebug() <<" ROW HEIGHT: "  << dRowHeight << " COLUMN WIDTH: " << dColWidth;
 
-            // dRowHeight = dRowHeight * double(2.0);
-            // dColWidth = dColWidth * double(2.0);
+            double wWidth = cellWidthToWidgetWidth( dColWidth );
+            double wHeight = cellHeightToWidgetHeight( dRowHeight );
 
-            // TODO: define ratio of widget col/row
-
-            // table->setRowHeight( row, dRowHeight );
-            // table->setColumnWidth( col, dColWidth );
+            table->setRowHeight( row, wHeight );
+            table->setColumnWidth( col, wWidth );
 
           ////////////////////////////////////////////////////////////////////
           // font
@@ -348,4 +346,27 @@ std::string XlsxTab::convertFromNumberToExcelColumn(int n)
     stdString = str;
     return stdString;
 }
+
+// 72 points (DPI) = 1 inch = 2.54 cm = 96 pixels
+// 1 PT(point) = 1.333 PX(pixel) (point is a absolute unit.)
+// 1 PX(pixel) = 0.75  PT(point) (pixel is a relative unit.) (In Windows. Mac is diffrent.)
+
+double XlsxTab::cellWidthToWidgetWidth(double width)
+{
+    // unit of width is a character. default value is 8.43.
+    // 8.43 characters = 64 pixel = 48 point (in Windows)
+
+    double ret = width * (double(64) / double(8.43));
+    return ret;
+}
+
+double XlsxTab::cellHeightToWidgetHeight(double height)
+{
+    // default value is 16.5 point
+    // 3 point = 4 pixel
+
+    double ret = height * (double(3) / double(4));
+    return ret;
+}
+
 
