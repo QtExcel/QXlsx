@@ -30,17 +30,22 @@ private:
 public:
     enum CellType // See ECMA 376, 18.18.11. ST_CellType (Cell Type) for more information.
     {
-        BooleanType, DateType, ErrorType, InlineStringType, NumberType,
-        SharedStringType, StringType,
+        BooleanType,
+        DateType,
+        ErrorType,
+        InlineStringType,
+        NumberType,
+        SharedStringType,
+        StringType,
         CustomType, // custom or un-defined cell type
 	};
 
 public:
     Cell(const QVariant &data = QVariant(),
-        CellType type = NumberType,
-        const Format &format = Format(),
-        Worksheet *parent = NULL,
-        qint32 styleIndex = (-1) );
+            CellType type = NumberType,
+            const Format &format = Format(),
+            Worksheet *parent = NULL,
+            qint32 styleIndex = (-1) );
     Cell(const Cell * const cell);
     ~Cell();
 

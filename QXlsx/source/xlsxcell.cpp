@@ -228,13 +228,17 @@ bool Cell::isDateTime() const
 	bool isValidFormat = d->format.isValid();
 	bool isDateTimeFormat = d->format.isDateTimeFormat();
 
-	if ( cellType == NumberType && 
-		 dValue >= 0 &&
-		 isValidFormat &&
-		 isDateTimeFormat )
-	{
-		return true;
-	}
+    if ( // cellType == NumberType ||
+         cellType == DateType ||
+         cellType == CustomType )
+    {
+        if ( dValue >= 0 &&
+             isValidFormat &&
+             isDateTimeFormat )
+        {
+            return true;
+        }
+    }
 
 	return false;
 }

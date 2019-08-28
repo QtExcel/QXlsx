@@ -102,16 +102,60 @@ bool XlsxTab::setSheet()
 
           ////////////////////////////////////////////////////////////////////
           // cell pointer
+
           QSharedPointer<Cell> ptrCell = cl.cell;
 
           ////////////////////////////////////////////////////////////////////
           // create new item of table widget
+
           QTableWidgetItem* newItem = new QTableWidgetItem();
 
           ///////////////////////////////////////////////////////////////////
           // value of cell
-          QVariant var = cl.cell.data()->value();
-          QString str = var.toString();
+
+            QVariant var = cl.cell.data()->value(); // cell value
+            QString str;
+            Cell::CellType cType = cl.cell->cellType();
+
+            // [dev54]
+            if ( cType == Cell::DateType )
+            {
+                QString strValue;
+                QString strDate;
+                QString strTime;
+                bool isSetTime = false;
+
+                QDateTime datetimeValue = var.toDateTime();
+
+                QTime timeValue = datetimeValue.time();
+                if ( timeValue.isValid() )
+                {
+                    strTime = timeValue.toString();
+
+                    strValue.append( strTime );
+
+                    isSetTime = true;
+                }
+
+                QDate dateValue = datetimeValue.date();
+                if ( ! dateValue.isNull() )
+                {
+                    strDate = dateValue.toString();
+
+                    if (isSetTime)
+                        strValue.append( " " );
+
+                    strValue.append( strDate );
+                }
+
+
+                str = strValue;
+
+            }
+            else
+            {
+                str = var.toString();
+            }
 
           ////////////////////////////////////////////////////////////////////
           // set text
@@ -130,6 +174,8 @@ bool XlsxTab::setSheet()
             double dRowHeight = wsheet->rowHeight( cl.row );
             double dColWidth  = wsheet->columnWidth( cl.col );
 
+            qDebug() <<" ROW HEIGHT: "  << dRowHeight << " COLUMN WIDTH: " << dColWidth;
+
             // dRowHeight = dRowHeight * double(2.0);
             // dColWidth = dColWidth * double(2.0);
 
@@ -140,10 +186,12 @@ bool XlsxTab::setSheet()
 
           ////////////////////////////////////////////////////////////////////
           // font
+
           newItem->setFont( ptrCell->format().font() );
 
           ////////////////////////////////////////////////////////////////////
           // font color
+
           if ( ptrCell->format().fontColor().isValid() )
           {
             newItem->setTextColor( ptrCell->format().fontColor() );
@@ -170,6 +218,7 @@ bool XlsxTab::setSheet()
 
           ////////////////////////////////////////////////////////////////////
           // pattern
+
           Format::FillPattern fp = ptrCell->format().fillPattern();
           Qt::BrushStyle qbs = Qt::NoBrush;
           switch(fp)
@@ -204,7 +253,7 @@ bool XlsxTab::setSheet()
         */
 
           ////////////////////////////////////////////////////////////////////
-          // set alignment
+          // alignment
 
           int alignment = 0;
           Format::HorizontalAlignment ha = ptrCell->format().horizontalAlignment();

@@ -46,18 +46,18 @@ void XlsxTableWidget::mousePressEvent(QMouseEvent *event)
             int leftCol = range.leftColumn();
             int rightCol = range.rightColumn();
 
-            qDebug()
-            << QTime::currentTime();
+            // qDebug()
+            // << QTime::currentTime();
 
-            qDebug()
-            << "row: "     << rowCount << " : "
-            << " top:"     << topRow
-            << ", bottom:" << bottomRow ;
+            // qDebug()
+            // << "row: "     << rowCount << " : "
+            // << " top:"     << topRow
+            // << ", bottom:" << bottomRow ;
 
-            qDebug()
-            << "col: "   << colCount << " : "
-            << " left:"  << leftCol
-            << " right:" << rightCol ;
+            // qDebug()
+            // << "col: "   << colCount << " : "
+            // << " left:"  << leftCol
+            // << " right:" << rightCol ;
 
         }
 

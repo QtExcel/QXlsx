@@ -3,6 +3,8 @@
 #include <QtGlobal>
 #include <QVariant>
 #include <QDateTime>
+#include <QDate>
+#include <QTime>
 #include <QPoint>
 #include <QFile>
 #include <QUrl>
@@ -42,10 +44,18 @@
 QT_BEGIN_NAMESPACE_XLSX
 
 WorksheetPrivate::WorksheetPrivate(Worksheet *p, Worksheet::CreateFlag flag)
-	: AbstractSheetPrivate(p, flag)
-  , windowProtection(false), showFormulas(false), showGridLines(true), showRowColHeaders(true)
-  , showZeros(true), rightToLeft(false), tabSelected(false), showRuler(false)
-  , showOutlineSymbols(true), showWhiteSpace(true), urlPattern(QStringLiteral("^([fh]tt?ps?://)|(mailto:)|(file://)"))
+: AbstractSheetPrivate(p, flag),
+  windowProtection(false),
+  showFormulas(false),
+  showGridLines(true),
+  showRowColHeaders(true),
+  showZeros(true),
+  rightToLeft(false),
+  tabSelected(false),
+  showRuler(false),
+  showOutlineSymbols(true),
+  showWhiteSpace(true),
+  urlPattern(QStringLiteral("^([fh]tt?ps?://)|(mailto:)|(file://)"))
 {
 	previous_row = 0;
 
@@ -2160,7 +2170,9 @@ void WorksheetPrivate::loadXmlSheetData(QXmlStreamReader &reader)
 					styleIndex = idx;
 				}
 
-				Cell::CellType cellType = Cell::NumberType;
+                // Cell::CellType cellType = Cell::NumberType;
+                Cell::CellType cellType = Cell::CustomType;
+
 				if (attributes.hasAttribute(QLatin1String("t"))) // Type 
 				{
 					QString typeString = attributes.value(QLatin1String("t")).toString();
@@ -2199,10 +2211,19 @@ void WorksheetPrivate::loadXmlSheetData(QXmlStreamReader &reader)
 					}
 				}
 
+                // [dev54] temp cell for checking datetype
+                Cell tempCell(QVariant(), cellType, format, q, styleIndex);
+                if ( tempCell.isDateTime() )
+                {
+                    cellType = Cell::DateType;
+                }
+
 				// create a heap of new cell
 				QSharedPointer<Cell> cell(new Cell(QVariant(), cellType, format, q, styleIndex));
 
-				while (!reader.atEnd() && !(reader.name() == QLatin1String("c") && reader.tokenType() == QXmlStreamReader::EndElement)) 
+                while (!reader.atEnd() &&
+                       !(reader.name() == QLatin1String("c") &&
+                         reader.tokenType() == QXmlStreamReader::EndElement))
 				{
 					if (reader.readNextStartElement())
 					{
@@ -2239,30 +2260,72 @@ void WorksheetPrivate::loadXmlSheetData(QXmlStreamReader &reader)
 							{
 								cell->d_func()->value = value.toInt() ? true : false;
 							} 
+                            else  if (cellType == Cell::DateType)
+                            {
+                                // [dev54] DateType
+
+                                double dValue = value.toDouble(); // days from 1900
+                                int iValue = (int) dValue; // days from 1900 (integer)
+                                double dTime = dValue - double(dValue); // time (under date)
+
+                                bool bIsDate1904 = q->workbook()->isDate1904();
+                                QDateTime datetimeValue = datetimeFromNumber( dValue, bIsDate1904 );
+                                cell->d_func()->value = datetimeValue;
+
+                                if ( dValue < double(1) ) // only time
+                                {
+                                    QDate nullDate;
+                                    QTime timeValue = datetimeValue.time();
+                                    cell->d_func()->value = QDateTime( nullDate, timeValue );
+                                }
+
+                                double cmpDValue = double(iValue);
+                                if ( dValue == cmpDValue ) // only date
+                                {
+                                    QDate dateValue = datetimeValue.date();
+                                    QTime nullTime; // null time is (Hout:Minute:Second)=(0:0:0).
+                                    cell->d_func()->value = QDateTime( dateValue, nullTime );
+                                }
+
+                            }
 							else 
-							{ //Cell::ErrorType and Cell::StringType
+                            {
+                                // ELSE type
 								cell->d_func()->value = value;
 							} 
-						} else if (reader.name() == QLatin1String("is")) {
-							while (!reader.atEnd() && !(reader.name() == QLatin1String("is") && reader.tokenType() == QXmlStreamReader::EndElement)) {
-								if (reader.readNextStartElement()) {
+
+                        }
+                        else if (reader.name() == QLatin1String("is"))
+                        {
+                            while (!reader.atEnd() &&
+                                   !(reader.name() == QLatin1String("is") &&
+                                   reader.tokenType() == QXmlStreamReader::EndElement))
+                            {
+                                if (reader.readNextStartElement())
+                                {
 									//:Todo, add rich text read support
-									if (reader.name() == QLatin1String("t")) {
+                                    if (reader.name() == QLatin1String("t"))
+                                    {
 										cell->d_func()->value = reader.readElementText();
 									}
 								}
 							}
-						} else if (reader.name() == QLatin1String("extLst")) {
+                        }
+                        else if (reader.name() == QLatin1String("extLst"))
+                        {
 							//skip extLst element
-							while (!reader.atEnd() && !(reader.name() == QLatin1String("extLst")
-														&& reader.tokenType() == QXmlStreamReader::EndElement)) {
+                            while ( !reader.atEnd() &&
+                                    !(reader.name() == QLatin1String("extLst") &&
+                                    reader.tokenType() == QXmlStreamReader::EndElement))
+                            {
 								reader.readNextStartElement();
 							}
 						}
 					}
 				}
 
-				cellTable[pos.row()][pos.column()] = cell;
+                cellTable[ pos.row() ][ pos.column() ] = cell;
+
 			}
 		}
 	}
