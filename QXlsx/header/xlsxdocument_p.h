@@ -23,13 +23,15 @@
 // We mean it.
 //
 
+#include <QtGlobal>
+#include <QMap>
+
+#include "xlsxglobal.h"
 #include "xlsxdocument.h"
 #include "xlsxworkbook.h"
 #include "xlsxcontenttypes_p.h"
 
-#include <QMap>
-
-namespace QXlsx {
+QT_BEGIN_NAMESPACE_XLSX
 
 class DocumentPrivate
 {
@@ -51,6 +53,6 @@ public:
 	bool isLoad; 
 };
 
-}
+QT_END_NAMESPACE_XLSX
 
 #endif // XLSXDOCUMENT_P_H

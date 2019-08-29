@@ -37,17 +37,18 @@
 // We mean it.
 //
 
-#include "xlsxrelationships_p.h"
-#include "xlsxabstractooxmlfile.h"
-
+#include <QtGlobal>
 #include <QList>
 #include <QString>
 #include <QSharedPointer>
 
+#include "xlsxrelationships_p.h"
+#include "xlsxabstractooxmlfile.h"
+
 class QIODevice;
 class QXmlStreamWriter;
 
-namespace QXlsx {
+QT_BEGIN_NAMESPACE_XLSX
 
 class DrawingAnchor;
 class Workbook;
@@ -67,6 +68,6 @@ public:
     QList<DrawingAnchor *> anchors;
 };
 
-} // namespace QXlsx
+QT_END_NAMESPACE_XLSX
 
 #endif // QXLSX_DRAWING_H

@@ -37,18 +37,19 @@
 // We mean it.
 //
 
-#include "xlsxglobal.h"
 #include <QVariant>
 #include <QColor>
+
+#include "xlsxglobal.h"
 
 class QXmlStreamWriter;
 class QXmlStreamReader;
 
-namespace QXlsx {
+QT_BEGIN_NAMESPACE_XLSX
 
 class Styles;
 
-class   XlsxColor
+class XlsxColor
 {
 public:
     explicit XlsxColor(const QColor &color = QColor());
@@ -85,7 +86,7 @@ private:
   QDebug operator<<(QDebug dbg, const XlsxColor &c);
 #endif
 
-} // namespace QXlsx
+QT_END_NAMESPACE_XLSX
 
 Q_DECLARE_METATYPE(QXlsx::XlsxColor)
 

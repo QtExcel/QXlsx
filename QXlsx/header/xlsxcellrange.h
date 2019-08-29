@@ -1,4 +1,5 @@
 // xlsxcellrange.h
+
 #ifndef QXLSX_XLSXCELLRANGE_H
 #define QXLSX_XLSXCELLRANGE_H
 

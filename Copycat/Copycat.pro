@@ -1,8 +1,5 @@
-#
 # Copycat.pro
-#
-# QXlsx, MIT License, https://github.com/QtExcel/QXlsx
-#
+# QXlsx https://github.com/QtExcel/QXlsx
 
 TARGET = Copycat
 TEMPLATE = app

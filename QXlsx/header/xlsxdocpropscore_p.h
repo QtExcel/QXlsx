@@ -38,14 +38,15 @@
 
 #include "xlsxglobal.h"
 #include "xlsxabstractooxmlfile.h"
+
 #include <QMap>
 #include <QStringList>
 
 class QIODevice;
 
-namespace QXlsx {
+QT_BEGIN_NAMESPACE_XLSX
 
-class  DocPropsCore : public AbstractOOXmlFile
+class DocPropsCore : public AbstractOOXmlFile
 {
 public:
     explicit DocPropsCore(CreateFlag flag);
@@ -61,5 +62,6 @@ private:
     QMap<QString, QString> m_properties;
 };
 
-}
+QT_END_NAMESPACE_XLSX
+
 #endif // XLSXDOCPROPSCORE_H

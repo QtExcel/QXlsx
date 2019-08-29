@@ -34,6 +34,9 @@
 #include <QDateTime>
 #include <QDebug>
 
+#include <cmath>
+#include <string>
+
 QT_BEGIN_NAMESPACE_XLSX
 
 bool parseXsdBoolean(const QString &value, bool defaultValue)
@@ -100,24 +103,49 @@ double timeToNumber(const QTime &time)
     return QTime(0,0).msecsTo(time) / (1000*60*60*24.0);
 }
 
-QDateTime datetimeFromNumber(double num, bool is1904)
+QVariant datetimeFromNumber(double num, bool is1904)
 {
-    if (!is1904 && num > 60)
+    if (!is1904 && num > 60) // for mac os excel
+    {
         num = num - 1;
+    }
 
     qint64 msecs = static_cast<qint64>(num * 1000*60*60*24.0 + 0.5);
     QDateTime epoch(is1904 ? QDate(1904, 1, 1): QDate(1899, 12, 31), QTime(0,0));
 
-    QDateTime dt = epoch.addMSecs(msecs);
+    QDateTime dt;
+
+    QDateTime dt1 = epoch.addMSecs(msecs);
+    dt = dt1;
 
 #if QT_VERSION >= 0x050200
     // Remove one hour to see whether the date is Daylight
     QDateTime dt2 = dt.addMSecs(-3600);
     if (dt2.isDaylightTime())
-        return dt2;
+    {
+        dt = dt2;
+    }
 #endif
 
-    return dt;
+    float whole = 0;
+    float fractional = std::modf(num, &whole);
+
+    if ( num < double(1) )
+    {
+        // only time
+        QTime t = dt.time();
+        return QVariant(t);
+    }
+
+    if ( fractional == 0.0 )
+    {
+        // only date
+        // qDebug() << "[debug] " << num << whole << fractional;
+        QDate onlyDT = dt.date();
+        return QVariant(onlyDT);
+    }
+
+    return QVariant(dt);
 }
 
 /*

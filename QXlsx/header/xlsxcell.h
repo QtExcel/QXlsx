@@ -6,7 +6,12 @@
 #include <cstdio>
 
 #include <QtGlobal>
+#include <QObject>
+#include <QString>
 #include <QVariant>
+#include <QDate>
+#include <QDateTime>
+#include <QTime>
 
 #include "xlsxglobal.h"
 #include "xlsxformat.h"
@@ -62,7 +67,8 @@ public:
 	CellFormula formula() const;
 
 	bool isDateTime() const;
-	QDateTime dateTime() const;
+     // QDateTime dateTime() const;
+    QVariant dateTime() const;
 
 	bool isRichString() const;
 

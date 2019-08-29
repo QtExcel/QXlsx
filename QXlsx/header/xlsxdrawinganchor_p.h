@@ -32,11 +32,10 @@
 #include <QSize>
 #include <QString>
 #include <QSharedPointer>
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 
-class QXmlStreamReader;
-class QXmlStreamWriter;
-
-namespace QXlsx {
+QT_BEGIN_NAMESPACE_XLSX
 
 class Drawing;
 class MediaFile;
@@ -171,6 +170,6 @@ public:
     void saveToXml(QXmlStreamWriter &writer) const;
 };
 
-} // namespace QXlsx
+QT_END_NAMESPACE_XLSX
 
 #endif // QXLSX_XLSXDRAWINGANCHOR_P_H

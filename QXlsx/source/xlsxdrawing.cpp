@@ -31,7 +31,7 @@
 #include <QXmlStreamReader>
 #include <QBuffer>
 
-namespace QXlsx {
+QT_BEGIN_NAMESPACE_XLSX
 
 Drawing::Drawing(AbstractSheet *sheet, CreateFlag flag)
     :AbstractOOXmlFile(flag), sheet(sheet)
@@ -84,4 +84,4 @@ bool Drawing::loadFromXmlFile(QIODevice *device)
     return true;
 }
 
-} // namespace QXlsx
+QT_END_NAMESPACE_XLSX

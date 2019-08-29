@@ -38,15 +38,18 @@
 //
 
 #include "xlsxglobal.h"
+
 #include <QScopedPointer>
 #include <QStringList>
-#if QT_VERSION >= 0x050600
-#include <QVector>
-#endif
-class QZipReader;
-class QIODevice;
+#include <QIODevice>
 
-namespace QXlsx {
+#if QT_VERSION >= 0x050600
+ #include <QVector>
+#endif
+
+class QZipReader;
+
+QT_BEGIN_NAMESPACE_XLSX
 
 class  ZipReader
 {
@@ -65,6 +68,6 @@ private:
     QStringList m_filePaths;
 };
 
-} // namespace QXlsx
+QT_END_NAMESPACE_XLSX
 
 #endif // QXLSX_XLSXZIPREADER_P_H

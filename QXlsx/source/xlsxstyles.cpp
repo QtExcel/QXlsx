@@ -23,7 +23,7 @@
 #include <QDebug>
 #include <QBuffer>
 
-namespace QXlsx {
+QT_BEGIN_NAMESPACE_XLSX
 
 /*
   When loading from existing .xlsx file. we should create a clean styles object.
@@ -1343,4 +1343,4 @@ QColor Styles::getColorByIndex(int idx)
     return m_indexedColors[idx];
 }
 
-} //namespace QXlsx
+QT_END_NAMESPACE_XLSX

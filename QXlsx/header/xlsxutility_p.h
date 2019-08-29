@@ -37,12 +37,18 @@
 //
 
 #include "xlsxglobal.h"
-class QPoint;
-class QString;
-class QStringList;
-class QColor;
-class QDateTime;
-class QTime;
+
+#include <QtGlobal>
+#include <QObject>
+#include <QString>
+#include <QPoint>
+#include <QString>
+#include <QStringList>
+#include <QColor>
+#include <QDateTime>
+#include <QDate>
+#include <QTime>
+#include <QVariant>
 
 QT_BEGIN_NAMESPACE_XLSX
 
@@ -54,7 +60,7 @@ QStringList splitPath(const QString &path);
 QString getRelFilePath(const QString &filePath);
 
 double datetimeToNumber(const QDateTime &dt, bool is1904=false);
-QDateTime datetimeFromNumber(double num, bool is1904=false);
+QVariant datetimeFromNumber(double num, bool is1904=false);
 double timeToNumber(const QTime &t);
 
 QString createSafeSheetName(const QString &nameProposal);

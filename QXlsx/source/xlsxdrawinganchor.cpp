@@ -35,7 +35,7 @@
 #include <QBuffer>
 #include <QDir>
 
-namespace QXlsx {
+QT_BEGIN_NAMESPACE_XLSX
 
 /*
      The vertices that define the position of a graphical object
@@ -971,4 +971,4 @@ bool DrawingTwoCellAnchor::loadFromXml(QXmlStreamReader &reader)
 }
 
 
-} // namespace QXlsx
+QT_END_NAMESPACE_XLSX

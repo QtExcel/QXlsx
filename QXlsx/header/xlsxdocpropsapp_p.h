@@ -45,7 +45,7 @@
 
 class QIODevice;
 
-namespace QXlsx {
+QT_BEGIN_NAMESPACE_XLSX
 
 class  DocPropsApp : public AbstractOOXmlFile
 {
@@ -68,5 +68,6 @@ private:
     QMap<QString, QString> m_properties;
 };
 
-}
+QT_END_NAMESPACE_XLSX
+
 #endif // XLSXDOCPROPSAPP_H

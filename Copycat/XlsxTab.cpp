@@ -95,7 +95,7 @@ bool XlsxTab::setSheet()
           CellLocation cl = clList.at(ic);
 
           ////////////////////////////////////////////////////////////////////
-          // First cell of tableWidget is 0.
+          // First cell index of tableWidget is 0.
           // But first cell of Qxlsx document is 1.
           int row = cl.row - 1;
           int col = cl.col - 1;
@@ -117,45 +117,9 @@ bool XlsxTab::setSheet()
             QString str;
             Cell::CellType cType = cl.cell->cellType();
 
-            // [dev54]
-            if ( cType == Cell::DateType )
-            {
-                QString strValue;
-                QString strDate;
-                QString strTime;
-                bool isSetTime = false;
+            // qDebug() << "(r,c) = " << cl.row << cl.col << var.toString()  ;
 
-                QDateTime datetimeValue = var.toDateTime();
-
-                QTime timeValue = datetimeValue.time();
-                if ( timeValue.isValid() )
-                {
-                    strTime = timeValue.toString();
-
-                    strValue.append( strTime );
-
-                    isSetTime = true;
-                }
-
-                QDate dateValue = datetimeValue.date();
-                if ( ! dateValue.isNull() )
-                {
-                    strDate = dateValue.toString();
-
-                    if (isSetTime)
-                        strValue.append( " " );
-
-                    strValue.append( strDate );
-                }
-
-
-                str = strValue;
-
-            }
-            else
-            {
-                str = var.toString();
-            }
+            str = var.toString();
 
           ////////////////////////////////////////////////////////////////////
           // set text

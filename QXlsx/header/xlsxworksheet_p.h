@@ -137,16 +137,30 @@ struct XlsxRowInfo
 
 struct XlsxColumnInfo
 {
-    XlsxColumnInfo(int firstColumn=0, int lastColumn=1, double width=0, const Format &format=Format(), bool hidden=false) :
-        firstColumn(firstColumn), lastColumn(lastColumn), customWidth(false), width(width), format(format), hidden(hidden)
-      , outlineLevel(0), collapsed(false)
+    XlsxColumnInfo( int firstColumn, // = 0,
+                    int lastColumn, // = 1,
+                    bool isSetWidth,
+                    double width = 0,
+                    const Format &format = Format(),
+                    bool hidden = false)
+        : firstColumn(firstColumn),
+          lastColumn(lastColumn),
+          customWidth(false),
+          isSetWidth(isSetWidth),
+          width(width),
+          format(format),
+          hidden(hidden),
+          outlineLevel(0),
+          collapsed(false)
     {
 
     }
+
     int firstColumn;
     int lastColumn;
     bool customWidth;
-    double width;    
+    double width;
+    bool isSetWidth;
     Format format;
     bool hidden;
     int outlineLevel;

@@ -24,9 +24,10 @@
 ****************************************************************************/
 
 #include "xlsxmediafile_p.h"
+
 #include <QCryptographicHash>
 
-namespace QXlsx {
+QT_BEGIN_NAMESPACE_XLSX
 
 MediaFile::MediaFile(const QByteArray &bytes, const QString &suffix, const QString &mimeType)
     : m_contents(bytes), m_suffix(suffix), m_mimeType(mimeType)
@@ -96,4 +97,4 @@ QByteArray MediaFile::hashKey() const
     return m_hashKey;
 }
 
-} // namespace QXlsx
+QT_END_NAMESPACE_XLSX

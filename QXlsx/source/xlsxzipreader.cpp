@@ -27,7 +27,7 @@
 
 #include <private/qzipreader_p.h>
 
-namespace QXlsx {
+QT_BEGIN_NAMESPACE_XLSX
 
 ZipReader::ZipReader(const QString &filePath) :
     m_reader(new QZipReader(filePath))
@@ -74,4 +74,4 @@ QByteArray ZipReader::fileData(const QString &fileName) const
     return m_reader->fileData(fileName);
 }
 
-} // namespace QXlsx
+QT_END_NAMESPACE_XLSX

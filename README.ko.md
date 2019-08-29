@@ -30,13 +30,10 @@ Travis CI | AppVeyor  | CodeFactor
 
 - [테스트된 환경](TestEnv.md) 참조
 
-## 이슈
-
-[![Waffle.io - Columns and their card count](https://badge.waffle.io/QtExcel/QXlsx.svg?columns=all)](https://waffle.io/QtExcel/QXlsx) 
-
 ## 할 일
 - [테스트 할 일](ToTest.md)
 - [업그레이드 할 일](ToUpgrade.md)
+- [비전](Vision.md)
 
 ## 컨트리뷰터
 - [컨트리뷰터](https://github.com/QtExcel/QXlsx/graphs/contributors) 참조.

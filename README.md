@@ -30,13 +30,10 @@ Travis CI | AppVeyor  | CodeFactor
 
 - See [tested environments](TestEnv.md)
 
-## Issue
-
-[![Waffle.io - Columns and their card count](https://badge.waffle.io/QtExcel/QXlsx.svg?columns=all)](https://waffle.io/QtExcel/QXlsx) 
-
 ## To Do
 - [To test](ToTest.md)
 - [What to upgrade](ToUpgrade.md).
+- [Vision](Vision.md)
 
 ## Contributions
 - See [contributors](https://github.com/QtExcel/QXlsx/graphs/contributors).

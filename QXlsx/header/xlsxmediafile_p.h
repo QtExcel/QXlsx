@@ -43,7 +43,7 @@
 #include <QString>
 #include <QByteArray>
 
-namespace QXlsx {
+QT_BEGIN_NAMESPACE_XLSX
 
 class MediaFile
 {
@@ -75,6 +75,6 @@ private:
     QByteArray m_hashKey;
 };
 
-} // namespace QXlsx
+QT_END_NAMESPACE_XLSX
 
 #endif // QXLSX_XLSXMEDIAFILE_H

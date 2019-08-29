@@ -36,22 +36,23 @@
 // We mean it.
 //
 
-#include "xlsxglobal.h"
-#include "xlsxformat.h"
-#include "xlsxabstractooxmlfile.h"
 #include <QSharedPointer>
 #include <QHash>
 #include <QList>
 #include <QMap>
 #include <QStringList>
 #include <QVector>
+#include <QXmlStreamWriter>
+#include <QXmlStreamReader>
+#include <QIODevice>
 
-class QXmlStreamWriter;
-class QXmlStreamReader;
-class QIODevice;
-class StylesTest;
+// class StylesTest;
 
-namespace QXlsx {
+#include "xlsxglobal.h"
+#include "xlsxformat.h"
+#include "xlsxabstractooxmlfile.h"
+
+QT_BEGIN_NAMESPACE_XLSX
 
 class Format;
 class XlsxColor;
@@ -81,7 +82,7 @@ public:
 
 private:
     friend class Format;
-    friend class ::StylesTest;
+    // friend class ::StylesTest;
 
     void fixNumFmt(const Format &format);
 
@@ -137,5 +138,6 @@ private:
     bool m_emptyFormatAdded;
 };
 
-}
+QT_END_NAMESPACE_XLSX
+
 #endif // XLSXSTYLES_H

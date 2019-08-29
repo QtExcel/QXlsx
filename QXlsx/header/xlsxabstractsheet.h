@@ -3,12 +3,7 @@
 #ifndef XLSXABSTRACTSHEET_H
 #define XLSXABSTRACTSHEET_H
 
-#include <QtGlobal>
-#include <QObject>
-#include <QString>
-#include <QStringList>
-#include <QSharedPointer>
-
+#include "xlsxglobal.h"
 #include "xlsxabstractooxmlfile.h"
 
 QT_BEGIN_NAMESPACE_XLSX

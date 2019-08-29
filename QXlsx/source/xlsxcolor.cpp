@@ -18,8 +18,7 @@
 #include <QXmlStreamWriter>
 #include <QDebug>
 
-namespace QXlsx {
-
+QT_BEGIN_NAMESPACE_XLSX
 
 XlsxColor::XlsxColor(const QColor &color)
 {
@@ -206,4 +205,5 @@ QDebug operator<<(QDebug dbg, const XlsxColor &c)
 
 #endif
 
-} // namespace QXlsx
+
+QT_END_NAMESPACE_XLSX

@@ -30,7 +30,7 @@
 #include <QBuffer>
 #include <QDebug>
 
-namespace QXlsx {
+QT_BEGIN_NAMESPACE_XLSX
 
 ContentTypes::ContentTypes(CreateFlag flag)
     :AbstractOOXmlFile(flag)
@@ -202,4 +202,4 @@ bool ContentTypes::loadFromXmlFile(QIODevice *device)
     return true;
 }
 
-} //namespace QXlsx
+QT_END_NAMESPACE_XLSX
