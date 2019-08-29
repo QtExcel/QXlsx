@@ -2,7 +2,7 @@
 
 ## HelloWorld
 
-- Hello world example
+- [Hello world example](/HelloWorld)
 
 ```cpp
 // main.cpp
