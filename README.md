@@ -47,7 +47,6 @@ Travis CI | AppVeyor  | CodeFactor
 - Qt is under LGPL v3 license or Commercial license. [https://www.qt.io/](https://www.qt.io/) 
 
 ## :email: Contact
-- Hi! I'm j2doll (aka Jay Two). My name is Korean and it is difficult for foreigners to pronounce it. Call me j2doll.
 - Leave me a issue. [https://github.com/QtExcel/QXlsx/issues](https://github.com/QtExcel/QXlsx/issues)
 	- If you are interested in participating in the project, please contact us by issue.
 	- My native language is not English and my English is not fluent. Please, use EASY English. :-)
@@ -61,7 +60,7 @@ Travis CI | AppVeyor  | CodeFactor
 <p align="center"><img src="https://github.com/QtExcel/Qxlnt/raw/master/markdown-data/Concept-QXlnt.jpg"></p>
 
 - Qxlnt is a helper project that allows xlnt to be used in Qt.
-- xlnt is a excellent C++ library for using xlsx Excel files. :+1:
+- xlnt is a excellent C++ library for using xlsx Excel files.
 - I was looking for a way to make it easy to use in Qt. Of course, cmake is compatible with Qt, but it is not convenient to use. So I created Qxlnt.
 
 ### :star: <b>Qlibxlsxwriter</b> [https://github.com/QtExcel/Qlibxlsxwriter](https://github.com/QtExcel/Qlibxlsxwriter)

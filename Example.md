@@ -1,6 +1,6 @@
 # QXlsx Examples
 
-## [HelloWorld](/HelloWorld)
+## [HelloWorld](https://github.com/QtExcel/QXlsx/tree/master/HelloWorld)
 
 - Hello world example
 
@@ -51,7 +51,7 @@ int main(int argc, char *argv[])
 }
 ```
 
-## [TestExcel](/TestExcel)
+## [TestExcel](https://github.com/QtExcel/QXlsx/tree/master/TestExcel)
 
 - :zap: Basic examples (based on QtXlsx examples)
     - calendar
@@ -75,7 +75,7 @@ int main(int argc, char *argv[])
 
 ![](markdown.data/testexcel.png)
 
-## [HelloAndroid : Android Example](/HelloAndroid)
+## [HelloAndroid : Android Example](https://github.com/QtExcel/QXlsx/tree/master/HelloAndroid)
 
 - See 'HelloAndroid' example using QML and native C++.
 
@@ -83,21 +83,21 @@ int main(int argc, char *argv[])
 
 ![](markdown.data/android.jpg)
 
-## [Copycat : Windows Widget Example](/Copycat)
+## [Copycat : Windows Widget Example](https://github.com/QtExcel/QXlsx/tree/master/Copycat)
 - Load xlsx file and display on Qt widgets. 
 - Print xlsx to paper. (based on Qt-Table-Printer)
 - TODO: save xlsx.
 
 ![](markdown.data/copycat.png)
 
-## [WebServer : Web Server Example](/WebServer)
+## [WebServer : Web Server Example](https://github.com/QtExcel/QXlsx/tree/master/WebServer)
 - Load xlsx file and display on Web.
 - Connect to `http://127.0.0.1:3001`
 - C++ 14 is required. Old compilers is not supported.(based on recurse)
 
 ![](markdown.data/webserver.png)
 
-## [ShowConsole : Console Example](/ShowConsole)
+## [ShowConsole : Console Example](https://github.com/QtExcel/QXlsx/tree/master/ShowConsole)
 - Load xlsx file and display in console.
   - [Usage] ShowConsole *.xlsx
 - C++ 11 is required. Old compilers is not supported. (based on libfort)
