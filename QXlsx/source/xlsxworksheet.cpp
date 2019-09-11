@@ -191,11 +191,13 @@ Worksheet *Worksheet::copy(const QString &distName, int distId) const
 	sheet_d->dimension = d->dimension;
 
 	QMapIterator<int, QMap<int, QSharedPointer<Cell> > > it(d->cellTable);
-	while (it.hasNext()) {
+    while (it.hasNext())
+    {
 		it.next();
 		int row = it.key();
 		QMapIterator<int, QSharedPointer<Cell> > it2(it.value());
-		while (it2.hasNext()) {
+        while (it2.hasNext())
+        {
 			it2.next();
 			int col = it2.key();
 
@@ -1121,19 +1123,29 @@ bool Worksheet::mergeCells(const CellRange &range, const Format &format)
 		return false;
 
 	if (format.isValid())
+    {
 		d->workbook->styles()->addXfFormat(format);
+    }
 
-	for (int row = range.firstRow(); row <= range.lastRow(); ++row) {
-		for (int col = range.firstColumn(); col <= range.lastColumn(); ++col) {
-			if (row == range.firstRow() && col == range.firstColumn()) {
+    for (int row = range.firstRow(); row <= range.lastRow(); ++row)
+    {
+        for (int col = range.firstColumn(); col <= range.lastColumn(); ++col)
+        {
+            if (row == range.firstRow() && col == range.firstColumn())
+            {
 				Cell *cell = cellAt(row, col);
-				if (cell) {
+                if (cell)
+                {
 					if (format.isValid())
 						cell->d_ptr->format = format;
-				} else {
+                }
+                else
+                {
 					writeBlank(row, col, format);
 				}
-			} else {
+            }
+            else
+            {
 				writeBlank(row, col, format);
 			}
 		}
@@ -2420,10 +2432,15 @@ void WorksheetPrivate::loadXmlMergeCells(QXmlStreamReader &reader)
 	QXmlStreamAttributes attributes = reader.attributes();
 	int count = attributes.value(QLatin1String("count")).toString().toInt();
 
-	while (!reader.atEnd() && !(reader.name() == QLatin1String("mergeCells") && reader.tokenType() == QXmlStreamReader::EndElement)) {
+    while ( !reader.atEnd() &&
+            !(reader.name() == QLatin1String("mergeCells") &&
+            reader.tokenType() == QXmlStreamReader::EndElement) )
+    {
 		reader.readNextStartElement();
-		if (reader.tokenType() == QXmlStreamReader::StartElement) {
-			if (reader.name() == QLatin1String("mergeCell")) {
+        if (reader.tokenType() == QXmlStreamReader::StartElement)
+        {
+            if (reader.name() == QLatin1String("mergeCell"))
+            {
 				QXmlStreamAttributes attrs = reader.attributes();
 				QString rangeStr = attrs.value(QLatin1String("ref")).toString();
 				merges.append(CellRange(rangeStr));
@@ -2432,7 +2449,9 @@ void WorksheetPrivate::loadXmlMergeCells(QXmlStreamReader &reader)
 	}
 
 	if (merges.size() != count)
-		qDebug("read merge cells error");
+    {
+        qWarning("read merge cells error");
+    }
 }
 
 void WorksheetPrivate::loadXmlDataValidations(QXmlStreamReader &reader)
@@ -2638,32 +2657,53 @@ bool Worksheet::loadFromXmlFile(QIODevice *device)
 	Q_D(Worksheet);
 
 	QXmlStreamReader reader(device);
-	while (!reader.atEnd()) {
+    while (!reader.atEnd())
+    {
 		reader.readNextStartElement();
-		if (reader.tokenType() == QXmlStreamReader::StartElement) {
-			if (reader.name() == QLatin1String("dimension")) {
+        if (reader.tokenType() == QXmlStreamReader::StartElement)
+        {
+            if (reader.name() == QLatin1String("dimension"))
+            {
 				QXmlStreamAttributes attributes = reader.attributes();
 				QString range = attributes.value(QLatin1String("ref")).toString();
 				d->dimension = CellRange(range);
-			} else if (reader.name() == QLatin1String("sheetViews")) {
+            }
+            else if (reader.name() == QLatin1String("sheetViews"))
+            {
 				d->loadXmlSheetViews(reader);
-			} else if (reader.name() == QLatin1String("sheetFormatPr")) {
+            }
+            else if (reader.name() == QLatin1String("sheetFormatPr"))
+            {
 				d->loadXmlSheetFormatProps(reader);
-			} else if (reader.name() == QLatin1String("cols")) {
+            }
+            else if (reader.name() == QLatin1String("cols"))
+            {
 				d->loadXmlColumnsInfo(reader);
-			} else if (reader.name() == QLatin1String("sheetData")) {
+            }
+            else if (reader.name() == QLatin1String("sheetData"))
+            {
 				d->loadXmlSheetData(reader);
-			} else if (reader.name() == QLatin1String("mergeCells")) {
+            }
+            else if (reader.name() == QLatin1String("mergeCells"))
+            {
 				d->loadXmlMergeCells(reader);
-			} else if (reader.name() == QLatin1String("dataValidations")) {
+            }
+            else if (reader.name() == QLatin1String("dataValidations"))
+            {
 				d->loadXmlDataValidations(reader);
-			} else if (reader.name() == QLatin1String("conditionalFormatting")) {
+            }
+            else if (reader.name() == QLatin1String("conditionalFormatting"))
+            {
 				ConditionalFormatting cf;
 				cf.loadFromXml(reader, workbook()->styles());
 				d->conditionalFormattingList.append(cf);
-			} else if (reader.name() == QLatin1String("hyperlinks")) {
+            }
+            else if (reader.name() == QLatin1String("hyperlinks"))
+            {
 				d->loadXmlHyperlinks(reader);
-            } else if(reader.name() == QLatin1String("pageSetup")) {
+            }
+            else if(reader.name() == QLatin1String("pageSetup"))
+            {
                 QXmlStreamAttributes attributes = reader.attributes();
 
                 d->PpaperSize = attributes.value(QLatin1String("paperSize")).toString().trimmed();
@@ -2675,7 +2715,9 @@ bool Worksheet::loadFromXmlFile(QIODevice *device)
                 d->PverticalDpi = attributes.value(QLatin1String("verticalDpi")).toString().trimmed();
                 d->Prid=attributes.value(QLatin1String("r:id")).toString().trimmed();
                 d->Pcopies=attributes.value(QLatin1String("copies")).toString().trimmed();
-            } else if(reader.name() == QLatin1String("pageMargins")) {
+            }
+            else if(reader.name() == QLatin1String("pageMargins"))
+            {
                 QXmlStreamAttributes attributes = reader.attributes();
 
                 d->PMfooter= attributes.value(QLatin1String("footer")).toString().trimmed();
@@ -2684,18 +2726,9 @@ bool Worksheet::loadFromXmlFile(QIODevice *device)
                 d->PMtop = attributes.value(QLatin1String("top")).toString().trimmed();
                 d->PMright = attributes.value(QLatin1String("right")).toString().trimmed();
                 d->PMleft = attributes.value(QLatin1String("left")).toString().trimmed();
-            } else if(reader.name() == QLatin1String("headerFooter")){
-
-                /*
-                reader.readNextStartElement();
-
-                if ( (reader.tokenType() == QXmlStreamReader::StartElement) &&
-                     (reader.name() == QLatin1String("oddHeader")) )
-                {
-                    d->ModdHeader=reader.readElementText();
-                }
-                */
-
+            }
+            else if(reader.name() == QLatin1String("headerFooter"))
+            {
                 // dev40
                 while (reader.readNextStartElement())
                 {
@@ -2705,14 +2738,17 @@ bool Worksheet::loadFromXmlFile(QIODevice *device)
                     if (reader.name() == QLatin1String("oddFooter"))
                             d->MoodFooter = reader.readElementText();
                 }
-
-			} else if (reader.name() == QLatin1String("drawing")) {
+            }
+            else if (reader.name() == QLatin1String("drawing"))
+            {
 				QString rId = reader.attributes().value(QStringLiteral("r:id")).toString();
 				QString name = d->relationships->getRelationshipById(rId).target;
 				QString path = QDir::cleanPath(splitPath(filePath())[0] + QLatin1String("/") + name);
 				d->drawing = QSharedPointer<Drawing>(new Drawing(this, F_LoadFromExists));
 				d->drawing->setFilePath(path);
-			} else if (reader.name() == QLatin1String("extLst")) {
+            }
+            else if (reader.name() == QLatin1String("extLst"))
+            {
 				//Todo: add extLst support
                 while ( !reader.atEnd() &&
                         !(reader.name() == QLatin1String("extLst") &&

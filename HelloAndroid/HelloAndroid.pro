@@ -1,7 +1,4 @@
-#
 # HelloAndroid.pro
-#
-# QXlsx # MIT License # https://github.com/QtExcel/QXlsx
 
 # TARGET = HelloAndroid
 
@@ -27,7 +24,7 @@ include(../QXlsx/QXlsx.pri)
 
 HEADERS += \
 XlsxTableModel.h \
-    DynArray2D.h
+DynArray2D.h
 
 SOURCES += \
 main.cpp \

@@ -1,5 +1,4 @@
 # Copycat.pro
-# QXlsx https://github.com/QtExcel/QXlsx
 
 TARGET = Copycat
 TEMPLATE = app

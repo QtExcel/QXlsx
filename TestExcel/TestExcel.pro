@@ -1,7 +1,4 @@
-##########################################################################
 # TestExcel.pro
-#
-# https://github.com/QtExcel/QXlsx
 
 TARGET = TestExcel
 TEMPLATE = app

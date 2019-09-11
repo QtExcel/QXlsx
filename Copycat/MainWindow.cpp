@@ -145,7 +145,7 @@ void MainWindow::on_action_About_triggered()
 {
     QString text =
         "QXlsx Copycat<br />"
-        "<a href=\"https://github.com/j2doll/QXlsx\">https://github.com/j2doll/QXlsx</a><br />" ;
+        "<a href=\"https://github.com/QtExcel/QXlsx\">https://github.com/QtExcel/QXlsx</a><br />" ;
 
     QMessageBox::about(this, "QXlsx", text);
 }

@@ -1,6 +1,4 @@
-#
 # QXlsx.pri 
-#
 
 QT += core
 QT += gui-private

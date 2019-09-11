@@ -1,7 +1,4 @@
-#
 # WebServer.pro
-#
-# QXlsx https://github.com/QtExcel/QXlsx
 
 TARGET = WebServer
 TEMPLATE = app

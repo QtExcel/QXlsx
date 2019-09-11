@@ -1,6 +1,4 @@
-#
 # IssueTest.pro
-#
 
 TARGET = IssueTest
 TEMPLATE = app

@@ -95,23 +95,24 @@ bool XlsxTab::setSheet()
           CellLocation cl = clList.at(ic);
 
           ////////////////////////////////////////////////////////////////////
-          // First cell index of tableWidget is 0.
-          // But first cell of Qxlsx document is 1.
+          /// NOTE: First cell index of tableWidget is 0(zero).
+          ///       But, first cell of Qxlsx document is 1(one).
+
           int row = cl.row - 1;
           int col = cl.col - 1;
 
           ////////////////////////////////////////////////////////////////////
-          // cell pointer
+          /// cell pointer
 
           QSharedPointer<Cell> ptrCell = cl.cell;
 
           ////////////////////////////////////////////////////////////////////
-          // create new item of table widget
+          /// create new item of table widget
 
           QTableWidgetItem* newItem = new QTableWidgetItem();
 
           ///////////////////////////////////////////////////////////////////
-          // value of cell
+          /// value of cell
 
             QVariant var = cl.cell.data()->value(); // cell value
             QString str;
@@ -122,11 +123,13 @@ bool XlsxTab::setSheet()
             str = var.toString();
 
           ////////////////////////////////////////////////////////////////////
-          // set text
+          /// set text
+
           newItem->setText( str );
 
           ////////////////////////////////////////////////////////////////////
-          // set item
+          /// set item
+
           table->setItem( row, col, newItem );
 
           // TODO: set label of table widget ('A', 'B', 'C', ...)
@@ -134,7 +137,8 @@ bool XlsxTab::setSheet()
               // QTableWidgetItem *QTableWidget::verticalHeaderItem(int row) const
 
             ////////////////////////////////////////////////////////////////////
-            // row height and column width
+            /// row height and column width
+
             double dRowHeight = wsheet->rowHeight( cl.row );
             double dColWidth  = wsheet->columnWidth( cl.col );
 
@@ -147,12 +151,12 @@ bool XlsxTab::setSheet()
             table->setColumnWidth( col, wWidth );
 
           ////////////////////////////////////////////////////////////////////
-          // font
+          /// font
 
           newItem->setFont( ptrCell->format().font() );
 
           ////////////////////////////////////////////////////////////////////
-          // font color
+          /// font color
 
           if ( ptrCell->format().fontColor().isValid() )
           {
@@ -160,7 +164,7 @@ bool XlsxTab::setSheet()
           }
 
           ////////////////////////////////////////////////////////////////////
-          // background color
+          /// background color
 
           {
               QColor clrForeGround = ptrCell->format().patternForegroundColor();
@@ -179,7 +183,7 @@ bool XlsxTab::setSheet()
           }
 
           ////////////////////////////////////////////////////////////////////
-          // pattern
+          /// pattern
 
           Format::FillPattern fp = ptrCell->format().fillPattern();
           Qt::BrushStyle qbs = Qt::NoBrush;
@@ -215,7 +219,7 @@ bool XlsxTab::setSheet()
         */
 
           ////////////////////////////////////////////////////////////////////
-          // alignment
+          /// alignment
 
           int alignment = 0;
           Format::HorizontalAlignment ha = ptrCell->format().horizontalAlignment();
@@ -271,6 +275,40 @@ bool XlsxTab::setSheet()
           ////////////////////////////////////////////////////////////////////
 
     }
+
+    // dev56
+
+    ////////////////////////////////////////////////////////////////////
+    /// merged cell
+
+    QList<CellRange> mergeCellRangeList = wsheet->mergedCells();
+    for ( int mc = 0; mc < mergeCellRangeList.size(); ++mc )
+    {
+        CellRange mergedCellRange = mergeCellRangeList.at(mc);
+
+        CellReference crTopLeft = mergedCellRange.topLeft();
+        int tlCol = crTopLeft.column();
+        int tlRow = crTopLeft.row();
+
+        CellReference crBottomRight = mergedCellRange.bottomRight();
+        int brCol = crBottomRight.column();
+        int brRow = crBottomRight.row();
+
+        // row : tlRow ~ brRow
+        // col : tlCol ~ brCol
+
+        /// NOTE: First cell index of tableWidget is 0(zero).
+        ///       But, first cell of Qxlsx document is 1(one).
+
+        int rowSpan = brRow - tlRow + 1;
+        int colSpan = brCol - tlCol + 1;
+
+        table->setSpan( (tlRow - 1), (tlCol - 1), rowSpan, colSpan );
+
+        // qDebug() << "[merged cell] [topLeft]" << tlRow << tlCol << " [bottomRight] " << brRow << brCol ;
+
+    }
+
 
     return true;
 }

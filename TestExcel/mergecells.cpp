@@ -27,6 +27,15 @@ int mergecells()
     xlsx.mergeCells("E8:F21", format);
     //![1]
 
+    //![2]
+
+    // mergedCells
+
+
+
+
+    //![2]
+
 	xlsx.saveAs("mergecells.xlsx"); 
 
     return 0;
