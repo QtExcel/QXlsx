@@ -427,22 +427,70 @@ bool ChartPrivate::loadXmlXxxChart(QXmlStreamReader &reader)
 {
     QStringRef name = reader.name();
 
-    if (name == QLatin1String("areaChart")) chartType = Chart::CT_AreaChart;
-    else if (name == QLatin1String("area3DChart")) chartType = Chart::CT_Area3DChart;
-    else if (name == QLatin1String("lineChart")) chartType = Chart::CT_LineChart;
-    else if (name == QLatin1String("line3DChart")) chartType = Chart::CT_Line3DChart;
-    else if (name == QLatin1String("stockChart")) chartType = Chart::CT_StockChart;
-    else if (name == QLatin1String("radarChart")) chartType = Chart::CT_RadarChart;
-    else if (name == QLatin1String("scatterChart")) chartType = Chart::CT_ScatterChart;
-    else if (name == QLatin1String("pieChart")) chartType = Chart::CT_PieChart;
-    else if (name == QLatin1String("pie3DChart")) chartType = Chart::CT_Pie3DChart;
-    else if (name == QLatin1String("doughnutChart")) chartType = Chart::CT_DoughnutChart;
-    else if (name == QLatin1String("barChart")) chartType = Chart::CT_BarChart;
-    else if (name == QLatin1String("bar3DChart")) chartType = Chart::CT_Bar3DChart;
-    else if (name == QLatin1String("ofPieChart")) chartType = Chart::CT_OfPieChart;
-    else if (name == QLatin1String("surfaceChart")) chartType = Chart::CT_SurfaceChart;
-    else if (name == QLatin1String("surface3DChart")) chartType = Chart::CT_Surface3DChart;
-    else if (name == QLatin1String("bubbleChart")) chartType = Chart::CT_BubbleChart;
+    if (name == QLatin1String("areaChart"))
+    {
+        chartType = Chart::CT_AreaChart;
+    }
+    else if (name == QLatin1String("area3DChart"))
+    {
+        chartType = Chart::CT_Area3DChart;
+    }
+    else if (name == QLatin1String("lineChart"))
+    {
+        chartType = Chart::CT_LineChart;
+    }
+    else if (name == QLatin1String("line3DChart"))
+    {
+        chartType = Chart::CT_Line3DChart;
+    }
+    else if (name == QLatin1String("stockChart"))
+    {
+        chartType = Chart::CT_StockChart;
+    }
+    else if (name == QLatin1String("radarChart"))
+    {
+        chartType = Chart::CT_RadarChart;
+    }
+    else if (name == QLatin1String("scatterChart"))
+    {
+        chartType = Chart::CT_ScatterChart;
+    }
+    else if (name == QLatin1String("pieChart"))
+    {
+        chartType = Chart::CT_PieChart;
+    }
+    else if (name == QLatin1String("pie3DChart"))
+    {
+        chartType = Chart::CT_Pie3DChart;
+    }
+    else if (name == QLatin1String("doughnutChart"))
+    {
+        chartType = Chart::CT_DoughnutChart;
+    }
+    else if (name == QLatin1String("barChart"))
+    {
+        chartType = Chart::CT_BarChart;
+    }
+    else if (name == QLatin1String("bar3DChart"))
+    {
+        chartType = Chart::CT_Bar3DChart;
+    }
+    else if (name == QLatin1String("ofPieChart"))
+    {
+        chartType = Chart::CT_OfPieChart;
+    }
+    else if (name == QLatin1String("surfaceChart"))
+    {
+        chartType = Chart::CT_SurfaceChart;
+    }
+    else if (name == QLatin1String("surface3DChart"))
+    {
+        chartType = Chart::CT_Surface3DChart;
+    }
+    else if (name == QLatin1String("bubbleChart"))
+    {
+        chartType = Chart::CT_BubbleChart;
+    }
     else
     {
         qDebug() << "[undefined chart type] " << name;
@@ -450,23 +498,41 @@ bool ChartPrivate::loadXmlXxxChart(QXmlStreamReader &reader)
         return false;
     }
 
-    while (!reader.atEnd())
+    while( !reader.atEnd() )
     {
         reader.readNextStartElement();
         if (reader.tokenType() == QXmlStreamReader::StartElement)
         {
-            if (reader.name() == QLatin1String("ser"))
+            // dev57
+
+            if ( reader.name() == QLatin1String("ser") )
             {
                 loadXmlSer(reader);
             }
+            else if (reader.name() == QLatin1String("varyColors"))
+            {
+            }
+            else if (reader.name() == QLatin1String("barDir"))
+            {
+            }
             else if (reader.name() == QLatin1String("axId"))
             {
-                //!TODO
+                //
+
+            }
+            else if (reader.name() == QLatin1String("scatterStyle"))
+            {
+            }
+            else if (reader.name() == QLatin1String("holeSize"))
+            {
+            }
+            else
+            {
             }
 
         }
-        else if (reader.tokenType() == QXmlStreamReader::EndElement &&
-                   reader.name() == name)
+        else if ( reader.tokenType() == QXmlStreamReader::EndElement &&
+                  reader.name() == name )
         {
             break;
         }
@@ -482,16 +548,19 @@ bool ChartPrivate::loadXmlSer(QXmlStreamReader &reader)
     QSharedPointer<XlsxSeries> series = QSharedPointer<XlsxSeries>(new XlsxSeries);
     seriesList.append(series);
 
-    while (!reader.atEnd() && !(reader.tokenType() == QXmlStreamReader::EndElement
-                                && reader.name() == QLatin1String("ser")))
+    while ( !reader.atEnd() &&
+            !(reader.tokenType() == QXmlStreamReader::EndElement &&
+             reader.name() == QLatin1String("ser")) )
     {
         if (reader.readNextStartElement())
         {
             QStringRef name = reader.name();
-            if (name == QLatin1String("cat") || name == QLatin1String("xVal"))
+            if ( name == QLatin1String("cat") ||
+                 name == QLatin1String("xVal") )
             {
-                while (!reader.atEnd() && !(reader.tokenType() == QXmlStreamReader::EndElement
-                                            && reader.name() == name))
+                while ( !reader.atEnd() &&
+                        !(reader.tokenType() == QXmlStreamReader::EndElement &&
+                         reader.name() == name))
                 {
                     if (reader.readNextStartElement())
                     {
@@ -502,8 +571,9 @@ bool ChartPrivate::loadXmlSer(QXmlStreamReader &reader)
             }
             else if (name == QLatin1String("val") || name == QLatin1String("yVal"))
             {
-                while (!reader.atEnd() && !(reader.tokenType() == QXmlStreamReader::EndElement
-                                            && reader.name() == name))
+                while ( !reader.atEnd() &&
+                        !(reader.tokenType() == QXmlStreamReader::EndElement &&
+                        reader.name() == name))
                 {
                     if (reader.readNextStartElement())
                     {
@@ -514,8 +584,9 @@ bool ChartPrivate::loadXmlSer(QXmlStreamReader &reader)
             }
             else if (name == QLatin1String("extLst"))
             {
-                while (!reader.atEnd() && !(reader.tokenType() == QXmlStreamReader::EndElement
-                                            && reader.name() == name))
+                while ( !reader.atEnd() &&
+                        !(reader.tokenType() == QXmlStreamReader::EndElement &&
+                         reader.name() == name))
                 {
                     reader.readNextStartElement();
                 }
@@ -906,7 +977,8 @@ void ChartPrivate::saveXmlLineChart(QXmlStreamWriter &writer) const
 
     Q_ASSERT((axisList.size()==2||chartType==Chart::CT_LineChart)|| (axisList.size()==3 && chartType==Chart::CT_Line3DChart));
 
-    for (int i=0; i<axisList.size(); ++i) {
+    for (int i=0; i<axisList.size(); ++i)
+    {
         writer.writeEmptyElement(QStringLiteral("c:axId"));
         writer.writeAttribute(QStringLiteral("val"), QString::number(axisList[i]->axisId));
     }
