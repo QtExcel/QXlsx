@@ -17,7 +17,8 @@ int calendar()
 
     Document xlsx;
     QDate today(QDate::currentDate());
-    for (int month=1; month<=12; ++month) {
+    for (int month=1; month<=12; ++month)
+    {
         xlsx.addSheet(QLocale().monthName(month));
         xlsx.currentWorksheet()->setGridLinesVisible(false);
 

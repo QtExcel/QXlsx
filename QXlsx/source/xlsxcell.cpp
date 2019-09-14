@@ -246,10 +246,10 @@ bool Cell::isDateTime() const
 	Q_D(const Cell);
 
 	Cell::CellType cellType = d->cellType;
-	double dValue = d->value.toDouble();
+    double dValue = d->value.toDouble(); // number
 	QString strValue = d->value.toString().toUtf8(); 
 	bool isValidFormat = d->format.isValid();
-	bool isDateTimeFormat = d->format.isDateTimeFormat();
+    bool isDateTimeFormat = d->format.isDateTimeFormat(); // datetime format
 
     if ( // cellType == NumberType ||
          cellType == DateType ||
@@ -285,9 +285,17 @@ QVariant Cell::dateTime() const
     Q_D(const Cell);
 
     if (!isDateTime())
+    {
         return QVariant();
+    }
 
-    return datetimeFromNumber( d->value.toDouble(), d->parent->workbook()->isDate1904() );
+    // dev57
+
+    QVariant ret;
+    double dValue = d->value.toDouble();
+    bool isDate1904 = d->parent->workbook()->isDate1904();
+    ret = datetimeFromNumber(dValue, isDate1904);
+    return ret;
 }
 
 /*!

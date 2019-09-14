@@ -67,8 +67,7 @@ public:
 	CellFormula formula() const;
 
 	bool isDateTime() const;
-     // QDateTime dateTime() const;
-    QVariant dateTime() const;
+    QVariant dateTime() const; // QDateTime, QDate, QTime
 
 	bool isRichString() const;
 

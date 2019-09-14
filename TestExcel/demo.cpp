@@ -279,7 +279,8 @@ int demo()
     //Create the fifth sheet.
     xlsx.addSheet("Grouping");
     qsrand(QDateTime::currentMSecsSinceEpoch());
-    for (int row=2; row<31; ++row) {
+    for (int row=2; row<31; ++row)
+    {
         for (int col=1; col<=10; ++col)
             xlsx.write(row, col, qrand() % 100);
     }

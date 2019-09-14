@@ -14,7 +14,8 @@ int chart()
 {
     //![0]
     Document xlsx;
-    for (int i=1; i<10; ++i) {
+    for (int i=1; i<10; ++i)
+    {
         xlsx.write(i, 1, i*i*i);   //A1:A9
         xlsx.write(i, 2, i*i); //B1:B9
         xlsx.write(i, 3, i*i-1); //C1:C9

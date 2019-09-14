@@ -113,17 +113,17 @@ QVariant datetimeFromNumber(double num, bool is1904)
     qint64 msecs = static_cast<qint64>(num * 1000*60*60*24.0 + 0.5);
     QDateTime epoch(is1904 ? QDate(1904, 1, 1): QDate(1899, 12, 31), QTime(0,0));
 
-    QDateTime dt;
+    QDateTime dtRet; // return value
 
-    QDateTime dt1 = epoch.addMSecs(msecs);
-    dt = dt1;
+    QDateTime dtOld = epoch.addMSecs(msecs);
+    dtRet = dtOld;
 
 #if QT_VERSION >= 0x050200
     // Remove one hour to see whether the date is Daylight
-    QDateTime dt2 = dt.addMSecs(-3600);
-    if (dt2.isDaylightTime())
+    QDateTime dtNew = dtRet.addMSecs(-3600);
+    if ( dtNew.isDaylightTime() )
     {
-        dt = dt2;
+        dtRet = dtNew;
     }
 #endif
 
@@ -133,19 +133,18 @@ QVariant datetimeFromNumber(double num, bool is1904)
     if ( num < double(1) )
     {
         // only time
-        QTime t = dt.time();
+        QTime t = dtRet.time();
         return QVariant(t);
     }
 
     if ( fractional == 0.0 )
     {
         // only date
-        // qDebug() << "[debug] " << num << whole << fractional;
-        QDate onlyDT = dt.date();
+        QDate onlyDT = dtRet.date();
         return QVariant(onlyDT);
     }
 
-    return QVariant(dt);
+    return QVariant(dtRet);
 }
 
 /*

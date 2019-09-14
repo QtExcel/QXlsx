@@ -29,7 +29,8 @@ void Align(bool isTest);
 
 int hello()
 {
-	// WriteExcel(true);
+    WriteExcel(true);
+
 	ReadExcel(true);
 
 	UseSheet(true);
@@ -37,7 +38,7 @@ int hello()
 	RichText(true);
 
 	DoChart(true);
-	Align(true);
+    Align(true);
 
    return 0;
 }
@@ -56,10 +57,11 @@ int WriteExcel(bool isTest)
 	xlsx.write("A5", "http://qt-project.org");
 	xlsx.write("A6", QDate(2013, 12, 27));
 	xlsx.write("A7", QTime(6, 30));
+    xlsx.write("A8", QDateTime(QDate(2049,7,23), QTime(23,5,32), Qt::LocalTime));
 
-	if (!xlsx.saveAs("WriteExcel.xlsx"))
+    if (!xlsx.saveAs("WriteExcel1.xlsx"))
 	{
-		qDebug() << "[WriteExcel] failed to save excel file";
+        qDebug() << "[WriteExcel1] failed to save excel file";
 		return (-2);
 	}
 
@@ -75,14 +77,14 @@ int ReadExcel(bool isTest)
 		//Create a new .xlsx file.
 		QXlsx::Document xlsx;
 
-		xlsx.write("A1", "Hello Qt!");
-		xlsx.write("A2", 12345);
-		xlsx.write("A3", "=44+33");
-		xlsx.write("A4", true);
-		xlsx.write("A5", "http://qt-project.org");
-		xlsx.write("A6", QDate(2013, 12, 27));
-		xlsx.write("A7", QTime(6, 30));
-		xlsx.write("A8", QDateTime(QDate(2049,7,23), QTime(23,5,32), Qt::LocalTime));
+        xlsx.write("A1", "Hello Qt!");
+        xlsx.write("A2", 12345);
+        xlsx.write("A3", "=44+33");
+        xlsx.write("A4", true);
+        xlsx.write("A5", "http://qt-project.org");
+        xlsx.write("A6", QDate(2013, 12, 27));
+        xlsx.write("A7", QTime(6, 30));
+        xlsx.write("A8", QDateTime(QDate(2049,7,23), QTime(23,5,32), Qt::LocalTime));
 
 		if (!xlsx.saveAs("ReadExcel.xlsx"))
 		{

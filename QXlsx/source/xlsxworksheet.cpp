@@ -563,14 +563,6 @@ QVariant Worksheet::read(int row, int column) const
     if (cell->isDateTime())
     {
         QVariant vDateTime = cell->dateTime();
-
-        // double val = cell->value().toDouble();
-        // QDateTime dt = cell->dateTime();
-        // if (val < 1)
-        // 	return dt.time();
-        // if (fmod(val, 1.0) <  1.0/(1000*60*60*24)) //integer
-        // 	return dt.date();
-
         return vDateTime;
 	}
 
@@ -1306,64 +1298,87 @@ void Worksheet::saveToXmlFile(QIODevice *device) const
         writer.writeEndElement(); // pageMargins
     }
 
-    // pageSetup   changed back by liufeijin 20190619
-    writer.writeStartElement(QStringLiteral("pageSetup"));
-    if(!d->Prid.isEmpty()){
-        writer.writeAttribute(QStringLiteral("r:id"), d->Prid);}
-     if(!d->PverticalDpi.isEmpty()){
-     writer.writeAttribute(QStringLiteral("verticalDpi"), d->PverticalDpi);}
-     if(!d->PhorizontalDpi.isEmpty()){
-     writer.writeAttribute(QStringLiteral("horizontalDpi"), d->PhorizontalDpi);}
-     if(!d->PuseFirstPageNumber.isEmpty()){
-     writer.writeAttribute(QStringLiteral("useFirstPageNumber"), d->PuseFirstPageNumber);}
-     if(!d->PfirstPageNumber.isEmpty()){
-     writer.writeAttribute(QStringLiteral("firstPageNumber"), d->PfirstPageNumber);}
-     if(!d->Pscale.isEmpty()){
-     writer.writeAttribute(QStringLiteral("scale"), d->Pscale);}
-     if(!d->PpaperSize.isEmpty()){
-     writer.writeAttribute(QStringLiteral("paperSize"), d->PpaperSize);}
-     if(!d->Porientation.isEmpty()){
-     writer.writeAttribute(QStringLiteral("orientation"), d->Porientation);}
-     if(!d->Pcopies.isEmpty()){
-     writer.writeAttribute(QStringLiteral("copies"), d->Pcopies);}
-      writer.writeEndElement(); // pageSetup
+    // dev57
+    if ( !d->Prid.isEmpty() )
+    {
+        writer.writeStartElement(QStringLiteral("pageSetup")); // pageSetup
+
+        writer.writeAttribute(QStringLiteral("r:id"), d->Prid);
+
+        if ( !d->PverticalDpi.isEmpty() )
+        {
+            writer.writeAttribute(QStringLiteral("verticalDpi"), d->PverticalDpi);
+        }
+
+        if ( !d->PhorizontalDpi.isEmpty() )
+        {
+            writer.writeAttribute(QStringLiteral("horizontalDpi"), d->PhorizontalDpi);
+        }
+
+        if ( !d->PuseFirstPageNumber.isEmpty() )
+        {
+            writer.writeAttribute(QStringLiteral("useFirstPageNumber"), d->PuseFirstPageNumber);
+        }
+
+        if ( !d->PfirstPageNumber.isEmpty() )
+        {
+            writer.writeAttribute(QStringLiteral("firstPageNumber"), d->PfirstPageNumber);
+        }
+
+        if ( !d->Pscale.isEmpty() )
+        {
+            writer.writeAttribute(QStringLiteral("scale"), d->Pscale);
+        }
+
+        if ( !d->PpaperSize.isEmpty() )
+        {
+            writer.writeAttribute(QStringLiteral("paperSize"), d->PpaperSize);
+        }
+
+        if ( !d->Porientation.isEmpty() )
+        {
+            writer.writeAttribute(QStringLiteral("orientation"), d->Porientation);
+        }
+
+        if(!d->Pcopies.isEmpty())
+        {
+            writer.writeAttribute(QStringLiteral("copies"), d->Pcopies);
+        }
+
+        writer.writeEndElement(); // pageSetup
+
+    } // if ( !d->Prid.isEmpty() )
 	
     // headerFooter
     if( !(d->MoodFooter.isNull()) ||
         !(d->MoodFooter.isNull()) )
     {
         writer.writeStartElement(QStringLiteral("headerFooter")); // headerFooter
-       if(!d->MoodalignWithMargins.isEmpty()){
-              writer.writeAttribute(QStringLiteral("alignWithMargins"), d->MoodalignWithMargins);} // add align by liufeijin 20190619
-        // dev40 {{
-        if (!d->ModdHeader.isNull())
-        {
-            writer.writeStartElement(QStringLiteral("oddHeader"));
-           // writer.writeAttribute(QStringLiteral("xml:space"), QStringLiteral("preserve"));  // must be deleted else footer and header can't show
-            writer.writeCharacters(d->ModdHeader);
-            writer.writeEndElement();// t
 
-            // writer.writeTextElement(QStringLiteral("oddHeader"), d->ModdHeader);
+        if ( !d->MoodalignWithMargins.isEmpty() )
+        {
+            writer.writeAttribute(QStringLiteral("alignWithMargins"), d->MoodalignWithMargins);
         }
 
-        if (!d->MoodFooter.isNull())
+        if ( !d->ModdHeader.isNull() )
+        {
+            writer.writeStartElement(QStringLiteral("oddHeader"));
+            writer.writeCharacters(d->ModdHeader);
+            writer.writeEndElement(); // oddHeader
+        }
+
+        if ( !d->MoodFooter.isNull() )
         {
             writer.writeTextElement(QStringLiteral("oddFooter"), d->MoodFooter);
         }
-        // }}
 
-        /*
-        writer.writeTextElement(QStringLiteral("oddHeader"), d->ModdHeader);
-        writer.writeTextElement(QStringLiteral("oddFooter"), d->MoodFooter);
-        //*/
-
-        writer.writeEndElement();// headerFooter
+        writer.writeEndElement(); // headerFooter
     }
 
 	d->saveXmlHyperlinks(writer);
 	d->saveXmlDrawings(writer);
 
-	writer.writeEndElement();//worksheet
+    writer.writeEndElement(); // worksheet
 	writer.writeEndDocument();
 }
 
@@ -1443,6 +1458,8 @@ void WorksheetPrivate::saveXmlSheetData(QXmlStreamWriter &writer) const
 
 void WorksheetPrivate::saveXmlCellData(QXmlStreamWriter &writer, int row, int col, QSharedPointer<Cell> cell) const
 {
+    Q_Q(const Worksheet);
+
 	//This is the innermost loop so efficiency is important.
 	QString cell_pos = CellReference(row, col).toString();
 
@@ -1456,17 +1473,6 @@ void WorksheetPrivate::saveXmlCellData(QXmlStreamWriter &writer, int row, int co
 		writer.writeAttribute(QStringLiteral("s"), QString::number(rowsInfo[row]->format.xfIndex()));
 	else if (colsInfoHelper.contains(col) && !colsInfoHelper[col]->format.isEmpty())
 		writer.writeAttribute(QStringLiteral("s"), QString::number(colsInfoHelper[col]->format.xfIndex()));
-
-    // [debugging code] dev34
-    /*
-    if (cell->hasFormula())
-    {
-        int si = cell->formula().d->si;
-        QString strFormula = cell->formula().d->formula;
-
-        // qDebug() << "[hasFormula] cell type " << cell->cellType() ;
-    }
-    */
 
     if (cell->cellType() == Cell::SharedStringType) // 's'
     {
@@ -1483,7 +1489,8 @@ void WorksheetPrivate::saveXmlCellData(QXmlStreamWriter &writer, int row, int co
     {
 		writer.writeAttribute(QStringLiteral("t"), QStringLiteral("inlineStr"));
 		writer.writeStartElement(QStringLiteral("is"));
-		if (cell->isRichString()) {
+        if (cell->isRichString())
+        {
 			//Rich text string
 			RichString string = cell->d_ptr->richString;
             for (int i=0; i<string.fragmentCount(); ++i)
@@ -1543,6 +1550,7 @@ void WorksheetPrivate::saveXmlCellData(QXmlStreamWriter &writer, int row, int co
 		writer.writeAttribute(QStringLiteral("t"), QStringLiteral("b"));
 
         // dev34
+
         if (cell->hasFormula())
         {
             int si = cell->formula().d->si;
@@ -1555,10 +1563,85 @@ void WorksheetPrivate::saveXmlCellData(QXmlStreamWriter &writer, int row, int co
 	}
     else if (cell->cellType() == Cell::DateType) // 'd'
     {
-        writer.writeAttribute(QStringLiteral("t"), QStringLiteral("d"));
+        // dev57
 
-        QString iso8601DateTime = cell->value().toDateTime().toString( Qt::ISODate );
-        writer.writeTextElement(QStringLiteral("v"), iso8601DateTime );
+        QString iso8601DateTime;
+        if ( cell->value().type() == QVariant::DateTime )
+        {
+            iso8601DateTime = cell->value().toDateTime().toString( Qt::ISODate );
+        }
+        else if ( cell->value().type() == QVariant::Date )
+        {
+            QDateTime dtTemp( cell->value().toDate(), QTime(0,0,0) );
+            iso8601DateTime = dtTemp.toString( Qt::ISODate );
+        }
+        else if ( cell->value().type() == QVariant::Time )
+        {
+            double num = timeToNumber( cell->value().toTime() );
+            bool is1904 = q->workbook()->isDate1904();
+
+            if (!is1904 && num > 60) // for mac os excel
+            {
+                num = num - 1;
+            }
+
+            qint64 msecs = static_cast<qint64>(num * 1000*60*60*24.0 + 0.5);
+            QDateTime epoch(is1904 ? QDate(1904, 1, 1): QDate(1899, 12, 31), QTime(0,0));
+
+            QDateTime dtRet; // return value
+
+            QDateTime dtOld = epoch.addMSecs(msecs);
+            dtRet = dtOld;
+
+        #if QT_VERSION >= 0x050200
+            // Remove one hour to see whether the date is Daylight
+            QDateTime dtNew = dtRet.addMSecs(-3600);
+            if ( dtNew.isDaylightTime() )
+            {
+                dtRet = dtNew;
+            }
+        #endif
+
+            iso8601DateTime = dtRet.toString( Qt::ISODate );
+
+        }
+        else
+        {
+            // number, string ?
+
+            double num = cell->value().toDouble();
+            bool is1904 = q->workbook()->isDate1904();
+
+            if (!is1904 && num > 60) // for mac os excel
+            {
+                num = num - 1;
+            }
+
+            qint64 msecs = static_cast<qint64>(num * 1000*60*60*24.0 + 0.5);
+            QDateTime epoch(is1904 ? QDate(1904, 1, 1): QDate(1899, 12, 31), QTime(0,0));
+
+            QDateTime dtRet; // return value
+
+            QDateTime dtOld = epoch.addMSecs(msecs);
+            dtRet = dtOld;
+
+        #if QT_VERSION >= 0x050200
+            // Remove one hour to see whether the date is Daylight
+            QDateTime dtNew = dtRet.addMSecs(-3600);
+            if ( dtNew.isDaylightTime() )
+            {
+                dtRet = dtNew;
+            }
+        #endif
+
+            iso8601DateTime = dtRet.toString( Qt::ISODate );
+        }
+
+        if ( ! iso8601DateTime.isEmpty() )
+        {
+            writer.writeAttribute(QStringLiteral("t"), QStringLiteral("d"));
+            writer.writeTextElement(QStringLiteral("v"), iso8601DateTime );
+        }
     }
     else if (cell->cellType() == Cell::ErrorType) // 'e'
     {
@@ -1584,7 +1667,7 @@ void WorksheetPrivate::saveXmlCellData(QXmlStreamWriter &writer, int row, int co
         }
     }
 
-	writer.writeEndElement(); //c
+    writer.writeEndElement(); // c
 }
 
 void WorksheetPrivate::saveXmlMergeCells(QXmlStreamWriter &writer) const
@@ -1595,7 +1678,8 @@ void WorksheetPrivate::saveXmlMergeCells(QXmlStreamWriter &writer) const
 	writer.writeStartElement(QStringLiteral("mergeCells"));
 	writer.writeAttribute(QStringLiteral("count"), QString::number(merges.size()));
 
-	foreach (CellRange range, merges) {
+    foreach (CellRange range, merges)
+    {
 		writer.writeEmptyElement(QStringLiteral("mergeCell"));
 		writer.writeAttribute(QStringLiteral("ref"), range.toString());
 	}
@@ -1623,35 +1707,56 @@ void WorksheetPrivate::saveXmlHyperlinks(QXmlStreamWriter &writer) const
 		return;
 
 	writer.writeStartElement(QStringLiteral("hyperlinks"));
-	QMapIterator<int, QMap<int, QSharedPointer<XlsxHyperlinkData> > > it(urlTable);
-	while (it.hasNext()) {
+    QMapIterator<int, QMap< int, QSharedPointer<XlsxHyperlinkData> > > it(urlTable);
+
+    while (it.hasNext())
+    {
 		it.next();
 		int row = it.key();
-		QMapIterator <int, QSharedPointer<XlsxHyperlinkData> > it2(it.value());
-		while (it2.hasNext()) {
+        QMapIterator< int, QSharedPointer<XlsxHyperlinkData> > it2(it.value());
+
+        while (it2.hasNext())
+        {
 			it2.next();
 			int col = it2.key();
 			QSharedPointer<XlsxHyperlinkData> data = it2.value();
 			QString ref = CellReference(row, col).toString();
-			writer.writeEmptyElement(QStringLiteral("hyperlink"));
-			writer.writeAttribute(QStringLiteral("ref"), ref);
-			if (data->linkType == XlsxHyperlinkData::External) {
-				//Update relationships
+
+            // dev57
+            // writer.writeEmptyElement(QStringLiteral("hyperlink"));
+            writer.writeStartElement(QStringLiteral("hyperlink"));
+
+            writer.writeAttribute(QStringLiteral("ref"), ref); // required field
+
+            if ( data->linkType == XlsxHyperlinkData::External )
+            {
+                // Update relationships
 				relationships->addWorksheetRelationship(QStringLiteral("/hyperlink"), data->target, QStringLiteral("External"));
 
 				writer.writeAttribute(QStringLiteral("r:id"), QStringLiteral("rId%1").arg(relationships->count()));
 			}
 
 			if (!data->location.isEmpty())
+            {
 				writer.writeAttribute(QStringLiteral("location"), data->location);
+            }
+
 			if (!data->display.isEmpty())
+            {
 				writer.writeAttribute(QStringLiteral("display"), data->display);
+            }
+
 			if (!data->tooltip.isEmpty())
+            {
 				writer.writeAttribute(QStringLiteral("tooltip"), data->tooltip);
+            }
+
+            // dev57
+            writer.writeEndElement(); // hyperlink
 		}
 	}
 
-	writer.writeEndElement();//hyperlinks
+    writer.writeEndElement(); // hyperlinks
 }
 
 void WorksheetPrivate::saveXmlDrawings(QXmlStreamWriter &writer) const
@@ -2150,6 +2255,7 @@ int WorksheetPrivate::colPixelsSize(int col) const
 void WorksheetPrivate::loadXmlSheetData(QXmlStreamReader &reader)
 {
 	Q_Q(Worksheet);
+
 	Q_ASSERT(reader.name() == QLatin1String("sheetData"));
 
 	while (!reader.atEnd() && !(reader.name() == QLatin1String("sheetData") && reader.tokenType() == QXmlStreamReader::EndElement)) 
@@ -2713,8 +2819,8 @@ bool Worksheet::loadFromXmlFile(QIODevice *device)
                 d->PuseFirstPageNumber = attributes.value(QLatin1String("useFirstPageNumber")).toString().trimmed();
                 d->PhorizontalDpi = attributes.value(QLatin1String("horizontalDpi")).toString().trimmed();
                 d->PverticalDpi = attributes.value(QLatin1String("verticalDpi")).toString().trimmed();
-                d->Prid=attributes.value(QLatin1String("r:id")).toString().trimmed();
-                d->Pcopies=attributes.value(QLatin1String("copies")).toString().trimmed();
+                d->Prid = attributes.value(QLatin1String("r:id")).toString().trimmed();
+                d->Pcopies = attributes.value(QLatin1String("copies")).toString().trimmed();
             }
             else if(reader.name() == QLatin1String("pageMargins"))
             {

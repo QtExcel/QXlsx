@@ -13,7 +13,9 @@ int chartsheet()
     //![0]
     Document xlsx;
     for (int i=1; i<10; ++i)
+    {
         xlsx.write(i, 1, i*i);
+    }
     //![0]
 
     //![1]
@@ -29,7 +31,10 @@ int chartsheet()
     //![2]
 
     Document xlsx2("chartsheet1.xlsx");
-    xlsx2.saveAs("chartsheet2.xlsx");
+    if ( xlsx2.load() )
+    {
+        xlsx2.saveAs("chartsheet2.xlsx");
+    }
 
     return 0;
 }
