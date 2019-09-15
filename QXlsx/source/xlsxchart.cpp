@@ -221,6 +221,7 @@ void Chart::saveToXmlFile(QIODevice *device) const
     //
     //  chartSpace is the root node, which contains an element defining the chart,
     // and an element defining the print settings for the chart.
+
     writer.writeStartElement(QStringLiteral("c:chartSpace"));
 
     writer.writeAttribute(QStringLiteral("xmlns:c"),
@@ -236,6 +237,7 @@ void Chart::saveToXmlFile(QIODevice *device) const
     * It then has a plot area, which defines a layout and contains an element
     * that corresponds to, and defines, the type of chart.
     */
+
     d->saveXmlChart(writer);
 
     writer.writeEndElement();// c:chartSpace
@@ -366,7 +368,6 @@ bool ChartPrivate::loadXmlPlotArea(QXmlStreamReader &reader)
 
 bool ChartPrivate::loadXmlPlotAreaElement(QXmlStreamReader &reader)
 {
-
     if (reader.name() == QLatin1String("layout"))
     {
         //!ToDo
@@ -375,7 +376,7 @@ bool ChartPrivate::loadXmlPlotAreaElement(QXmlStreamReader &reader)
     else if (reader.name().endsWith(QLatin1String("Chart")))
     {
         // for pieChart, barChart, ... (choose one)
-        if ( ! loadXmlXxxChart(reader) )
+        if ( !loadXmlXxxChart(reader) )
         {
             qDebug() << "[debug] failed to load chart";
             return false;
@@ -383,22 +384,22 @@ bool ChartPrivate::loadXmlPlotAreaElement(QXmlStreamReader &reader)
     }
     else if (reader.name() == QLatin1String("catAx")) // choose one : catAx, dateAx, serAx, valAx
     {
-        qDebug() << "loadXmlAxisCatAx()";
+        // qDebug() << "loadXmlAxisCatAx()";
         loadXmlAxisCatAx(reader);
     }
     else if (reader.name() == QLatin1String("dateAx")) // choose one : catAx, dateAx, serAx, valAx
     {
-        qDebug() << "loadXmlAxisDateAx()";
+        // qDebug() << "loadXmlAxisDateAx()";
         loadXmlAxisDateAx(reader);
     }
     else if (reader.name() == QLatin1String("serAx")) // choose one : catAx, dateAx, serAx, valAx
     {
-        qDebug() << "loadXmlAxisSerAx()";
+        // qDebug() << "loadXmlAxisSerAx()";
         loadXmlAxisSerAx(reader);
     }
     else if (reader.name() == QLatin1String("valAx")) // choose one : catAx, dateAx, serAx, valAx
     {
-        qDebug() << "loadXmlAxisValAx()";
+        // qDebug() << "loadXmlAxisValAx()";
         loadXmlAxisValAx(reader);
     }
     else if (reader.name() == QLatin1String("dTable"))
@@ -1074,11 +1075,17 @@ void ChartPrivate::saveXmlSer(QXmlStreamWriter &writer, XlsxSeries *ser, int id)
     writer.writeEmptyElement(QStringLiteral("c:order"));
     writer.writeAttribute(QStringLiteral("val"), QString::number(id));
 
-    if (!ser->axDataSource_numRef.isEmpty()) {
+    if (!ser->axDataSource_numRef.isEmpty())
+    {
         if (chartType == Chart::CT_ScatterChart || chartType == Chart::CT_BubbleChart)
+        {
             writer.writeStartElement(QStringLiteral("c:xVal"));
+        }
         else
+        {
             writer.writeStartElement(QStringLiteral("c:cat"));
+        }
+
         writer.writeStartElement(QStringLiteral("c:numRef"));
         writer.writeTextElement(QStringLiteral("c:f"), ser->axDataSource_numRef);
         writer.writeEndElement();//c:numRef
@@ -1235,13 +1242,10 @@ bool ChartPrivate::loadXmlAxisEG_AxShared(QXmlStreamReader &reader, XlsxAxis* ax
         {
             // qDebug() << "[debug]" << QTime::currentTime() << reader.name().toString();
 
-            if ( reader.name() == QLatin1String("axId") )
+            if ( reader.name() == QLatin1String("axId") ) // mandatory element
             {
-                // mandatory element
-
-                // int axId = reader.attributes().value("val").toInt();
-                int axId = reader.attributes().value("val").string()->toInt(); // for Qt5.0
-
+                // dev57
+                uint axId = reader.attributes().value("val").toUInt(); // for Qt5.0
                 axis->axisId = axId;
             }
             else if ( reader.name() == QLatin1String("scaling") )
@@ -1307,13 +1311,10 @@ bool ChartPrivate::loadXmlAxisEG_AxShared(QXmlStreamReader &reader, XlsxAxis* ax
             {
                 //!TODO
             }
-            else if ( reader.name() == QLatin1String("crossAx") )
+            else if ( reader.name() == QLatin1String("crossAx") ) // mandatory element
             {
-                // mandatory element
-
-                // int crossAx = reader.attributes().value(QLatin1String("val")).toInt();
-                int crossAx = reader.attributes().value(QLatin1String("val")).string()->toInt(); // for Qt5.0
-
+                // dev57
+                uint crossAx = reader.attributes().value(QLatin1String("val")).toUInt(); // for Qt5.0
                 axis->crossAx = crossAx;
             }
             else if ( reader.name() == QLatin1String("crosses") )

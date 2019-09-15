@@ -1,27 +1,5 @@
-/****************************************************************************
-** Copyright (c) 2013-2014 Debao Zhang <hello@debao.me>
-** All right reserved.
-**
-** Permission is hereby granted, free of charge, to any person obtaining
-** a copy of this software and associated documentation files (the
-** "Software"), to deal in the Software without restriction, including
-** without limitation the rights to use, copy, modify, merge, publish,
-** distribute, sublicense, and/or sell copies of the Software, and to
-** permit persons to whom the Software is furnished to do so, subject to
-** the following conditions:
-**
-** The above copyright notice and this permission notice shall be
-** included in all copies or substantial portions of the Software.
-**
-** THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-** EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-** MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
-** NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
-** LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
-** OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
-** WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-**
-****************************************************************************/
+// xlsxchartsheet.cpp
+
 #include "xlsxchartsheet.h"
 #include "xlsxchartsheet_p.h"
 #include "xlsxworkbook.h"
@@ -30,6 +8,7 @@
 #include "xlsxdrawinganchor_p.h"
 #include "xlsxchart.h"
 
+#include <QtGlobal>
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
 #include <QDir>
@@ -56,11 +35,12 @@ ChartsheetPrivate::~ChartsheetPrivate()
  * \internal
  */
 Chartsheet::Chartsheet(const QString &name, int id, Workbook *workbook, CreateFlag flag)
-    :AbstractSheet(name, id, workbook, new ChartsheetPrivate(this, flag))
+    : AbstractSheet( name, id, workbook, new ChartsheetPrivate(this, flag) )
 {
     setSheetType(ST_ChartSheet);
 
-    if (flag == Chartsheet::F_NewFromScratch) {
+    if (flag == Chartsheet::F_NewFromScratch)
+    {
         d_func()->drawing = QSharedPointer<Drawing>(new Drawing(this, flag));
 
         DrawingAbsoluteAnchor *anchor = new DrawingAbsoluteAnchor(drawing(), DrawingAnchor::Picture);
