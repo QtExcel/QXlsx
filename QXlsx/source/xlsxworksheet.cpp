@@ -1167,7 +1167,29 @@ bool Worksheet::unmergeCells(const CellRange &range)
 QList<CellRange> Worksheet::mergedCells() const
 {
 	Q_D(const Worksheet);
-	return d->merges;
+
+    // dev57
+
+    QList<CellRange> emptyList;
+
+    if ( d->type == AbstractSheet::ST_WorkSheet )
+    {
+        return d->merges;
+    }
+    else if ( d->type == AbstractSheet::ST_ChartSheet )
+    {
+    }
+    else if ( d->type == AbstractSheet::ST_DialogSheet )
+    {
+    }
+    else if ( d->type == AbstractSheet::ST_MacroSheet )
+    {
+    }
+    else
+    { // undefined
+    }
+
+    return emptyList;
 }
 
 /*!

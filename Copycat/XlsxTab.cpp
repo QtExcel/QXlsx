@@ -74,6 +74,11 @@ bool XlsxTab::setSheet()
 
     // set active sheet
     sheet->workbook()->setActiveSheet( sheetIndex );
+
+    // dev57
+    if ( sheet->workbook()->activeSheet()->sheetType() != AbstractSheet::ST_WorkSheet )
+        return false;
+
     Worksheet* wsheet = (Worksheet*) sheet->workbook()->activeSheet();
     if ( NULL == wsheet )
         return false;
@@ -281,34 +286,33 @@ bool XlsxTab::setSheet()
     ////////////////////////////////////////////////////////////////////
     /// merged cell
 
-    QList<CellRange> mergeCellRangeList = wsheet->mergedCells();
-    for ( int mc = 0; mc < mergeCellRangeList.size(); ++mc )
+    if ( sheet->workbook()->activeSheet()->sheetType() == AbstractSheet::ST_WorkSheet )
     {
-        CellRange mergedCellRange = mergeCellRangeList.at(mc);
+        QList<CellRange> mergeCellRangeList = wsheet->mergedCells();
+        for ( int mc = 0; mc < mergeCellRangeList.size(); ++mc )
+        {
+            CellRange mergedCellRange = mergeCellRangeList.at(mc);
 
-        CellReference crTopLeft = mergedCellRange.topLeft();
-        int tlCol = crTopLeft.column();
-        int tlRow = crTopLeft.row();
+            CellReference crTopLeft = mergedCellRange.topLeft();
+            int tlCol = crTopLeft.column();
+            int tlRow = crTopLeft.row();
 
-        CellReference crBottomRight = mergedCellRange.bottomRight();
-        int brCol = crBottomRight.column();
-        int brRow = crBottomRight.row();
+            CellReference crBottomRight = mergedCellRange.bottomRight();
+            int brCol = crBottomRight.column();
+            int brRow = crBottomRight.row();
 
-        // row : tlRow ~ brRow
-        // col : tlCol ~ brCol
+            // row : tlRow ~ brRow
+            // col : tlCol ~ brCol
 
-        /// NOTE: First cell index of tableWidget is 0(zero).
-        ///       But, first cell of Qxlsx document is 1(one).
+            /// NOTE: First cell index of tableWidget is 0(zero).
+            ///       But, first cell of Qxlsx document is 1(one).
 
-        int rowSpan = brRow - tlRow + 1;
-        int colSpan = brCol - tlCol + 1;
+            int rowSpan = brRow - tlRow + 1;
+            int colSpan = brCol - tlCol + 1;
 
-        table->setSpan( (tlRow - 1), (tlCol - 1), rowSpan, colSpan );
-
-        // qDebug() << "[merged cell] [topLeft]" << tlRow << tlCol << " [bottomRight] " << brRow << brCol ;
-
-    }
-
+            table->setSpan( (tlRow - 1), (tlCol - 1), rowSpan, colSpan );
+        } // for ( int mc = 0; mc < mergeCellRangeList.size(); ++mc ) ...
+    } // if ( sheet->workbook()->activeSheet()->sheetType() == AbstractSheet::ST_WorkSheet ) ...
 
     return true;
 }

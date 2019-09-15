@@ -3,11 +3,15 @@
 #ifndef QXLSX_XLSXCELLRANGE_H
 #define QXLSX_XLSXCELLRANGE_H
 
+#include <QtGlobal>
+#include <QObject>
+
 #include "xlsxglobal.h"
 #include "xlsxcellreference.h"
 
 QT_BEGIN_NAMESPACE_XLSX
 
+// dev57
 class CellRange
 {
 public:
@@ -48,7 +52,11 @@ public:
     }
 private:
     void init(const QString &range);
-    int top, left, bottom, right;
+
+    int top;
+    int left;
+    int bottom;
+    int right;
 };
 
 QT_END_NAMESPACE_XLSX
