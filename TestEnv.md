@@ -4,6 +4,7 @@
 
 | Qt     | Tool               | OS                        | Build   |
 | ------ | ------------------ | ------------------------- | ------- |
+| 5.12.3 | MingW 64 bit       | Windows 64bit             | :smile: |
 | 5.12.0 | Visual Studio 2017 | Windows 64bit             | :smile: |
 | 5.12.0 | MingW 64 bit       | Windows 64bit             | :smile: |
 | 5.11.2 | Visual Studio 2017 | Windows 64bit             | :smile: |
@@ -21,3 +22,4 @@
 | 5.0.1  | MingW              | Windows 32bit             | :smile: |
 
 - As the code is upgraded, old Qt may not be supported.
+- If more funding is raised, we will also support MacOS testing.
