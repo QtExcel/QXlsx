@@ -14,7 +14,6 @@
 	- HelloWorld : Hello world example (the most basic structure)
 	- TestExcel : basic samples based on QtXlsx samples
 	- HelloAndroid : read xlsx on Android
-	- Copycat : load xlsx file and display on widget. print xlsx file.
 	- WebServer : load xlsx and display to web
 	- ShowConsole : load xlsx and display to console
 

@@ -14,7 +14,6 @@
 	- HelloWorld : 헬로우 월드 예제 (가장 기본적인 구조)
 	- TestExcel : QtXlsx 예제에 기반한 기본 예제
 	- HelloAndroid : 안드로이드에서 xlsx 파일 열기
-	- Copycat : xlsx 파일을 읽어 위젯으로 표시. xlsx 파일 인쇄.
 	- WebServer : xlsx 파일을 읽어 웹으로 표시	
 	- ShowConsole : xlsx 파일을 읽어 콘솔에 표시
 

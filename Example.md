@@ -83,14 +83,6 @@ int main(int argc, char *argv[])
 
 ![](markdown.data/android.jpg)
 
-## [Copycat : Windows Widget Example](https://github.com/QtExcel/QXlsx/tree/master/Copycat)
-- Load xlsx file and display on Qt widgets. 
-- Print xlsx to paper. (based on Qt-Table-Printer)
-- TODO: save xlsx.
-
-![](markdown.data/copycat.png)
-![](markdown.data/copycat2.jpg)
-
 ## [WebServer : Web Server Example](https://github.com/QtExcel/QXlsx/tree/master/WebServer)
 - Load xlsx file and display on Web.
 - Connect to `http://127.0.0.1:3001`
@@ -104,3 +96,11 @@ int main(int argc, char *argv[])
 - C++ 11 is required. Old compilers is not supported. (based on libfort)
 
 ![](markdown.data/show-console.jpg)
+
+## Copycat : Windows Widget Example 
+- Load xlsx file and display on Qt widgets. 
+- Print xlsx to paper. (based on Qt-Table-Printer)
+- Moved to personal repository for advanced app.
+
+![](markdown.data/copycat.png)
+![](markdown.data/copycat2.jpg)
