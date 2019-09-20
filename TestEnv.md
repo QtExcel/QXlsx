@@ -19,7 +19,7 @@
 | 5.5.1  | MingW              | Windows 32bit             | :smile: |
 | 5.5.0  | gcc+make           | Ubuntu 17/i686            | :smile: |
 | 5.2.0  | gcc+make           | Ubuntu 14/x64             | :smile: |
-| 5.0.1  | MingW              | Windows 32bit             | :smile: |
+| ~~5.0.1~~  | ~~MingW~~              | ~~Windows 32bit~~             | ~~:angry:~~ |
 
 - As the code is upgraded, old Qt may not be supported.
 - If more funding is raised, we will also support MacOS testing.
