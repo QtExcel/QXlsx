@@ -329,7 +329,12 @@ bool operator !=(const QString &rs1, const RichString &rs2)
 
 uint qHash(const RichString &rs, uint seed) Q_DECL_NOTHROW
 {
-    return qHash(rs.d->idKey(), seed);
+#if QT_VERSION >= QT_VERSION_CHECK( 5, 0, 0 )
+   return qHash(rs.d->idKey(), seed);
+#else
+   Q_UNUSED(seed);
+   return qHash(rs.d->idKey());
+#endif
 }
 
 #ifndef QT_NO_DEBUG_STREAM
