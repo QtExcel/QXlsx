@@ -27,7 +27,11 @@
 
 #include <QString>
 #include <QPoint>
+#if QT_VERSION >= QT_VERSION_CHECK( 5, 0, 0 )
 #include <QRegularExpression>
+#else
+#include <QRegExp>
+#endif
 #include <QMap>
 #include <QStringList>
 #include <QColor>
@@ -166,8 +170,13 @@ QString createSafeSheetName(const QString &nameProposal)
         ret = unescapeSheetName(ret);
 
     //Replace invalid chars with space.
+#if QT_VERSION >= QT_VERSION_CHECK( 5, 0, 0 )
     if (nameProposal.contains(QRegularExpression(QStringLiteral("[/\\\\?*\\][:]"))))
         ret.replace(QRegularExpression(QStringLiteral("[/\\\\?*\\][:]")), QStringLiteral(" "));
+#else
+    if (nameProposal.contains(QRegExp(QLatin1String("[/\\\\?*\\][:]"))))
+        ret.replace(QRegExp(QLatin1String("[/\\\\?*\\][:]")), QLatin1String(" "));
+#endif
     if (ret.startsWith(QLatin1Char('\'')))
         ret[0] = QLatin1Char(' ');
     if (ret.endsWith(QLatin1Char('\'')))
@@ -187,8 +196,13 @@ QString escapeSheetName(const QString &sheetName)
     Q_ASSERT(!sheetName.startsWith(QLatin1Char('\'')) && !sheetName.endsWith(QLatin1Char('\'')));
 
     //These is no need to escape
+#if QT_VERSION >= QT_VERSION_CHECK( 5, 0, 0 )
     if (!sheetName.contains(QRegularExpression(QStringLiteral("[ +\\-,%^=<>'&]"))))
         return sheetName;
+#else
+    if (!sheetName.contains(QRegExp(QLatin1String("[ +\\-,%^=<>'&]"))))
+        return sheetName;
+#endif
 
     //OK, escape is needed.
     QString name = sheetName;

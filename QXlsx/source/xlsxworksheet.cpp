@@ -8,7 +8,6 @@
 #include <QPoint>
 #include <QFile>
 #include <QUrl>
-#include <QRegularExpression>
 #include <QDebug>
 #include <QBuffer>
 #include <QXmlStreamWriter>
