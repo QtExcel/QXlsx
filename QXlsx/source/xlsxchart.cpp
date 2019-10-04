@@ -1343,6 +1343,7 @@ bool ChartPrivate::loadXmlAxisEG_AxShared(QXmlStreamReader &reader, XlsxAxis* ax
 
 bool ChartPrivate::loadXmlAxisEG_AxShared_Scaling(QXmlStreamReader &reader, XlsxAxis* axis)
 {
+    Q_UNUSED(axis);
     Q_ASSERT(reader.name() == QLatin1String("scaling"));
 
     while ( !reader.atEnd() )
@@ -1352,8 +1353,6 @@ bool ChartPrivate::loadXmlAxisEG_AxShared_Scaling(QXmlStreamReader &reader, Xlsx
         {
             if ( reader.name() == QLatin1String("orientation") )
             {
-                QString strOrientation = reader.attributes().value(QLatin1String("val")).toString();
-                int debugLine = 0;
             }
             else
             {
@@ -1440,6 +1439,7 @@ bool ChartPrivate::loadXmlAxisEG_AxShared_Title(QXmlStreamReader &reader, XlsxAx
 
 bool ChartPrivate::loadXmlAxisEG_AxShared_Title_Overlay(QXmlStreamReader &reader, XlsxAxis* axis)
 {
+    Q_UNUSED(axis);
     Q_ASSERT(reader.name() == QLatin1String("overlay"));
 
     while ( !reader.atEnd() )
@@ -1546,6 +1546,7 @@ bool ChartPrivate::loadXmlAxisEG_AxShared_Title_Tx_Rich_P(QXmlStreamReader &read
 
 bool ChartPrivate::loadXmlAxisEG_AxShared_Title_Tx_Rich_P_pPr(QXmlStreamReader &reader, XlsxAxis* axis)
 {
+    Q_UNUSED(axis);
     Q_ASSERT(reader.name() == QLatin1String("pPr"));
 
     while ( !reader.atEnd() )
@@ -1555,8 +1556,7 @@ bool ChartPrivate::loadXmlAxisEG_AxShared_Title_Tx_Rich_P_pPr(QXmlStreamReader &
         {
             if ( reader.name() == QLatin1String("defRPr") )
             {
-                QString strDefRPr = reader.readElementText();
-                int debugLine = 0;
+                reader.readElementText();
             }
             else
             {

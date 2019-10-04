@@ -1547,7 +1547,6 @@ void WorksheetPrivate::saveXmlCellData(QXmlStreamWriter &writer, int row, int co
     {
         if (cell->hasFormula())
         {
-            int si = cell->formula().d->si;
             QString strFormula = cell->formula().d->formula;
 
             cell->formula().saveToXml(writer);
@@ -1575,7 +1574,6 @@ void WorksheetPrivate::saveXmlCellData(QXmlStreamWriter &writer, int row, int co
 
         if (cell->hasFormula())
         {
-            int si = cell->formula().d->si;
             QString strFormula = cell->formula().d->formula;
 
             cell->formula().saveToXml(writer);
@@ -1676,7 +1674,6 @@ void WorksheetPrivate::saveXmlCellData(QXmlStreamWriter &writer, int row, int co
 
         if (cell->hasFormula())
         {
-            int si = cell->formula().d->si;
             QString strFormula = cell->formula().d->formula;
 
             cell->formula().saveToXml(writer);
