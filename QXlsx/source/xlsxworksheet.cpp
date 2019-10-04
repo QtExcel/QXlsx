@@ -115,7 +115,7 @@ void WorksheetPrivate::calculateSpans() const
 
 		if (row_num%16 == 0 || row_num == dimension.lastRow()) {
 			if (span_max != -1) {
-				row_spans[row_num / 16] = QStringLiteral("%1:%2").arg(span_min).arg(span_max);
+				row_spans[row_num / 16] = QString("%1:%2").arg(span_min).arg(span_max);
 				span_min = XLSX_COLUMN_MAX+1;
 				span_max = -1;
 			}
@@ -1751,7 +1751,7 @@ void WorksheetPrivate::saveXmlHyperlinks(QXmlStreamWriter &writer) const
                 // Update relationships
 				relationships->addWorksheetRelationship(QStringLiteral("/hyperlink"), data->target, QStringLiteral("External"));
 
-				writer.writeAttribute(QStringLiteral("r:id"), QStringLiteral("rId%1").arg(relationships->count()));
+				writer.writeAttribute(QStringLiteral("r:id"), QString("rId%1").arg(relationships->count()));
 			}
 
 			if (!data->location.isEmpty())
@@ -1783,10 +1783,10 @@ void WorksheetPrivate::saveXmlDrawings(QXmlStreamWriter &writer) const
 		return;
 
 	int idx = workbook->drawings().indexOf(drawing.data());
-	relationships->addWorksheetRelationship(QStringLiteral("/drawing"), QStringLiteral("../drawings/drawing%1.xml").arg(idx+1));
+	relationships->addWorksheetRelationship(QStringLiteral("/drawing"), QString("../drawings/drawing%1.xml").arg(idx+1));
 
 	writer.writeEmptyElement(QStringLiteral("drawing"));
-	writer.writeAttribute(QStringLiteral("r:id"), QStringLiteral("rId%1").arg(relationships->count()));
+	writer.writeAttribute(QStringLiteral("r:id"), QString("rId%1").arg(relationships->count()));
 }
 
 void WorksheetPrivate::splitColsInfo(int colFirst, int colLast)

@@ -92,7 +92,7 @@ QList<XlsxRelationship> Relationships::relationships(const QString &type) const
 void Relationships::addRelationship(const QString &type, const QString &target, const QString &targetMode)
 {
     XlsxRelationship relation;
-    relation.id = QStringLiteral("rId%1").arg(m_relationships.size()+1);
+    relation.id = QString("rId%1").arg(m_relationships.size()+1);
     relation.type = type;
     relation.target = target;
     relation.targetMode = targetMode;

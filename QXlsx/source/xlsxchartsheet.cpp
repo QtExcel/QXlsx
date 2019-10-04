@@ -106,10 +106,10 @@ void Chartsheet::saveToXmlFile(QIODevice *device) const
     writer.writeEndElement(); //sheetViews
 
     int idx = d->workbook->drawings().indexOf(d->drawing.data());
-    d->relationships->addWorksheetRelationship(QStringLiteral("/drawing"), QStringLiteral("../drawings/drawing%1.xml").arg(idx+1));
+    d->relationships->addWorksheetRelationship(QStringLiteral("/drawing"), QString("../drawings/drawing%1.xml").arg(idx+1));
 
     writer.writeEmptyElement(QStringLiteral("drawing"));
-    writer.writeAttribute(QStringLiteral("r:id"), QStringLiteral("rId%1").arg(d->relationships->count()));
+    writer.writeAttribute(QStringLiteral("r:id"), QString("rId%1").arg(d->relationships->count()));
 
     writer.writeEndElement();//chartsheet
     writer.writeEndDocument();

@@ -268,14 +268,14 @@ bool DocumentPrivate::savePackage(QIODevice *device) const
     for (int i = 0 ; i < worksheets.size(); ++i)
     {
 		QSharedPointer<AbstractSheet> sheet = worksheets[i];
-		contentTypes->addWorksheetName(QStringLiteral("sheet%1").arg(i+1));
+		contentTypes->addWorksheetName(QString("sheet%1").arg(i+1));
 		docPropsApp.addPartTitle(sheet->sheetName());
 
-		zipWriter.addFile(QStringLiteral("xl/worksheets/sheet%1.xml").arg(i+1), sheet->saveToXmlData());
+		zipWriter.addFile(QString("xl/worksheets/sheet%1.xml").arg(i+1), sheet->saveToXmlData());
 
 		Relationships *rel = sheet->relationships();
 		if (!rel->isEmpty())
-			zipWriter.addFile(QStringLiteral("xl/worksheets/_rels/sheet%1.xml.rels").arg(i+1), rel->saveToXmlData());
+			zipWriter.addFile(QString("xl/worksheets/_rels/sheet%1.xml.rels").arg(i+1), rel->saveToXmlData());
 	}
 
 	//save chartsheet xml files
@@ -285,25 +285,25 @@ bool DocumentPrivate::savePackage(QIODevice *device) const
     for (int i=0; i<chartsheets.size(); ++i)
     {
 		QSharedPointer<AbstractSheet> sheet = chartsheets[i];
-		contentTypes->addWorksheetName(QStringLiteral("sheet%1").arg(i+1));
+		contentTypes->addWorksheetName(QString("sheet%1").arg(i+1));
 		docPropsApp.addPartTitle(sheet->sheetName());
 
-		zipWriter.addFile(QStringLiteral("xl/chartsheets/sheet%1.xml").arg(i+1), sheet->saveToXmlData());
+		zipWriter.addFile(QString("xl/chartsheets/sheet%1.xml").arg(i+1), sheet->saveToXmlData());
 		Relationships *rel = sheet->relationships();
 		if (!rel->isEmpty())
-			zipWriter.addFile(QStringLiteral("xl/chartsheets/_rels/sheet%1.xml.rels").arg(i+1), rel->saveToXmlData());
+			zipWriter.addFile(QString("xl/chartsheets/_rels/sheet%1.xml.rels").arg(i+1), rel->saveToXmlData());
 	}
 
 	// save external links xml files
     for (int i=0; i<workbook->d_func()->externalLinks.count(); ++i)
     {
 		SimpleOOXmlFile *link = workbook->d_func()->externalLinks[i].data();
-		contentTypes->addExternalLinkName(QStringLiteral("externalLink%1").arg(i+1));
+		contentTypes->addExternalLinkName(QString("externalLink%1").arg(i+1));
 
-		zipWriter.addFile(QStringLiteral("xl/externalLinks/externalLink%1.xml").arg(i+1), link->saveToXmlData());
+		zipWriter.addFile(QString("xl/externalLinks/externalLink%1.xml").arg(i+1), link->saveToXmlData());
 		Relationships *rel = link->relationships();
 		if (!rel->isEmpty())
-			zipWriter.addFile(QStringLiteral("xl/externalLinks/_rels/externalLink%1.xml.rels").arg(i+1), rel->saveToXmlData());
+			zipWriter.addFile(QString("xl/externalLinks/_rels/externalLink%1.xml.rels").arg(i+1), rel->saveToXmlData());
 	}
 
 	// save workbook xml file
@@ -314,12 +314,12 @@ bool DocumentPrivate::savePackage(QIODevice *device) const
 	// save drawing xml files
     for (int i=0; i<workbook->drawings().size(); ++i)
     {
-		contentTypes->addDrawingName(QStringLiteral("drawing%1").arg(i+1));
+		contentTypes->addDrawingName(QString("drawing%1").arg(i+1));
 
 		Drawing *drawing = workbook->drawings()[i];
-		zipWriter.addFile(QStringLiteral("xl/drawings/drawing%1.xml").arg(i+1), drawing->saveToXmlData());
+		zipWriter.addFile(QString("xl/drawings/drawing%1.xml").arg(i+1), drawing->saveToXmlData());
 		if (!drawing->relationships()->isEmpty())
-			zipWriter.addFile(QStringLiteral("xl/drawings/_rels/drawing%1.xml.rels").arg(i+1), drawing->relationships()->saveToXmlData());
+			zipWriter.addFile(QString("xl/drawings/_rels/drawing%1.xml.rels").arg(i+1), drawing->relationships()->saveToXmlData());
 	}
 
 	// save docProps app/core xml file
@@ -353,9 +353,9 @@ bool DocumentPrivate::savePackage(QIODevice *device) const
 	// save chart xml files
     for (int i=0; i<workbook->chartFiles().size(); ++i)
     {
-		contentTypes->addChartName(QStringLiteral("chart%1").arg(i+1));
+		contentTypes->addChartName(QString("chart%1").arg(i+1));
 		QSharedPointer<Chart> cf = workbook->chartFiles()[i];
-		zipWriter.addFile(QStringLiteral("xl/charts/chart%1.xml").arg(i+1), cf->saveToXmlData());
+		zipWriter.addFile(QString("xl/charts/chart%1.xml").arg(i+1), cf->saveToXmlData());
 	}
 
 	// save image files
@@ -365,7 +365,7 @@ bool DocumentPrivate::savePackage(QIODevice *device) const
 		if (!mf->mimeType().isEmpty())
 			contentTypes->addDefault(mf->suffix(), mf->mimeType());
 
-		zipWriter.addFile(QStringLiteral("xl/media/image%1.%2").arg(i+1).arg(mf->suffix()), mf->contents());
+		zipWriter.addFile(QString("xl/media/image%1.%2").arg(i+1).arg(mf->suffix()), mf->contents());
 	}
 
 	// save root .rels xml file
