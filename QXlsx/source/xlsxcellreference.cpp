@@ -25,7 +25,12 @@
 #include "xlsxcellreference.h"
 #include <QStringList>
 #include <QMap>
+
+#if QT_VERSION >= QT_VERSION_CHECK( 5, 0, 0 )
 #include <QRegularExpression>
+#else
+#include <QRegExp>
+#endif
 
 QT_BEGIN_NAMESPACE_XLSX
 
@@ -118,6 +123,7 @@ CellReference::CellReference(const char *cell)
 
 void CellReference::init(const QString &cell_str)
 {
+#if QT_VERSION >= QT_VERSION_CHECK( 5, 0, 0 )
     static QRegularExpression re(QStringLiteral("^\\$?([A-Z]{1,3})\\$?(\\d+)$"));
     QRegularExpressionMatch match = re.match(cell_str);
     if (match.hasMatch()) {
@@ -126,6 +132,16 @@ void CellReference::init(const QString &cell_str)
         _row = row_str.toInt();
         _column = col_from_name(col_str);
     }
+#else
+    QRegExp re(QLatin1String("^\\$?([A-Z]{1,3})\\$?(\\d+)$"));
+    if (re.indexIn(cell_str) != -1)
+    {
+       const QString col_str = re.cap(1);
+       const QString row_str = re.cap(2);
+       _row = row_str.toInt();
+       _column = col_from_name(col_str);
+    }
+#endif
 }
 
 /*!
