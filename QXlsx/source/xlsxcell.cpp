@@ -115,7 +115,6 @@ QVariant Cell::readValue() const
 	ret = d->value;
 
 	Format fmt = this->format();
-	int noFormatIndex = fmt.numberFormatIndex(); 
 
 	if (isDateTime())
 	{

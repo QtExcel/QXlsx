@@ -998,7 +998,7 @@ bool Styles::readBorder(QXmlStreamReader &reader, Format &border)
 
 bool Styles::readCellStyleXfs(QXmlStreamReader &reader)
 {
-
+    Q_UNUSED(reader);
     return true;
 }
 
