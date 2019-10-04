@@ -204,19 +204,19 @@ bool ConditionalFormatting::addHighlightCellsRule(HighlightRuleType type, const 
         if (type == Highlight_ContainsText) {
             cfRule->attrs[XlsxCfRuleData::A_type] = QStringLiteral("containsText");
             cfRule->attrs[XlsxCfRuleData::A_operator] = QStringLiteral("containsText");
-            cfRule->attrs[XlsxCfRuleData::A_formula1_temp] = QStringLiteral("NOT(ISERROR(SEARCH(\"%1\",%2)))").arg(formula1);
+            cfRule->attrs[XlsxCfRuleData::A_formula1_temp] = QString("NOT(ISERROR(SEARCH(\"%1\",%2)))").arg(formula1);
         } else if (type == Highlight_NotContainsText) {
             cfRule->attrs[XlsxCfRuleData::A_type] = QStringLiteral("notContainsText");
             cfRule->attrs[XlsxCfRuleData::A_operator] = QStringLiteral("notContains");
-            cfRule->attrs[XlsxCfRuleData::A_formula1_temp] = QStringLiteral("ISERROR(SEARCH(\"%2\",%1))").arg(formula1);
+            cfRule->attrs[XlsxCfRuleData::A_formula1_temp] = QString("ISERROR(SEARCH(\"%2\",%1))").arg(formula1);
         } else if (type == Highlight_BeginsWith) {
             cfRule->attrs[XlsxCfRuleData::A_type] = QStringLiteral("beginsWith");
             cfRule->attrs[XlsxCfRuleData::A_operator] = QStringLiteral("beginsWith");
-            cfRule->attrs[XlsxCfRuleData::A_formula1_temp] = QStringLiteral("LEFT(%2,LEN(\"%1\"))=\"%1\"").arg(formula1);
+            cfRule->attrs[XlsxCfRuleData::A_formula1_temp] = QString("LEFT(%2,LEN(\"%1\"))=\"%1\"").arg(formula1);
         } else {
             cfRule->attrs[XlsxCfRuleData::A_type] = QStringLiteral("endsWith");
             cfRule->attrs[XlsxCfRuleData::A_operator] = QStringLiteral("endsWith");
-            cfRule->attrs[XlsxCfRuleData::A_formula1_temp] = QStringLiteral("RIGHT(%2,LEN(\"%1\"))=\"%1\"").arg(formula1);
+            cfRule->attrs[XlsxCfRuleData::A_formula1_temp] = QString("RIGHT(%2,LEN(\"%1\"))=\"%1\"").arg(formula1);
         }
         cfRule->attrs[XlsxCfRuleData::A_text] = formula1;
         skipFormula = true;
@@ -660,7 +660,7 @@ bool ConditionalFormatting::saveToXml(QXmlStreamWriter &writer) const
     QStringList sqref;
     foreach (CellRange range, ranges())
         sqref.append(range.toString());
-    writer.writeAttribute(QStringLiteral("sqref"), sqref.join(QLatin1Char(' ')));
+    writer.writeAttribute(QStringLiteral("sqref"), sqref.join(QLatin1String(" ")));
 
     for (int i=0; i<d->cfRules.size(); ++i) {
         const QSharedPointer<XlsxCfRuleData> &rule = d->cfRules[i];

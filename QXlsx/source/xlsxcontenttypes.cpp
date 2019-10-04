@@ -79,37 +79,37 @@ void ContentTypes::addWorkbook()
 
 void ContentTypes::addWorksheetName(const QString &name)
 {
-    addOverride(QStringLiteral("/xl/worksheets/%1.xml").arg(name), m_document_prefix + QStringLiteral("spreadsheetml.worksheet+xml"));
+    addOverride(QString("/xl/worksheets/%1.xml").arg(name), m_document_prefix + QStringLiteral("spreadsheetml.worksheet+xml"));
 }
 
 void ContentTypes::addChartsheetName(const QString &name)
 {
-    addOverride(QStringLiteral("/xl/chartsheets/%1.xml").arg(name), m_document_prefix + QStringLiteral("spreadsheetml.chartsheet+xml"));
+    addOverride(QString("/xl/chartsheets/%1.xml").arg(name), m_document_prefix + QStringLiteral("spreadsheetml.chartsheet+xml"));
 }
 
 void ContentTypes::addDrawingName(const QString &name)
 {
-    addOverride(QStringLiteral("/xl/drawings/%1.xml").arg(name), m_document_prefix + QStringLiteral("drawing+xml"));
+    addOverride(QString("/xl/drawings/%1.xml").arg(name), m_document_prefix + QStringLiteral("drawing+xml"));
 }
 
 void ContentTypes::addChartName(const QString &name)
 {
-    addOverride(QStringLiteral("/xl/charts/%1.xml").arg(name), m_document_prefix + QStringLiteral("drawingml.chart+xml"));
+    addOverride(QString("/xl/charts/%1.xml").arg(name), m_document_prefix + QStringLiteral("drawingml.chart+xml"));
 }
 
 void ContentTypes::addCommentName(const QString &name)
 {
-    addOverride(QStringLiteral("/xl/%1.xml").arg(name), m_document_prefix + QStringLiteral("spreadsheetml.comments+xml"));
+    addOverride(QString("/xl/%1.xml").arg(name), m_document_prefix + QStringLiteral("spreadsheetml.comments+xml"));
 }
 
 void ContentTypes::addTableName(const QString &name)
 {
-    addOverride(QStringLiteral("/xl/tables/%1.xml").arg(name), m_document_prefix + QStringLiteral("spreadsheetml.table+xml"));
+    addOverride(QString("/xl/tables/%1.xml").arg(name), m_document_prefix + QStringLiteral("spreadsheetml.table+xml"));
 }
 
 void ContentTypes::addExternalLinkName(const QString &name)
 {
-    addOverride(QStringLiteral("/xl/externalLinks/%1.xml").arg(name), m_document_prefix + QStringLiteral("spreadsheetml.externalLink+xml"));
+    addOverride(QString("/xl/externalLinks/%1.xml").arg(name), m_document_prefix + QStringLiteral("spreadsheetml.externalLink+xml"));
 }
 
 void ContentTypes::addSharedString()
