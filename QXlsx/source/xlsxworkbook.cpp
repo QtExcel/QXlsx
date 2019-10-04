@@ -11,6 +11,7 @@
 #include "xlsxformat_p.h"
 #include "xlsxmediafile_p.h"
 #include "xlsxutility_p.h"
+#include "xlsxchart.h"
 
 #include <QXmlStreamWriter>
 #include <QXmlStreamReader>
