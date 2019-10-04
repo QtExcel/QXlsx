@@ -5,9 +5,10 @@
 <p align="center"><img src="https://raw.githubusercontent.com/QtExcel/QXlsx/master/markdown.data/QXlsx-Desktop.png"></p>
 
 - QXlsx는 엑셀 파일(*.xlsx)을 읽고 쓰는 라이브러리입니다.
-- QtXlsx가 더이상 지원되지 않기 때문에(2014), QtXlsx에 기반한 새로운 프로젝트를 만들었습니다. (2017-)
+  - QtXlsx가 더 이상 지원되지 않기 때문에(2014), QtXlsx에 기반한 새로운 프로젝트를 만들었습니다. (2017-)
 - QXlsx는 개발언어로 C++를 사용합니다. (Qt 사용)
 - QXlsx는 정적 또는 동적 라이브러리를 사용하지 않아도 되도록 제작되었습니다.
+  - 물론 정적 라이브러리(static library)로 사용할 수도 있습니다.
 
 ## 사용하는 방법
 - [예제](Example.md)를 참조하세요.
@@ -43,6 +44,7 @@ Travis CI | AppVeyor  | CodeFactor
 - Qt-Table-Printer 는 BSD 3-Clause 라이센스 입니다. [https://github.com/T0ny0/Qt-Table-Printer](https://github.com/T0ny0/Qt-Table-Printer) 
 - recurse 는 MIT 라이센스 입니다. [https://github.com/pkoretic/recurse](https://github.com/pkoretic/recurse)
 - libfort 는 MIT 라이센스 입니다. [https://github.com/seleznevae/libfort](https://github.com/seleznevae/libfort)
+- colorprintf 는 MIT 라이센스 입니다. [https://github.com/VittGam/colorprintf](https://github.com/VittGam/colorprintf)
 - Qt 는 LGPL v3 라이센스 또는 상업용 라이센스 입니다. [https://www.qt.io/](https://www.qt.io/)
 
 ## :email: 문의

@@ -944,9 +944,12 @@ void ChartPrivate::saveXmlBarChart(QXmlStreamWriter &writer) const
                         new XlsxAxis( XlsxAxis::T_Val, XlsxAxis::Left, 1, 0, axisNames[XlsxAxis::Left] )));
     }
 
-    //Note: Bar3D have 2~3 axes
+
+    // Note: Bar3D have 2~3 axes
     int axisListSize = axisList.size();
-    Q_ASSERT( axisListSize == 2 || ( axisListSize == 3 && chartType == Chart::CT_Bar3DChart ) );
+    // [dev62]
+    // Q_ASSERT( axisListSize == 2 ||
+    //          ( axisListSize == 3 && chartType == Chart::CT_Bar3DChart ) );
 
     for ( int i = 0 ; i < axisList.size() ; ++i )
     {

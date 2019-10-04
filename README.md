@@ -5,9 +5,10 @@
 <p align="center"><img src="https://raw.githubusercontent.com/QtExcel/QXlsx/master/markdown.data/QXlsx-Desktop.png"></p>
 
 - QXlsx is excel file(*.xlsx) reader/writer library.
-- Because QtXlsx is no longer supported(2014), I created a new project that is based on QtXlsx. (2017-)
+  - Because QtXlsx is no longer supported(2014), I created a new project that is based on QtXlsx. (2017-)
 - Development language of QXlsx is C++. (with Qt)
 - You don't need to use static library or dynamic shared object using QXlsx.
+  - You can also use it as a static library.
 
 ## How to use
 - See [examples](Example.md)
@@ -39,10 +40,11 @@ Travis CI | AppVeyor  | CodeFactor
 
 ## License and links
 - QXlsx is under MIT license. [https://github.com/QtExcel/QXlsx](https://github.com/QtExcel/QXlsx)
-- QtXlsx is under MIT license. [https://github.com/dbzhang800/QtXlsxWriter](https://github.com/dbzhang800/QtXlsxWriter)
+- QtXlsxWriter is under MIT license. [https://github.com/dbzhang800/QtXlsxWriter](https://github.com/dbzhang800/QtXlsxWriter)
 - Qt-Table-Printer is under BSD 3-Clause license. [https://github.com/T0ny0/Qt-Table-Printer](https://github.com/T0ny0/Qt-Table-Printer) 
 - recurse is under MIT license. [https://github.com/pkoretic/recurse](https://github.com/pkoretic/recurse)
 - libfort is under MIT license. [https://github.com/seleznevae/libfort](https://github.com/seleznevae/libfort)
+- colorprintf is under MIT license. [https://github.com/VittGam/colorprintf](https://github.com/VittGam/colorprintf)
 - Qt is under LGPL v3 license or Commercial license. [https://www.qt.io/](https://www.qt.io/) 
 
 ## :email: Contact
