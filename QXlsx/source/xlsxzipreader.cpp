@@ -54,7 +54,7 @@ void ZipReader::init()
     QList<QZipReader::FileInfo> allFiles = m_reader->fileInfoList();
 #endif
     foreach (const QZipReader::FileInfo &fi, allFiles) {
-        if (fi.isFile)
+        if (fi.isFile || (!fi.isDir && !fi.isFile && !fi.isSymLink))
             m_filePaths.append(fi.filePath);
     }
 }
