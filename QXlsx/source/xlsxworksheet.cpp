@@ -1578,6 +1578,8 @@ void WorksheetPrivate::saveXmlCellData(QXmlStreamWriter &writer, int row, int co
     }
     else if (cell->cellType() == Cell::NumberType) // 'n'
     {
+        writer.writeAttribute(QStringLiteral("t"), QStringLiteral("n")); // dev67
+
         if (cell->hasFormula())
         {
             QString strFormula = cell->formula().d->formula;
