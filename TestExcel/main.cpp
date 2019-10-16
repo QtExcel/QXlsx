@@ -72,5 +72,7 @@ int main(int argc, char *argv[])
 	worksheetoperations();
     pages();
 	
+    qDebug() << "**** end of main() ****";
+
 	return 0;
 }

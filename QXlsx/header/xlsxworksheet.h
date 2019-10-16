@@ -91,6 +91,10 @@ public:
     bool writeDateTime(const CellReference &row_column, const QDateTime& dt, const Format &format=Format());
     bool writeDateTime(int row, int column, const QDateTime& dt, const Format &format=Format());
 
+    // dev67
+    bool writeDate(const CellReference &row_column, const QDate& dt, const Format &format=Format());
+    bool writeDate(int row, int column, const QDate& dt, const Format &format=Format());
+
     bool writeTime(const CellReference &row_column, const QTime& t, const Format &format=Format());
     bool writeTime(int row, int column, const QTime& t, const Format &format=Format());
 

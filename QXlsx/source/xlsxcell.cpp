@@ -2,6 +2,8 @@
 
 #include <cmath>
 
+#include <QtGlobal>
+#include <QDebug>
 #include <QDateTime>
 #include <QDate>
 #include <QTime>
@@ -250,7 +252,8 @@ bool Cell::isDateTime() const
 	bool isValidFormat = d->format.isValid();
     bool isDateTimeFormat = d->format.isDateTimeFormat(); // datetime format
 
-    if ( // cellType == NumberType ||
+    // dev67
+    if ( cellType == NumberType ||
          cellType == DateType ||
          cellType == CustomType )
     {
