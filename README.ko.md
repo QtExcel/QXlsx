@@ -68,7 +68,7 @@ Travis CI | AppVeyor  | CodeFactor
 <p align="center"><img src="https://github.com/QtExcel/Qlibxlsxwriter/raw/master/markdown.data/logo.png"></p>
 
 - Qlibxlsxwriter는 libxlsxwriter를 Qt에서 사용할 수있는 도우미 프로젝트입니다.
-- libxlsxwriter는 Excel XLSX 파일을 만들기위한 C 라이브러리 입니다.	
+- libxlsxwriter는 Excel XLSX 파일을 만들기 위한 C 라이브러리 입니다.	
 
 ### :star: <b>QSimpleXlsxWriter</b> [https://github.com/QtExcel/QSimpleXlsxWriter](https://github.com/QtExcel/QSimpleXlsxWriter)
 
