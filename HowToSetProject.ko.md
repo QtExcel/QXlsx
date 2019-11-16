@@ -23,7 +23,7 @@ git clone https://github.com/j2doll/QXlsx.git
 
 ![](markdown.data/02.jpg)
 
-* QtCreator의 사용방법을 모르시면, Qt Company 싸이트를 참조하세요. [https://www.qt.io/qt-features-libraries-apis-tools-and-ide/](https://www.qt.io/qt-features-libraries-apis-tools-and-ide/)
+* QtCreator의 사용방법을 모르시면, Qt Company 사이트를 참조하세요. [https://www.qt.io/qt-features-libraries-apis-tools-and-ide/](https://www.qt.io/qt-features-libraries-apis-tools-and-ide/)
 
 <br /><br />
 
