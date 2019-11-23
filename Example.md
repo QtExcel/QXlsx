@@ -75,7 +75,7 @@ int main(int argc, char *argv[])
 
 ![](markdown.data/testexcel.png)
 
-## [HelloAndroid : Android Example](https://github.com/QtExcel/QXlsx/tree/master/HelloAndroid)
+## [HelloAndroid](https://github.com/QtExcel/QXlsx/tree/master/HelloAndroid)
 
 - See 'HelloAndroid' example using QML and native C++.
 
@@ -83,21 +83,21 @@ int main(int argc, char *argv[])
 
 ![](markdown.data/android.jpg)
 
-## [WebServer : Web Server Example](https://github.com/QtExcel/QXlsx/tree/master/WebServer)
+## [WebServer](https://github.com/QtExcel/QXlsx/tree/master/WebServer)
 - Load xlsx file and display on Web.
 - Connect to `http://127.0.0.1:3001`
 - C++ 14 is required. Old compilers is not supported.(based on recurse)
 
 ![](markdown.data/webserver.png)
 
-## [ShowConsole : Console Example](https://github.com/QtExcel/QXlsx/tree/master/ShowConsole)
+## [ShowConsole](https://github.com/QtExcel/QXlsx/tree/master/ShowConsole)
 - Load xlsx file and display in console.
   - [Usage] ShowConsole *.xlsx
 - C++ 11 is required. Old compilers is not supported. (based on libfort)
 
 ![](markdown.data/show-console.jpg)
 
-## Copycat : Windows Widget Example 
+## Copycat 
 - Load xlsx file and display on Qt widgets. 
 - Print xlsx to paper. (based on Qt-Table-Printer)
 - Moved to personal repository for advanced app.
