@@ -22,8 +22,11 @@ class XlsxSeries
 {
 public:
     //At present, we care about number cell ranges only!
-    QString numberDataSource_numRef; // yval, val
-    QString axDataSource_numRef; // xval, cat
+    QString numberDataSource_numRef = ""; // yval, val
+    QString axDataSource_numRef = ""; // xval, cat
+    QString headerH_numRef = "";
+    QString headerV_numRef = "";
+    bool    swapHeader = false;
 };
 
 class XlsxAxis
@@ -76,7 +79,9 @@ public:
     bool loadXmlXxxChart(QXmlStreamReader &reader);
     bool loadXmlSer(QXmlStreamReader &reader);
     QString loadXmlNumRef(QXmlStreamReader &reader);
+    QString loadXmlStrRef(QXmlStreamReader &reader);
     bool loadXmlChartTitle(QXmlStreamReader &reader);
+    bool loadXmlChartLegend(QXmlStreamReader &reader);
 protected:
     bool loadXmlChartTitleTx(QXmlStreamReader &reader);
     bool loadXmlChartTitleTxRich(QXmlStreamReader &reader);
@@ -97,6 +102,8 @@ protected:
     bool loadXmlAxisEG_AxShared_Title_Tx_Rich_P_pPr(QXmlStreamReader &reader, XlsxAxis* axis);
     bool loadXmlAxisEG_AxShared_Title_Tx_Rich_P_R(QXmlStreamReader &reader, XlsxAxis* axis);
 
+    QString readSubTree(QXmlStreamReader &reader);
+
 public:
     void saveXmlChart(QXmlStreamWriter &writer) const;
     void saveXmlChartTitle(QXmlStreamWriter &writer) const;
@@ -108,6 +115,8 @@ public:
     void saveXmlDoughnutChart(QXmlStreamWriter &writer) const;
     void saveXmlSer(QXmlStreamWriter &writer, XlsxSeries *ser, int id) const;
     void saveXmlAxis(QXmlStreamWriter &writer) const;
+    void saveXmlChartLegend(QXmlStreamWriter &writer) const;
+
 protected:
     void saveXmlAxisCatAx(QXmlStreamWriter &writer, XlsxAxis* axis) const;
     void saveXmlAxisDateAx(QXmlStreamWriter &writer, XlsxAxis* axis) const;
@@ -126,6 +135,12 @@ public:
     QMap< XlsxAxis::AxisPos, QString > axisNames;
     QString chartTitle;
     AbstractSheet* sheet;
+    Chart::ChartAxisPos legendPos;
+    bool legendOverlay;
+    bool majorGridlinesEnabled;
+    bool minorGridlinesEnabled;
+
+    QString layout;             // only for storing a readed file
 };
 
 QT_END_NAMESPACE_XLSX

@@ -35,6 +35,13 @@ int definename()
     xlsx.write(12, 3, "=SUM(MyCol_3)*Factor");
     //![2]
 
-	xlsx.saveAs("definename.xlsx");
+    xlsx.saveAs("definename1.xlsx");
+
+    Document xlsx2("definename1.xlsx");
+    if ( xlsx2.load() )
+    {
+        xlsx2.saveAs("definename2.xlsx");
+    }
+
     return 0;
 }
