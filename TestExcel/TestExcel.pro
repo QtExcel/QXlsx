@@ -36,6 +36,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
 calendar.cpp \
 chart.cpp \
+    chartextended.cpp \
 chartsheet.cpp \
 datavalidation.cpp \
 definename.cpp \
