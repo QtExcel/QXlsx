@@ -36,7 +36,8 @@ Chart::Chart(AbstractSheet *parent, CreateFlag flag)
 
     d_func()->sheet = parent;
 
-    d->legendPos = Chart::ChartAxisPos::None;
+    // d->legendPos = Chart::ChartAxisPos::None;
+    d->legendPos = ChartAxisPos::None;
     d->legendOverlay = false;
     d->majorGridlinesEnabled = false;
     d->minorGridlinesEnabled = false;
@@ -1052,19 +1053,23 @@ void ChartPrivate::saveXmlChartLegend(QXmlStreamWriter &writer) const
             QString pos;
             switch( legendPos )
             {
-                case Chart::ChartAxisPos::Right:
+                //case Chart::ChartAxisPos::Right:
+                case Chart::Right :
                     pos = "r";
                     break;
 
-                case Chart::ChartAxisPos::Left:
+                // case Chart::ChartAxisPos::Left:
+                case Chart::Left :
                     pos = "l";
                     break;
 
-                case Chart::ChartAxisPos::Top:
+                // case Chart::ChartAxisPos::Top:
+                case Chart::Top :
                     pos = "t";
                     break;
 
-                case Chart::ChartAxisPos::Bottom:
+                // case Chart::ChartAxisPos::Bottom:
+                case Chart::Bottom :
                     pos = "b";
                     break;
 
@@ -2280,33 +2285,38 @@ bool ChartPrivate::loadXmlChartLegend(QXmlStreamReader &reader)
                 QString pos = reader.attributes().value(QLatin1String("val")).toString();
                 if( pos.compare("r",Qt::CaseInsensitive) == 0)
                 {
-                    legendPos = Chart::ChartAxisPos::Right;
+                    // legendPos = Chart::ChartAxisPos::Right;
+                    legendPos = Chart::Right;
                 }
                 else
                 if( pos.compare("l",Qt::CaseInsensitive) == 0)
                 {
-                    legendPos = Chart::ChartAxisPos::Left;
+                    // legendPos = Chart::ChartAxisPos::Left;
+                    legendPos = Chart::Left;
                 }
                 else
                 if( pos.compare("t",Qt::CaseInsensitive) == 0)
                 {
-                    legendPos = Chart::ChartAxisPos::Top;
+                    // legendPos = Chart::ChartAxisPos::Top;
+                    legendPos = Chart::Top;
                 }
                 else
                 if( pos.compare("b",Qt::CaseInsensitive) == 0)
                 {
-                    legendPos = Chart::ChartAxisPos::Bottom;
+                    // legendPos = Chart::ChartAxisPos::Bottom;
+                    legendPos = Chart::Bottom;
                 }
                 else
                 {
-                    legendPos = Chart::ChartAxisPos::None;
+                    // legendPos = Chart::ChartAxisPos::None;
+                    legendPos = Chart::None;
                 }
             }
             else
             if (reader.name() == QLatin1String("overlay")) // c:legendPos
             {
                 QString pos = reader.attributes().value(QLatin1String("val")).toString();
-                if( pos.compare("1",Qt::CaseInsensitive) == 0)
+                if( pos.compare("1",Qt::CaseInsensitive) == 0 )
                 {
                     legendOverlay = true;
                 }
