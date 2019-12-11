@@ -1,19 +1,47 @@
-name: QXlsx Workflow
+  
+name: Test Installing Qt
 
-on: [push]
+on: [push, pull_request]
+
 jobs:
-  build:
-    runs-on: ubuntu-latest
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [windows-latest, macOS-latest, ubuntu-latest]
     steps:
-    - name: Checkout
-      uses: actions/checkout@v1
-    - name: install qt
-      uses: actions/install-qt-action@v0.1.1
-      with:
-        packages: 'qt.qt5.5124.gcc_64, qt.qt5.5124.android_arm64_v8a'
-    - name: Test qmake
-      run: 
-           cd QXlsx 
-           /Qt/5.12.4/gcc_64/bin/qmake QXlsx.pro
-           make
-           
+      - uses: actions/checkout@v1
+
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '10.x'
+
+      - name: "npm ci"
+        run: npm ci
+
+      - name: "npm run build"
+        run: npm run build
+
+      - name: Install Qt
+        uses: ./
+        with:
+          modules: qtcharts qtwebengine
+
+      - name: Configure test project on windows
+        if: startsWith(matrix.os, 'windows')
+        run: |
+          cd QXlsx
+          call "%programfiles(x86)%\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
+          dir %Qt5_Dir%/lib/cmake
+          qmake QXlsx.pro
+          nmake
+        shell: cmd
+          
+      - name: Configure test project on unix
+        if: (!startsWith(matrix.os, 'windows'))
+        run: |
+          cd QXlsx
+          ls $Qt5_Dir/lib/cmake
+          qmake QXlsx.pro
+          make
+        shell: bash
