@@ -1,0 +1,34 @@
+name: C/C++ CI
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: windows-2019
+    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v1
+    - name: Prepare
+      working-directory: build
+      run: |
+        curl -vLo qt-unified-windows-x86-online.exe http://download.qt.io/official_releases/online_installers/qt-unified-windows-x86-online.exe
+        qt-unified-windows-x86-online.exe --verbose --script ..\ci\qt.qs
+    - name: Configure
+      working-directory: build
+      run: cmake -DCPACK_IFW_ROOT=Qt/Tools/QtInstallerFramework/3.1 -DCMAKE_BUILD_TYPE=Release -G"Visual Studio 16 2019" ..
+    - name: Compile
+      working-directory: build
+      run:
+         cd QXlsx
+         qmake QXlsx.pro
+         nmake
+    - name: Test
+      working-directory: build
+      run: 
+         cd TestExcel
+         qmake TestExcel.pro
+         nmake
+          
+      
