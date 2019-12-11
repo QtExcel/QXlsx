@@ -22,22 +22,6 @@ ChartPrivate::ChartPrivate(Chart *q, Chart::CreateFlag flag)
 
 ChartPrivate::~ChartPrivate()
 {
-    /*
-    QList< QSharedPointer<XlsxSeries> > seriesList;
-    QList< QSharedPointer<XlsxAxis> > axisList;
-    QMap< XlsxAxis::AxisPos, QString > axisNames;
-     */
-    // qDeleteAll( seriesList );
-    // qDeleteAll( axisList );
-    // qDeleteAll( axisNames );
-
-    /*
-    for (int i = 0; i < axisList.size(); ++i)
-    {
-        QSharedPointer<XlsxAxis> ptr = axisList.at(i);
-        // ptr->deleteLater();
-    }
-    */
 }
 
 
@@ -255,7 +239,7 @@ void Chart::setChartTitle(QString strchartTitle)
 }
 
 
-void Chart::setChartLegend(QXlsx::Chart::ChartAxisPos legendPos, bool overlay)
+void Chart::setChartLegend(Chart::ChartAxisPos legendPos, bool overlay)
 {
     Q_D(Chart);
 

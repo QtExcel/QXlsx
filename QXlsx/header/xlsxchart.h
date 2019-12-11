@@ -30,7 +30,7 @@ public:
         CT_OfPieChart, CT_SurfaceChart, CT_Surface3DChart,
         CT_BubbleChart,
     };
-    enum ChartAxisPos { None=-1, Left=0, Right, Top, Bottom  };
+    enum ChartAxisPos { None = (-1), Left = 0, Right, Top, Bottom  };
 private:
     friend class AbstractSheet;
     friend class Worksheet;
@@ -41,7 +41,6 @@ private:
 public:
     ~Chart();
 public:
-//    void addSeries(const CellRange &range, AbstractSheet* sheet = NULL);
     void addSeries(const CellRange &range, AbstractSheet *sheet = NULL, bool headerH = false, bool headerV = false, bool swapHeaders = false);
     void setChartType(ChartType type);
     void setChartStyle(int id);
@@ -49,11 +48,9 @@ public:
     void setChartTitle(QString strchartTitle);
     void setChartLegend(Chart::ChartAxisPos legendPos, bool overlap = false);
     void setGridlinesEnable(bool majorGridlinesEnable = false, bool minorGridlinesEnable = false);
-
 public:
     bool loadFromXmlFile(QIODevice *device);
     void saveToXmlFile(QIODevice *device) const;
-
 };
 
 QT_END_NAMESPACE_XLSX
