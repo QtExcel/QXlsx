@@ -35,14 +35,14 @@ int chartExtended()
 
     Chart *barChart1 = xlsx.insertChart(4, 3, QSize(300, 300));
     barChart1->setChartType(Chart::CT_BarChart);
-    barChart1->setChartLegend(Chart::ChartAxisPos::Right);
+    barChart1->setChartLegend(Chart::Right);
     barChart1->setChartTitle("Test1");
     // Messreihen
     barChart1->addSeries(CellRange(1,1,3,10), NULL, true, true, false);
 
     Chart *barChart2 = xlsx.insertChart(4, 9, QSize(300, 300));
     barChart2->setChartType(Chart::CT_BarChart);
-    barChart2->setChartLegend(Chart::ChartAxisPos::Right);
+    barChart2->setChartLegend(Chart::Right);
     barChart2->setChartTitle("Test2");
     barChart2->setGridlinesEnable(true);
     // Messreihen
@@ -50,21 +50,21 @@ int chartExtended()
 
     Chart *barChart3 = xlsx.insertChart(24, 3, QSize(300, 300));
     barChart3->setChartType(Chart::CT_BarChart);
-    barChart3->setChartLegend(Chart::ChartAxisPos::Left);
+    barChart3->setChartLegend(Chart::Left);
     barChart3->setChartTitle("Test3");
     // Messreihen
     barChart3->addSeries(CellRange(1,1,3,10));
 
     Chart *barChart4 = xlsx.insertChart(24, 9, QSize(300, 300));
     barChart4->setChartType(Chart::CT_BarChart);
-    barChart4->setChartLegend(Chart::ChartAxisPos::Top);
+    barChart4->setChartLegend(Chart::Top);
     barChart4->setChartTitle("Test4");
     // Messreihen
     barChart4->addSeries(CellRange(1,1,3,10));
 
     Chart *barChart5 = xlsx.insertChart(44, 9, QSize(300, 300));
     barChart5->setChartType(Chart::CT_BarChart);
-    barChart5->setChartLegend(Chart::ChartAxisPos::Bottom);
+    barChart5->setChartLegend(Chart::Bottom);
     barChart5->setChartTitle("Test5");
     // Messreihen
     barChart5->addSeries(CellRange(1,1,3,10));
