@@ -37,7 +37,7 @@ Chart::Chart(AbstractSheet *parent, CreateFlag flag)
     d_func()->sheet = parent;
 
     // d->legendPos = Chart::ChartAxisPos::None;
-    d->legendPos = ChartAxisPos::None;
+    d->legendPos = Chart::None;
     d->legendOverlay = false;
     d->majorGridlinesEnabled = false;
     d->minorGridlinesEnabled = false;
@@ -1039,7 +1039,7 @@ void ChartPrivate::saveXmlChartTitle(QXmlStreamWriter &writer) const
 // write 'chart legend'
 void ChartPrivate::saveXmlChartLegend(QXmlStreamWriter &writer) const
 {
-    if ( legendPos == Chart::ChartAxisPos::None )
+    if ( legendPos == Chart::None )
         return;
 
 //    <c:legend>
@@ -1050,6 +1050,7 @@ void ChartPrivate::saveXmlChartLegend(QXmlStreamWriter &writer) const
     writer.writeStartElement(QStringLiteral("c:legend"));
 
         writer.writeStartElement(QStringLiteral("c:legendPos"));
+
             QString pos;
             switch( legendPos )
             {
@@ -1077,10 +1078,13 @@ void ChartPrivate::saveXmlChartLegend(QXmlStreamWriter &writer) const
                     pos = "r";
                     break;
             }
+
             writer.writeAttribute(QStringLiteral("val"), pos);
+
         writer.writeEndElement();  // c:legendPos
 
         writer.writeStartElement(QStringLiteral("c:overlay"));
+
             if( legendOverlay )
             {
                 writer.writeAttribute(QStringLiteral("val"), QStringLiteral("1"));
@@ -1089,6 +1093,7 @@ void ChartPrivate::saveXmlChartLegend(QXmlStreamWriter &writer) const
             {
                 writer.writeAttribute(QStringLiteral("val"), QStringLiteral("0"));
             }
+
         writer.writeEndElement();  // c:overlay
 
     writer.writeEndElement(); // c:legend
