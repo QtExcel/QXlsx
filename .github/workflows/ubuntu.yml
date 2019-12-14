@@ -41,8 +41,6 @@ jobs:
         uses: jurplel/install-qt-action@v2.0.0
         with:
           version: ${{ matrix.qt_ver }}
-      - name: ubuntu install GL library
-        run: sudo apt-get install -y libglew-dev libglfw3-dev
       - uses: actions/checkout@v1
         with:
           fetch-depth: 1
