@@ -49,4 +49,4 @@ jobs:
           cd TestExcel
           qmake TestExcel.pro
           make
-          ./TestExcel
+
