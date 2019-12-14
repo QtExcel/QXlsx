@@ -49,6 +49,6 @@ jobs:
       - name: build ubuntu
         run: |
           cd TestExcel
-          qmake TestExcel.pro
+          ${env:QtPath}/bin/qmake TestExcel.pro
           make
 
