@@ -46,6 +46,7 @@ jobs:
           fetch-depth: 1
       - name: build ubuntu
         run: |
-          cd QXlsx
-          qmake QXlsx.pro
+          cd TestExcel
+          qmake TestExcel.pro
           make
+          ./TestExcel
