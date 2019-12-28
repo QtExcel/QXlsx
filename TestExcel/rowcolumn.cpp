@@ -37,6 +37,47 @@ int rowcolumn()
     xlsx.setColumnWidth(9, 16, 5.0);
     xlsx.setColumnFormat(9, 16, format2);
 
+
+    // Autosize columns
+    xlsx.addSheet("Autosize");
+    QXlsx::Format header;
+    header.setFontBold(true);
+    header.setFontSize(20);
+
+    //Custom number formats
+    int row = 2;
+    xlsx.write(row, 1, "Small", header);
+    xlsx.write(row, 2, "Large header", header);
+    for (int i=0; i<10; ++i)
+    {
+        xlsx.write(row+1+i, 1, i);
+        xlsx.write(row+1+i, 2, i);
+    }
+    xlsx.autosizeColumnWidth(1, 2);
+
+    xlsx.write(2, 4, "Small", header);
+    xlsx.write(2, 5, "<--- Large header --->", header);
+    for (int i=0; i<10; ++i)
+    {
+        xlsx.write(row+1+i, 4, exp(i));
+        xlsx.write(row+1+i, 5, exp(i));
+    }
+    xlsx.autosizeColumnWidth(4, 5);
+
+
+    xlsx.write(1, 7, "<--- Very big first line --->", header);
+    xlsx.write(row, 7, "Small", header);
+    xlsx.write(row, 8, "<--- Large header --->", header);
+    for (int i=0; i<10; ++i)
+    {
+        xlsx.write(row+1+i, 7, exp(i));
+        xlsx.write(row+1+i, 8, exp(i));
+    }
+    xlsx.autosizeColumnWidth(QXlsx::CellRange(2, 7, 1000, 8));
+
+
+
+
 	xlsx.saveAs("rowcolumn.xlsx");
     return 0;
 }
