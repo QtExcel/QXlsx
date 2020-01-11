@@ -34,7 +34,10 @@ jobs:
       - name: build 
         run: |
           cd TestExcel
+          call "%programfiles(x86)%\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
+          dir %Qt5_Dir%/lib/cmake
           qmake
           nmake
+        shell: cmd
 
 
