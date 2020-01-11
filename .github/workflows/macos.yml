@@ -19,108 +19,22 @@ jobs:
       matrix:
         os: [macos-latest]
         qt_ver: [5.12.6]
-        qt_arch: [clang_64]
-    env:
-      targetName: HelloActions-Qt
+        qt_target: [macos]
     steps:
-      - name: cacheQt
-        id: MacosCacheQt
-        uses: actions/cache@v1
-        with:
-          path: ../Qt/${{matrix.qt_ver}}/${{matrix.qt_arch}}
-          key: ${{ runner.os }}-Qt/${{matrix.qt_ver}}/${{matrix.qt_arch}}
-      - name: setupQt
-        if: steps.MacosCacheQt.outputs.cache-hit == 'true'
-        shell: pwsh
-        env:
-          QtPath: ../Qt/${{matrix.qt_ver}}/${{matrix.qt_arch}}
-        run: |
-          $qt_Path=${env:QtPath}
-          echo "::set-env name=Qt5_Dir::$qt_Path"
-          echo "::add-path::$qt_Path/bin"    
       - name: Install Qt
-        if: steps.MacosCacheQt.outputs.cache-hit != 'true'
+        # if: steps.cacheqt.outputs.cache-hit != 'true'
         uses: jurplel/install-qt-action@v2.0.0
         with:
+          # Version of Qt to install
           version: ${{ matrix.qt_ver }}
-      
+          # Target platform for build
+          target: ${{ matrix.qt_target }}
       - uses: actions/checkout@v1
         with:
           fetch-depth: 1
-      - name: build macos
+      - name: build 
         run: |
           cd TestExcel
-          qmake
+          qmake 
           make
-      - name: package
-        if: startsWith(github.event.ref, 'refs/tags/')
-        run: |
-          macdeployqt bin/${targetName}.app -qmldir=. -verbose=1 -dmg
-      - name: queryRelease
-        id: queryReleaseMacos
-        if: startsWith(github.event.ref, 'refs/tags/')
-        shell: pwsh
-        env:
-          githubFullName: ${{ github.event.repository.full_name }}
-          ref: ${{ github.event.ref }}
-        run: |
-          [string]$tag = ${env:ref}.Substring(${env:ref}.LastIndexOf('/') + 1)
-          [string]$url = 'https://api.github.com/repos/' + ${env:githubFullName} + '/releases/tags/' + ${tag}
-          $response={}
-          try {
-            $response = Invoke-RestMethod -Uri $url -Method Get
-          } catch {
-            Write-Host "StatusCode:" $_.Exception.Response.StatusCode.value__ 
-            Write-Host "StatusDescription:" $_.Exception.Response.StatusDescription
-            echo "::set-output name=needCreateRelease::true"  
-            return
-          }
-          [string]$latestUpUrl = $response.upload_url
-          Write-Host 'latestUpUrl:'$latestUpUrl
-          if ($latestUpUrl.Length -eq 0) {
-            echo "::set-output name=needCreateRelease::true"  
-          }
-      - name: createReleaseWin
-        id: createReleaseWin
-        if: startsWith(github.event.ref, 'refs/tags/') && steps.queryReleaseMacos.outputs.needCreateRelease == 'true'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        uses: actions/create-release@v1.0.0
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
-          body: ${{ github.event.head_commit.message }}
-          draft: false
-          prerelease: false
-      - name: getLatestTagRelease
-        if: startsWith(github.event.ref, 'refs/tags/')
-        shell: pwsh
-        env:
-          githubFullName: ${{ github.event.repository.full_name }}
-          upUrl: ${{ steps.queryReleaseMacos.outputs.upload_url }}
-          ref: ${{ github.event.ref }}
-        run: |
-          if (${env:upUrl}.Length -gt 0) {
-              $v=${env:upUrl}
-              echo "::set-env name=uploadUrl::$v"
-              return
-          } 
-          [string]$tag = ${env:ref}.Substring(${env:ref}.LastIndexOf('/') + 1)
-          [string]$url = 'https://api.github.com/repos/' + ${env:githubFullName} + '/releases/tags/' + ${tag}
-          $response = Invoke-RestMethod -Uri $url -Method Get
-          [string]$latestUpUrl = $response.upload_url
-          Write-Host 'latestUpUrl:'$latestUpUrl
-          echo "::set-env name=uploadUrl::$latestUpUrl"
-          Write-Host 'env uploadUrl:'${env:uploadUrl}
-      - name: uploadRelease
-        id: uploadRelease
-        if: startsWith(github.event.ref, 'refs/tags/')
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        uses: actions/upload-release-asset@v1.0.1
-        with:
-          upload_url: ${{ env.uploadUrl }}
-          asset_path: ./bin/${{ env.targetName }}.dmg
-          asset_name: ${{ env.targetName }}.dmg
-          asset_content_type: application/applefile
           
