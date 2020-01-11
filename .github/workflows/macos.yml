@@ -6,10 +6,12 @@ on:
   push:
     paths-ignore:
       - 'README.md'
+      - 'README.ko.md'      
       - 'LICENSE'
   pull_request:
     paths-ignore:
       - 'README.md'
+      - 'README.ko.md'      
       - 'LICENSE'
 jobs:
   build:
