@@ -1,20 +1,13 @@
-//--------------------------------------------------------------------
-//
-// QXlsx
-// MIT License
-// https://github.com/j2doll/QXlsx
-//
-// QtXlsx
-// https://github.com/dbzhang800/QtXlsxWriter
-// http://qtxlsx.debao.me/
-// MIT License
+// xlsxformat.cpp
+
+#include <QtGlobal>
+#include <QDataStream>
+#include <QDebug>
 
 #include "xlsxformat.h"
 #include "xlsxformat_p.h"
 #include "xlsxcolor_p.h"
 #include "xlsxnumformatparser_p.h"
-#include <QDataStream>
-#include <QDebug>
 
 QT_BEGIN_NAMESPACE_XLSX
 
@@ -295,8 +288,9 @@ bool Format::hasNumFmtData() const
 	if (!d)
 		return false;
 
-	if (hasProperty(FormatPrivate::P_NumFmt_Id)
-			|| hasProperty(FormatPrivate::P_NumFmt_FormatCode)) {
+    if ( hasProperty(FormatPrivate::P_NumFmt_Id) ||
+         hasProperty(FormatPrivate::P_NumFmt_FormatCode) )
+    {
 		return true;
 	}
 	return false;
@@ -1295,17 +1289,24 @@ void Format::setProperty(int propertyId, const QVariant &value, const QVariant &
 	if (!d)
 		d = new FormatPrivate;
 
-	if (value != clearValue) {
+    if (value != clearValue)
+    {
 		if (d->properties.contains(propertyId) && d->properties[propertyId] == value)
 			return;
+
 		if (detach)
 			d.detach();
+
 		d->properties[propertyId] = value;
-	} else {
+    }
+    else
+    {
 		if (!d->properties.contains(propertyId))
 			return;
+
 		if (detach)
 			d.detach();
+
 		d->properties.remove(propertyId);
 	}
 
@@ -1313,13 +1314,18 @@ void Format::setProperty(int propertyId, const QVariant &value, const QVariant &
 	d->xf_indexValid = false;
 	d->dxf_indexValid = false;
 
-	if (propertyId >= FormatPrivate::P_Font_STARTID && propertyId < FormatPrivate::P_Font_ENDID) {
+    if (propertyId >= FormatPrivate::P_Font_STARTID && propertyId < FormatPrivate::P_Font_ENDID)
+    {
 		d->font_dirty = true;
 		d->font_index_valid = false;
-	} else if (propertyId >= FormatPrivate::P_Border_STARTID && propertyId < FormatPrivate::P_Border_ENDID) {
+    }
+    else if (propertyId >= FormatPrivate::P_Border_STARTID && propertyId < FormatPrivate::P_Border_ENDID)
+    {
 		d->border_dirty = true;
 		d->border_index_valid = false;
-	} else if (propertyId >= FormatPrivate::P_Fill_STARTID && propertyId < FormatPrivate::P_Fill_ENDID) {
+    }
+    else if (propertyId >= FormatPrivate::P_Fill_STARTID && propertyId < FormatPrivate::P_Fill_ENDID)
+    {
 		d->fill_dirty = true;
 		d->fill_index_valid = false;
 	}

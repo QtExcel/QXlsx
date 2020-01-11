@@ -18,10 +18,7 @@ using namespace std;
 #include "xlsxrichstring.h"
 #include "xlsxworkbook.h"
 
-int test( QVector<QVariant> params );
-
-int testIssue38();
-int testIssue39();
+// int test( QVector<QVariant> params );
 
 int test( QVector<QVariant> params )
 {
@@ -29,16 +26,27 @@ int test( QVector<QVariant> params )
 
     using namespace QXlsx;
 
-    Document output;
-    // TEST CODE
-    output.saveAs("test10.xlsx");
+    Document doc1;
 
-    Document output2("test10.xlsx");
-    if ( output2.load() )
-    {
-        output2.saveAs("test20.xlsx");
-        qDebug() << "[debug] xlsx is saved.";
-    }
+    /*
+    I simply added "0.####" to numberformat.xlsx:
+
+    //Custom number formats
+    QStringList numFormats;
+    numFormats
+    << "Qt #"
+    << "yyyy-mmm-dd"
+    << "$ #,##0.00"
+    << "[red]0.00"
+    << "0.####";
+    */
+
+    Format fmt;
+    fmt.setNumberFormat( "0.####" );
+    // doc1.write( 1, 1, int(30), fmt );
+    doc1.write( 1, 2, double(30), fmt );
+
+    doc1.saveAs("test10.xlsx");
 
     return 0;
 }

@@ -307,9 +307,12 @@ bool Cell::isRichString() const
 {
 	Q_D(const Cell);
 
-	if (d->cellType != SharedStringType && d->cellType != InlineStringType
-			&& d->cellType != StringType)
+    if ( d->cellType != SharedStringType &&
+            d->cellType != InlineStringType &&
+            d->cellType != StringType )
+    {
 		return false;
+    }
 
 	return d->richString.isRichString();
 }
