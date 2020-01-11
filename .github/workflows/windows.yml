@@ -19,7 +19,7 @@ jobs:
       matrix:
         os: [windows-latest]
         qt_ver: [5.12.6]
-        qt_target: [windows]
+        qt_target: [desktop]
     steps:
       - name: Install Qt
         uses: jurplel/install-qt-action@v2.0.0
