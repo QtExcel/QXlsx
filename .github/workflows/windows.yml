@@ -17,129 +17,29 @@ jobs:
     runs-on: windows-latest
     strategy:
       matrix:
-        qt_ver: [5.12.6]
-        qt_target: [desktop]
-        qt_arch: [win64_msvc2017_64]
-        include:
-          - qt_arch: win64_msvc2017_64
-            msvc_arch: x64
-            qt_arch_install: msvc2017_64
-    env:
-      targetName: HelloActions-Qt.exe
+         os: [windows-latest]
     steps:
-      - name: cacheQt
-        id: WindowsCacheQt
-        uses: actions/cache@v1
-        with:
-          path: ../Qt/${{matrix.qt_ver}}/${{matrix.qt_arch_install}}
-          key: ${{ runner.os }}-Qt/${{matrix.qt_ver}}/${{matrix.qt_arch}}
-      - name: setupQt
-        if: steps.WindowsCacheQt.outputs.cache-hit == 'true'
-        shell: pwsh
-        env:
-          QtPath: ../Qt/${{matrix.qt_ver}}/${{matrix.qt_arch_install}}
-        run: |
-          $qt_Path=${env:QtPath}
-          echo "::set-env name=Qt5_Dir::$qt_Path"
-          echo "::add-path::$qt_Path/bin"          
-      - name: Install Qt
-        if: steps.WindowsCacheQt.outputs.cache-hit != 'true'
-        uses: jurplel/install-qt-action@v2.0.0
-        with:
-          version: ${{ matrix.qt_ver }}
-          target: ${{ matrix.qt_target }}
-          arch: ${{ matrix.qt_arch }}
       - uses: actions/checkout@v1
         with:
           fetch-depth: 1
-      - name: build-msvc
-        shell: cmd
-        env:
-          vc_arch: ${{ matrix.msvc_arch }}
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '10.x'
+      - name: "npm ci"
+        run: npm ci
+      - name: "npm run build"
+        run: npm run build
+      - name: Install Qt
+        uses: ./
+        with:
+          modules: qtcharts qtwebengine
+      - name: Configure test project on windows
+        if: startsWith(matrix.os, 'windows')
         run: |
-          call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" %vc_arch%
           cd TestExcel
+          call "%programfiles(x86)%\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
+          dir %Qt5_Dir%/lib/cmake
           qmake
-          nmake
-      - name: package
-        if: startsWith(github.event.ref, 'refs/tags/')
-        env:
-          VCINSTALLDIR: 'C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC'
-          archiveName: ${{ matrix.qt_ver }}-${{ matrix.qt_target }}-${{ matrix.qt_arch }}
-        shell: pwsh
-        run: |
-          New-Item -ItemType Directory ${env:archiveName}
-          Copy-Item bin\${env:targetName} ${env:archiveName}\
-          windeployqt --qmldir . ${env:archiveName}\${env:targetName}
-          Compress-Archive -Path ${env:archiveName} ${env:archiveName}'.zip'
-          $name = ${env:archiveName}
-          echo "::set-env name=packageName::$name"
-          Write-Host 'packageName:'${env:packageName}
-      - name: queryReleaseWin
-        id: queryReleaseWin
-        if: startsWith(github.event.ref, 'refs/tags/')
-        shell: pwsh
-        env:
-          githubFullName: ${{ github.event.repository.full_name }}
-          ref: ${{ github.event.ref }}
-        run: |
-          [string]$tag = ${env:ref}.Substring(${env:ref}.LastIndexOf('/') + 1)
-          [string]$url = 'https://api.github.com/repos/' + ${env:githubFullName} + '/releases/tags/' + ${tag}
-          $response={}
-          try {
-            $response = Invoke-RestMethod -Uri $url -Method Get
-          } catch {
-            Write-Host "StatusCode:" $_.Exception.Response.StatusCode.value__ 
-            Write-Host "StatusDescription:" $_.Exception.Response.StatusDescription
-            echo "::set-output name=needCreateRelease::true"  
-            return
-          }
-          [string]$latestUpUrl = $response.upload_url
-          Write-Host 'latestUpUrl:'$latestUpUrl
-          if ($latestUpUrl.Length -eq 0) {
-            echo "::set-output name=needCreateRelease::true"  
-          }
-      - name: createReleaseWin
-        id: createReleaseWin
-        if: startsWith(github.event.ref, 'refs/tags/') && steps.queryReleaseWin.outputs.needCreateRelease == 'true'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        uses: actions/create-release@v1.0.0
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
-          body: ${{ github.event.head_commit.message }}
-          draft: false
-          prerelease: false
-      - name: getLatestTagRelease
-        if: startsWith(github.event.ref, 'refs/tags/')
-        shell: pwsh
-        env:
-          githubFullName: ${{ github.event.repository.full_name }}
-          upUrl: ${{ steps.createReleaseWin.outputs.upload_url }}
-          ref: ${{ github.event.ref }}
-        run: |
-          if (${env:upUrl}.Length -gt 0) {
-              $v=${env:upUrl}
-              echo "::set-env name=uploadUrl::$v"
-              return
-          } 
-          [string]$tag = ${env:ref}.Substring(${env:ref}.LastIndexOf('/') + 1)
-          [string]$url = 'https://api.github.com/repos/' + ${env:githubFullName} + '/releases/tags/' + ${tag}
-          $response = Invoke-RestMethod -Uri $url -Method Get
-          [string]$latestUpUrl = $response.upload_url
-          Write-Host 'latestUpUrl:'$latestUpUrl
-          echo "::set-env name=uploadUrl::$latestUpUrl"
-          Write-Host 'env uploadUrl:'${env:uploadUrl}
-      - name: uploadRelease
-        id: uploadRelease
-        if: startsWith(github.event.ref, 'refs/tags/')
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        uses: actions/upload-release-asset@v1.0.1
-        with:
-          upload_url: ${{ env.uploadUrl }}
-          asset_path: ./${{ env.packageName }}.zip
-          asset_name: ${{ env.packageName }}.zip
-          asset_content_type: application/zip
-          
+        shell: cmd
+
+

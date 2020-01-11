@@ -2,14 +2,17 @@
 # ubuntu.yml
 
 name: Ubuntu
+
 on: 
   push:
     paths-ignore:
       - 'README.md'
+      - 'README.ko.md'
       - 'LICENSE'
   pull_request:
     paths-ignore:
       - 'README.md'
+      - 'README.ko.md'
       - 'LICENSE'
 jobs:
   build:
@@ -18,36 +21,18 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-18.04]
-        qt_ver: [5.12.6]
         qt_arch: [gcc_64]
     steps:
-      - name: cacheQt
-        id: UbuntuCacheQt
-        uses: actions/cache@v1
-        with:
-          path: ../Qt/${{matrix.qt_ver}}/${{matrix.qt_arch}}
-          key: ${{ runner.os }}-Qt/${{matrix.qt_ver}}/${{matrix.qt_arch}}    
-      - name: setupQt
-        if: steps.UbuntuCacheQt.outputs.cache-hit == 'true'
-        shell: pwsh
-        env:
-          QtPath: ../Qt/${{matrix.qt_ver}}/${{matrix.qt_arch}}
-        run: |
-          $qt_Path=${env:QtPath}
-          echo "::set-env name=Qt5_Dir::$qt_Path"
-          echo "::add-path::$qt_Path/bin"
       - name: Install Qt
-        if: steps.UbuntuCacheQt.outputs.cache-hit != 'true'
-        uses: jurplel/install-qt-action@v2.0.0
-        with:
-          version: ${{ matrix.qt_ver }}
-      - name: ubuntu install GL library
-        run: sudo apt-get install -y libglew-dev libglfw3-dev
+        run : |
+          sudo apt-get install build-essential libfontconfig1 mesa-common-dev libglu1-mesa-dev cmake qtdeclarative5-dev qml-module-qtquick-controls qtbase5-dev qtcreator qt5-default libqt5serialport5-dev qtbase5-private-dev qtdeclarative5-private-dev -y
       - uses: actions/checkout@v1
         with:
           fetch-depth: 1
-      - name: build ubuntu
+      - name: Build Project
         run: |
           cd TestExcel
           qmake
           make
+          ./TestExcel
+          
