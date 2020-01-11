@@ -22,12 +22,9 @@ jobs:
         qt_target: [desktop]
     steps:
       - name: Install Qt
-        # if: steps.cacheqt.outputs.cache-hit != 'true'
         uses: jurplel/install-qt-action@v2.0.0
         with:
-          # Version of Qt to install
           version: ${{ matrix.qt_ver }}
-          # Target platform for build
           target: ${{ matrix.qt_target }}
       - uses: actions/checkout@v1
         with:
@@ -36,6 +33,6 @@ jobs:
         run: |
           cd TestExcel
           qmake
-          make
+          nmake
 
 
