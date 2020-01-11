@@ -19,7 +19,7 @@ jobs:
       matrix:
         os: [macos-latest]
         qt_ver: [5.12.6]
-        qt_target: [macos]
+        qt_target: [mac]
     steps:
       - name: Install Qt
         # if: steps.cacheqt.outputs.cache-hit != 'true'

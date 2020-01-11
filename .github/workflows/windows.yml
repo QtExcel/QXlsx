@@ -17,9 +17,9 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [windows-2019]
+        os: [windows-latest]
         qt_ver: [5.12.6]
-        qt_target: [desktop]
+        qt_target: [windows]
     steps:
       - name: Install Qt
         uses: jurplel/install-qt-action@v2.0.0
