@@ -1,5 +1,7 @@
+# base code from https://github.com/jaredtao/HelloActions-Qt
+# ubuntu.yml
+
 name: Ubuntu
-# Qt官方没有linux平台的x86包
 on: 
   push:
     paths-ignore:
@@ -15,7 +17,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-16.04,ubuntu-18.04]
+        os: [ubuntu-18.04]
         qt_ver: [5.12.6]
         qt_arch: [gcc_64]
     steps:
