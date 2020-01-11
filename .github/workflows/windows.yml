@@ -14,32 +14,28 @@ on:
 jobs:
   build:
     name: Build
-    runs-on: windows-latest
+    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-         os: [windows-latest]
+        os: [windows-latest]
+        qt_ver: [5.12.6]
+        qt_target: [windows]
     steps:
+      - name: Install Qt
+        # if: steps.cacheqt.outputs.cache-hit != 'true'
+        uses: jurplel/install-qt-action@v2.0.0
+        with:
+          # Version of Qt to install
+          version: ${{ matrix.qt_ver }}
+          # Target platform for build
+          target: ${{ matrix.qt_target }}
       - uses: actions/checkout@v1
         with:
           fetch-depth: 1
-      - uses: actions/setup-node@v1
-        with:
-          node-version: '10.x'
-      - name: "npm ci"
-        run: npm ci
-      - name: "npm run build"
-        run: npm run build
-      - name: Install Qt
-        uses: ./
-        with:
-          modules: qtcharts qtwebengine
-      - name: Configure test project on windows
-        if: startsWith(matrix.os, 'windows')
+      - name: build 
         run: |
           cd TestExcel
-          call "%programfiles(x86)%\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
-          dir %Qt5_Dir%/lib/cmake
           qmake
-        shell: cmd
+          make
 
 
