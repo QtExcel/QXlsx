@@ -1,42 +1,44 @@
-# base code from https://github.com/jaredtao/HelloActions-Qt
-# windows.yml
-
 name: Windows
-on: 
-  push:
-    paths-ignore:
-      - 'README.md'
-      - 'README.ko.md'      
-      - 'LICENSE'
-  pull_request:
-    paths-ignore:
-      - 'README.md'
-      - 'README.ko.md'      
-      - 'LICENSE'
+
+on: [push, pull_request]
+
 jobs:
-  build:
-    name: Build
+  test:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [windows-2016]
-        qt_ver: [5.12.6]
-        qt_target: [desktop]
+        os: [windows-latest]
     steps:
-      - name: Install Qt
-        uses: jurplel/install-qt-action@v2.0.0
-        with:
-          version: ${{ matrix.qt_ver }}
-          target: ${{ matrix.qt_target }}
       - uses: actions/checkout@v1
+
+      - uses: actions/setup-node@v1
         with:
-          fetch-depth: 1
-      - name: build 
+          node-version: '10.x'
+
+      - name: "npm ci"
+        run: npm ci
+
+      - name: "npm run build"
+        run: npm run build
+
+      - name: Install Qt
+        uses: ./
+        with:
+          modules: qtcharts qtwebengine
+
+      - name: Configure test project on windows
+        if: startsWith(matrix.os, 'windows')
         run: |
-          cd TestExcel
+          cd tests/TestWithModules
+          call "%programfiles(x86)%\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
+          dir %Qt5_Dir%/lib/cmake
           qmake
-          call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
-          nmake
         shell: cmd
-
-
+          
+      - name: Configure test project on unix
+        if: (!startsWith(matrix.os, 'windows'))
+        run: |
+          cd tests/TestWithModules
+          ls $Qt5_Dir/lib/cmake
+          qmake
+        shell: bash
