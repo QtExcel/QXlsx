@@ -1,5 +1,5 @@
-# base code from https://github.com/jaredtao/HelloActions-Qt
 # macos.yml
+# base code from https://github.com/jaredtao/HelloActions-Qt
 
 name: MacOS
 on: 
@@ -15,10 +15,6 @@ on:
       - 'ToUpgrade.md'
       - 'Vision.md     
       - 'LICENSE'
-      - '.github/workflows/ubuntu.yml'
-      - '.github/workflows/windows.yml'
-      - '.github/workflows/android.yml'
-      - '.github/workflows/ios.yml'      
   pull_request:
     paths-ignore:
       - 'Example.md'
@@ -31,10 +27,6 @@ on:
       - 'ToUpgrade.md'
       - 'Vision.md      
       - 'LICENSE'
-      - '.github/workflows/ubuntu.yml'
-      - '.github/workflows/windows.yml'
-      - '.github/workflows/android.yml'
-      - '.github/workflows/ios.yml'            
 jobs:
   build:
     name: Build

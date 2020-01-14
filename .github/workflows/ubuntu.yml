@@ -14,10 +14,6 @@ on:
       - 'ToUpgrade.md'
       - 'Vision.md
       - 'LICENSE'
-      - '.github/workflows/windows.yml'
-      - '.github/workflows/macos.yml'
-      - '.github/workflows/android.yml'
-      - '.github/workflows/ios.yml'      
   pull_request:
     paths-ignore:
       - 'Example.md'
@@ -30,10 +26,6 @@ on:
       - 'ToUpgrade.md'
       - 'Vision.md'
       - 'LICENSE'
-      - '.github/workflows/windows.yml'
-      - '.github/workflows/macos.yml'
-      - '.github/workflows/android.yml'
-      - '.github/workflows/ios.yml'      
 jobs:
   build:
     name: Build
