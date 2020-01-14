@@ -13,7 +13,7 @@ on:
       - 'TestEnv.md'
       - 'ToTest.md'
       - 'ToUpgrade.md'
-      - 'Vision.md      
+      - 'Vision.md'
       - 'LICENSE'
   pull_request:
     paths-ignore:
@@ -25,7 +25,7 @@ on:
       - 'TestEnv.md'
       - 'ToTest.md'
       - 'ToUpgrade.md'
-      - 'Vision.md     
+      - 'Vision.md'
       - 'LICENSE'
 jobs:
   build:
