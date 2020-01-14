@@ -1,8 +1,6 @@
-# base code from https://github.com/jaredtao/HelloActions-Qt
 # ubuntu.yml
 
 name: Ubuntu
-
 on: 
   push:
     paths-ignore:
