@@ -4,17 +4,39 @@ name: Windows
 on: 
   push:
     paths-ignore:
+      - 'Example.md'
+      - 'HowToSetProject.ko.md'
+      - 'HowToSetProject.md'
       - 'README.ko.md'
       - 'README.md'
+      - 'TestEnv.md'
+      - 'ToTest.md'
+      - 'ToUpgrade.md'
+      - 'Vision.md'
       - 'LICENSE'
+      - '.github/workflows/ubuntu.yml'
+      - '.github/workflows/macos.yml'
+      - '.github/workflows/android.yml'
+      - '.github/workflows/ios.yml'
   pull_request:
     paths-ignore:
+      - 'Example.md'
+      - 'HowToSetProject.ko.md'
+      - 'HowToSetProject.md'
       - 'README.ko.md'
       - 'README.md'
+      - 'TestEnv.md'
+      - 'ToTest.md'
+      - 'ToUpgrade.md'
+      - 'Vision.md'
       - 'LICENSE'
+      - '.github/workflows/ubuntu.yml'
+      - '.github/workflows/macos.yml'
+      - '.github/workflows/android.yml'
+      - '.github/workflows/ios.yml'      
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: windows-2019
     steps:
     - name: Install Qt
       uses: jurplel/install-qt-action@v2    
@@ -23,7 +45,8 @@ jobs:
     - name: Run Visual Studio
       shell: cmd
       run: |
-        call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\Tools\VsDevCmd.bat"
+        call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
         cd TestExcel
         qmake
         nmake
+        

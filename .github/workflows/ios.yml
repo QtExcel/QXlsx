@@ -5,10 +5,36 @@ name: IOS
 on: 
   push:
     paths-ignore:
+      - 'Example.md'
+      - 'HowToSetProject.ko.md'
+      - 'HowToSetProject.md'
+      - 'README.ko.md'
       - 'README.md'
+      - 'TestEnv.md'
+      - 'ToTest.md'
+      - 'ToUpgrade.md'
+      - 'Vision.md     
+      - 'LICENSE'
+      - '.github/workflows/ubuntu.yml'
+      - '.github/workflows/windows.yml'
+      - '.github/workflows/android.yml'
+      - '.github/workflows/macos.yml'
   pull_request:
     paths-ignore:
+      - 'Example.md'
+      - 'HowToSetProject.ko.md'
+      - 'HowToSetProject.md'
+      - 'README.ko.md'
       - 'README.md'
+      - 'TestEnv.md'
+      - 'ToTest.md'
+      - 'ToUpgrade.md'
+      - 'Vision.md      
+      - 'LICENSE'
+      - '.github/workflows/ubuntu.yml'
+      - '.github/workflows/windows.yml'
+      - '.github/workflows/android.yml'
+      - '.github/workflows/macos.yml'
 jobs:
   build:
     name: Build
@@ -20,12 +46,9 @@ jobs:
         qt_target: [ios]
     steps:
       - name: Install Qt
-        # if: steps.cacheqt.outputs.cache-hit != 'true'
         uses: jurplel/install-qt-action@v2.0.0
         with:
-          # Version of Qt to install
           version: ${{ matrix.qt_ver }}
-          # Target platform for build
           target: ${{ matrix.qt_target }}
       - uses: actions/checkout@v1
         with:
