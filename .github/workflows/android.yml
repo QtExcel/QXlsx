@@ -1,6 +1,7 @@
-# ubuntu.yml 
+# android.yml 
+# base code from https://github.com/jaredtao/HelloActions-Qt
 
-name: Ubuntu
+name: Android
 on: 
   push:
     paths-ignore:
@@ -13,7 +14,7 @@ on:
       - 'ToTest.md'
       - 'ToUpgrade.md'
       - 'Vision.md'
-      - 'LICENSE'    
+      - 'LICENSE'
   pull_request:
     paths-ignore:
       - 'Example.md'
@@ -25,26 +26,31 @@ on:
       - 'ToTest.md'
       - 'ToUpgrade.md'
       - 'Vision.md'
-      - 'LICENSE'    
+      - 'LICENSE'
 jobs:
   build:
     name: Build
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-18.04]
-        qt_arch: [gcc_64]
+        os: [ubuntu-latest]
+        qt_ver: [5.12.6]
+        qt_target: [android]
+        qt_arch: [android_x86,android_armv7]
     steps:
       - name: Install Qt
-        run : |
-          sudo apt-get install build-essential libfontconfig1 mesa-common-dev libglu1-mesa-dev cmake qtdeclarative5-dev qml-module-qtquick-controls qtbase5-dev qtcreator qt5-default libqt5serialport5-dev qtbase5-private-dev qtdeclarative5-private-dev -y
+        uses: jurplel/install-qt-action@v2.0.0
+        with:
+          version: ${{ matrix.qt_ver }}
+          target: ${{ matrix.qt_target }}
+          arch: ${{ matrix.qt_arch }}
       - uses: actions/checkout@v1
         with:
           fetch-depth: 1
-      - name: Build Project
+      - name: build android
         run: |
-          cd TestExcel
+          export ANDROID_SDK_ROOT=$ANDROID_HOME
+          export ANDROID_NDK_ROOT=$ANDROID_HOME/ndk-bundle
+          cd HelloAndroid
           qmake
           make
-          ./TestExcel
-          

@@ -1,0 +1,44 @@
+# windows.yml 
+
+name: Windows
+on: 
+  push:
+    paths-ignore:
+      - 'Example.md'
+      - 'HowToSetProject.ko.md'
+      - 'HowToSetProject.md'
+      - 'README.ko.md'
+      - 'README.md'
+      - 'TestEnv.md'
+      - 'ToTest.md'
+      - 'ToUpgrade.md'
+      - 'Vision.md'
+      - 'LICENSE'    
+  pull_request:
+    paths-ignore:
+      - 'Example.md'
+      - 'HowToSetProject.ko.md'
+      - 'HowToSetProject.md'
+      - 'README.ko.md'
+      - 'README.md'
+      - 'TestEnv.md'
+      - 'ToTest.md'
+      - 'ToUpgrade.md'
+      - 'Vision.md'
+      - 'LICENSE'    
+jobs:
+  build:
+    runs-on: windows-2019
+    steps:
+    - name: Install Qt
+      uses: jurplel/install-qt-action@v2    
+    - name: Checkout
+      uses: actions/checkout@v1
+    - name: Run Visual Studio
+      shell: cmd
+      run: |
+        call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
+        cd TestExcel
+        qmake
+        nmake
+        

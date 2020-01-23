@@ -1,12 +1,13 @@
-//
+// xlsxformat_p.h
 #ifndef XLSXFORMAT_P_H
 #define XLSXFORMAT_P_H
 
-#include "xlsxformat.h"
-
+#include <QtGlobal>
 #include <QSharedData>
 #include <QMap>
 #include <QSet>
+
+#include "xlsxformat.h"
 
 QT_BEGIN_NAMESPACE_XLSX
 

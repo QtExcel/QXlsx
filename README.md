@@ -24,9 +24,10 @@
 
 ## Tested environment
 
-Travis CI | AppVeyor  | CodeFactor | Github Actions | 
-:-------: | :-------: | :--------: | :------------: | 
-[![Build Status](https://travis-ci.com/QtExcel/QXlsx.svg?branch=master)](https://travis-ci.com/QtExcel/QXlsx) | [![Build status](https://ci.appveyor.com/api/projects/status/jkod8257gg66vm6e?svg=true)](https://ci.appveyor.com/project/QtExcel/qxlsx) | [![CodeFactor](https://www.codefactor.io/repository/github/qtexcel/qxlsx/badge)](https://www.codefactor.io/repository/github/qtexcel/qxlsx) | [![Actions Status](https://github.com/QtExcel/QXlsx/workflows/Ubuntu/badge.svg)](https://github.com/QtExcel/QXlsx/actions/Ubuntu)
+| Travis CI (Linux) | AppVeyor (Windows) | CodeFactor | Github Actions <br> Linux/Win/Mac | iOS / Android  |
+| :---------------: | :----------------: | :--------: | :------------------------: | :----------------------------: |
+| [![Build Status](https://travis-ci.com/QtExcel/QXlsx.svg?branch=master)](https://travis-ci.com/QtExcel/QXlsx) | [![Build status](https://ci.appveyor.com/api/projects/status/jkod8257gg66vm6e?svg=true)](https://ci.appveyor.com/project/QtExcel/qxlsx) | [![CodeFactor](https://www.codefactor.io/repository/github/qtexcel/qxlsx/badge)](https://www.codefactor.io/repository/github/qtexcel/qxlsx) | [![Ubuntu](https://github.com/QtExcel/QXlsx/workflows/Ubuntu/badge.svg)](https://github.com/QtExcel/QXlsx/actions/Ubuntu)  [![MacOS](https://github.com/QtExcel/QXlsx/workflows/MacOS/badge.svg)](https://github.com/QtExcel/QXlsx/actions/MacOS)  [![Windows](https://github.com/QtExcel/QXlsx/workflows/Windows/badge.svg)](https://github.com/QtExcel/QXlsx/actions/Windows) | [![IOS](https://github.com/QtExcel/QXlsx/workflows/IOS/badge.svg)](https://github.com/QtExcel/QXlsx/actions/IOS)  [![Android](https://github.com/QtExcel/QXlsx/workflows/Android/badge.svg)](https://github.com/QtExcel/QXlsx/actions/Android) |  
+
 
 - See [tested environments](TestEnv.md)
 
@@ -41,12 +42,13 @@ Travis CI | AppVeyor  | CodeFactor | Github Actions |
 ## License and links
 - QXlsx is under MIT license. [https://github.com/QtExcel/QXlsx](https://github.com/QtExcel/QXlsx)
 - Thank you for creating the following amazing projects. :+1:
+  - Qt is under LGPL v3 license or Commercial license. [https://www.qt.io/](https://www.qt.io/) 
   - QtXlsxWriter is under MIT license. [https://github.com/dbzhang800/QtXlsxWriter](https://github.com/dbzhang800/QtXlsxWriter)
   - Qt-Table-Printer is under BSD 3-Clause license. [https://github.com/T0ny0/Qt-Table-Printer](https://github.com/T0ny0/Qt-Table-Printer) 
   - recurse is under MIT license. [https://github.com/pkoretic/recurse](https://github.com/pkoretic/recurse)
   - libfort is under MIT license. [https://github.com/seleznevae/libfort](https://github.com/seleznevae/libfort)
   - colorprintf is under MIT license. [https://github.com/VittGam/colorprintf](https://github.com/VittGam/colorprintf)
-  - Qt is under LGPL v3 license or Commercial license. [https://www.qt.io/](https://www.qt.io/) 
+  - HelloActions-Qt is under MIT license. [https://github.com/jaredtao/HelloActions-Qt](https://github.com/jaredtao/HelloActions-Qt)  
 
 ## :email: Contact
 - Leave me a issue. [https://github.com/QtExcel/QXlsx/issues](https://github.com/QtExcel/QXlsx/issues)

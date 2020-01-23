@@ -746,6 +746,7 @@ bool Worksheet::writeNumeric(int row, int column, double value, const Format &fo
 	return true;
 }
 
+
 /*!
 	\overload
 	Write \a formula to the cell \a row_column with the \a format and \a result.

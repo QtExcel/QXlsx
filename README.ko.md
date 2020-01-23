@@ -24,9 +24,21 @@
 
 ## 테스트 환경
 
-Travis CI | AppVeyor  | CodeFactor | Github Actions | 
-:-------: | :-------: | :--------: | :------------: | 
-[![Build Status](https://travis-ci.com/QtExcel/QXlsx.svg?branch=master)](https://travis-ci.com/QtExcel/QXlsx) | [![Build status](https://ci.appveyor.com/api/projects/status/jkod8257gg66vm6e?svg=true)](https://ci.appveyor.com/project/QtExcel/qxlsx) | [![CodeFactor](https://www.codefactor.io/repository/github/qtexcel/qxlsx/badge)](https://www.codefactor.io/repository/github/qtexcel/qxlsx) | [![Actions Status](https://github.com/QtExcel/QXlsx/workflows/Ubuntu/badge.svg)](https://github.com/QtExcel/QXlsx/actions/Ubuntu)
+| Travis CI (Linux) | AppVeyor (Windows) | CodeFactor | Github Actions <br> Linux/Win/Mac | iOS / Android  |
+| :---------------: | :----------------: | :--------: | :------------------------: | :----------------------------: |
+| [![Build Status](https://travis-ci.com/QtExcel/QXlsx.svg?branch=master)](https://travis-ci.com/QtExcel/QXlsx) | [![Build status](https://ci.appveyor.com/api/projects/status/jkod8257gg66vm6e?svg=true)](https://ci.appveyor.com/project/QtExcel/qxlsx) | [![CodeFactor](https://www.codefactor.io/repository/github/qtexcel/qxlsx/badge)](https://www.codefactor.io/repository/github/qtexcel/qxlsx) | [![Ubuntu](https://github.com/QtExcel/QXlsx/workflows/Ubuntu/badge.svg)](https://github.com/QtExcel/QXlsx/actions/Ubuntu)  [![MacOS](https://github.com/QtExcel/QXlsx/workflows/MacOS/badge.svg)](https://github.com/QtExcel/QXlsx/actions/MacOS)  [![Windows](https://github.com/QtExcel/QXlsx/workflows/Windows/badge.svg)](https://github.com/QtExcel/QXlsx/actions/Windows) | [![IOS](https://github.com/QtExcel/QXlsx/workflows/IOS/badge.svg)](https://github.com/QtExcel/QXlsx/actions/IOS)  [![Android](https://github.com/QtExcel/QXlsx/workflows/Android/badge.svg)](https://github.com/QtExcel/QXlsx/actions/Android) |  
+
+- Github Actions
+
+[![Ubuntu](https://github.com/QtExcel/QXlsx/workflows/Ubuntu/badge.svg)](https://github.com/QtExcel/QXlsx/actions/Ubuntu) 
+
+[![MacOS](https://github.com/QtExcel/QXlsx/workflows/MacOS/badge.svg)](https://github.com/QtExcel/QXlsx/actions/MacOS)  
+
+[![Windows](https://github.com/QtExcel/QXlsx/workflows/Windows/badge.svg)](https://github.com/QtExcel/QXlsx/actions/Windows)  
+
+[![IOS](https://github.com/QtExcel/QXlsx/workflows/IOS/badge.svg)](https://github.com/QtExcel/QXlsx/actions/IOS)
+
+[![Android](https://github.com/QtExcel/QXlsx/workflows/Android/badge.svg)](https://github.com/QtExcel/QXlsx/actions/Android) 
 
 - [테스트된 환경](TestEnv.md) 참조
 
@@ -41,12 +53,13 @@ Travis CI | AppVeyor  | CodeFactor | Github Actions |
 ## 라이센스와 링크
 - QXlsx 는 MIT 라이센스 입니다. [https://github.com/QtExcel/QXlsx](https://github.com/QtExcel/QXlsx)
 - 다음과 같은 놀라운 프로젝트들을 만들어 주신 분들에게 감사의 말씀을 올립니다. :+1:
+  - Qt 는 LGPL v3 라이센스 또는 상업용 라이센스 입니다. [https://www.qt.io/](https://www.qt.io/)
   - QtXlsx 는 MIT 라이센스 입니다. [https://github.com/dbzhang800/QtXlsxWriter](https://github.com/dbzhang800/QtXlsxWriter)
   - Qt-Table-Printer 는 BSD 3-Clause 라이센스 입니다. [https://github.com/T0ny0/Qt-Table-Printer](https://github.com/T0ny0/Qt-Table-Printer) 
   - recurse 는 MIT 라이센스 입니다. [https://github.com/pkoretic/recurse](https://github.com/pkoretic/recurse)
   - libfort 는 MIT 라이센스 입니다. [https://github.com/seleznevae/libfort](https://github.com/seleznevae/libfort)
   - colorprintf 는 MIT 라이센스 입니다. [https://github.com/VittGam/colorprintf](https://github.com/VittGam/colorprintf)
-  - Qt 는 LGPL v3 라이센스 또는 상업용 라이센스 입니다. [https://www.qt.io/](https://www.qt.io/)
+  - HelloActions-Qt 는 MIT 라이센스 입니다. [https://github.com/jaredtao/HelloActions-Qt](https://github.com/jaredtao/HelloActions-Qt)  
 
 ## :email: 문의
 - 이슈를 남겨 주세요. [https://github.com/QtExcel/QXlsx/issues](https://github.com/QtExcel/QXlsx/issues)
