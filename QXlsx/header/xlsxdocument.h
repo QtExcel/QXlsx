@@ -116,6 +116,15 @@ public:
 
 	bool changeimage(int filenoinmidea,QString newfile); // add by liufeijin20181025
 
+    bool autosizeColumnWidth(const CellRange &range);
+    bool autosizeColumnWidth(int column);
+    bool autosizeColumnWidth(int colFirst, int colLast);
+    bool autosizeColumnWidth(void);
+
+private:
+    QMap<int, int> getMaximalColumnWidth(int firstRow=1, int lastRow=INT_MAX);
+
+
 private:
     Q_DISABLE_COPY(Document) // Disables the use of copy constructors and
                              // assignment operators for the given Class.
