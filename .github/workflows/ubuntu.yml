@@ -32,19 +32,22 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-18.04]
-        qt_arch: [gcc_64]
+        os: [linux-latest]
+        qt_ver: [5.12.6]
+        qt_target: [desktop]
     steps:
       - name: Install Qt
-        run : |
-          sudo apt-get install build-essential libfontconfig1 mesa-common-dev libglu1-mesa-dev cmake qtdeclarative5-dev qml-module-qtquick-controls qtbase5-dev qtcreator qt5-default libqt5serialport5-dev qtbase5-private-dev qtdeclarative5-private-dev -y
+        uses: jurplel/install-qt-action@v2.0.0
+        with:
+          version: ${{ matrix.qt_ver }}
+          target: ${{ matrix.qt_target }}
       - uses: actions/checkout@v1
         with:
           fetch-depth: 1
-      - name: Build Project
+      - name: build 
         run: |
           cd TestExcel
-          qmake
+          qmake 
           make
-          ./TestExcel
+
           
