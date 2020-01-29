@@ -32,7 +32,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [linux-latest]
+        os: [ubuntu-latest]
         qt_ver: [5.12.6]
         qt_target: [desktop]
     steps:
