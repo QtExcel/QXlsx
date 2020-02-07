@@ -97,9 +97,13 @@ int main(int argc, char *argv[])
 
 ![](markdown.data/show-console.jpg)
 
-## Copycat 
+## [ReadColor](https://github.com/QtExcel/QXlsx/tree/master/ReadColor) 
+- Read cell color
+
+![](markdown.data/read-color.jpg)
+
+## XlsxFactory 
 - Load xlsx file and display on Qt widgets. 
-- Print xlsx to paper. (based on Qt-Table-Printer)
 - Moved to personal repository for advanced app.
 
 ![](markdown.data/copycat.png)
