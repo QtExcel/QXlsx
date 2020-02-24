@@ -1027,6 +1027,7 @@ bool Worksheet::writeHyperlink(int row, int column, const QUrl &url, const Forma
 	Format fmt = format.isValid() ? format : d->cellFormat(row, column);
 	//Given a default style for hyperlink
 	if (!fmt.isValid()) {
+		fmt.setVerticalAlignment(Format::AlignVCenter);
 		fmt.setFontColor(Qt::blue);
 		fmt.setFontUnderline(Format::FontUnderlineSingle);
 	}
