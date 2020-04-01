@@ -1094,12 +1094,13 @@ bool Worksheet::insertImage(int row, int column, const QImage &image)
 	DrawingOneCellAnchor *anchor = new DrawingOneCellAnchor(d->drawing.data(), DrawingAnchor::Picture);
 
 	/*
-		The size are expressed as English Metric Units (EMUs). There are
-		12,700 EMUs per point. Therefore, 12,700 * 3 /4 = 9,525 EMUs per
-		pixel
+		The size are expressed as English Metric Units (EMUs).
+		EMU is 1/360 000 of centimiter.
 	*/
 	anchor->from = XlsxMarker(row, column, 0, 0);
-	anchor->ext = QSize(image.width() * 9525, image.height() * 9525);
+	float scaleX = 36e6f / std::max(1,image.dotsPerMeterX());
+	float scaleY = 36e6f / std::max(1,image.dotsPerMeterY());
+	anchor->ext = QSize( int(image.width() * scaleX), int(image.height() * scaleY) );
 
 	anchor->setObjectPicture(image);
 	return true;
