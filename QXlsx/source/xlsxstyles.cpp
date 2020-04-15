@@ -1,15 +1,4 @@
-//--------------------------------------------------------------------
-//
-// QXlsx
-// MIT License
-// https://github.com/j2doll/QXlsx
-//
-// QtXlsx
-// https://github.com/dbzhang800/QtXlsxWriter
-// http://qtxlsx.debao.me/
-// MIT License
-
-
+// xlsxstyles.cpp 
 
 #include "xlsxstyles_p.h"
 #include "xlsxformat_p.h"
@@ -1225,7 +1214,7 @@ bool Styles::readCellXfs(QXmlStreamReader &reader)
                         }
 
                         if (alignAttrs.hasAttribute(QLatin1String("wrapText")))
-                            format.setTextWarp(true);
+                            format.setTextWrap(true);
 
                         if (alignAttrs.hasAttribute(QLatin1String("shrinkToFit")))
                             format.setShrinkToFit(true);

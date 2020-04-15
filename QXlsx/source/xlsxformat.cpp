@@ -596,7 +596,7 @@ bool Format::textWrap() const
 /*!
  * Enable the text wrap if \a wrap is true.
  */
-void Format::setTextWarp(bool wrap)
+void Format::setTextWrap(bool wrap)
 {
 	if (wrap && hasProperty(FormatPrivate::P_Alignment_ShinkToFit))
 		clearProperty(FormatPrivate::P_Alignment_ShinkToFit);
