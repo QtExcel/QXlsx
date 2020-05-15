@@ -1,4 +1,4 @@
-// xlsxstyles.cpp 
+// xlsxstyles.cpp
 
 #include "xlsxstyles_p.h"
 #include "xlsxformat_p.h"
@@ -475,28 +475,27 @@ void Styles::writeFills(QXmlStreamWriter &writer) const
 
 void Styles::writeFill(QXmlStreamWriter &writer, const Format &fill, bool isDxf) const
 {
-    static QMap<int, QString> patternStrings;
-    if (patternStrings.isEmpty()) {
-        patternStrings[Format::PatternNone] = QStringLiteral("none");
-        patternStrings[Format::PatternSolid] = QStringLiteral("solid");
-        patternStrings[Format::PatternMediumGray] = QStringLiteral("mediumGray");
-        patternStrings[Format::PatternDarkGray] = QStringLiteral("darkGray");
-        patternStrings[Format::PatternLightGray] = QStringLiteral("lightGray");
-        patternStrings[Format::PatternDarkHorizontal] = QStringLiteral("darkHorizontal");
-        patternStrings[Format::PatternDarkVertical] = QStringLiteral("darkVertical");
-        patternStrings[Format::PatternDarkDown] = QStringLiteral("darkDown");
-        patternStrings[Format::PatternDarkUp] = QStringLiteral("darkUp");
-        patternStrings[Format::PatternDarkGrid] = QStringLiteral("darkGrid");
-        patternStrings[Format::PatternDarkTrellis] = QStringLiteral("darkTrellis");
-        patternStrings[Format::PatternLightHorizontal] = QStringLiteral("lightHorizontal");
-        patternStrings[Format::PatternLightVertical] = QStringLiteral("lightVertical");
-        patternStrings[Format::PatternLightDown] = QStringLiteral("lightDown");
-        patternStrings[Format::PatternLightUp] = QStringLiteral("lightUp");
-        patternStrings[Format::PatternLightTrellis] = QStringLiteral("lightTrellis");
-        patternStrings[Format::PatternGray125] = QStringLiteral("gray125");
-        patternStrings[Format::PatternGray0625] = QStringLiteral("gray0625");
-        patternStrings[Format::PatternLightGrid] = QStringLiteral("lightGrid");
-    }
+    static const QMap<int, QString> patternStrings = {
+        {Format::PatternNone, QStringLiteral("none")},
+        {Format::PatternSolid, QStringLiteral("solid")},
+        {Format::PatternMediumGray, QStringLiteral("mediumGray")},
+        {Format::PatternDarkGray, QStringLiteral("darkGray")},
+        {Format::PatternLightGray, QStringLiteral("lightGray")},
+        {Format::PatternDarkHorizontal, QStringLiteral("darkHorizontal")},
+        {Format::PatternDarkVertical, QStringLiteral("darkVertical")},
+        {Format::PatternDarkDown, QStringLiteral("darkDown")},
+        {Format::PatternDarkUp, QStringLiteral("darkUp")},
+        {Format::PatternDarkGrid, QStringLiteral("darkGrid")},
+        {Format::PatternDarkTrellis, QStringLiteral("darkTrellis")},
+        {Format::PatternLightHorizontal, QStringLiteral("lightHorizontal")},
+        {Format::PatternLightVertical, QStringLiteral("lightVertical")},
+        {Format::PatternLightDown, QStringLiteral("lightDown")},
+        {Format::PatternLightUp, QStringLiteral("lightUp")},
+        {Format::PatternLightTrellis, QStringLiteral("lightTrellis")},
+        {Format::PatternGray125, QStringLiteral("gray125")},
+        {Format::PatternGray0625, QStringLiteral("gray0625")},
+        {Format::PatternLightGrid, QStringLiteral("lightGrid")}
+    };
 
     writer.writeStartElement(QStringLiteral("fill"));
     writer.writeStartElement(QStringLiteral("patternFill"));
@@ -570,23 +569,22 @@ void Styles::writeSubBorder(QXmlStreamWriter &writer, const QString &type, int s
         return;
     }
 
-    static QMap<int, QString> stylesString;
-    if (stylesString.isEmpty()) {
-        stylesString[Format::BorderNone] = QStringLiteral("none");
-        stylesString[Format::BorderThin] = QStringLiteral("thin");
-        stylesString[Format::BorderMedium] = QStringLiteral("medium");
-        stylesString[Format::BorderDashed] = QStringLiteral("dashed");
-        stylesString[Format::BorderDotted] = QStringLiteral("dotted");
-        stylesString[Format::BorderThick] = QStringLiteral("thick");
-        stylesString[Format::BorderDouble] = QStringLiteral("double");
-        stylesString[Format::BorderHair] = QStringLiteral("hair");
-        stylesString[Format::BorderMediumDashed] = QStringLiteral("mediumDashed");
-        stylesString[Format::BorderDashDot] = QStringLiteral("dashDot");
-        stylesString[Format::BorderMediumDashDot] = QStringLiteral("mediumDashDot");
-        stylesString[Format::BorderDashDotDot] = QStringLiteral("dashDotDot");
-        stylesString[Format::BorderMediumDashDotDot] = QStringLiteral("mediumDashDotDot");
-        stylesString[Format::BorderSlantDashDot] = QStringLiteral("slantDashDot");
-    }
+    static const QMap<int, QString> stylesString = {
+        {Format::BorderNone, QStringLiteral("none")},
+        {Format::BorderThin, QStringLiteral("thin")},
+        {Format::BorderMedium, QStringLiteral("medium")},
+        {Format::BorderDashed, QStringLiteral("dashed")},
+        {Format::BorderDotted, QStringLiteral("dotted")},
+        {Format::BorderThick, QStringLiteral("thick")},
+        {Format::BorderDouble, QStringLiteral("double")},
+        {Format::BorderHair, QStringLiteral("hair")},
+        {Format::BorderMediumDashed, QStringLiteral("mediumDashed")},
+        {Format::BorderDashDot, QStringLiteral("dashDot")},
+        {Format::BorderMediumDashDot, QStringLiteral("mediumDashDot")},
+        {Format::BorderDashDotDot, QStringLiteral("dashDotDot")},
+        {Format::BorderMediumDashDotDot, QStringLiteral("mediumDashDotDot")},
+        {Format::BorderSlantDashDot, QStringLiteral("slantDashDot")}
+    };
 
     writer.writeStartElement(type);
     writer.writeAttribute(QStringLiteral("style"), stylesString[style]);
@@ -884,28 +882,27 @@ bool Styles::readFill(QXmlStreamReader &reader, Format &fill)
 {
     Q_ASSERT(reader.name() == QLatin1String("fill"));
 
-    static QMap<QString, Format::FillPattern> patternValues;
-    if (patternValues.isEmpty()) {
-        patternValues[QStringLiteral("none")] = Format::PatternNone;
-        patternValues[QStringLiteral("solid")] = Format::PatternSolid;
-        patternValues[QStringLiteral("mediumGray")] = Format::PatternMediumGray;
-        patternValues[QStringLiteral("darkGray")] = Format::PatternDarkGray;
-        patternValues[QStringLiteral("lightGray")] = Format::PatternLightGray;
-        patternValues[QStringLiteral("darkHorizontal")] = Format::PatternDarkHorizontal;
-        patternValues[QStringLiteral("darkVertical")] = Format::PatternDarkVertical;
-        patternValues[QStringLiteral("darkDown")] = Format::PatternDarkDown;
-        patternValues[QStringLiteral("darkUp")] = Format::PatternDarkUp;
-        patternValues[QStringLiteral("darkGrid")] = Format::PatternDarkGrid;
-        patternValues[QStringLiteral("darkTrellis")] = Format::PatternDarkTrellis;
-        patternValues[QStringLiteral("lightHorizontal")] = Format::PatternLightHorizontal;
-        patternValues[QStringLiteral("lightVertical")] = Format::PatternLightVertical;
-        patternValues[QStringLiteral("lightDown")] = Format::PatternLightDown;
-        patternValues[QStringLiteral("lightUp")] = Format::PatternLightUp;
-        patternValues[QStringLiteral("lightTrellis")] = Format::PatternLightTrellis;
-        patternValues[QStringLiteral("gray125")] = Format::PatternGray125;
-        patternValues[QStringLiteral("gray0625")] = Format::PatternGray0625;
-        patternValues[QStringLiteral("lightGrid")] = Format::PatternLightGrid;
-    }
+    static const QMap<QString, Format::FillPattern> patternValues = {
+        {QStringLiteral("none"), Format::PatternNone},
+        {QStringLiteral("solid"), Format::PatternSolid},
+        {QStringLiteral("mediumGray"), Format::PatternMediumGray},
+        {QStringLiteral("darkGray"), Format::PatternDarkGray},
+        {QStringLiteral("lightGray"), Format::PatternLightGray},
+        {QStringLiteral("darkHorizontal"), Format::PatternDarkHorizontal},
+        {QStringLiteral("darkVertical"), Format::PatternDarkVertical},
+        {QStringLiteral("darkDown"), Format::PatternDarkDown},
+        {QStringLiteral("darkUp"), Format::PatternDarkUp},
+        {QStringLiteral("darkGrid"), Format::PatternDarkGrid},
+        {QStringLiteral("darkTrellis"), Format::PatternDarkTrellis},
+        {QStringLiteral("lightHorizontal"), Format::PatternLightHorizontal},
+        {QStringLiteral("lightVertical"), Format::PatternLightVertical},
+        {QStringLiteral("lightDown"), Format::PatternLightDown},
+        {QStringLiteral("lightUp"), Format::PatternLightUp},
+        {QStringLiteral("lightTrellis"), Format::PatternLightTrellis},
+        {QStringLiteral("gray125"), Format::PatternGray125},
+        {QStringLiteral("gray0625"), Format::PatternGray0625},
+        {QStringLiteral("lightGrid"), Format::PatternLightGrid}
+    };
 
     while (!reader.atEnd() && !(reader.tokenType() == QXmlStreamReader::EndElement && reader.name() == QLatin1String("fill"))) {
         reader.readNextStartElement();
@@ -1045,23 +1042,22 @@ bool Styles::readSubBorder(QXmlStreamReader &reader, const QString &name, Format
 {
     Q_ASSERT(reader.name() == name);
 
-    static QMap<QString, Format::BorderStyle> stylesStringsMap;
-    if (stylesStringsMap.isEmpty()) {
-        stylesStringsMap[QStringLiteral("none")] = Format::BorderNone;
-        stylesStringsMap[QStringLiteral("thin")] = Format::BorderThin;
-        stylesStringsMap[QStringLiteral("medium")] = Format::BorderMedium;
-        stylesStringsMap[QStringLiteral("dashed")] = Format::BorderDashed;
-        stylesStringsMap[QStringLiteral("dotted")] = Format::BorderDotted;
-        stylesStringsMap[QStringLiteral("thick")] = Format::BorderThick;
-        stylesStringsMap[QStringLiteral("double")] = Format::BorderDouble;
-        stylesStringsMap[QStringLiteral("hair")] = Format::BorderHair;
-        stylesStringsMap[QStringLiteral("mediumDashed")] = Format::BorderMediumDashed;
-        stylesStringsMap[QStringLiteral("dashDot")] = Format::BorderDashDot;
-        stylesStringsMap[QStringLiteral("mediumDashDot")] = Format::BorderMediumDashDot;
-        stylesStringsMap[QStringLiteral("dashDotDot")] = Format::BorderDashDotDot;
-        stylesStringsMap[QStringLiteral("mediumDashDotDot")] = Format::BorderMediumDashDotDot;
-        stylesStringsMap[QStringLiteral("slantDashDot")] = Format::BorderSlantDashDot;
-    }
+    static const QMap<QString, Format::BorderStyle> stylesStringsMap = {
+        {QStringLiteral("none"), Format::BorderNone},
+        {QStringLiteral("thin"), Format::BorderThin},
+        {QStringLiteral("medium"), Format::BorderMedium},
+        {QStringLiteral("dashed"), Format::BorderDashed},
+        {QStringLiteral("dotted"), Format::BorderDotted},
+        {QStringLiteral("thick"), Format::BorderThick},
+        {QStringLiteral("double"), Format::BorderDouble},
+        {QStringLiteral("hair"), Format::BorderHair},
+        {QStringLiteral("mediumDashed"), Format::BorderMediumDashed},
+        {QStringLiteral("dashDot"), Format::BorderDashDot},
+        {QStringLiteral("mediumDashDot"), Format::BorderMediumDashDot},
+        {QStringLiteral("dashDotDot"), Format::BorderDashDotDot},
+        {QStringLiteral("mediumDashDotDot"), Format::BorderMediumDashDotDot},
+        {QStringLiteral("slantDashDot"), Format::BorderSlantDashDot}
+    };
 
     QXmlStreamAttributes attributes = reader.attributes();
     if (attributes.hasAttribute(QLatin1String("style"))) {
@@ -1176,28 +1172,26 @@ bool Styles::readCellXfs(QXmlStreamReader &reader)
                         QXmlStreamAttributes alignAttrs = reader.attributes();
 
                         if (alignAttrs.hasAttribute(QLatin1String("horizontal"))) {
-                            static QMap<QString, Format::HorizontalAlignment> alignStringMap;
-                            if (alignStringMap.isEmpty()) {
-                                alignStringMap.insert(QStringLiteral("left"), Format::AlignLeft);
-                                alignStringMap.insert(QStringLiteral("center"), Format::AlignHCenter);
-                                alignStringMap.insert(QStringLiteral("right"), Format::AlignRight);
-                                alignStringMap.insert(QStringLiteral("justify"), Format::AlignHJustify);
-                                alignStringMap.insert(QStringLiteral("centerContinuous"), Format::AlignHMerge);
-                                alignStringMap.insert(QStringLiteral("distributed"), Format::AlignHDistributed);
-                            }
+                            static const QMap<QString, Format::HorizontalAlignment> alignStringMap = {
+                                {QStringLiteral("left"), Format::AlignLeft},
+                                {QStringLiteral("center"), Format::AlignHCenter},
+                                {QStringLiteral("right"), Format::AlignRight},
+                                {QStringLiteral("justify"), Format::AlignHJustify},
+                                {QStringLiteral("centerContinuous"), Format::AlignHMerge},
+                                {QStringLiteral("distributed"), Format::AlignHDistributed}
+                            };
                             QString str = alignAttrs.value(QLatin1String("horizontal")).toString();
                             if (alignStringMap.contains(str))
                                 format.setHorizontalAlignment(alignStringMap[str]);
                         }
 
                         if (alignAttrs.hasAttribute(QLatin1String("vertical"))) {
-                            static QMap<QString, Format::VerticalAlignment> alignStringMap;
-                            if (alignStringMap.isEmpty()) {
-                                alignStringMap.insert(QStringLiteral("top"), Format::AlignTop);
-                                alignStringMap.insert(QStringLiteral("center"), Format::AlignVCenter);
-                                alignStringMap.insert(QStringLiteral("justify"), Format::AlignVJustify);
-                                alignStringMap.insert(QStringLiteral("distributed"), Format::AlignVDistributed);
-                            }
+                            static const QMap<QString, Format::VerticalAlignment> alignStringMap = {
+                                {QStringLiteral("top"), Format::AlignTop},
+                                {QStringLiteral("center"), Format::AlignVCenter},
+                                {QStringLiteral("justify"), Format::AlignVJustify},
+                                {QStringLiteral("distributed"), Format::AlignVDistributed}
+                            };
                             QString str = alignAttrs.value(QLatin1String("vertical")).toString();
                             if (alignStringMap.contains(str))
                                 format.setVerticalAlignment(alignStringMap[str]);
