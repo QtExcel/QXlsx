@@ -41,13 +41,12 @@ DocPropsCore::DocPropsCore(CreateFlag flag)
 
 bool DocPropsCore::setProperty(const QString &name, const QString &value)
 {
-    static QStringList validKeys;
-    if (validKeys.isEmpty()) {
-        validKeys << QStringLiteral("title") << QStringLiteral("subject")
-                  << QStringLiteral("keywords") << QStringLiteral("description")
-                  << QStringLiteral("category") << QStringLiteral("status")
-                  << QStringLiteral("created") << QStringLiteral("creator");
-    }
+    static const QStringList validKeys = {
+        QStringLiteral("title"), QStringLiteral("subject"),
+        QStringLiteral("keywords"), QStringLiteral("description"),
+        QStringLiteral("category"), QStringLiteral("status"),
+        QStringLiteral("created"), QStringLiteral("creator")
+    };
 
     if (!validKeys.contains(name))
         return false;

@@ -48,7 +48,7 @@ int intPow(int x, int p)
 
 QString col_to_name(int col_num)
 {
-    static QMap<int, QString> col_cache;
+    static thread_local QMap<int, QString> col_cache;
 
     if (!col_cache.contains(col_num)) {
         QString col_str;
@@ -124,7 +124,7 @@ CellReference::CellReference(const char *cell)
 void CellReference::init(const QString &cell_str)
 {
 #if QT_VERSION >= QT_VERSION_CHECK( 5, 0, 0 )
-    static QRegularExpression re(QStringLiteral("^\\$?([A-Z]{1,3})\\$?(\\d+)$"));
+    static thread_local QRegularExpression re(QStringLiteral("^\\$?([A-Z]{1,3})\\$?(\\d+)$"));
     QRegularExpressionMatch match = re.match(cell_str);
     if (match.hasMatch()) {
         const QString col_str = match.captured(1);

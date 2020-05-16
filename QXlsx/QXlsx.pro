@@ -24,9 +24,9 @@ DEFINES += QT_DEPRECATED_WARNINGS
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
-QXLSX_PARENTPATH=./
-QXLSX_HEADERPATH=./header/
-QXLSX_SOURCEPATH=./source/
-include(./QXlsx.pri)
+QXLSX_PARENTPATH=$$PWD/
+QXLSX_HEADERPATH=$$PWD/header/
+QXLSX_SOURCEPATH=$$PWD/source/
+include($$PWD/QXlsx.pri)
 
 

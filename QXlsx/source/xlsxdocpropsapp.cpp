@@ -51,10 +51,9 @@ void DocPropsApp::addHeadingPair(const QString &name, int value)
 
 bool DocPropsApp::setProperty(const QString &name, const QString &value)
 {
-    static QStringList validKeys;
-    if (validKeys.isEmpty()) {
-        validKeys << QStringLiteral("manager") << QStringLiteral("company");
-    }
+    static const QStringList validKeys = {
+        QStringLiteral("manager"), QStringLiteral("company")
+    };
 
     if (!validKeys.contains(name))
         return false;
