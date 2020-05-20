@@ -47,7 +47,7 @@
 #include <QBuffer>
 #include <QDir>
 #include <QDebug>
-
+#include <QTemporaryfile>
 
 /*
 	From Wikipedia: The Open Packaging Conventions (OPC) is a
@@ -85,6 +85,94 @@
 */
 
 QT_BEGIN_NAMESPACE_XLSX
+
+namespace xlsxDocumentCpp {
+	std::string copyTag(const std::string &sFrom, const std::string &sTo, const std::string &tag) {
+		const std::string tagToFindStart = "<" + tag;
+		const std::string tagToFindEnd = "</" + tag;
+		const std::string tagEnd = "</" + tag + ">";
+
+		// search all occurrences of tag in 'sFrom'
+		std::string sFromData = "";
+		size_t startIndex = 0;
+		while (true) {
+			std::size_t startPos = sFrom.find(tagToFindStart, startIndex);
+			if (startPos != std::string::npos) {
+				std::size_t endPos = sFrom.find(tagToFindEnd, startPos);
+				std::string tagEndTmp = tagEnd;
+				if (endPos == std::string::npos) {	// second try to find the ending, maybe it is "/>" 
+					endPos = sFrom.find("/>", startPos);
+					tagEndTmp = "/>";
+				}
+				if (endPos != std::string::npos) {
+					sFromData += sFrom.substr(startPos, endPos - startPos) + tagEndTmp;
+					startIndex = endPos + strlen(tagEndTmp.c_str());
+				}
+				else {
+					break;
+				}
+			}
+			else {
+				break;
+			}
+		}
+
+		std::string sOut = sTo; // copy 'sTo' in the output string
+
+		if (!sFromData.empty()) { // tag found in 'from'?
+								  // search all occurrences of tag in 'sOut' and delete them
+			int firstPosTag = -1;
+			while (true) {
+				std::size_t startPos = sOut.find(tagToFindStart);
+				if (startPos != std::string::npos) {
+					std::size_t endPos = sOut.find(tagToFindEnd);
+					std::string tagEndTmp = tagEnd;
+					if (endPos == std::string::npos) {	// second try to find the ending, maybe it is "/>" 
+						endPos = sOut.find("/>", startPos);
+						tagEndTmp = "/>";
+					}
+					if (endPos != std::string::npos) {
+						if (firstPosTag < 0)
+							firstPosTag = startPos;
+						std::string stringBefore = sOut.substr(0, startPos);
+						endPos += strlen(tagEndTmp.c_str());
+						std::string stringAfter = sOut.substr(endPos, strlen(sOut.c_str()) - endPos);
+						sOut = stringBefore + stringAfter;
+					}
+					else {
+						break;
+					}
+				}
+				else {
+					break;
+				}
+			}
+
+			if (firstPosTag == -1) {
+				// tag not found in 'sTo' file
+				// try to find a default pos using standard tags
+				std::vector<std::string> defaultPos{ "</styleSheet>", "<pageMargins", "</workbook>" };
+				for (unsigned int i = 0; i < defaultPos.size(); ++i) {
+					std::size_t iDefaultPos = sOut.find(defaultPos[i]);
+					if (iDefaultPos != std::string::npos) {
+						firstPosTag = iDefaultPos;
+						break;
+					}
+				}
+			}
+
+			// add the tag extracted from 'sFrom' in 'sOut'
+			// add in the position of the first tag found in 'sOut' ('firstPosTag')
+			if (firstPosTag >= 0) {
+				std::string stringBefore = sOut.substr(0, firstPosTag);
+				std::string stringAfter = sOut.substr(firstPosTag, strlen(sOut.c_str()) - firstPosTag);
+				sOut = stringBefore + sFromData + stringAfter;
+			}
+		}
+
+		return sOut;
+	}
+}
 
 DocumentPrivate::DocumentPrivate(Document *p) :
 	q_ptr(p), defaultPackageName(QStringLiteral("Book1.xlsx")),
@@ -384,6 +472,74 @@ bool DocumentPrivate::savePackage(QIODevice *device) const
 	return true;
 }
 
+bool DocumentPrivate::copyStyle(const QString &from, const QString &to)
+{
+	// create a temp file because the zip writer cannot modify already existing zips
+	QTemporaryFile tempFile;
+	tempFile.open();
+	tempFile.close();
+	QString temFilePath = QFileInfo(tempFile).absoluteFilePath();
+
+	ZipWriter temporalZip(temFilePath);
+
+	ZipReader zipReader(from);
+	QStringList filePaths = zipReader.filePaths();
+
+	std::shared_ptr<ZipReader> toReader = std::shared_ptr<ZipReader>(new ZipReader(to));
+	QStringList toFilePaths = toReader->filePaths();
+
+	// copy all files from "to" zip except those related to style
+	for (int i = 0; i < toFilePaths.size(); i++) {
+		if (toFilePaths[i].contains("xl/styles")) {
+			if (filePaths.contains(toFilePaths[i])) {	// style file exist in 'from' as well
+				// modify style file
+				std::string fromData = QString(zipReader.fileData(toFilePaths[i])).toStdString();
+				std::string toData = QString(toReader->fileData(toFilePaths[i])).toStdString();
+				// copy default theme style from 'from' to 'to'
+				toData = xlsxDocumentCpp::copyTag(fromData, toData, "dxfs");
+				temporalZip.addFile(toFilePaths.at(i), QString::fromUtf8(toData.c_str()).toUtf8());
+
+				continue;
+			}
+		}
+
+		if (toFilePaths[i].contains("xl/workbook")) {
+			if (filePaths.contains(toFilePaths[i])) {	// workbook file exist in 'from' as well
+				// modify workbook file
+				std::string fromData = QString(zipReader.fileData(toFilePaths[i])).toStdString();
+				std::string toData = QString(toReader->fileData(toFilePaths[i])).toStdString();
+				// copy default theme style from 'from' to 'to'
+				toData = xlsxDocumentCpp::copyTag(fromData, toData, "workbookPr");
+				temporalZip.addFile(toFilePaths.at(i), QString::fromUtf8(toData.c_str()).toUtf8());
+				continue;
+			}
+		}
+
+		if (toFilePaths[i].contains("xl/worksheets/sheet")) {
+			if (filePaths.contains(toFilePaths[i])) {	// sheet file exist in 'from' as well
+				// modify sheet file
+				std::string fromData = QString(zipReader.fileData(toFilePaths[i])).toStdString();
+				std::string toData = QString(toReader->fileData(toFilePaths[i])).toStdString();
+				// copy "conditionalFormatting" from 'from' to 'to'
+				toData = xlsxDocumentCpp::copyTag(fromData, toData, "conditionalFormatting");
+				temporalZip.addFile(toFilePaths.at(i), QString::fromUtf8(toData.c_str()).toUtf8());
+				continue;
+			}
+		}
+
+		QByteArray data = toReader->fileData(toFilePaths.at(i));
+		temporalZip.addFile(toFilePaths.at(i), data);
+	}
+
+	temporalZip.close();
+	toReader = nullptr; // release the pointer
+	tempFile.close();
+
+	QFile::remove(to);
+	tempFile.copy(to);
+
+	return true;
+}
 
 /*!
   \class Document
@@ -1090,6 +1246,10 @@ bool Document::isLoadPackage() const
 bool Document::load() const
 {
 	return isLoadPackage();
+}
+
+bool Document::copyStyle(const QString &from, const QString &to) {
+	return DocumentPrivate::copyStyle(from, to);
 }
 
 /*!
