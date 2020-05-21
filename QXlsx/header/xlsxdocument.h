@@ -111,6 +111,9 @@ public:
 	bool saveAs(const QString &xlsXname) const;
 	bool saveAs(QIODevice *device) const;
 
+	// copy style from one xlsx file to other
+	static bool copyStyle(const QString &from, const QString &to);
+
 	bool isLoadPackage() const; 
 	bool load() const; // equals to isLoadPackage()
 
