@@ -27,12 +27,6 @@
 #include <QTemporaryfile>
 #include <QSharedPointer>
 
-#include <iostream>
-#include <memory>
-#include <thread>
-#include <chrono>
-#include <mutex>
-
 /*
 	From Wikipedia: The Open Packaging Conventions (OPC) is a
 	container-file technology initially created by Microsoft to store
@@ -469,7 +463,9 @@ bool DocumentPrivate::copyStyle(const QString &from, const QString &to)
 	ZipReader zipReader(from);
 	QStringList filePaths = zipReader.filePaths();
 
-	std::shared_ptr<ZipReader> toReader = std::shared_ptr<ZipReader>(new ZipReader(to));
+    // std::shared_ptr<ZipReader> toReader = std::shared_ptr<ZipReader>(new ZipReader(to));
+    QSharedPointer<ZipReader> toReader = QSharedPointer<ZipReader>(new ZipReader(to));
+
 	QStringList toFilePaths = toReader->filePaths();
 
 	// copy all files from "to" zip except those related to style
