@@ -23,9 +23,10 @@
 #include <QPointF>
 #include <QBuffer>
 #include <QDir>
-#include <QDebug>
 #include <QTemporaryfile>
+#include <QFile>
 #include <QSharedPointer>
+#include <QDebug>
 
 /*
 	From Wikipedia: The Open Packaging Conventions (OPC) is a
