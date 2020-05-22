@@ -1,5 +1,5 @@
 # HelloAndroid.pro
-
+ 
 # TARGET = HelloAndroid
 
 QT += quick

@@ -23,7 +23,7 @@
 #include <QPointF>
 #include <QBuffer>
 #include <QDir>
-#include <QTemporaryfile>
+#include <QTemporaryFile>
 #include <QFile>
 #include <QSharedPointer>
 #include <QDebug>

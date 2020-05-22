@@ -11,7 +11,7 @@
   - You can also use it as a static library.
 
 ## How to use
-- See [examples](Example.md) or [wiki](https://github.com/QtExcel/QXlsx/wiki)
+- See [examples](Example.md), [wiki](https://github.com/QtExcel/QXlsx/wiki), [FAQ](https://github.com/QtExcel/QXlsx/wiki/FAQ)
 	- HelloWorld : Hello world example (the most basic structure)
 	- TestExcel : basic samples based on QtXlsx samples
 	- HelloAndroid : read xlsx on Android
