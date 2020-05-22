@@ -74,7 +74,7 @@ QString getRelFilePath(const QString &filePath)
         // return QString();
 
         // dev34
-        ret = QString("_rels/") + QString("%0.rels").arg(filePath);
+        ret = QLatin1String("_rels/") + QStringLiteral("%0.rels").arg(filePath);
         return ret;
     }
 
@@ -243,15 +243,17 @@ bool isSpaceReserveNeeded(const QString &s)
  */
 QString convertSharedFormula(const QString &rootFormula, const CellReference &rootCell, const CellReference &cell)
 {
+    Q_UNUSED(rootCell)
+    Q_UNUSED(cell)
     //Find all the "$?[A-Z]+$?[0-9]+" patterns in the rootFormula.
-    QList<QPair<QString, int> > segments;
+    QList<std::pair<QString, int> > segments;
 
     QString segment;
     bool inQuote = false;
     enum RefState{INVALID, PRE_AZ, AZ, PRE_09, _09};
     RefState refState = INVALID;
     int refFlag = 0; // 0x00, 0x01, 0x02, 0x03 ==> A1, $A1, A$1, $A$1
-    foreach (QChar ch, rootFormula) {
+    for (QChar ch : rootFormula) {
         if (inQuote) {
             segment.append(ch);
             if (ch == QLatin1Char('"'))
@@ -267,7 +269,7 @@ QString convertSharedFormula(const QString &rootFormula, const CellReference &ro
                     refState = PRE_09;
                     refFlag |= 0x02;
                 } else {
-                    segments.append(qMakePair(segment, refState==_09 ? refFlag : -1));
+                    segments.append({ segment, refState==_09 ? refFlag : -1 });
                     segment = QString(ch); //Start new segment.
                     refState = PRE_AZ;
                     refFlag = 0x01;
@@ -276,7 +278,7 @@ QString convertSharedFormula(const QString &rootFormula, const CellReference &ro
                 if (refState == PRE_AZ || refState == AZ) {
                     segment.append(ch);
                 } else {
-                    segments.append(qMakePair(segment, refState==_09 ? refFlag : -1));
+                    segments.append({ segment, refState==_09 ? refFlag : -1 });
                     segment = QString(ch); //Start new segment.
                     refFlag = 0x00;
                 }
@@ -290,7 +292,7 @@ QString convertSharedFormula(const QString &rootFormula, const CellReference &ro
                     refState = INVALID;
             } else {
                 if (refState == _09) {
-                    segments.append(qMakePair(segment, refFlag));
+                    segments.append({ segment, refFlag });
                     segment = QString(ch); //Start new segment.
                 } else {
                     segment.append(ch);
@@ -301,12 +303,11 @@ QString convertSharedFormula(const QString &rootFormula, const CellReference &ro
     }
 
     if (!segment.isEmpty())
-        segments.append(qMakePair(segment, refState==_09 ? refFlag : -1));
+        segments.append({ segment, refState==_09 ? refFlag : -1 });
 
     //Replace "A1", "$A1", "A$1" segment with proper one.
     QStringList result;
-    typedef QPair<QString, int> PairType;
-    foreach (PairType p, segments) {
+    for (const auto &p : segments) {
         //qDebug()<<p.first<<p.second;
         if (p.second != -1 && p.second != 3) {
             CellReference oldRef(p.first);

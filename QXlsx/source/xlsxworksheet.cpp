@@ -115,7 +115,7 @@ void WorksheetPrivate::calculateSpans() const
 
 		if (row_num%16 == 0 || row_num == dimension.lastRow()) {
 			if (span_max != -1) {
-				row_spans[row_num / 16] = QString("%1:%2").arg(span_min).arg(span_max);
+                row_spans[row_num / 16] = QStringLiteral("%1:%2").arg(span_min).arg(span_max);
 				span_min = XLSX_COLUMN_MAX+1;
 				span_max = -1;
 			}
@@ -1326,7 +1326,7 @@ void Worksheet::saveToXmlFile(QIODevice *device) const
 	writer.writeEndElement();//sheetData
 
 	d->saveXmlMergeCells(writer);
-	foreach (const ConditionalFormatting cf, d->conditionalFormattingList)
+    for (const ConditionalFormatting &cf : d->conditionalFormattingList)
 		cf.saveToXml(writer);
 	d->saveXmlDataValidations(writer);
 
@@ -1751,7 +1751,7 @@ void WorksheetPrivate::saveXmlMergeCells(QXmlStreamWriter &writer) const
 	writer.writeStartElement(QStringLiteral("mergeCells"));
 	writer.writeAttribute(QStringLiteral("count"), QString::number(merges.size()));
 
-    foreach (CellRange range, merges)
+    for (const CellRange &range : merges)
     {
 		writer.writeEmptyElement(QStringLiteral("mergeCell"));
 		writer.writeAttribute(QStringLiteral("ref"), range.toString());
@@ -1768,7 +1768,7 @@ void WorksheetPrivate::saveXmlDataValidations(QXmlStreamWriter &writer) const
 	writer.writeStartElement(QStringLiteral("dataValidations"));
 	writer.writeAttribute(QStringLiteral("count"), QString::number(dataValidationsList.size()));
 
-	foreach (DataValidation validation, dataValidationsList)
+    for (const DataValidation &validation : dataValidationsList)
 		validation.saveToXml(writer);
 
 	writer.writeEndElement(); //dataValidations
@@ -1806,7 +1806,7 @@ void WorksheetPrivate::saveXmlHyperlinks(QXmlStreamWriter &writer) const
                 // Update relationships
 				relationships->addWorksheetRelationship(QStringLiteral("/hyperlink"), data->target, QStringLiteral("External"));
 
-				writer.writeAttribute(QStringLiteral("r:id"), QString("rId%1").arg(relationships->count()));
+                writer.writeAttribute(QStringLiteral("r:id"), QStringLiteral("rId%1").arg(relationships->count()));
 			}
 
 			if (!data->location.isEmpty())
@@ -1838,10 +1838,10 @@ void WorksheetPrivate::saveXmlDrawings(QXmlStreamWriter &writer) const
 		return;
 
 	int idx = workbook->drawings().indexOf(drawing.data());
-	relationships->addWorksheetRelationship(QStringLiteral("/drawing"), QString("../drawings/drawing%1.xml").arg(idx+1));
+    relationships->addWorksheetRelationship(QStringLiteral("/drawing"), QStringLiteral("../drawings/drawing%1.xml").arg(idx+1));
 
 	writer.writeEmptyElement(QStringLiteral("drawing"));
-	writer.writeAttribute(QStringLiteral("r:id"), QString("rId%1").arg(relationships->count()));
+    writer.writeAttribute(QStringLiteral("r:id"), QStringLiteral("rId%1").arg(relationships->count()));
 }
 
 void WorksheetPrivate::splitColsInfo(int colFirst, int colLast)
@@ -1970,8 +1970,8 @@ bool Worksheet::setColumnWidth(int colFirst, int colLast, double width)
 {
 	Q_D(Worksheet);
 
-	QList <QSharedPointer<XlsxColumnInfo> > columnInfoList = d->getColumnInfoList(colFirst, colLast);
-	foreach(QSharedPointer<XlsxColumnInfo>  columnInfo, columnInfoList)
+    const QList <QSharedPointer<XlsxColumnInfo> > columnInfoList = d->getColumnInfoList(colFirst, colLast);
+    for (const QSharedPointer<XlsxColumnInfo> &columnInfo : columnInfoList)
     {
 	   columnInfo->width = width;
     }
@@ -1988,8 +1988,8 @@ bool Worksheet::setColumnFormat(int colFirst, int colLast, const Format &format)
 {
 	Q_D(Worksheet);
 
-	QList <QSharedPointer<XlsxColumnInfo> > columnInfoList = d->getColumnInfoList(colFirst, colLast);
-	foreach(QSharedPointer<XlsxColumnInfo>  columnInfo, columnInfoList)
+    const QList <QSharedPointer<XlsxColumnInfo> > columnInfoList = d->getColumnInfoList(colFirst, colLast);
+    for (const QSharedPointer<XlsxColumnInfo> &columnInfo : columnInfoList)
 	   columnInfo->format = format;
 
 	if(columnInfoList.count() > 0) {
@@ -2008,8 +2008,8 @@ bool Worksheet::setColumnHidden(int colFirst, int colLast, bool hidden)
 {
 	Q_D(Worksheet);
 
-	QList <QSharedPointer<XlsxColumnInfo> > columnInfoList = d->getColumnInfoList(colFirst, colLast);
-	foreach(QSharedPointer<XlsxColumnInfo>  columnInfo, columnInfoList)
+    const QList <QSharedPointer<XlsxColumnInfo> > columnInfoList = d->getColumnInfoList(colFirst, colLast);
+    for (const QSharedPointer<XlsxColumnInfo> &columnInfo : columnInfoList)
 	   columnInfo->hidden = hidden;
 
 	return (columnInfoList.count() > 0);
@@ -2087,9 +2087,8 @@ bool Worksheet::setRowHeight(int rowFirst,int rowLast, double height)
 {
 	Q_D(Worksheet);
 
-	QList <QSharedPointer<XlsxRowInfo> > rowInfoList = d->getRowInfoList(rowFirst,rowLast);
-
-	foreach(QSharedPointer<XlsxRowInfo> rowInfo, rowInfoList) {
+    const QList <QSharedPointer<XlsxRowInfo> > rowInfoList = d->getRowInfoList(rowFirst,rowLast);
+    for (const QSharedPointer<XlsxRowInfo> &rowInfo : rowInfoList) {
 		rowInfo->height = height;
 		rowInfo->customHeight = true;
 	}
@@ -2107,9 +2106,8 @@ bool Worksheet::setRowFormat(int rowFirst,int rowLast, const Format &format)
 {
 	Q_D(Worksheet);
 
-	QList <QSharedPointer<XlsxRowInfo> > rowInfoList = d->getRowInfoList(rowFirst,rowLast);
-
-	foreach(QSharedPointer<XlsxRowInfo> rowInfo, rowInfoList)
+    const QList <QSharedPointer<XlsxRowInfo> > rowInfoList = d->getRowInfoList(rowFirst,rowLast);
+    for (const QSharedPointer<XlsxRowInfo> &rowInfo : rowInfoList)
 		rowInfo->format = format;
 
 	d->workbook->styles()->addXfFormat(format);
@@ -2126,8 +2124,8 @@ bool Worksheet::setRowHidden(int rowFirst,int rowLast, bool hidden)
 {
 	Q_D(Worksheet);
 
-	QList <QSharedPointer<XlsxRowInfo> > rowInfoList = d->getRowInfoList(rowFirst,rowLast);
-	foreach(QSharedPointer<XlsxRowInfo> rowInfo, rowInfoList)
+    const QList <QSharedPointer<XlsxRowInfo> > rowInfoList = d->getRowInfoList(rowFirst,rowLast);
+    for (const QSharedPointer<XlsxRowInfo> &rowInfo : rowInfoList)
 		rowInfo->hidden = hidden;
 
 	return rowInfoList.count() > 0;
@@ -2687,7 +2685,7 @@ void WorksheetPrivate::loadXmlSheetFormatProps(QXmlStreamReader &reader)
     bool isSetWidth = false;
 
     // Retain default values
-    foreach (QXmlStreamAttribute attrib, attributes)
+    for  (const QXmlStreamAttribute &attrib : attributes)
     {
         if(attrib.name() == QLatin1String("baseColWidth") )
         {
@@ -2957,16 +2955,18 @@ void WorksheetPrivate::validateDimension()
 	int firstColumn = -1;
 	int lastColumn = -1;
 
-	for (QMap<int, QMap<int, QSharedPointer<Cell> > >::const_iterator it = cellTable.begin(); it != cellTable.end(); ++it)
-	{
-		Q_ASSERT(!it.value().isEmpty());
+    auto it = cellTable.constBegin();
+    while (it != cellTable.constEnd()) {
+        Q_ASSERT(!it.value().isEmpty());
 
-		if (firstColumn == -1 || it.value().constBegin().key() < firstColumn)
-			firstColumn = it.value().constBegin().key();
+        if (firstColumn == -1 || it.value().constBegin().key() < firstColumn)
+            firstColumn = it.value().constBegin().key();
 
-		if (lastColumn == -1 || (it.value().constEnd()-1).key() > lastColumn)
-			lastColumn = (it.value().constEnd()-1).key();
-	}
+        if (lastColumn == -1 || (it.value().constEnd()-1).key() > lastColumn)
+            lastColumn = (it.value().constEnd()-1).key();
+
+        ++it;
+    }
 
 	CellRange cr(firstRow, firstColumn, lastRow, lastColumn);
 

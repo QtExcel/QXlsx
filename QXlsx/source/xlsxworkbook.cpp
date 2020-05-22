@@ -230,12 +230,12 @@ AbstractSheet *Workbook::insertSheet(int index, const QString &name, AbstractShe
         if (type == AbstractSheet::ST_WorkSheet) {
             do {
                 ++d->last_worksheet_index;
-                sheetName = QString("Sheet%1").arg(d->last_worksheet_index);
+                sheetName = QStringLiteral("Sheet%1").arg(d->last_worksheet_index);
             } while (d->sheetNames.contains(sheetName));
         } else if (type == AbstractSheet::ST_ChartSheet) {
             do {
                 ++d->last_chartsheet_index;
-                sheetName = QString("Chart%1").arg(d->last_chartsheet_index);
+                sheetName = QStringLiteral("Chart%1").arg(d->last_chartsheet_index);
             } while (d->sheetNames.contains(sheetName));
         } else {
             qWarning("unsupported sheet type.");
@@ -364,7 +364,7 @@ bool Workbook::copySheet(int index, const QString &newName)
         int copy_index = 1;
         do {
             ++copy_index;
-            worksheetName = QString("%1(%2)").arg(d->sheets[index]->sheetName()).arg(copy_index);
+            worksheetName = QStringLiteral("%1(%2)").arg(d->sheets[index]->sheetName()).arg(copy_index);
         } while (d->sheetNames.contains(worksheetName));
     }
 
@@ -501,11 +501,11 @@ void Workbook::saveToXmlFile(QIODevice *device) const
             writer.writeAttribute(QStringLiteral("state"), QStringLiteral("veryHidden"));
 
         if (sheet->sheetType() == AbstractSheet::ST_WorkSheet)
-            d->relationships->addDocumentRelationship(QStringLiteral("/worksheet"), QString("worksheets/sheet%1.xml").arg(++worksheetIndex));
+            d->relationships->addDocumentRelationship(QStringLiteral("/worksheet"), QStringLiteral("worksheets/sheet%1.xml").arg(++worksheetIndex));
         else
-            d->relationships->addDocumentRelationship(QStringLiteral("/chartsheet"), QString("chartsheets/sheet%1.xml").arg(++chartsheetIndex));
+            d->relationships->addDocumentRelationship(QStringLiteral("/chartsheet"), QStringLiteral("chartsheets/sheet%1.xml").arg(++chartsheetIndex));
 
-        writer.writeAttribute(QStringLiteral("r:id"), QString("rId%1").arg(d->relationships->count()));
+        writer.writeAttribute(QStringLiteral("r:id"), QStringLiteral("rId%1").arg(d->relationships->count()));
     }
     writer.writeEndElement();//sheets
 
@@ -513,15 +513,15 @@ void Workbook::saveToXmlFile(QIODevice *device) const
         writer.writeStartElement(QStringLiteral("externalReferences"));
         for (int i=0; i<d->externalLinks.size(); ++i) {
             writer.writeEmptyElement(QStringLiteral("externalReference"));
-            d->relationships->addDocumentRelationship(QStringLiteral("/externalLink"), QString("externalLinks/externalLink%1.xml").arg(i+1));
-            writer.writeAttribute(QStringLiteral("r:id"), QString("rId%1").arg(d->relationships->count()));
+            d->relationships->addDocumentRelationship(QStringLiteral("/externalLink"), QStringLiteral("externalLinks/externalLink%1.xml").arg(i+1));
+            writer.writeAttribute(QStringLiteral("r:id"), QStringLiteral("rId%1").arg(d->relationships->count()));
         }
         writer.writeEndElement();//externalReferences
     }
 
     if (!d->definedNamesList.isEmpty()) {
         writer.writeStartElement(QStringLiteral("definedNames"));
-        foreach (XlsxDefineNameData data, d->definedNamesList) {
+        for (const XlsxDefineNameData &data : d->definedNamesList) {
             writer.writeStartElement(QStringLiteral("definedName"));
             writer.writeAttribute(QStringLiteral("name"), data.name);
             if (!data.comment.isEmpty())

@@ -55,7 +55,7 @@ void Drawing::saveToXmlFile(QIODevice *device) const
     writer.writeAttribute(QStringLiteral("xmlns:xdr"), QStringLiteral("http://schemas.openxmlformats.org/drawingml/2006/spreadsheetDrawing"));
     writer.writeAttribute(QStringLiteral("xmlns:a"), QStringLiteral("http://schemas.openxmlformats.org/drawingml/2006/main"));
 
-    foreach (DrawingAnchor *anchor, anchors)
+    for (DrawingAnchor *anchor : anchors)
         anchor->saveToXml(writer);
 
     writer.writeEndElement();//xdr:wsDr
