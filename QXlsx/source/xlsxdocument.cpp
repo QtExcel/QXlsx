@@ -464,7 +464,6 @@ bool DocumentPrivate::copyStyle(const QString &from, const QString &to)
 	ZipReader zipReader(from);
 	QStringList filePaths = zipReader.filePaths();
 
-    // std::shared_ptr<ZipReader> toReader = std::shared_ptr<ZipReader>(new ZipReader(to));
     QSharedPointer<ZipReader> toReader = QSharedPointer<ZipReader>(new ZipReader(to));
 
 	QStringList toFilePaths = toReader->filePaths();
@@ -513,7 +512,9 @@ bool DocumentPrivate::copyStyle(const QString &from, const QString &to)
 	}
 
 	temporalZip.close();
-	toReader = nullptr; // release the pointer
+
+    toReader.clear();
+
 	tempFile.close();
 
 	QFile::remove(to);
