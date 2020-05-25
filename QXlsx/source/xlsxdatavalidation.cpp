@@ -443,7 +443,8 @@ bool DataValidation::saveToXml(QXmlStreamWriter &writer) const
         writer.writeAttribute(QStringLiteral("prompt"), promptMessage());
 
     QStringList sqref;
-    foreach (CellRange range, ranges())
+    const auto rangeList = ranges();
+    for (const CellRange &range : rangeList)
         sqref.append(range.toString());
     writer.writeAttribute(QStringLiteral("sqref"), sqref.join(QLatin1String(" ")));
 
@@ -496,7 +497,8 @@ DataValidation DataValidation::loadFromXml(QXmlStreamReader &reader)
     QXmlStreamAttributes attrs = reader.attributes();
 
     QString sqref = attrs.value(QLatin1String("sqref")).toString();
-    foreach (QString range, sqref.split(QLatin1Char(' ')))
+    const auto sqrefParts = sqref.split(QLatin1Char(' '));
+    for (const QString &range : sqrefParts)
         validation.addRange(range);
 
     if (attrs.hasAttribute(QLatin1String("type"))) {
