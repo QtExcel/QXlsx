@@ -82,9 +82,10 @@ void WorksheetPrivate::calculateSpans() const
 	int span_max = -1;
 
 	for (int row_num = dimension.firstRow(); row_num <= dimension.lastRow(); row_num++) {
-		if (cellTable.contains(row_num)) {
+        auto it = cellTable.constFind(row_num);
+        if (it != cellTable.constEnd()) {
 			for (int col_num = dimension.firstColumn(); col_num <= dimension.lastColumn(); col_num++) {
-				if (cellTable[row_num].contains(col_num)) {
+                if (it->contains(col_num)) {
 					if (span_max == -1) {
 						span_min = col_num;
 						span_max = col_num;
@@ -97,9 +98,10 @@ void WorksheetPrivate::calculateSpans() const
 				}
 			}
 		}
-		if (comments.contains(row_num)) {
+        auto cIt = comments.constFind(row_num);
+        if (cIt != comments.constEnd()) {
 			for (int col_num = dimension.firstColumn(); col_num <= dimension.lastColumn(); col_num++) {
-				if (comments[row_num].contains(col_num)) {
+                if (cIt->contains(col_num)) {
 					if (span_max == -1) {
 						span_min = col_num;
 						span_max = col_num;
@@ -588,24 +590,26 @@ Cell *Worksheet::cellAt(const CellReference &row_column) const
  * Returns the cell at the given \a row and \a column. If there
  * is no cell at the specified position, the function returns 0.
  */
-Cell *Worksheet::cellAt(int row, int column) const
+Cell *Worksheet::cellAt(int row, int col) const
 {
 	Q_D(const Worksheet);
-	if (!d->cellTable.contains(row))
+    auto it = d->cellTable.constFind(row);
+    if (it == d->cellTable.constEnd())
 		return 0;
-	if (!d->cellTable[row].contains(column))
+    if (!it->contains(col))
 		return 0;
 
-	return d->cellTable[row][column].data();
+    return (*it)[col].data();
 }
 
 Format WorksheetPrivate::cellFormat(int row, int col) const
 {
-	if (!cellTable.contains(row))
+    auto it = cellTable.constFind(row);
+    if (it == cellTable.constEnd())
 		return Format();
-	if (!cellTable[row].contains(col))
+    if (!it->contains(col))
 		return Format();
-	return cellTable[row][col]->format();
+    return (*it)[col]->format();
 }
 
 /*!
@@ -1189,12 +1193,8 @@ bool Worksheet::mergeCells(const CellRange &range, const Format &format)
 */
 bool Worksheet::unmergeCells(const CellRange &range)
 {
-	Q_D(Worksheet);
-	if (!d->merges.contains(range))
-		return false;
-
-	d->merges.removeOne(range);
-	return true;
+    Q_D(Worksheet);
+    return d->merges.removeOne(range);
 }
 
 /*!
@@ -1456,7 +1456,9 @@ void WorksheetPrivate::saveXmlSheetData(QXmlStreamWriter &writer) const
 	calculateSpans();
     for (int row_num = dimension.firstRow(); row_num <= dimension.lastRow(); row_num++)
     {
-        if (!(cellTable.contains(row_num) || comments.contains(row_num) || rowsInfo.contains(row_num)))
+        auto ctIt = cellTable.constFind(row_num);
+        auto riIt = rowsInfo.constFind(row_num);
+        if (ctIt == cellTable.constEnd() && riIt == rowsInfo.constEnd() && !comments.contains(row_num))
         {
 			//Only process rows with cell data / comments / formatting
 			continue;
@@ -1464,8 +1466,9 @@ void WorksheetPrivate::saveXmlSheetData(QXmlStreamWriter &writer) const
 
 		int span_index = (row_num-1) / 16;
 		QString span;
-		if (row_spans.contains(span_index))
-			span = row_spans[span_index];
+        auto rsIt = row_spans.constFind(span_index);
+        if (rsIt != row_spans.constEnd())
+            span = rsIt.value();
 
 		writer.writeStartElement(QStringLiteral("row"));
 		writer.writeAttribute(QStringLiteral("r"), QString::number(row_num));
@@ -1473,9 +1476,9 @@ void WorksheetPrivate::saveXmlSheetData(QXmlStreamWriter &writer) const
 		if (!span.isEmpty())
 			writer.writeAttribute(QStringLiteral("spans"), span);
 
-        if (rowsInfo.contains(row_num))
+        if (riIt != rowsInfo.constEnd())
         {
-			QSharedPointer<XlsxRowInfo> rowInfo = rowsInfo[row_num];
+            QSharedPointer<XlsxRowInfo> rowInfo = riIt.value();
             if (!rowInfo->format.isEmpty())
             {
 				writer.writeAttribute(QStringLiteral("s"), QString::number(rowInfo->format.xfIndex()));
@@ -1500,13 +1503,13 @@ void WorksheetPrivate::saveXmlSheetData(QXmlStreamWriter &writer) const
 		}
 
 		//Write cell data if row contains filled cells
-        if (cellTable.contains(row_num))
+        if (ctIt != cellTable.constEnd())
         {
             for (int col_num = dimension.firstColumn(); col_num <= dimension.lastColumn(); col_num++)
             {
-                if (cellTable[row_num].contains(col_num))
+                if (ctIt->contains(col_num))
                 {
-					saveXmlCellData(writer, row_num, col_num, cellTable[row_num][col_num]);
+                    saveXmlCellData(writer, row_num, col_num, (*ctIt)[col_num]);
 				}
 			}
 		}
@@ -1524,13 +1527,16 @@ void WorksheetPrivate::saveXmlCellData(QXmlStreamWriter &writer, int row, int co
 	writer.writeStartElement(QStringLiteral("c"));
 	writer.writeAttribute(QStringLiteral("r"), cell_pos);
 
+    QMap<int, QSharedPointer<XlsxRowInfo> >::ConstIterator rIt;
+    QMap<int, QSharedPointer<XlsxColumnInfo> >::ConstIterator cIt;
+
 	//Style used by the cell, row or col
 	if (!cell->format().isEmpty())
 		writer.writeAttribute(QStringLiteral("s"), QString::number(cell->format().xfIndex()));
-	else if (rowsInfo.contains(row) && !rowsInfo[row]->format.isEmpty())
-		writer.writeAttribute(QStringLiteral("s"), QString::number(rowsInfo[row]->format.xfIndex()));
-	else if (colsInfoHelper.contains(col) && !colsInfoHelper[col]->format.isEmpty())
-		writer.writeAttribute(QStringLiteral("s"), QString::number(colsInfoHelper[col]->format.xfIndex()));
+    else if ((rIt = rowsInfo.constFind(row)) != rowsInfo.constEnd() && !(*rIt)->format.isEmpty())
+        writer.writeAttribute(QStringLiteral("s"), QString::number((*rIt)->format.xfIndex()));
+    else if ((cIt = colsInfoHelper.constFind(col)) != colsInfoHelper.constEnd() && !(*cIt)->format.isEmpty())
+        writer.writeAttribute(QStringLiteral("s"), QString::number((*cIt)->format.xfIndex()));
 
     if (cell->cellType() == Cell::SharedStringType) // 's'
     {
@@ -1910,12 +1916,13 @@ QList<int> WorksheetPrivate ::getColumnIndexes(int colFirst, int colLast)
 	nodes.append(colFirst);
     for (int col = colFirst; col <= colLast; ++col)
     {
-        if (colsInfo.contains(col))
+        auto it = colsInfo.constFind(col);
+        if (it != colsInfo.constEnd())
         {
 			if (nodes.last() != col)
 				nodes.append(col);
 
-			int nextCol = colsInfo[col]->lastColumn + 1;
+            int nextCol = (*it)->lastColumn + 1;
 			if (nextCol <= colLast)
 				nodes.append(nextCol);
 		}
@@ -2137,14 +2144,15 @@ bool Worksheet::setRowHidden(int rowFirst,int rowLast, bool hidden)
 double Worksheet::rowHeight(int row)
 {
 	Q_D(Worksheet);
-	int min_col = d->dimension.isValid() ? d->dimension.firstColumn() : 1;
+    const int min_col = d->dimension.isValid() ? d->dimension.firstColumn() : 1;
 
-	if (d->checkDimensions(row, min_col, false, true) || !d->rowsInfo.contains(row))
+    auto it = d->rowsInfo.constFind(row);
+    if (d->checkDimensions(row, min_col, false, true) || it == d->rowsInfo.constEnd())
     {
 		return d->sheetFormatProps.defaultRowHeight; //return default on invalid row
     }
 
-	return d->rowsInfo[row]->height;
+    return (*it)->height;
 }
 
 /*!
@@ -2153,11 +2161,12 @@ double Worksheet::rowHeight(int row)
 Format Worksheet::rowFormat(int row)
 {
 	Q_D(Worksheet);
-	int min_col = d->dimension.isValid() ? d->dimension.firstColumn() : 1;
-	if (d->checkDimensions(row, min_col, false, true) || !d->rowsInfo.contains(row))
+    const int min_col = d->dimension.isValid() ? d->dimension.firstColumn() : 1;
+    auto it = d->rowsInfo.constFind(row);
+    if (d->checkDimensions(row, min_col, false, true) || it == d->rowsInfo.constEnd())
 		return Format(); //return default on invalid row
 
-	return d->rowsInfo[row]->format;
+    return (*it)->format;
 }
 
 /*!
@@ -2166,11 +2175,12 @@ Format Worksheet::rowFormat(int row)
 bool Worksheet::isRowHidden(int row)
 {
 	Q_D(Worksheet);
-	int min_col = d->dimension.isValid() ? d->dimension.firstColumn() : 1;
-	if (d->checkDimensions(row, min_col, false, true) || !d->rowsInfo.contains(row))
+    const int min_col = d->dimension.isValid() ? d->dimension.firstColumn() : 1;
+    auto it = d->rowsInfo.constFind(row);
+    if (d->checkDimensions(row, min_col, false, true) || it == d->rowsInfo.constEnd())
 		return false; //return default on invalid row
 
-	return d->rowsInfo[row]->hidden;
+    return (*it)->hidden;
 }
 
 /*!
@@ -2183,20 +2193,22 @@ bool Worksheet::groupRows(int rowFirst, int rowLast, bool collapsed)
 	Q_D(Worksheet);
 
 	for (int row=rowFirst; row<=rowLast; ++row) {
-		if (d->rowsInfo.contains(row)) {
-			d->rowsInfo[row]->outlineLevel += 1;
+        auto it = d->rowsInfo.find(row);
+        if (it != d->rowsInfo.end()) {
+            (*it)->outlineLevel += 1;
 		} else {
 			QSharedPointer<XlsxRowInfo> info(new XlsxRowInfo);
 			info->outlineLevel += 1;
-			d->rowsInfo.insert(row, info);
+            it = d->rowsInfo.insert(row, info);
 		}
 		if (collapsed)
-			d->rowsInfo[row]->hidden = true;
+            (*it)->hidden = true;
 	}
 	if (collapsed) {
-		if (!d->rowsInfo.contains(rowLast+1))
-			d->rowsInfo.insert(rowLast+1, QSharedPointer<XlsxRowInfo>(new XlsxRowInfo));
-		d->rowsInfo[rowLast+1]->collapsed = true;
+        auto it = d->rowsInfo.find(rowLast+1);
+        if (it == d->rowsInfo.end())
+            it = d->rowsInfo.insert(rowLast+1, QSharedPointer<XlsxRowInfo>(new XlsxRowInfo));
+        (*it)->collapsed = true;
 	}
 	return true;
 }
@@ -2227,10 +2239,11 @@ bool Worksheet::groupColumns(int colFirst, int colLast, bool collapsed)
 	QList<int> nodes;
 	nodes.append(colFirst);
 	for (int col = colFirst; col <= colLast; ++col) {
-		if (d->colsInfo.contains(col)) {
+        auto it = d->colsInfo.constFind(col);
+        if (it != d->colsInfo.constEnd()) {
 			if (nodes.last() != col)
 				nodes.append(col);
-			int nextCol = d->colsInfo[col]->lastColumn + 1;
+            int nextCol = (*it)->lastColumn + 1;
 			if (nextCol <= colLast)
 				nodes.append(nextCol);
 		}
@@ -2239,12 +2252,12 @@ bool Worksheet::groupColumns(int colFirst, int colLast, bool collapsed)
     for (int idx = 0; idx < nodes.size(); ++idx)
     {
 		int colStart = nodes[idx];
-        if (d->colsInfo.contains(colStart))
+        auto it = d->colsInfo.constFind(colStart);
+        if (it != d->colsInfo.constEnd())
         {
-			QSharedPointer<XlsxColumnInfo> info = d->colsInfo[colStart];
-			info->outlineLevel += 1;
+            (*it)->outlineLevel += 1;
 			if (collapsed)
-				info->hidden = true;
+                (*it)->hidden = true;
         }
         else
         {
@@ -2262,8 +2275,9 @@ bool Worksheet::groupColumns(int colFirst, int colLast, bool collapsed)
 	if (collapsed) {
 		int col = colLast+1;
 		d->splitColsInfo(col, col);
-		if (d->colsInfo.contains(col))
-			d->colsInfo[col]->collapsed = true;
+        auto it = d->colsInfo.constFind(col);
+        if (it != d->colsInfo.constEnd())
+            (*it)->collapsed = true;
 		else {
             QSharedPointer<XlsxColumnInfo> info(new XlsxColumnInfo(col, col, false));
 			info->collapsed = true;
@@ -2292,8 +2306,9 @@ CellRange Worksheet::dimension() const
 int WorksheetPrivate::rowPixelsSize(int row) const
 {
 	double height;
-	if (row_sizes.contains(row))
-		height = row_sizes[row];
+    auto it = row_sizes.constFind(row);
+    if (it != row_sizes.constEnd())
+        height = it.value();
 	else
 		height = default_row_height;
 	return static_cast<int>(4.0 / 3.0 *height);
@@ -2311,8 +2326,9 @@ int WorksheetPrivate::colPixelsSize(int col) const
 	double padding = 5.0;
 	int pixels = 0;
 
-	if (col_sizes.contains(col)) {
-		double width = col_sizes[col];
+    auto it = col_sizes.constFind(col);
+    if (it != col_sizes.constEnd()) {
+        double width = it.value();
 		if (width < 1)
 			pixels = static_cast<int>(width * (max_digit_width + padding) + 0.5);
 		else
@@ -2788,10 +2804,10 @@ QList <QSharedPointer<XlsxColumnInfo> > WorksheetPrivate::getColumnInfoList(int 
         for (int idx = 0; idx < nodes.size(); ++idx)
         {
 			int colStart = nodes[idx];
-            if (colsInfo.contains(colStart))
+            auto it = colsInfo.constFind(colStart);
+            if (it != colsInfo.constEnd())
             {
-				QSharedPointer<XlsxColumnInfo> info = colsInfo[colStart];
-				columnsInfoList.append(info);
+                columnsInfoList.append(*it);
             }
             else
             {
