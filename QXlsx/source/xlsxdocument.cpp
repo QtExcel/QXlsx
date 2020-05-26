@@ -195,7 +195,7 @@ bool DocumentPrivate::loadPackage(QIODevice *device)
 
 		DocPropsCore props(DocPropsCore::F_LoadFromExists);
 		props.loadFromXmlData(zipReader.fileData(docPropsCore_Name));
-		foreach (QString name, props.propertyNames())
+        for (const QString &name : props.propertyNames())
 			q->setDocumentProperty(name, props.property(name));
 	}
 
@@ -208,7 +208,7 @@ bool DocumentPrivate::loadPackage(QIODevice *device)
 
 		DocPropsApp props(DocPropsApp::F_LoadFromExists);
 		props.loadFromXmlData(zipReader.fileData(docPropsApp_Name));
-		foreach (QString name, props.propertyNames())
+        for (const QString &name : props.propertyNames())
 			q->setDocumentProperty(name, props.property(name));
 	}
 
@@ -234,7 +234,7 @@ bool DocumentPrivate::loadPackage(QIODevice *device)
 
         // dev34
         QString path;
-        if ( xlworkbook_Dir == "." ) // root
+        if ( xlworkbook_Dir == QLatin1String(".") ) // root
         {
             path = name;
         }
@@ -337,42 +337,42 @@ bool DocumentPrivate::savePackage(QIODevice *device) const
     for (int i = 0 ; i < worksheets.size(); ++i)
     {
 		QSharedPointer<AbstractSheet> sheet = worksheets[i];
-		contentTypes->addWorksheetName(QString("sheet%1").arg(i+1));
+        contentTypes->addWorksheetName(QStringLiteral("sheet%1").arg(i+1));
 		docPropsApp.addPartTitle(sheet->sheetName());
 
-		zipWriter.addFile(QString("xl/worksheets/sheet%1.xml").arg(i+1), sheet->saveToXmlData());
+        zipWriter.addFile(QStringLiteral("xl/worksheets/sheet%1.xml").arg(i+1), sheet->saveToXmlData());
 
 		Relationships *rel = sheet->relationships();
 		if (!rel->isEmpty())
-			zipWriter.addFile(QString("xl/worksheets/_rels/sheet%1.xml.rels").arg(i+1), rel->saveToXmlData());
+            zipWriter.addFile(QStringLiteral("xl/worksheets/_rels/sheet%1.xml.rels").arg(i+1), rel->saveToXmlData());
 	}
 
 	//save chartsheet xml files
 	QList<QSharedPointer<AbstractSheet> > chartsheets = workbook->getSheetsByTypes(AbstractSheet::ST_ChartSheet);
 	if (!chartsheets.isEmpty())
-		docPropsApp.addHeadingPair(QStringLiteral("Chartsheets"), chartsheets.size());
+        docPropsApp.addHeadingPair(QStringLiteral("Chartsheets"), chartsheets.size());
     for (int i=0; i<chartsheets.size(); ++i)
     {
 		QSharedPointer<AbstractSheet> sheet = chartsheets[i];
-		contentTypes->addWorksheetName(QString("sheet%1").arg(i+1));
+        contentTypes->addWorksheetName(QStringLiteral("sheet%1").arg(i+1));
 		docPropsApp.addPartTitle(sheet->sheetName());
 
-		zipWriter.addFile(QString("xl/chartsheets/sheet%1.xml").arg(i+1), sheet->saveToXmlData());
+        zipWriter.addFile(QStringLiteral("xl/chartsheets/sheet%1.xml").arg(i+1), sheet->saveToXmlData());
 		Relationships *rel = sheet->relationships();
 		if (!rel->isEmpty())
-			zipWriter.addFile(QString("xl/chartsheets/_rels/sheet%1.xml.rels").arg(i+1), rel->saveToXmlData());
+            zipWriter.addFile(QStringLiteral("xl/chartsheets/_rels/sheet%1.xml.rels").arg(i+1), rel->saveToXmlData());
 	}
 
 	// save external links xml files
     for (int i=0; i<workbook->d_func()->externalLinks.count(); ++i)
     {
 		SimpleOOXmlFile *link = workbook->d_func()->externalLinks[i].data();
-		contentTypes->addExternalLinkName(QString("externalLink%1").arg(i+1));
+        contentTypes->addExternalLinkName(QStringLiteral("externalLink%1").arg(i+1));
 
-		zipWriter.addFile(QString("xl/externalLinks/externalLink%1.xml").arg(i+1), link->saveToXmlData());
+        zipWriter.addFile(QStringLiteral("xl/externalLinks/externalLink%1.xml").arg(i+1), link->saveToXmlData());
 		Relationships *rel = link->relationships();
 		if (!rel->isEmpty())
-			zipWriter.addFile(QString("xl/externalLinks/_rels/externalLink%1.xml.rels").arg(i+1), rel->saveToXmlData());
+            zipWriter.addFile(QStringLiteral("xl/externalLinks/_rels/externalLink%1.xml.rels").arg(i+1), rel->saveToXmlData());
 	}
 
 	// save workbook xml file
@@ -383,16 +383,16 @@ bool DocumentPrivate::savePackage(QIODevice *device) const
 	// save drawing xml files
     for (int i=0; i<workbook->drawings().size(); ++i)
     {
-		contentTypes->addDrawingName(QString("drawing%1").arg(i+1));
+        contentTypes->addDrawingName(QStringLiteral("drawing%1").arg(i+1));
 
 		Drawing *drawing = workbook->drawings()[i];
-		zipWriter.addFile(QString("xl/drawings/drawing%1.xml").arg(i+1), drawing->saveToXmlData());
+        zipWriter.addFile(QStringLiteral("xl/drawings/drawing%1.xml").arg(i+1), drawing->saveToXmlData());
 		if (!drawing->relationships()->isEmpty())
-			zipWriter.addFile(QString("xl/drawings/_rels/drawing%1.xml.rels").arg(i+1), drawing->relationships()->saveToXmlData());
+            zipWriter.addFile(QStringLiteral("xl/drawings/_rels/drawing%1.xml.rels").arg(i+1), drawing->relationships()->saveToXmlData());
 	}
 
 	// save docProps app/core xml file
-	foreach (QString name, q->documentPropertyNames()) {
+    for (const QString &name : q->documentPropertyNames()) {
 		docPropsApp.setProperty(name, q->documentProperty(name));
 		docPropsCore.setProperty(name, q->documentProperty(name));
 	}
@@ -422,9 +422,9 @@ bool DocumentPrivate::savePackage(QIODevice *device) const
 	// save chart xml files
     for (int i=0; i<workbook->chartFiles().size(); ++i)
     {
-		contentTypes->addChartName(QString("chart%1").arg(i+1));
+        contentTypes->addChartName(QStringLiteral("chart%1").arg(i+1));
 		QSharedPointer<Chart> cf = workbook->chartFiles()[i];
-		zipWriter.addFile(QString("xl/charts/chart%1.xml").arg(i+1), cf->saveToXmlData());
+        zipWriter.addFile(QStringLiteral("xl/charts/chart%1.xml").arg(i+1), cf->saveToXmlData());
 	}
 
 	// save image files
@@ -434,7 +434,7 @@ bool DocumentPrivate::savePackage(QIODevice *device) const
 		if (!mf->mimeType().isEmpty())
 			contentTypes->addDefault(mf->suffix(), mf->mimeType());
 
-		zipWriter.addFile(QString("xl/media/image%1.%2").arg(i+1).arg(mf->suffix()), mf->contents());
+        zipWriter.addFile(QStringLiteral("xl/media/image%1.%2").arg(i+1).arg(mf->suffix()), mf->contents());
 	}
 
 	// save root .rels xml file
@@ -470,11 +470,11 @@ bool DocumentPrivate::copyStyle(const QString &from, const QString &to)
 
 	// copy all files from "to" zip except those related to style
 	for (int i = 0; i < toFilePaths.size(); i++) {
-		if (toFilePaths[i].contains("xl/styles")) {
+        if (toFilePaths[i].contains(QLatin1String("xl/styles"))) {
 			if (filePaths.contains(toFilePaths[i])) {	// style file exist in 'from' as well
 				// modify style file
-				std::string fromData = QString(zipReader.fileData(toFilePaths[i])).toStdString();
-				std::string toData = QString(toReader->fileData(toFilePaths[i])).toStdString();
+                std::string fromData = QString::fromUtf8(zipReader.fileData(toFilePaths[i])).toStdString();
+                std::string toData = QString::fromUtf8(toReader->fileData(toFilePaths[i])).toStdString();
 				// copy default theme style from 'from' to 'to'
 				toData = xlsxDocumentCpp::copyTag(fromData, toData, "dxfs");
 				temporalZip.addFile(toFilePaths.at(i), QString::fromUtf8(toData.c_str()).toUtf8());
@@ -483,11 +483,11 @@ bool DocumentPrivate::copyStyle(const QString &from, const QString &to)
 			}
 		}
 
-		if (toFilePaths[i].contains("xl/workbook")) {
+        if (toFilePaths[i].contains(QLatin1String("xl/workbook"))) {
 			if (filePaths.contains(toFilePaths[i])) {	// workbook file exist in 'from' as well
 				// modify workbook file
-				std::string fromData = QString(zipReader.fileData(toFilePaths[i])).toStdString();
-				std::string toData = QString(toReader->fileData(toFilePaths[i])).toStdString();
+                std::string fromData = QString::fromUtf8(zipReader.fileData(toFilePaths[i])).toStdString();
+                std::string toData = QString::fromUtf8(toReader->fileData(toFilePaths[i])).toStdString();
 				// copy default theme style from 'from' to 'to'
 				toData = xlsxDocumentCpp::copyTag(fromData, toData, "workbookPr");
 				temporalZip.addFile(toFilePaths.at(i), QString::fromUtf8(toData.c_str()).toUtf8());
@@ -495,11 +495,11 @@ bool DocumentPrivate::copyStyle(const QString &from, const QString &to)
 			}
 		}
 
-		if (toFilePaths[i].contains("xl/worksheets/sheet")) {
+        if (toFilePaths[i].contains(QLatin1String("xl/worksheets/sheet"))) {
 			if (filePaths.contains(toFilePaths[i])) {	// sheet file exist in 'from' as well
 				// modify sheet file
-				std::string fromData = QString(zipReader.fileData(toFilePaths[i])).toStdString();
-				std::string toData = QString(toReader->fileData(toFilePaths[i])).toStdString();
+                std::string fromData = QString::fromUtf8(zipReader.fileData(toFilePaths[i])).toStdString();
+                std::string toData = QString::fromUtf8(toReader->fileData(toFilePaths[i])).toStdString();
 				// copy "conditionalFormatting" from 'from' to 'to'
 				toData = xlsxDocumentCpp::copyTag(fromData, toData, "conditionalFormatting");
 				temporalZip.addFile(toFilePaths.at(i), QString::fromUtf8(toData.c_str()).toUtf8());
@@ -1015,8 +1015,9 @@ CellRange Document::dimension() const
 QString Document::documentProperty(const QString &key) const
 {
 	Q_D(const Document);
-	if (d->documentProperties.contains(key))
-		return d->documentProperties[key];
+    auto it = d->documentProperties.constFind(key);
+    if (it != d->documentProperties.constEnd())
+        return it.value();
 	else
 		return QString();
 }
@@ -1255,14 +1256,14 @@ bool Document::changeimage(int filenoinmidea, QString newfile)
 	
 	const QString suffix = newfile.mid(newfile.lastIndexOf(QLatin1Char('.'))+1);
 	QString mimetypemy;
-	if(QString::compare("jpg", suffix, Qt::CaseInsensitive)==0)
-	   mimetypemy="image/jpeg";
-	if(QString::compare("bmp", suffix, Qt::CaseInsensitive)==0)
-	   mimetypemy="image/bmp";
-	if(QString::compare("gif", suffix, Qt::CaseInsensitive)==0)
-	   mimetypemy="image/gif";
-	if(QString::compare("png", suffix, Qt::CaseInsensitive)==0)
-	   mimetypemy="image/png";
+    if(QString::compare(QLatin1String("jpg"), suffix, Qt::CaseInsensitive)==0)
+       mimetypemy=QStringLiteral("image/jpeg");
+    if(QString::compare(QLatin1String("bmp"), suffix, Qt::CaseInsensitive)==0)
+       mimetypemy=QStringLiteral("image/bmp");
+    if(QString::compare(QLatin1String("gif"), suffix, Qt::CaseInsensitive)==0)
+       mimetypemy=QStringLiteral("image/gif");
+    if(QString::compare(QLatin1String("png"), suffix, Qt::CaseInsensitive)==0)
+       mimetypemy=QStringLiteral("image/png");
 	
 	QByteArray ba;
 	QBuffer buffer(&ba);
@@ -1333,7 +1334,7 @@ bool Document::autosizeColumnWidth(const CellRange &range)
 
     QMap<int, int> colWidth = getMaximalColumnWidth(range.firstRow(), range.lastRow());
 
-    foreach(int key, colWidth.keys())
+    for (int key : colWidth.keys())
     {
         if( (key >= range.firstColumn()) && (key <= range.lastColumn()) )
         {
@@ -1355,7 +1356,7 @@ bool Document::autosizeColumnWidth(int column)
 
     QMap<int, int> colWidth = getMaximalColumnWidth();
 
-    foreach(int key, colWidth.keys())
+    for (int key : colWidth.keys())
     {
         if( key == column)
         {
@@ -1373,11 +1374,13 @@ bool Document::autosizeColumnWidth(int column)
  */
 bool Document::autosizeColumnWidth(int colFirst, int colLast)
 {
+    Q_UNUSED(colFirst)
+    Q_UNUSED(colLast)
     bool erg = false;
 
     QMap<int, int> colWidth = getMaximalColumnWidth();
 
-    foreach(int key, colWidth.keys())
+    for (int key : colWidth.keys())
     {
         if( (key >= colFirst) && (key <= colLast) )
         {
@@ -1399,7 +1402,7 @@ bool Document::autosizeColumnWidth(void)
 
     QMap<int, int> colWidth = getMaximalColumnWidth();
 
-    foreach(int key, colWidth.keys())
+    for (int key : colWidth.keys())
     {
         erg |= setColumnWidth(key, colWidth.value(key));
     }

@@ -39,7 +39,6 @@
 #include "xlsxglobal.h"
 #include "xlsxabstractooxmlfile.h"
 #include <QList>
-#include <QPair>
 #include <QStringList>
 #include <QMap>
 
@@ -64,7 +63,7 @@ public:
 
 private:
     QStringList m_titlesOfPartsList;
-    QList<QPair<QString, int> > m_headingPairsList;
+    QList<std::pair<QString, int> > m_headingPairsList;
     QMap<QString, QString> m_properties;
 };
 

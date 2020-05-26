@@ -111,7 +111,7 @@ void Chart::addSeries(const CellRange &range, AbstractSheet *sheet, bool headerH
             }
             else
             {
-                series->headerH_numRef = "";
+                series->headerH_numRef = QString();
             }
             if( headerV )
             {
@@ -120,7 +120,7 @@ void Chart::addSeries(const CellRange &range, AbstractSheet *sheet, bool headerH
             }
             else
             {
-                series->headerV_numRef = "";
+                series->headerV_numRef = QString();
             }
             series->swapHeader = swapHeaders;
 
@@ -165,7 +165,7 @@ void Chart::addSeries(const CellRange &range, AbstractSheet *sheet, bool headerH
             }
             else
             {
-                series->headerH_numRef = "";
+                series->headerH_numRef = QString();
             }
 
             if( headerV )
@@ -175,7 +175,7 @@ void Chart::addSeries(const CellRange &range, AbstractSheet *sheet, bool headerH
             }
             else
             {
-                series->headerV_numRef = "";
+                series->headerV_numRef = QString();
             }
             series->swapHeader = swapHeaders;
 
@@ -1056,26 +1056,26 @@ void ChartPrivate::saveXmlChartLegend(QXmlStreamWriter &writer) const
             {
                 //case Chart::ChartAxisPos::Right:
                 case Chart::Right :
-                    pos = "r";
+                    pos = QStringLiteral("r");
                     break;
 
                 // case Chart::ChartAxisPos::Left:
                 case Chart::Left :
-                    pos = "l";
+                    pos = QStringLiteral("l");
                     break;
 
                 // case Chart::ChartAxisPos::Top:
                 case Chart::Top :
-                    pos = "t";
+                    pos = QStringLiteral("t");
                     break;
 
                 // case Chart::ChartAxisPos::Bottom:
                 case Chart::Bottom :
-                    pos = "b";
+                    pos = QStringLiteral("b");
                     break;
 
                 default:
-                    pos = "r";
+                    pos = QStringLiteral("r");
                     break;
             }
 
@@ -1143,7 +1143,7 @@ void ChartPrivate::saveXmlBarChart(QXmlStreamWriter &writer) const
 
 
     // Note: Bar3D have 2~3 axes
-    int axisListSize = axisList.size();
+    // int axisListSize = axisList.size();
     // [dev62]
     // Q_ASSERT( axisListSize == 2 ||
     //          ( axisListSize == 3 && chartType == Chart::CT_Bar3DChart ) );
@@ -1466,7 +1466,7 @@ bool ChartPrivate::loadXmlAxisValAx(QXmlStreamReader &reader)
 bool ChartPrivate::loadXmlAxisEG_AxShared(QXmlStreamReader &reader, XlsxAxis* axis)
 {
     Q_ASSERT( NULL != axis );
-    Q_ASSERT( reader.name().endsWith("Ax") );
+    Q_ASSERT( reader.name().endsWith(QLatin1String("Ax")) );
     QString name = reader.name().toString(); //
 
     while ( !reader.atEnd() )
@@ -1479,7 +1479,7 @@ bool ChartPrivate::loadXmlAxisEG_AxShared(QXmlStreamReader &reader, XlsxAxis* ax
             if ( reader.name() == QLatin1String("axId") ) // mandatory element
             {
                 // dev57
-                uint axId = reader.attributes().value("val").toString().toUInt(); // for Qt5.1
+                uint axId = reader.attributes().value(QStringLiteral("val")).toString().toUInt(); // for Qt5.1
                 axis->axisId = axId;
             }
             else if ( reader.name() == QLatin1String("scaling") )
@@ -1498,10 +1498,10 @@ bool ChartPrivate::loadXmlAxisEG_AxShared(QXmlStreamReader &reader, XlsxAxis* ax
 
                 QString axPosVal = reader.attributes().value(QLatin1String("val")).toString();
 
-                if ( axPosVal == "l" ) { axis->axisPos = XlsxAxis::Left; }
-                else if ( axPosVal == "r" ) { axis->axisPos = XlsxAxis::Right; }
-                else if ( axPosVal == "t" ) { axis->axisPos = XlsxAxis::Top; }
-                else if ( axPosVal == "b" ) { axis->axisPos = XlsxAxis::Bottom; }
+                if ( axPosVal == QLatin1String("l") ) { axis->axisPos = XlsxAxis::Left; }
+                else if ( axPosVal == QLatin1String("r") ) { axis->axisPos = XlsxAxis::Right; }
+                else if ( axPosVal == QLatin1String("t") ) { axis->axisPos = XlsxAxis::Top; }
+                else if ( axPosVal == QLatin1String("b") ) { axis->axisPos = XlsxAxis::Bottom; }
             }
             else if ( reader.name() == QLatin1String("majorGridlines") )
             {
@@ -1592,7 +1592,7 @@ bool ChartPrivate::loadXmlAxisEG_AxShared_Scaling(QXmlStreamReader &reader, Xlsx
             }
         }
         else if ( reader.tokenType() == QXmlStreamReader::EndElement &&
-                  reader.name() == "scaling" )
+                  reader.name() == QLatin1String("scaling") )
         {
             break;
         }
@@ -1661,7 +1661,7 @@ bool ChartPrivate::loadXmlAxisEG_AxShared_Title(QXmlStreamReader &reader, XlsxAx
             }
         }
         else if ( reader.tokenType() == QXmlStreamReader::EndElement &&
-                  reader.name() == "title" )
+                  reader.name() == QLatin1String("title") )
         {
             break;
         }
@@ -1682,7 +1682,7 @@ bool ChartPrivate::loadXmlAxisEG_AxShared_Title_Overlay(QXmlStreamReader &reader
         {
         }
         else if ( reader.tokenType() == QXmlStreamReader::EndElement &&
-                  reader.name() == "overlay" )
+                  reader.name() == QLatin1String("overlay") )
         {
             break;
         }
@@ -1709,7 +1709,7 @@ bool ChartPrivate::loadXmlAxisEG_AxShared_Title_Tx(QXmlStreamReader &reader, Xls
             }
         }
         else if ( reader.tokenType() == QXmlStreamReader::EndElement &&
-                  reader.name() == "tx" )
+                  reader.name() == QLatin1String("tx") )
         {
             break;
         }
@@ -1736,7 +1736,7 @@ bool ChartPrivate::loadXmlAxisEG_AxShared_Title_Tx_Rich(QXmlStreamReader &reader
             }
         }
         else if ( reader.tokenType() == QXmlStreamReader::EndElement &&
-                  reader.name() == "rich" )
+                  reader.name() == QLatin1String("rich") )
         {
             break;
         }
@@ -1768,7 +1768,7 @@ bool ChartPrivate::loadXmlAxisEG_AxShared_Title_Tx_Rich_P(QXmlStreamReader &read
             }
         }
         else if ( reader.tokenType() == QXmlStreamReader::EndElement &&
-                  reader.name() == "p" )
+                  reader.name() == QLatin1String("p") )
         {
             break;
         }
@@ -1796,7 +1796,7 @@ bool ChartPrivate::loadXmlAxisEG_AxShared_Title_Tx_Rich_P_pPr(QXmlStreamReader &
             }
         }
         else if ( reader.tokenType() == QXmlStreamReader::EndElement &&
-                  reader.name() == "pPr" )
+                  reader.name() == QLatin1String("pPr") )
         {
             break;
         }
@@ -1825,7 +1825,7 @@ bool ChartPrivate::loadXmlAxisEG_AxShared_Title_Tx_Rich_P_R(QXmlStreamReader &re
             }
         }
         else if ( reader.tokenType() == QXmlStreamReader::EndElement &&
-                  reader.name() == "r" )
+                  reader.name() == QLatin1String("r") )
         {
             break;
         }
@@ -1951,7 +1951,7 @@ void ChartPrivate::saveXmlAxisCatAx(QXmlStreamWriter &writer, XlsxAxis* axis) co
 </xsd:complexType>
 */
 
-    writer.writeStartElement("c:catAx");
+    writer.writeStartElement(QStringLiteral("c:catAx"));
 
     saveXmlAxisEG_AxShared(writer, axis); // EG_AxShared
 
@@ -1985,7 +1985,7 @@ void ChartPrivate::saveXmlAxisDateAx(QXmlStreamWriter &writer, XlsxAxis* axis) c
 </xsd:complexType>
 */
 
-    writer.writeStartElement("c:dateAx");
+    writer.writeStartElement(QStringLiteral("c:dateAx"));
 
     saveXmlAxisEG_AxShared(writer, axis); // EG_AxShared
 
@@ -2015,7 +2015,7 @@ void ChartPrivate::saveXmlAxisSerAx(QXmlStreamWriter &writer, XlsxAxis* axis) co
 </xsd:complexType>
 */
 
-    writer.writeStartElement("c:serAx");
+    writer.writeStartElement(QStringLiteral("c:serAx"));
 
     saveXmlAxisEG_AxShared(writer, axis); // EG_AxShared
 
@@ -2042,7 +2042,7 @@ void ChartPrivate::saveXmlAxisValAx(QXmlStreamWriter &writer, XlsxAxis* axis) co
 </xsd:complexType>
 */
 
-    writer.writeStartElement("c:valAx");
+    writer.writeStartElement(QStringLiteral("c:valAx"));
 
     saveXmlAxisEG_AxShared(writer, axis); // EG_AxShared
 
@@ -2100,11 +2100,11 @@ void ChartPrivate::saveXmlAxisEG_AxShared(QXmlStreamWriter &writer, XlsxAxis* ax
 
     if( majorGridlinesEnabled )
     {
-        writer.writeEmptyElement("c:majorGridlines");
+        writer.writeEmptyElement(QStringLiteral("c:majorGridlines"));
     }
     if( minorGridlinesEnabled )
     {
-        writer.writeEmptyElement("c:minorGridlines");
+        writer.writeEmptyElement(QStringLiteral("c:minorGridlines"));
     }
 
     saveXmlAxisEG_AxShared_Title(writer, axis); // "c:title" CT_Title
@@ -2159,28 +2159,28 @@ void ChartPrivate::saveXmlAxisEG_AxShared_Title(QXmlStreamWriter &writer, XlsxAx
     </xsd:complexType>
     */
 
-    writer.writeStartElement("c:title");
+    writer.writeStartElement(QStringLiteral("c:title"));
 
     // CT_Tx {{
-     writer.writeStartElement("c:tx");
+     writer.writeStartElement(QStringLiteral("c:tx"));
 
-      writer.writeStartElement("c:rich"); // CT_TextBody
+      writer.writeStartElement(QStringLiteral("c:rich")); // CT_TextBody
 
        writer.writeEmptyElement(QStringLiteral("a:bodyPr")); // CT_TextBodyProperties
 
        writer.writeEmptyElement(QStringLiteral("a:lstStyle")); // CT_TextListStyle
 
-       writer.writeStartElement("a:p");
+       writer.writeStartElement(QStringLiteral("a:p"));
 
-        writer.writeStartElement("a:pPr");
+        writer.writeStartElement(QStringLiteral("a:pPr"));
             writer.writeAttribute(QStringLiteral("lvl"), QString::number(0));
 
-            writer.writeStartElement("a:defRPr");
+            writer.writeStartElement(QStringLiteral("a:defRPr"));
             writer.writeAttribute(QStringLiteral("b"), QString::number(0));
             writer.writeEndElement(); // a:defRPr
         writer.writeEndElement(); // a:pPr
 
-        writer.writeStartElement("a:r");
+        writer.writeStartElement(QStringLiteral("a:r"));
         QString strAxisName = GetAxisName(axis);
         writer.writeTextElement( QStringLiteral("a:t"), strAxisName );
         writer.writeEndElement(); // a:r
@@ -2192,7 +2192,7 @@ void ChartPrivate::saveXmlAxisEG_AxShared_Title(QXmlStreamWriter &writer, XlsxAx
      writer.writeEndElement(); // c:tx
      // CT_Tx }}
 
-     writer.writeStartElement("c:overlay");
+     writer.writeStartElement(QStringLiteral("c:overlay"));
         writer.writeAttribute(QStringLiteral("val"), QString::number(0)); // CT_Boolean
      writer.writeEndElement(); // c:overlay
 
@@ -2248,13 +2248,13 @@ QString ChartPrivate::readSubTree(QXmlStreamReader &reader)
         {
             prefix = reader.prefix().toString();
 
-            treeString += QString("<" + reader.qualifiedName().toString() );
+            treeString += QLatin1String("<") + reader.qualifiedName().toString();
 
-            foreach(const QXmlStreamAttribute &attr, reader.attributes())
-            {
-                treeString += QString( " " + attr.name().toString() + "=\"" + attr.value().toString() + "\"");
+            const QXmlStreamAttributes attributes = reader.attributes();
+            for (const QXmlStreamAttribute &attr : attributes) {
+                treeString += QLatin1String(" ") + attr.name().toString() + QLatin1String("=\"") + attr.value().toString() + QLatin1String("\"");
             }
-            treeString += ">";
+            treeString += QStringLiteral(">");
         }
         else if (reader.tokenType() == QXmlStreamReader::EndElement )
         {
@@ -2262,7 +2262,7 @@ QString ChartPrivate::readSubTree(QXmlStreamReader &reader)
             {
                 break;
             }
-            treeString += QString("</" + reader.qualifiedName().toString() + ">");
+            treeString += QLatin1String("</") + reader.qualifiedName().toString() + QLatin1String(">");
         }
     }
 
@@ -2288,25 +2288,25 @@ bool ChartPrivate::loadXmlChartLegend(QXmlStreamReader &reader)
             if (reader.name() == QLatin1String("legendPos")) // c:legendPos
             {
                 QString pos = reader.attributes().value(QLatin1String("val")).toString();
-                if( pos.compare("r",Qt::CaseInsensitive) == 0)
+                if( pos.compare(QLatin1String("r"), Qt::CaseInsensitive) == 0)
                 {
                     // legendPos = Chart::ChartAxisPos::Right;
                     legendPos = Chart::Right;
                 }
                 else
-                if( pos.compare("l",Qt::CaseInsensitive) == 0)
+                if( pos.compare(QLatin1String("l"), Qt::CaseInsensitive) == 0)
                 {
                     // legendPos = Chart::ChartAxisPos::Left;
                     legendPos = Chart::Left;
                 }
                 else
-                if( pos.compare("t",Qt::CaseInsensitive) == 0)
+                if( pos.compare(QLatin1String("t"), Qt::CaseInsensitive) == 0)
                 {
                     // legendPos = Chart::ChartAxisPos::Top;
                     legendPos = Chart::Top;
                 }
                 else
-                if( pos.compare("b",Qt::CaseInsensitive) == 0)
+                if( pos.compare(QLatin1String("b"), Qt::CaseInsensitive) == 0)
                 {
                     // legendPos = Chart::ChartAxisPos::Bottom;
                     legendPos = Chart::Bottom;
@@ -2321,7 +2321,7 @@ bool ChartPrivate::loadXmlChartLegend(QXmlStreamReader &reader)
             if (reader.name() == QLatin1String("overlay")) // c:legendPos
             {
                 QString pos = reader.attributes().value(QLatin1String("val")).toString();
-                if( pos.compare("1",Qt::CaseInsensitive) == 0 )
+                if( pos.compare(QLatin1String("1"), Qt::CaseInsensitive) == 0 )
                 {
                     legendOverlay = true;
                 }

@@ -133,14 +133,16 @@ void Styles::fixNumFmt(const Format &format)
     const QString str = format.numberFormat();
     if (!str.isEmpty())
     {
+        QHash<QString, QSharedPointer<XlsxFormatNumberData> >::ConstIterator cIt;
         //Assign proper number format index
-        if ( m_builtinNumFmtsHash.contains(str) )
+        auto it = m_builtinNumFmtsHash.constFind(str);
+        if (it != m_builtinNumFmtsHash.constEnd())
         {
-            const_cast<Format *>(&format)->fixNumberFormat(m_builtinNumFmtsHash[str], str);
+            const_cast<Format *>(&format)->fixNumberFormat(it.value(), str);
         }
-        else if (m_customNumFmtsHash.contains(str))
+        else if ((cIt = m_customNumFmtsHash.constFind(str)) != m_customNumFmtsHash.constEnd())
         {
-            const_cast<Format *>(&format)->fixNumberFormat(m_customNumFmtsHash[str]->formatIndex, str);
+            const_cast<Format *>(&format)->fixNumberFormat(cIt.value()->formatIndex, str);
         }
         else
         {
@@ -160,26 +162,27 @@ void Styles::fixNumFmt(const Format &format)
     {
         int id = format.numberFormatIndex();
         //Assign proper format code, this is needed by dxf format
-        if (m_customNumFmtIdMap.contains(id))
+        auto it = m_customNumFmtIdMap.constFind(id);
+        if (it != m_customNumFmtIdMap.constEnd())
         {
-            const_cast<Format *>(&format)->fixNumberFormat(id, m_customNumFmtIdMap[id]->formatString);
+            const_cast<Format *>(&format)->fixNumberFormat(id, it.value()->formatString);
         }
         else
         {
-            QHashIterator<QString, int> it(m_builtinNumFmtsHash);
-            bool find = false;
-            while (it.hasNext())
+            bool found = false;
+            auto it = m_builtinNumFmtsHash.constBegin();
+            while (it != m_builtinNumFmtsHash.constEnd())
             {
-                it.next();
                 if (it.value() == id)
                 {
                     const_cast<Format *>(&format)->fixNumberFormat(id, it.key());
-                    find = true;
+                    found = true;
                     break;
                 }
+                ++it;
             }
 
-            if (!find)
+            if (!found)
             {
                 //Wrong numFmt
                 const_cast<Format *>(&format)->fixNumberFormat(id, QStringLiteral("General"));
@@ -214,16 +217,16 @@ void Styles::addXfFormat(const Format &format, bool force)
     }
 
     //Font
+    auto fontIt = m_fontsHash.constFind(format.fontKey());
     if (format.hasFontData() && !format.fontIndexValid())
     {
         //Assign proper font index, if has font data.
-        if (!m_fontsHash.contains(format.fontKey()))
+        if (fontIt == m_fontsHash.constEnd())
             const_cast<Format *>(&format)->setFontIndex(m_fontsList.size());
         else
-            const_cast<Format *>(&format)->setFontIndex(m_fontsHash[format.fontKey()].fontIndex());
+            const_cast<Format *>(&format)->setFontIndex(fontIt->fontIndex());
     }
-
-    if (!m_fontsHash.contains(format.fontKey()))
+    if (fontIt == m_fontsHash.constEnd())
     {
         //Still a valid font if the format has no fontData. (All font properties are default)
         m_fontsList.append(format);
@@ -231,43 +234,46 @@ void Styles::addXfFormat(const Format &format, bool force)
     }
 
     //Fill
+    auto fillIt = m_fillsHash.constFind(format.fillKey());
     if (format.hasFillData() && !format.fillIndexValid()) {
         //Assign proper fill index, if has fill data.
-        if (!m_fillsHash.contains(format.fillKey()))
+        if (fillIt == m_fillsHash.constEnd())
             const_cast<Format *>(&format)->setFillIndex(m_fillsList.size());
         else
-            const_cast<Format *>(&format)->setFillIndex(m_fillsHash[format.fillKey()].fillIndex());
+            const_cast<Format *>(&format)->setFillIndex(fillIt->fillIndex());
     }
-    if (!m_fillsHash.contains(format.fillKey())) {
+    if (fillIt == m_fillsHash.constEnd()) {
         //Still a valid fill if the format has no fillData. (All fill properties are default)
         m_fillsList.append(format);
         m_fillsHash[format.fillKey()] = format;
     }
 
     //Border
+    auto borderIt = m_bordersHash.constFind(format.borderKey());
     if (format.hasBorderData() && !format.borderIndexValid()) {
         //Assign proper border index, if has border data.
-        if (!m_bordersHash.contains(format.borderKey()))
+        if (borderIt == m_bordersHash.constEnd())
             const_cast<Format *>(&format)->setBorderIndex(m_bordersList.size());
         else
-            const_cast<Format *>(&format)->setBorderIndex(m_bordersHash[format.borderKey()].borderIndex());
+            const_cast<Format *>(&format)->setBorderIndex(borderIt->borderIndex());
     }
-    if (!m_bordersHash.contains(format.borderKey())) {
+    if (borderIt == m_bordersHash.constEnd()) {
         //Still a valid border if the format has no borderData. (All border properties are default)
         m_bordersList.append(format);
         m_bordersHash[format.borderKey()] = format;
     }
 
     //Format
+    auto formatIt = m_xf_formatsHash.constFind(format.formatKey());
     if (!format.isEmpty() && !format.xfIndexValid())
     {
-        if (m_xf_formatsHash.contains(format.formatKey()))
-            const_cast<Format *>(&format)->setXfIndex(m_xf_formatsHash[format.formatKey()].xfIndex());
-        else
+        if (formatIt == m_xf_formatsHash.constEnd())
             const_cast<Format *>(&format)->setXfIndex(m_xf_formatsList.size());
+        else
+            const_cast<Format *>(&format)->setXfIndex(formatIt->xfIndex());
     }
 
-    if (!m_xf_formatsHash.contains(format.formatKey()) ||
+    if (formatIt == m_xf_formatsHash.constEnd() ||
             force)
     {
         m_xf_formatsList.append(format);
@@ -283,20 +289,21 @@ void Styles::addDxfFormat(const Format &format, bool force)
         fixNumFmt(format);
     }
 
+    auto formatIt = m_dxf_formatsHash.constFind(format.formatKey());
     if ( !format.isEmpty() &&
             !format.dxfIndexValid() )
     {
-        if (m_dxf_formatsHash.contains(format.formatKey()))
-        {
-            const_cast<Format *>(&format)->setDxfIndex( m_dxf_formatsHash[format.formatKey()].dxfIndex() );
-        }
-        else
+        if (formatIt == m_xf_formatsHash.constEnd())
         {
             const_cast<Format *>(&format)->setDxfIndex( m_dxf_formatsList.size() );
         }
+        else
+        {
+            const_cast<Format *>(&format)->setDxfIndex( formatIt->dxfIndex() );
+        }
     }
 
-    if ( !m_dxf_formatsHash.contains(format.formatKey()) ||
+    if (formatIt == m_xf_formatsHash.constEnd() ||
          force )
     {
         m_dxf_formatsList.append(format);
@@ -597,7 +604,7 @@ void Styles::writeCellXfs(QXmlStreamWriter &writer) const
 {
     writer.writeStartElement(QStringLiteral("cellXfs"));
     writer.writeAttribute(QStringLiteral("count"), QString::number(m_xf_formatsList.size()));
-    foreach (const Format &format, m_xf_formatsList) {
+    for (const Format &format : m_xf_formatsList) {
         int xf_id = 0;
         writer.writeStartElement(QStringLiteral("xf"));
         writer.writeAttribute(QStringLiteral("numFmtId"), QString::number(format.numberFormatIndex()));
@@ -683,7 +690,7 @@ void Styles::writeDxfs(QXmlStreamWriter &writer) const
 {
     writer.writeStartElement(QStringLiteral("dxfs"));
     writer.writeAttribute(QStringLiteral("count"), QString::number(m_dxf_formatsList.size()));
-    foreach (const Format &format, m_dxf_formatsList)
+    for (const Format &format : m_dxf_formatsList)
         writeDxf(writer, format);
     writer.writeEndElement(); //dxfs
 }
@@ -718,7 +725,7 @@ void Styles::writeColors(QXmlStreamWriter &writer) const
     writer.writeStartElement(QStringLiteral("colors"));
 
     writer.writeStartElement(QStringLiteral("indexedColors"));
-    foreach(QColor color, m_indexedColors) {
+    for (const QColor &color : m_indexedColors) {
         writer.writeEmptyElement(QStringLiteral("rgbColor"));
         writer.writeAttribute(QStringLiteral("rgb"), XlsxColor::toARGBString(color));
     }
@@ -910,8 +917,8 @@ bool Styles::readFill(QXmlStreamReader &reader, Format &fill)
             if (reader.name() == QLatin1String("patternFill")) {
                 QXmlStreamAttributes attributes = reader.attributes();
                 if (attributes.hasAttribute(QLatin1String("patternType"))) {
-                    QString pattern = attributes.value(QLatin1String("patternType")).toString();
-                    fill.setFillPattern(patternValues.contains(pattern) ? patternValues[pattern] : Format::PatternNone);
+                    auto it = patternValues.constFind(attributes.value(QLatin1String("patternType")).toString());
+                    fill.setFillPattern(it != patternValues.constEnd() ? it.value() : Format::PatternNone);
 
                     //parse foreground and background colors if they exist
                     while (!reader.atEnd() && !(reader.tokenType() == QXmlStreamReader::EndElement && reader.name() == QLatin1String("patternFill"))) {
@@ -1062,9 +1069,10 @@ bool Styles::readSubBorder(QXmlStreamReader &reader, const QString &name, Format
     QXmlStreamAttributes attributes = reader.attributes();
     if (attributes.hasAttribute(QLatin1String("style"))) {
         QString styleString = attributes.value(QLatin1String("style")).toString();
-        if (stylesStringsMap.contains(styleString)) {
+        auto it = stylesStringsMap.constFind(styleString);
+        if (it != stylesStringsMap.constEnd()) {
             //get style
-            style = stylesStringsMap[styleString];
+            style = it.value();
             while (!reader.atEnd() && !(reader.tokenType() == QXmlStreamReader::EndElement && reader.name() == name)) {
                 reader.readNextStartElement();
                 if (reader.tokenType() == QXmlStreamReader::StartElement) {
@@ -1101,10 +1109,11 @@ bool Styles::readCellXfs(QXmlStreamReader &reader)
                     int numFmtIndex = xfAttrs.value(QLatin1String("numFmtId")).toString().toInt();
                     bool apply = parseXsdBoolean(xfAttrs.value(QLatin1String("applyNumberFormat")).toString());
                     if(apply) {
-                        if (!m_customNumFmtIdMap.contains(numFmtIndex))
+                        auto it = m_customNumFmtIdMap.constFind(numFmtIndex);
+                        if (it == m_customNumFmtIdMap.constEnd())
                             format.setNumberFormatIndex(numFmtIndex);
                         else
-                            format.setNumberFormat(numFmtIndex, m_customNumFmtIdMap[numFmtIndex]->formatString);
+                            format.setNumberFormat(numFmtIndex, it.value()->formatString);
                     }
                 }
 
@@ -1180,9 +1189,10 @@ bool Styles::readCellXfs(QXmlStreamReader &reader)
                                 {QStringLiteral("centerContinuous"), Format::AlignHMerge},
                                 {QStringLiteral("distributed"), Format::AlignHDistributed}
                             };
-                            QString str = alignAttrs.value(QLatin1String("horizontal")).toString();
-                            if (alignStringMap.contains(str))
-                                format.setHorizontalAlignment(alignStringMap[str]);
+
+                            auto it = alignStringMap.constFind(alignAttrs.value(QLatin1String("horizontal")).toString());
+                            if (it != alignStringMap.constEnd())
+                                format.setHorizontalAlignment(it.value());
                         }
 
                         if (alignAttrs.hasAttribute(QLatin1String("vertical"))) {
@@ -1192,9 +1202,10 @@ bool Styles::readCellXfs(QXmlStreamReader &reader)
                                 {QStringLiteral("justify"), Format::AlignVJustify},
                                 {QStringLiteral("distributed"), Format::AlignVDistributed}
                             };
-                            QString str = alignAttrs.value(QLatin1String("vertical")).toString();
-                            if (alignStringMap.contains(str))
-                                format.setVerticalAlignment(alignStringMap[str]);
+
+                            auto it = alignStringMap.constFind(alignAttrs.value(QLatin1String("vertical")).toString());
+                            if (it != alignStringMap.constEnd())
+                                format.setVerticalAlignment(it.value());
                         }
 
                         if (alignAttrs.hasAttribute(QLatin1String("indent"))) {

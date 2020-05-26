@@ -1,13 +1,23 @@
 cmake_minimum_required(VERSION 3.16)
 
-project(QXlsx)
+project(QXlsx VERSION 1.0.0 LANGUAGES CXX)
 
-#------------------------------------------------------------------------------
-# Qt
-#------------------------------------------------------------------------------
-find_package(Qt5 REQUIRED QUIET COMPONENTS Core Gui)
+find_package(Qt5 5.6.0 REQUIRED COMPONENTS Core Gui)
 find_package(Qt5Gui CONFIG REQUIRED Private)
 set(CMAKE_AUTOMOC ON)
+
+add_definitions(
+    -DQT_NO_KEYWORDS
+    -DQT_NO_CAST_TO_ASCII
+    -DQT_NO_CAST_FROM_ASCII
+    -DQT_STRICT_ITERATORS
+    -DQT_NO_URL_CAST_FROM_STRING
+    -DQT_NO_CAST_FROM_BYTEARRAY
+    -DQT_USE_QSTRINGBUILDER
+    -DQT_NO_SIGNALS_SLOTS_KEYWORDS
+    -DQT_USE_FAST_OPERATOR_PLUS
+    -DQT_DISABLE_DEPRECATED_BEFORE=0x050c00
+)
 
 #------------------------------------------------------------------------------
 # Library

@@ -516,8 +516,9 @@ QByteArray Format::fontKey() const
 		QByteArray key;
 		QDataStream stream(&key, QIODevice::WriteOnly);
 		for (int i=FormatPrivate::P_Font_STARTID; i<FormatPrivate::P_Font_ENDID; ++i) {
-			if (d->properties.contains(i))
-				stream << i << d->properties[i];
+            auto it = d->properties.constFind(i);
+            if (it != d->properties.constEnd())
+                stream << i << it.value();
 		};
 
 		const_cast<Format*>(this)->d->font_key = key;
@@ -924,8 +925,9 @@ QByteArray Format::borderKey() const
 		QByteArray key;
 		QDataStream stream(&key, QIODevice::WriteOnly);
 		for (int i=FormatPrivate::P_Border_STARTID; i<FormatPrivate::P_Border_ENDID; ++i) {
-			if (d->properties.contains(i))
-				stream << i << d->properties[i];
+            auto it = d->properties.constFind(i);
+            if (it != d->properties.constEnd())
+                stream << i << it.value();
 		};
 
 		const_cast<Format*>(this)->d->border_key = key;
@@ -1044,8 +1046,9 @@ QByteArray Format::fillKey() const
 		QByteArray key;
 		QDataStream stream(&key, QIODevice::WriteOnly);
 		for (int i=FormatPrivate::P_Fill_STARTID; i<FormatPrivate::P_Fill_ENDID; ++i) {
-			if (d->properties.contains(i))
-				stream << i << d->properties[i];
+            auto it = d->properties.constFind(i);
+            if (it != d->properties.constEnd())
+                stream << i << it.value();
 		};
 
 		const_cast<Format*>(this)->d->fill_key = key;
@@ -1276,8 +1279,11 @@ int Format::theme() const
  */
 QVariant Format::property(int propertyId, const QVariant &defaultValue) const
 {
-	if (d && d->properties.contains(propertyId))
-		return d->properties[propertyId];
+    if (d) {
+        auto it = d->properties.constFind(propertyId);
+        if (it != d->properties.constEnd())
+            return it.value();
+    }
 	return defaultValue;
 }
 
@@ -1291,7 +1297,8 @@ void Format::setProperty(int propertyId, const QVariant &value, const QVariant &
 
     if (value != clearValue)
     {
-		if (d->properties.contains(propertyId) && d->properties[propertyId] == value)
+        auto it = d->properties.constFind(propertyId);
+        if (it != d->properties.constEnd() && it.value() == value)
 			return;
 
 		if (detach)
