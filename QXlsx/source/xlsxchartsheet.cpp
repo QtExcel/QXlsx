@@ -126,7 +126,7 @@ bool Chartsheet::loadFromXmlFile(QIODevice *device)
             if (reader.name() == QLatin1String("drawing")) {
                 QString rId = reader.attributes().value(QStringLiteral("r:id")).toString();
                 QString name = d->relationships->getRelationshipById(rId).target;
-                QString path = QDir::cleanPath(splitPath(filePath())[0] + QLatin1String("/") + name);
+                QString path = QDir::cleanPath(splitPath(filePath()).constFirst() + QLatin1String("/") + name);
                 d->drawing = QSharedPointer<Drawing>(new Drawing(this, F_LoadFromExists));
                 d->drawing->setFilePath(path);
             }

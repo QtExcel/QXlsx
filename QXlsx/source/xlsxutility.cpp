@@ -56,9 +56,9 @@ QStringList splitPath(const QString &path)
 {
     int idx = path.lastIndexOf(QLatin1Char('/'));
     if (idx == -1)
-        return QStringList()<<QStringLiteral(".")<<path;
+        return { QStringLiteral("."), path };
 
-    return QStringList()<<path.left(idx)<<path.mid(idx+1);
+    return { path.left(idx), path.mid(idx+1) };
 }
 
 /*
@@ -246,7 +246,7 @@ QString convertSharedFormula(const QString &rootFormula, const CellReference &ro
     Q_UNUSED(rootCell)
     Q_UNUSED(cell)
     //Find all the "$?[A-Z]+$?[0-9]+" patterns in the rootFormula.
-    QList<std::pair<QString, int> > segments;
+    QVector<std::pair<QString, int> > segments;
 
     QString segment;
     bool inQuote = false;

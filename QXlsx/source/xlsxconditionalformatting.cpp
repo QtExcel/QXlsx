@@ -744,7 +744,7 @@ bool ConditionalFormatting::saveToXml(QXmlStreamWriter &writer) const
 
         it = rule->attrs.constFind(XlsxCfRuleData::A_formula1_temp);
         if (it != rule->attrs.constEnd()) {
-            QString startCell = ranges()[0].toString().split(QLatin1Char(':'))[0];
+            const QString startCell = ranges().constFirst().toString().split(QLatin1Char(':')).constFirst();
             writer.writeTextElement(QStringLiteral("formula"), it.value().toString().arg(startCell));
         } else if ((it = rule->attrs.constFind(XlsxCfRuleData::A_formula1)) != rule->attrs.constEnd()) {
             writer.writeTextElement(QStringLiteral("formula"), it.value().toString());

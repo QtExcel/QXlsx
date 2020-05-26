@@ -609,7 +609,7 @@ bool Workbook::loadFromXmlFile(QIODevice *device)
                  AbstractSheet *sheet = addSheet(name, sheetId, type);
                  sheet->setSheetState(state);
                  QString strFilePath = filePath();
-                 const QString fullPath = QDir::cleanPath(splitPath(strFilePath)[0] + QLatin1String("/") + relationship.target);
+                 const QString fullPath = QDir::cleanPath(splitPath(strFilePath).constFirst() + QLatin1String("/") + relationship.target);
                  sheet->setFilePath(fullPath);
              }
              else if (reader.name() == QLatin1String("workbookPr"))
@@ -652,7 +652,7 @@ bool Workbook::loadFromXmlFile(QIODevice *device)
                  XlsxRelationship relationship = d->relationships->getRelationshipById(rId);
 
                  QSharedPointer<SimpleOOXmlFile> link(new SimpleOOXmlFile(F_LoadFromExists));
-                 const QString fullPath = QDir::cleanPath(splitPath(filePath())[0] +QLatin1String("/")+ relationship.target);
+                 const QString fullPath = QDir::cleanPath(splitPath(filePath()).constFirst() + QLatin1String("/") + relationship.target);
                  link->setFilePath(fullPath);
                  d->externalLinks.append(link);
              } else if (reader.name() == QLatin1String("definedName")) {
