@@ -49,11 +49,11 @@ ZipReader::~ZipReader()
 void ZipReader::init()
 {
 #if QT_VERSION >= 0x050600 // Qt 5.6 or over 
-    QVector<QZipReader::FileInfo> allFiles = m_reader->fileInfoList();
+    const QVector<QZipReader::FileInfo> allFiles = m_reader->fileInfoList();
 #else
-    QList<QZipReader::FileInfo> allFiles = m_reader->fileInfoList();
+    const QList<QZipReader::FileInfo> allFiles = m_reader->fileInfoList();
 #endif
-    foreach (const QZipReader::FileInfo &fi, allFiles) {
+    for (const QZipReader::FileInfo &fi : allFiles) {
         if (fi.isFile || (!fi.isDir && !fi.isFile && !fi.isSymLink))
             m_filePaths.append(fi.filePath);
     }

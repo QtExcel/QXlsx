@@ -25,9 +25,13 @@ CellPrivate::CellPrivate(Cell *p) :
 }
 
 CellPrivate::CellPrivate(const CellPrivate * const cp)
-	: value(cp->value), formula(cp->formula), cellType(cp->cellType)
-	, format(cp->format), richString(cp->richString), parent(cp->parent),
-	styleNumber(cp->styleNumber)
+    : parent(cp->parent)
+    , cellType(cp->cellType)
+    , value(cp->value)
+    , formula(cp->formula)
+    , format(cp->format)
+    , richString(cp->richString)
+    , styleNumber(cp->styleNumber)
 {
 
 }
@@ -248,7 +252,7 @@ bool Cell::isDateTime() const
 
 	Cell::CellType cellType = d->cellType;
     double dValue = d->value.toDouble(); // number
-	QString strValue = d->value.toString().toUtf8(); 
+//	QString strValue = d->value.toString().toUtf8();
 	bool isValidFormat = d->format.isValid();
     bool isDateTimeFormat = d->format.isDateTimeFormat(); // datetime format
 

@@ -130,7 +130,7 @@ bool RichString::isNull() const
  */
 bool RichString::isEmtpy() const
 {
-    foreach (const QString str, d->fragmentTexts) {
+    for (const QString &str : d->fragmentTexts) {
         if (!str.isEmpty())
             return false;
     }
