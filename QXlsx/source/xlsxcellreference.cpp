@@ -50,7 +50,8 @@ QString col_to_name(int col_num)
 {
     static thread_local QMap<int, QString> col_cache;
 
-    if (!col_cache.contains(col_num)) {
+    auto it = col_cache.find(col_num);
+    if (it == col_cache.end()) {
         QString col_str;
         int remainder;
         while (col_num) {
@@ -60,10 +61,10 @@ QString col_to_name(int col_num)
             col_str.prepend(QChar('A'+remainder-1));
             col_num = (col_num - 1) / 26;
         }
-        col_cache.insert(col_num, col_str);
+        it = col_cache.insert(col_num, col_str);
     }
 
-    return col_cache[col_num];
+    return it.value();
 }
 
 int col_from_name(const QString &col_str)

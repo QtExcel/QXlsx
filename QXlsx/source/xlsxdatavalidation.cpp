@@ -503,15 +503,18 @@ DataValidation DataValidation::loadFromXml(QXmlStreamReader &reader)
 
     if (attrs.hasAttribute(QLatin1String("type"))) {
         QString t = attrs.value(QLatin1String("type")).toString();
-        validation.setValidationType(typeMap.contains(t) ? typeMap[t] : DataValidation::None);
+        auto it = typeMap.constFind(t);
+        validation.setValidationType(it != typeMap.constEnd() ? it.value() : DataValidation::None);
     }
     if (attrs.hasAttribute(QLatin1String("errorStyle"))) {
         QString es = attrs.value(QLatin1String("errorStyle")).toString();
-        validation.setErrorStyle(esMap.contains(es) ? esMap[es] : DataValidation::Stop);
+        auto it = esMap.constFind(es);
+        validation.setErrorStyle(it != esMap.constEnd() ? it.value() : DataValidation::Stop);
     }
     if (attrs.hasAttribute(QLatin1String("operator"))) {
         QString op = attrs.value(QLatin1String("operator")).toString();
-        validation.setValidationOperator(opMap.contains(op) ? opMap[op] : DataValidation::Between);
+        auto it = opMap.constFind(op);
+        validation.setValidationOperator(it != opMap.constEnd() ? it.value() : DataValidation::Between);
     }
     if (attrs.hasAttribute(QLatin1String("allowBlank"))) {
         validation.setAllowBlank(true);

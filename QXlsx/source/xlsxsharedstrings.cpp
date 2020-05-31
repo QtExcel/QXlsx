@@ -48,10 +48,10 @@ int SharedStrings::addSharedString(const RichString &string)
 {
     m_stringCount += 1;
 
-    if (m_stringTable.contains(string)) {
-        XlsxSharedStringInfo &item = m_stringTable[string];
-        item.count += 1;
-        return item.index;
+    auto it = m_stringTable.find(string);
+    if (it != m_stringTable.end()) {
+        it->count += 1;
+        return it->index;
     }
 
     int index = m_stringList.size();
@@ -83,19 +83,19 @@ void SharedStrings::removeSharedString(const QString &string)
  */
 void SharedStrings::removeSharedString(const RichString &string)
 {
-    if (!m_stringTable.contains(string))
+    auto it = m_stringTable.find(string);
+    if (it == m_stringTable.end())
         return;
 
     m_stringCount -= 1;
 
-    XlsxSharedStringInfo &item = m_stringTable[string];
-    item.count -= 1;
+    it->count -= 1;
 
-    if (item.count <= 0) {
-        for (int i=item.index+1; i<m_stringList.size(); ++i)
+    if (it->count <= 0) {
+        for (int i=it->index+1; i<m_stringList.size(); ++i)
             m_stringTable[m_stringList[i]].index -= 1;
 
-        m_stringList.removeAt(item.index);
+        m_stringList.removeAt(it->index);
         m_stringTable.remove(string);
     }
 }
@@ -107,8 +107,9 @@ int SharedStrings::getSharedStringIndex(const QString &string) const
 
 int SharedStrings::getSharedStringIndex(const RichString &string) const
 {
-    if (m_stringTable.contains(string))
-        return m_stringTable[string].index;
+    auto it = m_stringTable.constFind(string);
+    if (it != m_stringTable.constEnd())
+        return it->index;
     return -1;
 }
 

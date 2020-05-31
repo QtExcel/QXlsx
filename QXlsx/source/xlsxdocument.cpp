@@ -1015,8 +1015,9 @@ CellRange Document::dimension() const
 QString Document::documentProperty(const QString &key) const
 {
 	Q_D(const Document);
-	if (d->documentProperties.contains(key))
-		return d->documentProperties[key];
+    auto it = d->documentProperties.constFind(key);
+    if (it != d->documentProperties.constEnd())
+        return it.value();
 	else
 		return QString();
 }
