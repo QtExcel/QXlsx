@@ -46,7 +46,7 @@ void DocPropsApp::addPartTitle(const QString &title)
 
 void DocPropsApp::addHeadingPair(const QString &name, int value)
 {
-    m_headingPairsList.append(qMakePair(name, value));
+    m_headingPairsList.append({ name, value });
 }
 
 bool DocPropsApp::setProperty(const QString &name, const QString &value)
@@ -68,8 +68,9 @@ bool DocPropsApp::setProperty(const QString &name, const QString &value)
 
 QString DocPropsApp::property(const QString &name) const
 {
-    if (m_properties.contains(name))
-        return m_properties[name];
+    auto it = m_properties.constFind(name);
+    if (it != m_properties.constEnd())
+        return it.value();
 
     return QString();
 }
@@ -96,8 +97,8 @@ void DocPropsApp::saveToXmlFile(QIODevice *device) const
     writer.writeStartElement(vt, QStringLiteral("vector"));
     writer.writeAttribute(QStringLiteral("size"), QString::number(m_headingPairsList.size()*2));
     writer.writeAttribute(QStringLiteral("baseType"), QStringLiteral("variant"));
-    typedef QPair<QString,int> PairType; //Make foreach happy
-    foreach (PairType pair, m_headingPairsList) {
+
+    for (const auto &pair : m_headingPairsList) {
         writer.writeStartElement(vt, QStringLiteral("variant"));
         writer.writeTextElement(vt, QStringLiteral("lpstr"), pair.first);
         writer.writeEndElement(); //vt:variant
@@ -112,15 +113,18 @@ void DocPropsApp::saveToXmlFile(QIODevice *device) const
     writer.writeStartElement(vt, QStringLiteral("vector"));
     writer.writeAttribute(QStringLiteral("size"), QString::number(m_titlesOfPartsList.size()));
     writer.writeAttribute(QStringLiteral("baseType"), QStringLiteral("lpstr"));
-    foreach (QString title, m_titlesOfPartsList)
+    for (const QString &title : m_titlesOfPartsList)
         writer.writeTextElement(vt, QStringLiteral("lpstr"), title);
     writer.writeEndElement();//vt:vector
     writer.writeEndElement();//TitlesOfParts
 
-    if (m_properties.contains(QStringLiteral("manager")))
-        writer.writeTextElement(QStringLiteral("Manager"), m_properties[QStringLiteral("manager")]);
+    auto it = m_properties.constFind(QStringLiteral("manager"));
+    if (it != m_properties.constEnd())
+        writer.writeTextElement(QStringLiteral("Manager"), it.value());
     //Not like "manager", "company" always exists for Excel generated file.
-    writer.writeTextElement(QStringLiteral("Company"), m_properties.contains(QStringLiteral("company")) ? m_properties[QStringLiteral("company")]: QString());
+
+    it = m_properties.constFind(QStringLiteral("company"));
+    writer.writeTextElement(QStringLiteral("Company"), it != m_properties.constEnd() ? it.value() : QString());
     writer.writeTextElement(QStringLiteral("LinksUpToDate"), QStringLiteral("false"));
     writer.writeTextElement(QStringLiteral("SharedDoc"), QStringLiteral("false"));
     writer.writeTextElement(QStringLiteral("HyperlinksChanged"), QStringLiteral("false"));

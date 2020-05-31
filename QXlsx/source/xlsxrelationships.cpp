@@ -31,9 +31,9 @@
 
 QT_BEGIN_NAMESPACE_XLSX
 
-const QString schema_doc = QStringLiteral("http://schemas.openxmlformats.org/officeDocument/2006/relationships");
-const QString schema_msPackage = QStringLiteral("http://schemas.microsoft.com/office/2006/relationships");
-const QString schema_package = QStringLiteral("http://schemas.openxmlformats.org/package/2006/relationships");
+const QLatin1String schema_doc("http://schemas.openxmlformats.org/officeDocument/2006/relationships");
+const QLatin1String schema_msPackage("http://schemas.microsoft.com/office/2006/relationships");
+const QLatin1String schema_package("http://schemas.openxmlformats.org/package/2006/relationships");
 //const QString schema_worksheet = QStringLiteral("http://schemas.openxmlformats.org/officeDocument/2006/relationships");
 Relationships::Relationships()
 {
@@ -82,7 +82,7 @@ void Relationships::addWorksheetRelationship(const QString &relativeType, const 
 QList<XlsxRelationship> Relationships::relationships(const QString &type) const
 {
     QList<XlsxRelationship> res;
-    foreach (XlsxRelationship ship, m_relationships) {
+    for (const XlsxRelationship &ship : m_relationships) {
         if (ship.type == type)
             res.append(ship);
     }
@@ -92,7 +92,7 @@ QList<XlsxRelationship> Relationships::relationships(const QString &type) const
 void Relationships::addRelationship(const QString &type, const QString &target, const QString &targetMode)
 {
     XlsxRelationship relation;
-    relation.id = QString("rId%1").arg(m_relationships.size()+1);
+    relation.id = QStringLiteral("rId%1").arg(m_relationships.size()+1);
     relation.type = type;
     relation.target = target;
     relation.targetMode = targetMode;
@@ -107,7 +107,7 @@ void Relationships::saveToXmlFile(QIODevice *device) const
     writer.writeStartDocument(QStringLiteral("1.0"), true);
     writer.writeStartElement(QStringLiteral("Relationships"));
     writer.writeAttribute(QStringLiteral("xmlns"), QStringLiteral("http://schemas.openxmlformats.org/package/2006/relationships"));
-    foreach (XlsxRelationship relation, m_relationships) {
+    for (const XlsxRelationship &relation : m_relationships) {
         writer.writeStartElement(QStringLiteral("Relationship"));
         writer.writeAttribute(QStringLiteral("Id"), relation.id);
         writer.writeAttribute(QStringLiteral("Type"), relation.type);
@@ -164,7 +164,7 @@ bool Relationships::loadFromXmlData(const QByteArray &data)
 
 XlsxRelationship Relationships::getRelationshipById(const QString &id) const
 {
-    foreach (XlsxRelationship ship, m_relationships) {
+    for (const XlsxRelationship &ship : m_relationships) {
         if (ship.id == id)
             return ship;
     }

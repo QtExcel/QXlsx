@@ -22,10 +22,10 @@ class XlsxSeries
 {
 public:
     //At present, we care about number cell ranges only!
-    QString numberDataSource_numRef = ""; // yval, val
-    QString axDataSource_numRef = ""; // xval, cat
-    QString headerH_numRef = "";
-    QString headerV_numRef = "";
+    QString numberDataSource_numRef; // yval, val
+    QString axDataSource_numRef; // xval, cat
+    QString headerH_numRef;
+    QString headerV_numRef;
     bool    swapHeader = false;
 };
 
@@ -41,7 +41,7 @@ public:
               XlsxAxis::AxisPos p,
               int id,
               int crossId,
-              QString axisTitle = QString("") )
+              QString axisTitle = QString())
     {
         type = t;
         axisPos = p;
