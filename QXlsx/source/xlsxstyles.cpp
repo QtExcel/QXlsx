@@ -27,10 +27,12 @@ Styles::Styles(CreateFlag flag)
 
     //!Fix me! Where should we put these register code?
 
+    // issue #89
 #if QT_VERSION >= QT_VERSION_CHECK( 5, 0, 0 )
     if (QMetaType::type("XlsxColor") == QMetaType::UnknownType)
 #else
-    if (!QMetaType::isRegistered(QMetaType::type("XlsxColor")))
+    if (QMetaType::type("XlsxColor") == 0
+        || !QMetaType::isRegistered(QMetaType::type("XlsxColor")))
 #endif
     {
         qRegisterMetaType<XlsxColor>("XlsxColor");
