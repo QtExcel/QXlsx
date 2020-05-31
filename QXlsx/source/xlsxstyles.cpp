@@ -1364,22 +1364,24 @@ bool Styles::loadFromXmlFile(QIODevice *device)
 QColor Styles::getColorByIndex(int idx)
 {
     if (m_indexedColors.isEmpty()) {
-        m_indexedColors<<QColor("#000000") <<QColor("#FFFFFF") <<QColor("#FF0000") <<QColor("#00FF00")
-                      <<QColor("#0000FF") <<QColor("#FFFF00") <<QColor("#FF00FF") <<QColor("#00FFFF")
-                     <<QColor("#000000") <<QColor("#FFFFFF") <<QColor("#FF0000") <<QColor("#00FF00")
-                    <<QColor("#0000FF") <<QColor("#FFFF00") <<QColor("#FF00FF") <<QColor("#00FFFF")
-                   <<QColor("#800000") <<QColor("#008000") <<QColor("#000080") <<QColor("#808000")
-                  <<QColor("#800080") <<QColor("#008080") <<QColor("#C0C0C0") <<QColor("#808080")
-                 <<QColor("#9999FF") <<QColor("#993366") <<QColor("#FFFFCC") <<QColor("#CCFFFF")
-                <<QColor("#660066") <<QColor("#FF8080") <<QColor("#0066CC") <<QColor("#CCCCFF")
-               <<QColor("#000080") <<QColor("#FF00FF") <<QColor("#FFFF00") <<QColor("#00FFFF")
-              <<QColor("#800080") <<QColor("#800000") <<QColor("#008080") <<QColor("#0000FF")
-             <<QColor("#00CCFF") <<QColor("#CCFFFF") <<QColor("#CCFFCC") <<QColor("#FFFF99")
-            <<QColor("#99CCFF") <<QColor("#FF99CC") <<QColor("#CC99FF") <<QColor("#FFCC99")
-           <<QColor("#3366FF") <<QColor("#33CCCC") <<QColor("#99CC00") <<QColor("#FFCC00")
-          <<QColor("#FF9900") <<QColor("#FF6600") <<QColor("#666699") <<QColor("#969696")
-         <<QColor("#003366") <<QColor("#339966") <<QColor("#003300") <<QColor("#333300")
-        <<QColor("#993300") <<QColor("#993366") <<QColor("#333399") <<QColor("#333333");
+        m_indexedColors = {
+            QColor(QRgba64::fromArgb32(0x000000)), QColor(QRgba64::fromArgb32(0xFFFFFF)), QColor(QRgba64::fromArgb32(0xFF0000)), QColor(QRgba64::fromArgb32(0x00FF00)),
+            QColor(QRgba64::fromArgb32(0x0000FF)), QColor(QRgba64::fromArgb32(0xFFFF00)), QColor(QRgba64::fromArgb32(0xFF00FF)), QColor(QRgba64::fromArgb32(0x00FFFF)),
+            QColor(QRgba64::fromArgb32(0x000000)), QColor(QRgba64::fromArgb32(0xFFFFFF)), QColor(QRgba64::fromArgb32(0xFF0000)), QColor(QRgba64::fromArgb32(0x00FF00)),
+            QColor(QRgba64::fromArgb32(0x0000FF)), QColor(QRgba64::fromArgb32(0xFFFF00)), QColor(QRgba64::fromArgb32(0xFF00FF)), QColor(QRgba64::fromArgb32(0x00FFFF)),
+            QColor(QRgba64::fromArgb32(0x800000)), QColor(QRgba64::fromArgb32(0x008000)), QColor(QRgba64::fromArgb32(0x000080)), QColor(QRgba64::fromArgb32(0x808000)),
+            QColor(QRgba64::fromArgb32(0x800080)), QColor(QRgba64::fromArgb32(0x008080)), QColor(QRgba64::fromArgb32(0xC0C0C0)), QColor(QRgba64::fromArgb32(0x808080)),
+            QColor(QRgba64::fromArgb32(0x9999FF)), QColor(QRgba64::fromArgb32(0x993366)), QColor(QRgba64::fromArgb32(0xFFFFCC)), QColor(QRgba64::fromArgb32(0xCCFFFF)),
+            QColor(QRgba64::fromArgb32(0x660066)), QColor(QRgba64::fromArgb32(0xFF8080)), QColor(QRgba64::fromArgb32(0x0066CC)), QColor(QRgba64::fromArgb32(0xCCCCFF)),
+            QColor(QRgba64::fromArgb32(0x000080)), QColor(QRgba64::fromArgb32(0xFF00FF)), QColor(QRgba64::fromArgb32(0xFFFF00)), QColor(QRgba64::fromArgb32(0x00FFFF)),
+            QColor(QRgba64::fromArgb32(0x800080)), QColor(QRgba64::fromArgb32(0x800000)), QColor(QRgba64::fromArgb32(0x008080)), QColor(QRgba64::fromArgb32(0x0000FF)),
+            QColor(QRgba64::fromArgb32(0x00CCFF)), QColor(QRgba64::fromArgb32(0xCCFFFF)), QColor(QRgba64::fromArgb32(0xCCFFCC)), QColor(QRgba64::fromArgb32(0xFFFF99)),
+            QColor(QRgba64::fromArgb32(0x99CCFF)), QColor(QRgba64::fromArgb32(0xFF99CC)), QColor(QRgba64::fromArgb32(0xCC99FF)), QColor(QRgba64::fromArgb32(0xFFCC99)),
+            QColor(QRgba64::fromArgb32(0x3366FF)), QColor(QRgba64::fromArgb32(0x33CCCC)), QColor(QRgba64::fromArgb32(0x99CC00)), QColor(QRgba64::fromArgb32(0xFFCC00)),
+            QColor(QRgba64::fromArgb32(0xFF9900)), QColor(QRgba64::fromArgb32(0xFF6600)), QColor(QRgba64::fromArgb32(0x666699)), QColor(QRgba64::fromArgb32(0x969696)),
+            QColor(QRgba64::fromArgb32(0x003366)), QColor(QRgba64::fromArgb32(0x339966)), QColor(QRgba64::fromArgb32(0x003300)), QColor(QRgba64::fromArgb32(0x333300)),
+            QColor(QRgba64::fromArgb32(0x993300)), QColor(QRgba64::fromArgb32(0x993366)), QColor(QRgba64::fromArgb32(0x333399)), QColor(QRgba64::fromArgb32(0x333333)),
+        };
         m_isIndexedColorsDefault = true;
     }
     if (idx < 0 || idx >= m_indexedColors.size())

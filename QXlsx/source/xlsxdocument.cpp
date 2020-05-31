@@ -195,7 +195,8 @@ bool DocumentPrivate::loadPackage(QIODevice *device)
 
 		DocPropsCore props(DocPropsCore::F_LoadFromExists);
 		props.loadFromXmlData(zipReader.fileData(docPropsCore_Name));
-        for (const QString &name : props.propertyNames())
+        const auto propNames = props.propertyNames();
+        for (const QString &name : propNames)
 			q->setDocumentProperty(name, props.property(name));
 	}
 
@@ -208,7 +209,8 @@ bool DocumentPrivate::loadPackage(QIODevice *device)
 
 		DocPropsApp props(DocPropsApp::F_LoadFromExists);
 		props.loadFromXmlData(zipReader.fileData(docPropsApp_Name));
-        for (const QString &name : props.propertyNames())
+        const auto propNames = props.propertyNames();
+        for (const QString &name : propNames)
 			q->setDocumentProperty(name, props.property(name));
 	}
 
@@ -218,9 +220,9 @@ bool DocumentPrivate::loadPackage(QIODevice *device)
 	QList<XlsxRelationship> rels_xl = rootRels.documentRelationships(QStringLiteral("/officeDocument"));
 	if (rels_xl.isEmpty())
 		return false;
-	QString xlworkbook_Path = rels_xl[0].target;
-	QString xlworkbook_Dir = splitPath(xlworkbook_Path)[0];
-    QString relFilePath = getRelFilePath(xlworkbook_Path);
+    const QString xlworkbook_Path = rels_xl[0].target;
+    const QString xlworkbook_Dir = splitPath(xlworkbook_Path).constFirst();
+    const QString relFilePath = getRelFilePath(xlworkbook_Path);
 
     workbook->relationships()->loadFromXmlData( zipReader.fileData(relFilePath) );
 	workbook->setFilePath(xlworkbook_Path);
@@ -392,7 +394,8 @@ bool DocumentPrivate::savePackage(QIODevice *device) const
 	}
 
 	// save docProps app/core xml file
-    for (const QString &name : q->documentPropertyNames()) {
+    const auto docPropNames = q->documentPropertyNames();
+    for (const QString &name : docPropNames) {
 		docPropsApp.setProperty(name, q->documentProperty(name));
 		docPropsCore.setProperty(name, q->documentProperty(name));
 	}
@@ -1332,14 +1335,14 @@ bool Document::autosizeColumnWidth(const CellRange &range)
         return false;
     }
 
-    QMap<int, int> colWidth = getMaximalColumnWidth(range.firstRow(), range.lastRow());
-
-    for (int key : colWidth.keys())
-    {
-        if( (key >= range.firstColumn()) && (key <= range.lastColumn()) )
+    const QMap<int, int> colWidth = getMaximalColumnWidth(range.firstRow(), range.lastRow());
+    auto it = colWidth.constBegin();
+    while (it != colWidth.constEnd()) {
+        if( (it.key() >= range.firstColumn()) && (it.key() <= range.lastColumn()) )
         {
-            erg |= setColumnWidth(key, colWidth.value(key));
+            erg |= setColumnWidth(it.key(), it.value());
         }
+        ++it;
     }
 
     return erg;
@@ -1354,14 +1357,14 @@ bool Document::autosizeColumnWidth(int column)
 {
     bool erg = false;
 
-    QMap<int, int> colWidth = getMaximalColumnWidth();
-
-    for (int key : colWidth.keys())
-    {
-        if( key == column)
+    const QMap<int, int> colWidth = getMaximalColumnWidth();
+    auto it = colWidth.constBegin();
+    while (it != colWidth.constEnd()) {
+        if( it.key() == column)
         {
-            erg |= setColumnWidth(key, colWidth.value(key));
+            erg |= setColumnWidth(it.key(), it.value());
         }
+        ++it;
     }
 
     return erg;
@@ -1378,14 +1381,14 @@ bool Document::autosizeColumnWidth(int colFirst, int colLast)
     Q_UNUSED(colLast)
     bool erg = false;
 
-    QMap<int, int> colWidth = getMaximalColumnWidth();
-
-    for (int key : colWidth.keys())
-    {
-        if( (key >= colFirst) && (key <= colLast) )
+    const QMap<int, int> colWidth = getMaximalColumnWidth();
+    auto it = colWidth.constBegin();
+    while (it != colWidth.constEnd()) {
+        if( (it.key() >= colFirst) && (it.key() <= colLast) )
         {
-            erg |= setColumnWidth(key, colWidth.value(key));
+            erg |= setColumnWidth(it.key(), it.value());
         }
+        ++it;
     }
 
     return erg;
@@ -1400,11 +1403,11 @@ bool Document::autosizeColumnWidth(void)
 {
     bool erg = false;
 
-    QMap<int, int> colWidth = getMaximalColumnWidth();
-
-    for (int key : colWidth.keys())
-    {
-        erg |= setColumnWidth(key, colWidth.value(key));
+    const QMap<int, int> colWidth = getMaximalColumnWidth();
+    auto it = colWidth.constBegin();
+    while (it != colWidth.constEnd()) {
+        erg |= setColumnWidth(it.key(), it.value());
+        ++it;
     }
 
     return erg;

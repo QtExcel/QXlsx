@@ -1592,7 +1592,7 @@ void WorksheetPrivate::saveXmlCellData(QXmlStreamWriter &writer, int row, int co
         if (cell->hasFormula())
         {
             QString strFormula = cell->formula().d->formula;
-
+            Q_UNUSED(strFormula);
             cell->formula().saveToXml(writer);
         }
 
@@ -1619,7 +1619,7 @@ void WorksheetPrivate::saveXmlCellData(QXmlStreamWriter &writer, int row, int co
         if (cell->hasFormula())
         {
             QString strFormula = cell->formula().d->formula;
-
+            Q_UNUSED(strFormula);
             cell->formula().saveToXml(writer);
         }
 
@@ -1735,7 +1735,7 @@ void WorksheetPrivate::saveXmlCellData(QXmlStreamWriter &writer, int row, int co
         if (cell->hasFormula())
         {
             QString strFormula = cell->formula().d->formula;
-
+            Q_UNUSED(strFormula);
             cell->formula().saveToXml(writer);
         }
 
@@ -2510,6 +2510,7 @@ void WorksheetPrivate::loadXmlSheetData(QXmlStreamReader &reader)
                                 bool bIsDate1904 = q->workbook()->isDate1904();
 
                                 QVariant vDatetimeValue = datetimeFromNumber( dValue, bIsDate1904 );
+                                Q_UNUSED(vDatetimeValue);
                                 // cell->d_func()->value = vDatetimeValue;
                                 cell->d_func()->value = dValue; // dev67
                             }
@@ -2696,7 +2697,7 @@ void WorksheetPrivate::loadXmlSheetFormatProps(QXmlStreamReader &reader)
 {
 	Q_ASSERT(reader.name() == QLatin1String("sheetFormatPr"));
 
-	QXmlStreamAttributes attributes = reader.attributes();
+    const QXmlStreamAttributes attributes = reader.attributes();
 	XlsxSheetFormatProps formatProps;
     bool isSetWidth = false;
 
@@ -2937,7 +2938,7 @@ bool Worksheet::loadFromXmlFile(QIODevice *device)
             {
 				QString rId = reader.attributes().value(QStringLiteral("r:id")).toString();
 				QString name = d->relationships->getRelationshipById(rId).target;
-				QString path = QDir::cleanPath(splitPath(filePath())[0] + QLatin1String("/") + name);
+                QString path = QDir::cleanPath(splitPath(filePath()).constFirst() + QLatin1String("/") + name);
 				d->drawing = QSharedPointer<Drawing>(new Drawing(this, F_LoadFromExists));
 				d->drawing->setFilePath(path);
             }
