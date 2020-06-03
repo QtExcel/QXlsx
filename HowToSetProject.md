@@ -6,7 +6,7 @@
 - Here's an easy way to apply QXlsx.
 - Describes when to apply to Windows.
 - The method of applying it on Linux or Mac is similar, and I will write help if there is an additional request.
-- * Hi! I'm j2doll. My native language is not English and my English is not fluent. Please understand if I misunderstood the explanation :-)
+- * Hi! I'm j2doll. My native language is not English and my English is not fluent. Please understand. :-)
 
 ## Steps to set
 

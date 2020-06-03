@@ -1,6 +1,6 @@
 # Vision of QXlsx
 
-- I will prepare the QtExcel library for Qt6.
+- prepare the QtExcel library for Qt6. (or use only in Qt5)
 
 ## Qt6Excel
 

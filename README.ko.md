@@ -11,12 +11,9 @@
   - 물론 정적 라이브러리(static library)로 사용할 수도 있습니다.
 
 ## 사용하는 방법
-- [예제](Example.md) , [위키](https://github.com/QtExcel/QXlsx/wiki) , [FAQ](https://github.com/QtExcel/QXlsx/wiki/FAQ) 를 참조하세요.
-	- HelloWorld : 헬로우 월드 예제 (가장 기본적인 구조)
-	- TestExcel : QtXlsx 예제에 기반한 기본 예제
-	- HelloAndroid : 안드로이드에서 xlsx 파일 열기
-	- WebServer : xlsx 파일을 읽어 웹으로 표시	
-	- ShowConsole : xlsx 파일을 읽어 콘솔에 표시
+- [예제](Example.md) 를 참조하세요. 
+- [위키](https://github.com/QtExcel/QXlsx/wiki) 를 참조하세요.
+- [FAQ](https://github.com/QtExcel/QXlsx/wiki/FAQ) 를 참조하세요.
 
 ## 설정하는 방법 (설치)
 
