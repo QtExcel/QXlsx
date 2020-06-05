@@ -2938,7 +2938,12 @@ bool Worksheet::loadFromXmlFile(QIODevice *device)
             {
 				QString rId = reader.attributes().value(QStringLiteral("r:id")).toString();
 				QString name = d->relationships->getRelationshipById(rId).target;
-                QString path = QDir::cleanPath(splitPath(filePath()).constFirst() + QLatin1String("/") + name);
+
+                QString str = *( splitPath(filePath()).begin() );
+                str = str + QLatin1String("/");
+                str = str + name;
+                QString path = QDir::cleanPath( str );
+
 				d->drawing = QSharedPointer<Drawing>(new Drawing(this, F_LoadFromExists));
 				d->drawing->setFilePath(path);
             }
