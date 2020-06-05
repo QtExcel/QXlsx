@@ -9,7 +9,7 @@
 #include "xlsxworksheet.h"
 #include "xlsxcellformula.h"
 
-using namespace QXlsx;
+QXLSX_USE_NAMESPACE
 
 int formula()
 {

@@ -8,7 +8,7 @@
 #include "xlsxcellrange.h"
 #include "xlsxchart.h"
 
-using namespace QXlsx;
+QXLSX_USE_NAMESPACE
 
 int chart()
 {

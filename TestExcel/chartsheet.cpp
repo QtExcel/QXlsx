@@ -1,12 +1,13 @@
 // chartsheet.cpp
 
-#include <QtCore>
+#include <QtGlobal>
+
 #include "xlsxdocument.h"
 #include "xlsxchartsheet.h"
 #include "xlsxcellrange.h"
 #include "xlsxchart.h"
 
-using namespace QXlsx;
+QXLSX_USE_NAMESPACE
 
 int chartsheet()
 {

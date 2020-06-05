@@ -10,7 +10,7 @@
 #include "xlsxrichstring.h"
 #include "xlsxworkbook.h"
 
-using namespace QXlsx; 
+QXLSX_USE_NAMESPACE
 
 int readGoogleSpreadsheet();
 int readMSExcel201x();

@@ -1,11 +1,4 @@
-//
-
-#include "xlsxdrawinganchor_p.h"
-#include "xlsxdrawing_p.h"
-#include "xlsxmediafile_p.h"
-#include "xlsxchart.h"
-#include "xlsxworkbook.h"
-#include "xlsxutility_p.h"
+// xlsxdrawinganchor.cpp
 
 #include <QtGlobal>
 #include <QDebug>
@@ -13,6 +6,13 @@
 #include <QXmlStreamWriter>
 #include <QBuffer>
 #include <QDir>
+
+#include "xlsxdrawinganchor_p.h"
+#include "xlsxdrawing_p.h"
+#include "xlsxmediafile_p.h"
+#include "xlsxchart.h"
+#include "xlsxworkbook.h"
+#include "xlsxutility_p.h"
 
 QT_BEGIN_NAMESPACE_XLSX
 

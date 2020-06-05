@@ -6,7 +6,7 @@
 
 #include "xlsxdocument.h"
 
-using namespace QXlsx;
+QXLSX_USE_NAMESPACE
 
 int definename()
 {

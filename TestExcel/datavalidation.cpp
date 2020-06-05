@@ -1,10 +1,11 @@
 // datavalidation.cpp
 
-#include <QtCore>
+#include <QtGlobal>
+
 #include "xlsxdocument.h"
 #include "xlsxdatavalidation.h"
 
-using namespace QXlsx;
+QXLSX_USE_NAMESPACE
 
 int datavalidation()
 {

@@ -6,7 +6,7 @@
 #include "xlsxdocument.h"
 #include "xlsxformat.h"
 
-using namespace QXlsx;
+QXLSX_USE_NAMESPACE
 
 int mergecells()
 {

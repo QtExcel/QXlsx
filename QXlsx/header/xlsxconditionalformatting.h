@@ -3,6 +3,7 @@
 #ifndef QXLSX_XLSXCONDITIONALFORMATTING_H
 #define QXLSX_XLSXCONDITIONALFORMATTING_H
 
+#include <QtGlobal>
 #include <QString>
 #include <QList>
 #include <QColor>

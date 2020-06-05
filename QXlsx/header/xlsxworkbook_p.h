@@ -1,17 +1,18 @@
-//
+// xlsxworkbook_p.h
 
 #ifndef XLSXWORKBOOK_P_H
 #define XLSXWORKBOOK_P_H
+
+#include <QtGlobal>
+#include <QSharedPointer>
+#include <QPair>
+#include <QStringList>
 
 #include "xlsxworkbook.h"
 #include "xlsxabstractooxmlfile_p.h"
 #include "xlsxtheme_p.h"
 #include "xlsxsimpleooxmlfile_p.h"
 #include "xlsxrelationships_p.h"
-
-#include <QSharedPointer>
-#include <QPair>
-#include <QStringList>
 
 QT_BEGIN_NAMESPACE_XLSX
 

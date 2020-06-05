@@ -11,11 +11,11 @@
 #include "xlsxrichstring.h"
 #include "xlsxworkbook.h"
 
-using namespace QXlsx;
+QXLSX_USE_NAMESPACE
 
 #include <cstdio>
 #include <iostream>
-// using namespace std; 
+// using namespace std;
 
 int WriteExcel(bool isTest);
 int ReadExcel(bool isTest);

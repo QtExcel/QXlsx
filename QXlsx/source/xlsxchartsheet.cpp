@@ -1,5 +1,10 @@
 // xlsxchartsheet.cpp
 
+#include <QtGlobal>
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
+#include <QDir>
+
 #include "xlsxchartsheet.h"
 #include "xlsxchartsheet_p.h"
 #include "xlsxworkbook.h"
@@ -7,11 +12,6 @@
 #include "xlsxdrawing_p.h"
 #include "xlsxdrawinganchor_p.h"
 #include "xlsxchart.h"
-
-#include <QtGlobal>
-#include <QXmlStreamReader>
-#include <QXmlStreamWriter>
-#include <QDir>
 
 QT_BEGIN_NAMESPACE_XLSX
 
@@ -126,7 +126,13 @@ bool Chartsheet::loadFromXmlFile(QIODevice *device)
             if (reader.name() == QLatin1String("drawing")) {
                 QString rId = reader.attributes().value(QStringLiteral("r:id")).toString();
                 QString name = d->relationships->getRelationshipById(rId).target;
-                QString path = QDir::cleanPath(splitPath(filePath()).constFirst() + QLatin1String("/") + name);
+                // QString path = QDir::cleanPath(splitPath(filePath()).constFirst() + QLatin1String("/") + name);
+
+                QString str = *( splitPath(filePath()).begin() );
+                str = str + QLatin1String("/") ;
+                str = str + name;
+                QString path = QDir::cleanPath( str );
+
                 d->drawing = QSharedPointer<Drawing>(new Drawing(this, F_LoadFromExists));
                 d->drawing->setFilePath(path);
             }

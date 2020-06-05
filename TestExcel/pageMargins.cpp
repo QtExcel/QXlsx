@@ -12,7 +12,7 @@
 #include "xlsxrichstring.h"
 #include "xlsxworkbook.h"
 
-using namespace QXlsx;
+QXLSX_USE_NAMESPACE
 
 #include <cstdio>
 #include <iostream>

@@ -1,5 +1,15 @@
 // xlsxdocument.cpp
 
+#include <QtGlobal>
+#include <QFile>
+#include <QPointF>
+#include <QBuffer>
+#include <QDir>
+#include <QTemporaryFile>
+#include <QFile>
+#include <QSharedPointer>
+#include <QDebug>
+
 #include "xlsxdocument.h"
 #include "xlsxdocument_p.h"
 #include "xlsxworkbook.h"
@@ -18,15 +28,6 @@
 #include "xlsxchart.h"
 #include "xlsxzipreader_p.h"
 #include "xlsxzipwriter_p.h"
-
-#include <QFile>
-#include <QPointF>
-#include <QBuffer>
-#include <QDir>
-#include <QTemporaryFile>
-#include <QFile>
-#include <QSharedPointer>
-#include <QDebug>
 
 /*
 	From Wikipedia: The Open Packaging Conventions (OPC) is a

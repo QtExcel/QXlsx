@@ -1,4 +1,4 @@
-//
+// xlsxzipwriter.cpp
 
 #include "xlsxzipwriter_p.h"
 

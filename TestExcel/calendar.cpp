@@ -8,13 +8,10 @@
 #include "xlsxcellrange.h"
 #include "xlsxworksheet.h"
 
-using namespace QXlsx;
+QXLSX_USE_NAMESPACE
 
 int calendar()
 {
-    //Select a proper locale
-    //QLocale::setDefault(QLocale(QLocale::English));
-
     Document xlsx;
     QDate today(QDate::currentDate());
     for (int month=1; month<=12; ++month)

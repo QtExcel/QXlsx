@@ -1,4 +1,4 @@
-// chart.cpp
+// chartextended.cpp
 
 #include <QtGlobal>
 #include <QtCore>
@@ -8,7 +8,7 @@
 #include "xlsxcellrange.h"
 #include "xlsxchart.h"
 
-using namespace QXlsx;
+QXLSX_USE_NAMESPACE
 
 /*
  * Test Chart with title, gridlines, legends, multiple headers
