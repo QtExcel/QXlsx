@@ -18,35 +18,30 @@ using namespace std;
 #include "xlsxrichstring.h"
 #include "xlsxworkbook.h"
 
-// int test( QVector<QVariant> params );
+int test91( QVector<QVariant> params );
 
 int test( QVector<QVariant> params )
 {
     qDebug() << "[debug] current path : " << QDir::currentPath();
+    return test91( params );
+}
 
+int test91( QVector<QVariant> params )
+{
     using namespace QXlsx;
 
-    Document doc1;
+    Document doc(":/91.xlsx"); // made by ms excel 2019
+    if (!doc.isLoadPackage()) {
+        qDebug() << "Failed to load xlsx.";
+        return (-1);
+    }
 
-    /*
-    I simply added "0.####" to numberformat.xlsx:
-
-    //Custom number formats
-    QStringList numFormats;
-    numFormats
-    << "Qt #"
-    << "yyyy-mmm-dd"
-    << "$ #,##0.00"
-    << "[red]0.00"
-    << "0.####";
-    */
-
-    Format fmt;
-    fmt.setNumberFormat( "0.####" );
-    // doc1.write( 1, 1, int(30), fmt );
-    doc1.write( 1, 2, double(30), fmt );
-
-    doc1.saveAs("test10.xlsx");
+    auto tmpCell = doc.cellAt(2, 2);
+    if(tmpCell)
+    {
+        QString str = tmpCell->value().toString();
+        qDebug() << str;
+    }
 
     return 0;
 }
