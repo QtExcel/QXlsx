@@ -26,6 +26,7 @@ int test( QVector<QVariant> params )
     return test91( params );
 }
 
+// tested in Qt 5.14.1, MingW 7.3.0 64bit
 int test91( QVector<QVariant> params )
 {
     using namespace QXlsx;
@@ -36,11 +37,19 @@ int test91( QVector<QVariant> params )
         return (-1);
     }
 
-    auto tmpCell = doc.cellAt(2, 2);
-    if(tmpCell)
+    QXlsx::CellRange range = doc.dimension();
+    for (int i = 2; i < range.rowCount() + 1; i++)
     {
-        QString str = tmpCell->value().toString();
-        qDebug() << str;
+         for (int j = 1; j < range.columnCount()+1; j++)
+         {
+              QString dataStr;
+              auto tmpCell = doc.cellAt(i, j);
+              if(tmpCell)
+              {
+                  dataStr = tmpCell->value().toString().trimmed();
+                  qDebug() << dataStr;
+              }
+         }
     }
 
     return 0;
