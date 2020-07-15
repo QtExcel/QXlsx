@@ -821,6 +821,11 @@ void DrawingAnchor::saveXmlObjectPicture(QXmlStreamWriter &writer) const
     writer.writeEndElement(); //xdr:pic
 }
 
+int DrawingAnchor::getm_id()
+{
+    return (this->m_id);
+}
+
 void DrawingAnchor::saveXmlObjectShape(QXmlStreamWriter &writer) const
 {
 //{{ liufeijin

@@ -641,11 +641,12 @@ QVariant Document::read(int row, int col) const
  * Insert an \a image to current active worksheet at the position \a row, \a column
  * Returns ture if success.
  */
-bool Document::insertImage(int row, int column, const QImage &image)
+int Document::insertImage(int row, int column, const QImage &image)
 {
 	if (Worksheet *sheet = currentWorksheet())
 		return sheet->insertImage(row, column, image);
-	return false;
+
+    return 0;
 }
 
 /*!

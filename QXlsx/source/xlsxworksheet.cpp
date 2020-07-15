@@ -1085,17 +1085,21 @@ bool Worksheet::addConditionalFormatting(const ConditionalFormatting &cf)
  * Insert an \a image  at the position \a row, \a column
  * Returns true on success.
  */
-bool Worksheet::insertImage(int row, int column, const QImage &image)
+int Worksheet::insertImage(int row, int column, const QImage &image)
 {
 	Q_D(Worksheet);
 
+    int imageIndex = 0;
+
 	if (image.isNull())
-		return false;
+        return imageIndex;
 
 	if (!d->drawing)
+    {
 		d->drawing = QSharedPointer<Drawing>(new Drawing(this, F_NewFromScratch));
+    }
 
-	DrawingOneCellAnchor *anchor = new DrawingOneCellAnchor(d->drawing.data(), DrawingAnchor::Picture);
+    DrawingOneCellAnchor* anchor = new DrawingOneCellAnchor(d->drawing.data(), DrawingAnchor::Picture);
 
 	/*
 		The size are expressed as English Metric Units (EMUs).
@@ -1107,7 +1111,10 @@ bool Worksheet::insertImage(int row, int column, const QImage &image)
 	anchor->ext = QSize( int(image.width() * scaleX), int(image.height() * scaleY) );
 
 	anchor->setObjectPicture(image);
-	return true;
+
+    imageIndex = anchor->getm_id();
+
+    return imageIndex;
 }
 
 /*!

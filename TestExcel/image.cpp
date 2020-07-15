@@ -13,7 +13,10 @@ int image()
     QImage image(40, 30, QImage::Format_RGB32);
     image.fill(Qt::green);
     for (int i=0; i<10; ++i)
-        xlsx.insertImage(10*i, 5, image);
+    {
+       int index = xlsx.insertImage( 10*i, 5, image );
+       qDebug() << " [image index] " << index;
+    }
     xlsx.saveAs("image1.xlsx");
 
     QXlsx::Document xlsx2("image1.xlsx");
