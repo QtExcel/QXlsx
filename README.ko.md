@@ -49,7 +49,7 @@
 
 ## 축하
 - 우리의 코드가 북극에 갑니다.
- ![](markdown.data/arcvalut.png)
+- ![](markdown.data/arcvalut.png)
 - 자세한 정보는 링크를 보세요. https://archiveprogram.github.com/
 
 ## :email: 문의

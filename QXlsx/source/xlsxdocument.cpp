@@ -657,6 +657,15 @@ bool Document::getImage(int imageIndex, QImage& img)
     return  false;
 }
 
+uint Document::getImageCount()
+{
+    if (Worksheet *sheet = currentWorksheet())
+        return sheet->getImageCount();
+
+    return 0;
+}
+
+
 /*!
  * Creates an chart with the given \a size and insert it to the current
  * active worksheet at the position \a row, \a col.

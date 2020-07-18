@@ -49,7 +49,7 @@
 
 ## Congratulations
 - Our code is going to the North Pole.
- ![](markdown.data/arcvalut.png)
+- ![](markdown.data/arcvalut.png)
 - See link for more information. https://archiveprogram.github.com/
 
 ## :email: Contact

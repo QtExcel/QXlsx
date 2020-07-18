@@ -99,6 +99,8 @@ public:
 
     int insertImage(int row, int column, const QImage &image);
     bool getImage(int imageIndex, QImage& img);
+    uint getImageCount();
+
     Chart *insertChart(int row, int column, const QSize &size);
 
     bool mergeCells(const CellRange &range, const Format &format=Format());

@@ -49,12 +49,16 @@ int test95( QVector<QVariant> params )
            filename = QString("image %1.png").arg( index );
            img.save( filename );
 
-            qDebug() << " [image index] " << index;
+           qDebug() << " [image index] " << index;
        }
     }
+
+    qDebug() << " image count : " << xlsx.getImageCount();
     xlsx.saveAs("image1.xlsx");
 
     QXlsx::Document xlsx2("image1.xlsx");
+    qDebug() << "xlsx2" ;
+    qDebug() << " image count : " << xlsx.getImageCount();
     xlsx2.saveAs("image2.xlsx");
 
     return 0;

@@ -1144,6 +1144,19 @@ bool Worksheet::getImage(int imageIndex, QImage& img)
    return ret;
 }
 
+uint Worksheet::getImageCount()
+{
+    Q_D(Worksheet);
+
+    if ( d->drawing == nullptr )
+    {
+        return false;
+    }
+
+    int size = d->drawing->anchors.size();
+    return uint(size);
+}
+
 
 
 /*!
