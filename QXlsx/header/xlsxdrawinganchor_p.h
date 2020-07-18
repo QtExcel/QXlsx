@@ -51,7 +51,9 @@ public:
 
     DrawingAnchor(Drawing *drawing, ObjectType objectType);
     virtual ~DrawingAnchor();
+
     void setObjectPicture(const QImage &img);
+    bool getObjectPicture(QImage &img);
 	
     void setObjectGraphicFrame(QSharedPointer<Chart> chart);
 
@@ -85,6 +87,10 @@ protected:
     QSharedPointer<Chart> m_chartFile;
 
     int m_id;
+public:
+    int getm_id();
+
+protected:
 
 	// liufeij {{
 	void setObjectShape(const QImage &img); // liufeij

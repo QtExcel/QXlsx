@@ -1085,17 +1085,21 @@ bool Worksheet::addConditionalFormatting(const ConditionalFormatting &cf)
  * Insert an \a image  at the position \a row, \a column
  * Returns true on success.
  */
-bool Worksheet::insertImage(int row, int column, const QImage &image)
+int Worksheet::insertImage(int row, int column, const QImage &image)
 {
 	Q_D(Worksheet);
 
+    int imageIndex = 0;
+
 	if (image.isNull())
-		return false;
+        return imageIndex;
 
 	if (!d->drawing)
+    {
 		d->drawing = QSharedPointer<Drawing>(new Drawing(this, F_NewFromScratch));
+    }
 
-	DrawingOneCellAnchor *anchor = new DrawingOneCellAnchor(d->drawing.data(), DrawingAnchor::Picture);
+    DrawingOneCellAnchor* anchor = new DrawingOneCellAnchor(d->drawing.data(), DrawingAnchor::Picture);
 
 	/*
 		The size are expressed as English Metric Units (EMUs).
@@ -1107,8 +1111,40 @@ bool Worksheet::insertImage(int row, int column, const QImage &image)
 	anchor->ext = QSize( int(image.width() * scaleX), int(image.height() * scaleY) );
 
 	anchor->setObjectPicture(image);
-	return true;
+
+    imageIndex = anchor->getm_id();
+
+    return imageIndex;
 }
+
+bool Worksheet::getImage(int imageIndex, QImage& img)
+{
+    Q_D(Worksheet);
+
+    if( imageIndex <= (-1) )
+    {
+        return false;
+    }
+
+    if ( d->drawing == nullptr )
+    {
+        return false;
+    }
+
+    int realImageIndex = imageIndex - 1; // minus one
+
+   DrawingAnchor* danchor = d->drawing->anchors.at( realImageIndex );
+   // QSharedPointer<Drawing> // for multithread
+   if ( danchor == nullptr )
+   {
+       return false;
+   }
+
+   bool ret= danchor->getObjectPicture(img);
+   return ret;
+}
+
+
 
 /*!
  * Creates an chart with the given \a size and insert

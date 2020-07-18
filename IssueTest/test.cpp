@@ -7,6 +7,9 @@
 #include <QVariant>
 #include <QDebug> 
 #include <QDir>
+#include <QColor>
+#include <QImage>
+#include <QRgb>
 
 #include <iostream>
 using namespace std;
@@ -18,35 +21,41 @@ using namespace std;
 #include "xlsxrichstring.h"
 #include "xlsxworkbook.h"
 
-// int test( QVector<QVariant> params );
+int test95( QVector<QVariant> params );
 
 int test( QVector<QVariant> params )
 {
     qDebug() << "[debug] current path : " << QDir::currentPath();
+    return test95( params );
+}
 
+int test95( QVector<QVariant> params )
+{
     using namespace QXlsx;
 
-    Document doc1;
+    Document xlsx;
 
-    /*
-    I simply added "0.####" to numberformat.xlsx:
+    for (int i=0; i<10; ++i)
+    {
+        QImage image(40, 30, QImage::Format_RGB32);
+        image.fill( uint(qrand() % 16581375) );
 
-    //Custom number formats
-    QStringList numFormats;
-    numFormats
-    << "Qt #"
-    << "yyyy-mmm-dd"
-    << "$ #,##0.00"
-    << "[red]0.00"
-    << "0.####";
-    */
+        int index = xlsx.insertImage( 10*i, 5, image );
 
-    Format fmt;
-    fmt.setNumberFormat( "0.####" );
-    // doc1.write( 1, 1, int(30), fmt );
-    doc1.write( 1, 2, double(30), fmt );
+       QImage img;
+       if ( xlsx.getImage( index, img ) )
+       {
+           QString filename;
+           filename = QString("image %1.png").arg( index );
+           img.save( filename );
 
-    doc1.saveAs("test10.xlsx");
+            qDebug() << " [image index] " << index;
+       }
+    }
+    xlsx.saveAs("image1.xlsx");
+
+    QXlsx::Document xlsx2("image1.xlsx");
+    xlsx2.saveAs("image2.xlsx");
 
     return 0;
 }

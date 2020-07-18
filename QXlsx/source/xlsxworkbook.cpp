@@ -703,14 +703,19 @@ QList<QSharedPointer<MediaFile> > Workbook::mediaFiles() const
 void Workbook::addMediaFile(QSharedPointer<MediaFile> media, bool force)
 {
     Q_D(Workbook);
-    if (!force) {
-        for (int i=0; i<d->mediaFiles.size(); ++i) {
-            if (d->mediaFiles[i]->hashKey() == media->hashKey()) {
+
+    if (!force)
+    {
+        for (int i=0; i<d->mediaFiles.size(); ++i)
+        {
+            if (d->mediaFiles[i]->hashKey() == media->hashKey())
+            {
                 media->setIndex(i);
                 return;
             }
         }
     }
+
     media->setIndex(d->mediaFiles.size());
     d->mediaFiles.append(media);
 }

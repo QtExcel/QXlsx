@@ -41,7 +41,8 @@ public:
 	QVariant read(const CellReference &cell) const;
 	QVariant read(int row, int col) const;
 	
-	bool insertImage(int row, int col, const QImage &image);
+    int insertImage(int row, int col, const QImage &image);
+    bool getImage(int imageIndex, QImage& img);
 	
 	Chart *insertChart(int row, int col, const QSize &size);
 	
