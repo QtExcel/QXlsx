@@ -42,6 +42,7 @@ public:
 	QVariant read(int row, int col) const;
 	
     int insertImage(int row, int col, const QImage &image);
+    bool getImage(int imageIndex, QImage& img);
 	
 	Chart *insertChart(int row, int col, const QSize &size);
 	

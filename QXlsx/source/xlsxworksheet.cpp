@@ -1117,6 +1117,35 @@ int Worksheet::insertImage(int row, int column, const QImage &image)
     return imageIndex;
 }
 
+bool Worksheet::getImage(int imageIndex, QImage& img)
+{
+    Q_D(Worksheet);
+
+    if( imageIndex <= (-1) )
+    {
+        return false;
+    }
+
+    if ( d->drawing == nullptr )
+    {
+        return false;
+    }
+
+    int realImageIndex = imageIndex - 1; // minus one
+
+   DrawingAnchor* danchor = d->drawing->anchors.at( realImageIndex );
+   // QSharedPointer<Drawing> // for multithread
+   if ( danchor == nullptr )
+   {
+       return false;
+   }
+
+   bool ret= danchor->getObjectPicture(img);
+   return ret;
+}
+
+
+
 /*!
  * Creates an chart with the given \a size and insert
  * at the position \a row, \a column.

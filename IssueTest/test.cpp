@@ -7,6 +7,9 @@
 #include <QVariant>
 #include <QDebug> 
 #include <QDir>
+#include <QColor>
+#include <QImage>
+#include <QRgb>
 
 #include <iostream>
 using namespace std;
@@ -18,39 +21,41 @@ using namespace std;
 #include "xlsxrichstring.h"
 #include "xlsxworkbook.h"
 
-int test91( QVector<QVariant> params );
+int test95( QVector<QVariant> params );
 
 int test( QVector<QVariant> params )
 {
     qDebug() << "[debug] current path : " << QDir::currentPath();
-    return test91( params );
+    return test95( params );
 }
 
-// tested in Qt 5.14.1, MingW 7.3.0 64bit
-int test91( QVector<QVariant> params )
+int test95( QVector<QVariant> params )
 {
     using namespace QXlsx;
 
-    Document doc(":/91.xlsx"); // made by ms excel 2019
-    if (!doc.isLoadPackage()) {
-        qDebug() << "Failed to load xlsx.";
-        return (-1);
-    }
+    Document xlsx;
 
-    QXlsx::CellRange range = doc.dimension();
-    for (int i = 2; i < range.rowCount() + 1; i++)
+    for (int i=0; i<10; ++i)
     {
-         for (int j = 1; j < range.columnCount()+1; j++)
-         {
-              QString dataStr;
-              auto tmpCell = doc.cellAt(i, j);
-              if(tmpCell)
-              {
-                  dataStr = tmpCell->value().toString().trimmed();
-                  qDebug() << dataStr;
-              }
-         }
+        QImage image(40, 30, QImage::Format_RGB32);
+        image.fill( uint(qrand() % 16581375) );
+
+        int index = xlsx.insertImage( 10*i, 5, image );
+
+       QImage img;
+       if ( xlsx.getImage( index, img ) )
+       {
+           QString filename;
+           filename = QString("image %1.png").arg( index );
+           img.save( filename );
+
+            qDebug() << " [image index] " << index;
+       }
     }
+    xlsx.saveAs("image1.xlsx");
+
+    QXlsx::Document xlsx2("image1.xlsx");
+    xlsx2.saveAs("image2.xlsx");
 
     return 0;
 }

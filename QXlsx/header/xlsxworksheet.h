@@ -98,6 +98,7 @@ public:
     Cell *cellAt(int row, int column) const;
 
     int insertImage(int row, int column, const QImage &image);
+    bool getImage(int imageIndex, QImage& img);
     Chart *insertChart(int row, int column, const QSize &size);
 
     bool mergeCells(const CellRange &range, const Format &format=Format());

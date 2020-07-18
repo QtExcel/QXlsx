@@ -74,6 +74,15 @@ void DrawingAnchor::setObjectPicture(const QImage &img)
     m_objectType = Picture;
 }
 
+bool DrawingAnchor::getObjectPicture(QImage &img)
+{
+    if ( m_pictureFile == nullptr )
+        return false;
+
+    bool ret = img.loadFromData( m_pictureFile->contents() );
+    return ret;
+}
+
 //{{ liufeijin
 void DrawingAnchor::setObjectShape(const QImage &img)
 {

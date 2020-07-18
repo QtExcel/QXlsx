@@ -649,6 +649,14 @@ int Document::insertImage(int row, int column, const QImage &image)
     return 0;
 }
 
+bool Document::getImage(int imageIndex, QImage& img)
+{
+    if (Worksheet *sheet = currentWorksheet())
+        return sheet->getImage(imageIndex, img);
+
+    return  false;
+}
+
 /*!
  * Creates an chart with the given \a size and insert it to the current
  * active worksheet at the position \a row, \a col.
