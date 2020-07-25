@@ -87,6 +87,8 @@ double timeToNumber(const QTime &time)
 
 QVariant datetimeFromNumber(double num, bool is1904)
 {
+    QDateTime dtRet; // return value
+
     if (!is1904 && num > 60) // for mac os excel
     {
         num = num - 1;
@@ -94,15 +96,12 @@ QVariant datetimeFromNumber(double num, bool is1904)
 
     qint64 msecs = static_cast<qint64>(num * 1000*60*60*24.0 + 0.5);
     QDateTime epoch(is1904 ? QDate(1904, 1, 1): QDate(1899, 12, 31), QTime(0,0));
-
-    QDateTime dtRet; // return value
-
     QDateTime dtOld = epoch.addMSecs(msecs);
     dtRet = dtOld;
 
 #if QT_VERSION >= 0x050200
     // Remove one hour to see whether the date is Daylight
-    QDateTime dtNew = dtRet.addMSecs(-3600);
+    QDateTime dtNew = dtRet.addMSecs( -3600000 ); // issue102
     if ( dtNew.isDaylightTime() )
     {
         dtRet = dtNew;
