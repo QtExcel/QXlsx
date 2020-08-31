@@ -1,45 +1,69 @@
-cmake_minimum_required(VERSION 3.16)
+# Author: Kang Lin(kl222@126.com)
 
-project(QXlsx VERSION 1.0.0 LANGUAGES CXX)
+cmake_minimum_required(VERSION 3.9)
 
-find_package(Qt5 5.6.0 REQUIRED COMPONENTS Core Gui)
-find_package(Qt5Gui CONFIG REQUIRED Private)
-set(CMAKE_AUTOMOC ON)
+if(POLICY CMP0083)
+    cmake_policy(SET CMP0083 NEW)
+endif()
 
-add_definitions(
-    -DQT_NO_KEYWORDS
-    -DQT_NO_CAST_TO_ASCII
-    -DQT_NO_CAST_FROM_ASCII
-    -DQT_STRICT_ITERATORS
-    -DQT_NO_URL_CAST_FROM_STRING
-    -DQT_NO_CAST_FROM_BYTEARRAY
-    -DQT_USE_QSTRINGBUILDER
-    -DQT_NO_SIGNALS_SLOTS_KEYWORDS
-    -DQT_USE_FAST_OPERATOR_PLUS
-    -DQT_DISABLE_DEPRECATED_BEFORE=0x050c00
-)
+if(POLICY CMP0020)
+    cmake_policy(SET CMP0020 NEW)
+endif()
 
-#------------------------------------------------------------------------------
-# Library
-#------------------------------------------------------------------------------
-add_library(QXlsx)
+# Create the file that will be delete
+CONFIGURE_FILE(
+    "${CMAKE_SOURCE_DIR}/cmake/cmake_uninstall.cmake.in"
+    "${CMAKE_BINARY_DIR}/cmake_uninstall.cmake"
+    IMMEDIATE @ONLY)
+# Create the target that will be delete
+ADD_CUSTOM_TARGET(uninstall
+    "${CMAKE_COMMAND}" -P "${CMAKE_BINARY_DIR}/cmake_uninstall.cmake")
 
-#------------------------------------------------------------------------------
-# Target
-#------------------------------------------------------------------------------
-# Define target sources
-file(GLOB_RECURSE files ${PROJECT_SOURCE_DIR}/QXlsx/source/*.cpp ${PROJECT_SOURCE_DIR}/QXlsx/header/*.h)
+include(GNUInstallDirs)
+include(GenerateExportHeader)
 
-target_sources(QXlsx PRIVATE
-  ${files}
-)
+#TODO: Modify version
+SET(BUILD_VERSION "v1.3.56")
+# Find Git Version Patch
+IF(EXISTS "${CMAKE_SOURCE_DIR}/.git")
+    if(NOT GIT)
+        SET(GIT $ENV{GIT})
+    endif()
+    if(NOT GIT)
+        FIND_PROGRAM(GIT NAMES git git.exe git.cmd)
+    endif()
+    IF(GIT)
+        EXECUTE_PROCESS(
+            WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+            COMMAND ${GIT} describe --tags
+            OUTPUT_VARIABLE GIT_VERSION  OUTPUT_STRIP_TRAILING_WHITESPACE
+        )
+	    if(NOT GIT_VERSION)
+            EXECUTE_PROCESS(
+                WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+                COMMAND ${GIT} rev-parse --short HEAD
+                OUTPUT_VARIABLE GIT_VERSION OUTPUT_STRIP_TRAILING_WHITESPACE
+            )
+        endif()
+        SET(BUILD_VERSION ${GIT_VERSION})
+    ENDIF()
+ENDIF()
+message("BUILD_VERSION:${BUILD_VERSION}")
 
-target_link_libraries(QXlsx PUBLIC Qt5::Core Qt5::Gui Qt5::GuiPrivate)
-target_include_directories(QXlsx PUBLIC ${PROJECT_SOURCE_DIR}/QXlsx/header)
+project(QXlsx LANGUAGES CXX)
 
-configure_file(
-  ${PROJECT_SOURCE_DIR}/CMake/QXlsxConfig.cmake.in
-  "${PROJECT_BINARY_DIR}/QXlsxConfig.cmake" @ONLY)
+add_subdirectory(QXlsx)
 
-export(TARGETS QXlsx
-  FILE "${PROJECT_BINARY_DIR}/QXlsxTargets.cmake")
+option(ENABLE_EXAMPLE "Enable example" ON)
+if(ENABLE_EXAMPLE)
+    add_subdirectory(HelloWorld)
+    add_subdirectory(ReadColor)
+    add_subdirectory(ShowConsole)
+    add_subdirectory(WhatType)
+    add_subdirectory(WebServer)
+    add_subdirectory(Pump)
+    add_subdirectory(DateTime)
+    add_subdirectory(IssueTest)
+    add_subdirectory(TestExcel)
+    add_subdirectory(chartsquestions)
+endif()
