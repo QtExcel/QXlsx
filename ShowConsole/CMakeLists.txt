@@ -1,0 +1,26 @@
+# Author: Kang Lin(kl222@126.com)
+
+cmake_minimum_required(VERSION 3.9)
+
+project(ShowConsole)
+
+#------------------------------------------------------------------------------
+# Target
+#------------------------------------------------------------------------------
+add_executable(${PROJECT_NAME} main.cpp fort.hpp fort.c fort.h )
+set_target_properties(${PROJECT_NAME} PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin
+    RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin
+    VERSION ${BUILD_VERSION}
+    )
+#target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_14)
+target_link_libraries(${PROJECT_NAME} PRIVATE QXlsx)
+if(MSVC)
+    target_compile_options(${PROJECT_NAME} PRIVATE /FS)
+    #target_compile_options(${PROJECT_NAME} PRIVATE $<$<CXX_COMPILER_ID:MSVC>:/std:c++11>)
+    target_link_options(${PROJECT_NAME} PRIVATE /SUBSYSTEM:CONSOLE)
+endif()
+INSTALL(TARGETS ${PROJECT_NAME}
+    RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}"
+    LIBRARY DESTINATION "${CMAKE_INSTALL_BINDIR}"
+    )
