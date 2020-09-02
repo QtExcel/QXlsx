@@ -138,6 +138,7 @@ int main(int argc, char *argv[])
     - [MUST] Qt5_DIR: qt install postion(default $QT_ROOT/lib/cmake/Qt5).
                    See：https://doc.qt.io/qt-5/cmake-get-started.html
     - [Optional] CMAKE_INSTALL_PREFIX: install prefix
+    - [Optional] BUILD_SHARED_LIBS：build shared library
   + linux
 
         mkdir build

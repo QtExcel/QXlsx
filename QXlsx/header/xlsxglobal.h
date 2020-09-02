@@ -3,6 +3,7 @@
 #ifndef XLSXGLOBAL_H
 #define XLSXGLOBAL_H
 
+#include "qxlsx_export.h"
 #include <cstdio>
 #include <string>
 #include <iostream>

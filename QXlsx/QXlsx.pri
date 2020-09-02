@@ -42,59 +42,64 @@ isEmpty(QXLSX_SOURCEPATH) {
 
 INCLUDEPATH += $$PWD
 INCLUDEPATH += $${QXLSX_PARENTPATH}
-INCLUDEPATH += $${QXLSX_HEADERPATH}
+INCLUDEPATH += $${QXLSX_HEADERPATH} $$PWD/../QXlsx/header/export
 
 ######################################################################
 # source code 
 
-HEADERS += \
+INSTALL_HEADER_FILES = \
 $${QXLSX_HEADERPATH}xlsxabstractooxmlfile.h \
-$${QXLSX_HEADERPATH}xlsxabstractooxmlfile_p.h \
 $${QXLSX_HEADERPATH}xlsxabstractsheet.h \
-$${QXLSX_HEADERPATH}xlsxabstractsheet_p.h \
 $${QXLSX_HEADERPATH}xlsxcell.h \
 $${QXLSX_HEADERPATH}xlsxcellformula.h \
-$${QXLSX_HEADERPATH}xlsxcellformula_p.h \
 $${QXLSX_HEADERPATH}xlsxcellrange.h \
 $${QXLSX_HEADERPATH}xlsxcellreference.h \
-$${QXLSX_HEADERPATH}xlsxcell_p.h \
 $${QXLSX_HEADERPATH}xlsxchart.h \
 $${QXLSX_HEADERPATH}xlsxchartsheet.h \
+$${QXLSX_HEADERPATH}xlsxconditionalformatting.h \
+$${QXLSX_HEADERPATH}xlsxdatavalidation.h \
+$${QXLSX_HEADERPATH}xlsxdocument.h \
+$${QXLSX_HEADERPATH}xlsxformat.h \
+$${QXLSX_HEADERPATH}xlsxformat_p.h \
+$${QXLSX_HEADERPATH}xlsxglobal.h \
+$${QXLSX_HEADERPATH}xlsxrichstring.h \
+$${QXLSX_HEADERPATH}xlsxworkbook.h \
+$${QXLSX_HEADERPATH}xlsxworksheet.h \
+$${QXLSX_HEADERPATH}xlsxcelllocation.h \
+$${QXLSX_HEADERPATH}xlsxdatetype.h \
+$${QXLSX_HEADERPATH}export/qxlsx_export.h
+
+HEADERS += $${INSTALL_HEADER_FILES} \
+$${QXLSX_HEADERPATH}xlsxabstractooxmlfile_p.h \
+$${QXLSX_HEADERPATH}xlsxabstractsheet_p.h \
+$${QXLSX_HEADERPATH}xlsxcellformula_p.h \
+$${QXLSX_HEADERPATH}xlsxcell_p.h \
 $${QXLSX_HEADERPATH}xlsxchartsheet_p.h \
 $${QXLSX_HEADERPATH}xlsxchart_p.h \
 $${QXLSX_HEADERPATH}xlsxcolor_p.h \
-$${QXLSX_HEADERPATH}xlsxconditionalformatting.h \
 $${QXLSX_HEADERPATH}xlsxconditionalformatting_p.h \
 $${QXLSX_HEADERPATH}xlsxcontenttypes_p.h \
-$${QXLSX_HEADERPATH}xlsxdatavalidation.h \
 $${QXLSX_HEADERPATH}xlsxdatavalidation_p.h \
 $${QXLSX_HEADERPATH}xlsxdocpropsapp_p.h \
 $${QXLSX_HEADERPATH}xlsxdocpropscore_p.h \
-$${QXLSX_HEADERPATH}xlsxdocument.h \
 $${QXLSX_HEADERPATH}xlsxdocument_p.h \
 $${QXLSX_HEADERPATH}xlsxdrawinganchor_p.h \
 $${QXLSX_HEADERPATH}xlsxdrawing_p.h \
 $${QXLSX_HEADERPATH}xlsxformat.h \
 $${QXLSX_HEADERPATH}xlsxformat_p.h \
-$${QXLSX_HEADERPATH}xlsxglobal.h \
 $${QXLSX_HEADERPATH}xlsxmediafile_p.h \
 $${QXLSX_HEADERPATH}xlsxnumformatparser_p.h \
 $${QXLSX_HEADERPATH}xlsxrelationships_p.h \
-$${QXLSX_HEADERPATH}xlsxrichstring.h \
 $${QXLSX_HEADERPATH}xlsxrichstring_p.h \
 $${QXLSX_HEADERPATH}xlsxsharedstrings_p.h \
 $${QXLSX_HEADERPATH}xlsxsimpleooxmlfile_p.h \
 $${QXLSX_HEADERPATH}xlsxstyles_p.h \
 $${QXLSX_HEADERPATH}xlsxtheme_p.h \
 $${QXLSX_HEADERPATH}xlsxutility_p.h \
-$${QXLSX_HEADERPATH}xlsxworkbook.h \
 $${QXLSX_HEADERPATH}xlsxworkbook_p.h \
-$${QXLSX_HEADERPATH}xlsxworksheet.h \
 $${QXLSX_HEADERPATH}xlsxworksheet_p.h \
 $${QXLSX_HEADERPATH}xlsxzipreader_p.h \
-$${QXLSX_HEADERPATH}xlsxzipwriter_p.h \
-$${QXLSX_HEADERPATH}xlsxcelllocation.h \
-$${QXLSX_HEADERPATH}xlsxdatetype.h
+$${QXLSX_HEADERPATH}xlsxzipwriter_p.h 
 
 SOURCES += \
 $${QXLSX_SOURCEPATH}xlsxabstractooxmlfile.cpp \
@@ -174,9 +179,6 @@ unix {
 
    INCLUDEPATH += $${QXLSX_HEADERPATH}unix-gcc
 
-    # target.path = /usr/lib
-    # INSTALLS += target
-	
 	CONFIG(debug, debug|release) {
 	} else {
 	}		
@@ -188,4 +190,3 @@ mac {
 	} else {
 	}		
 }
-

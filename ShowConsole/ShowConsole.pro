@@ -29,3 +29,7 @@ SOURCES += fort.c
 
 SOURCES += \
 main.cpp
+
+msvc: QMAKE_CXXFLAGS *= /utf-8 /MP
+
+OTHER_FILES *= CMakeLists.txt

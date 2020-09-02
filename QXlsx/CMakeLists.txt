@@ -60,7 +60,7 @@ file(GLOB_RECURSE INSTALLHEADER_FILES
     header/xlsxworkbook.h
     header/xlsxdatavalidation.h
     header/xlsxworksheet.h
-    header/xlsxdatetype.h                
+    header/xlsxdatetype.h 
     )
 
 SET(QXLSX_LIBS ${QT_LIBRARIES})
@@ -68,18 +68,12 @@ SET(QXLSX_LIBS ${QT_LIBRARIES})
 # Library
 #------------------------------------------------------------------------------
 add_library(${PROJECT_NAME} ${files} ${INSTALLHEADER_FILES})
-set_target_properties(${PROJECT_NAME} PROPERTIES
-    LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin
-    RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin
-    ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib
-    PUBLIC_HEADER "${INSTALLHEADER_FILES}" # Install head files
-    VERSION ${BUILD_VERSION}
-    )
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_11)
 target_compile_definitions(${PROJECT_NAME} PUBLIC ${QXLSX_DEFINEDS})
 target_link_libraries(${PROJECT_NAME} PUBLIC ${QXLSX_LIBS})
 target_include_directories(${PROJECT_NAME} PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/header>
+    $<BUILD_INTERFACE:${CMAKE_BINARY_DIR}>
     #$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}/${PROJECT_NAME}>
     )
 IF(MSVC)
@@ -91,6 +85,21 @@ IF(MSVC)
             "$<$<CXX_COMPILER_ID:MSVC>:/utf-8>")
     ENDIF(ENABLE_MSVC_USE_MP)
 ENDIF(MSVC)
+
+GENERATE_EXPORT_HEADER(${PROJECT_NAME})
+string(TOLOWER ${PROJECT_NAME} LOWER_PROJECT_NAME)
+set(INSTALLHEADER_FILES ${INSTALLHEADER_FILES} 
+    ${CMAKE_CURRENT_BINARY_DIR}/${LOWER_PROJECT_NAME}_export.h)
+file(COPY ${CMAKE_CURRENT_BINARY_DIR}/${LOWER_PROJECT_NAME}_export.h
+    DESTINATION ${CMAKE_BINARY_DIR})
+
+set_target_properties(${PROJECT_NAME} PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin
+    RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin
+    ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib
+    PUBLIC_HEADER "${INSTALLHEADER_FILES}" # Install head files
+    VERSION ${BUILD_VERSION}
+    )
 
 if(WIN32)
     INSTALL(TARGETS ${PROJECT_NAME}

@@ -37,7 +37,7 @@ class Relationships;
 class Chart;
 
 class WorksheetPrivate;
-class Worksheet : public AbstractSheet
+class QXLSX_EXPORT Worksheet : public AbstractSheet
 {
     Q_DECLARE_PRIVATE(Worksheet)
 

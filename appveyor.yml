@@ -34,6 +34,7 @@ build_script:
   - wmic os get osarchitecture # OSArchitecture  64-bit
   
   # CMake build
+  - cd /D "%APPVEYOR_BUILD_FOLDER%"
   - mkdir build
   - cd build
   - cmake .. -G"%GENERATORS%" -DQt5_DIR=%QTDIR%\lib\cmake\Qt5 -DENABLE_EXAMPLE=ON -DCMAKE_VERBOSE_MAKEFILE=ON -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=%CD%\install
@@ -42,29 +43,34 @@ build_script:
   - HelloWorld
   - TestExcel
   - cd /D "%APPVEYOR_BUILD_FOLDER%"
+  - rm -fr build
+  - mkdir build
+  - cd build
+  - cmake .. -G"%GENERATORS%" -DQt5_DIR=%QTDIR%\lib\cmake\Qt5 -DENABLE_EXAMPLE=ON -DCMAKE_VERBOSE_MAKEFILE=ON -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=%CD%\install -DBUILD_SHARED_LIBS=ON
+  - cmake --build . --config Release --target install
   
   # Build QXlsx library
-  - cd QXlsx
+  - cd /D "%APPVEYOR_BUILD_FOLDER%"
   - qmake QXlsx.pro
   - nmake
 
   # Build HelloWorld
-  - cd ../HelloWorld
+  - cd /D "%APPVEYOR_BUILD_FOLDER%"
+  - cd HelloWorld
   - qmake HelloWorld.pro
   - nmake
   # Execute HelloWorld
   - cd release
   - HelloWorld
-  - cd ..
 
   # Build TestExcel
-  - cd ../TestExcel
+  - cd /D "%APPVEYOR_BUILD_FOLDER%"
+  - cd TestExcel
   - qmake TestExcel.pro
   - nmake
   # Execute TestExcel
   - cd release
   - TestExcel
-  - cd ../..   
   
 after_build:
 

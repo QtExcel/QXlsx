@@ -32,23 +32,29 @@ script:
  - ./HelloWorld
  - ./TestExcel
  - cd $TRAVIS_BUILD_DIR
-
+ - rm -fr build
+ - mkdir build
+ - cd build
+ - cmake .. -DQt5_DIR=/opt/qt512/lib/cmake/Qt5 -DENABLE_EXAMPLE=ON -DCMAKE_INSTALL_PREFIX=`pwd`/install -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=ON
+ - cmake --build . --config Release --target install
+ 
  # QXlsx library
- - cd QXlsx
+ - cd $TRAVIS_BUILD_DIR
  - qmake QXlsx.pro
  - make
 
  # HelloWorld example  
- - cd ../HelloWorld
+ - cd $TRAVIS_BUILD_DIR
+ - cd HelloWorld
  - qmake HelloWorld.pro
  - make
  - ./HelloWorld
 
  # TestExcel exmaple  
- - cd ../TestExcel
+ - cd $TRAVIS_BUILD_DIR
+ - cd TestExcel
  - qmake TestExcel.pro
  - make
  - ./TestExcel
- - cd ../..
 
 after_success:
