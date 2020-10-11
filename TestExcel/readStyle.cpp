@@ -23,9 +23,9 @@ int readStyle()
 {
 	int ret;
 	
-	ret = readGoogleSpreadsheet();
+    // ret = readGoogleSpreadsheet();
 	
-	ret = readMSExcel201x(); 
+    // ret = readMSExcel201x();
 
 	return 0; 
 }

@@ -298,7 +298,7 @@ void Styles::addDxfFormat(const Format &format, bool force)
     if ( !format.isEmpty() &&
             !format.dxfIndexValid() )
     {
-        if (formatIt == m_xf_formatsHash.constEnd())
+        if (formatIt ==  m_dxf_formatsHash.constEnd() ) // m_xf_formatsHash.constEnd()) // issue #108
         {
             const_cast<Format *>(&format)->setDxfIndex( m_dxf_formatsList.size() );
         }
