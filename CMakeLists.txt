@@ -4,7 +4,7 @@ project(QXlsx VERSION 1.3.56 LANGUAGES CXX)
 
 include(GNUInstallDirs)
 
-find_package(Qt5 5.6.0 REQUIRED COMPONENTS Core Gui)
+find_package(Qt5 5.6.0 REQUIRED COMPONENTS Gui)
 find_package(Qt5Gui CONFIG REQUIRED Private)
 set(CMAKE_AUTOMOC ON)
 
@@ -39,7 +39,7 @@ target_sources(QXlsx PRIVATE
   ${files_cpp} ${files_h}
 )
 
-target_link_libraries(QXlsx PUBLIC Qt5::Core Qt5::Gui Qt5::GuiPrivate)
+target_link_libraries(QXlsx PUBLIC Qt5::Gui Qt5::GuiPrivate)
 target_include_directories(QXlsx
 	PRIVATE ${PROJECT_SOURCE_DIR}/QXlsx/header
 	INTERFACE ${CMAKE_INSTALL_FULL_INCLUDEDIR}/QXlsx)
