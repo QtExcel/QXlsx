@@ -4,8 +4,7 @@ project(QXlsx VERSION 1.3.56 LANGUAGES CXX)
 
 include(GNUInstallDirs)
 
-find_package(Qt5 5.6.0 REQUIRED COMPONENTS Gui)
-find_package(Qt5Gui CONFIG REQUIRED Private)
+find_package(Qt5 CONFIG REQUIRED COMPONENTS Gui)
 set(CMAKE_AUTOMOC ON)
 
 add_definitions(
