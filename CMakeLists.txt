@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.16)
 
 project(QXlsx VERSION 1.3.56 LANGUAGES CXX)
 
+option(BUILD_SHARED_LIB "Build shared library (DLL)." ON)
+
 include(GNUInstallDirs)
 
 find_package(Qt5 CONFIG REQUIRED COMPONENTS Gui)
@@ -10,7 +12,16 @@ set(CMAKE_AUTOMOC ON)
 #------------------------------------------------------------------------------
 # Library
 #------------------------------------------------------------------------------
-add_library(QXlsx)
+if (BUILD_SHARED_LIB)
+    add_library(QXlsx SHARED)
+    set_target_properties(QXlsx PROPERTIES WINDOWS_EXPORT_ALL_SYMBOLS ON)
+    if (UNIX)
+        # force linker to resolve all deps
+        set_target_properties(QXlsx PROPERTIES LINK_FLAGS "-Wl,--no-undefined")
+    endif (UNIX)
+else (BUILD_SHARED_LIB)
+    add_library(QXlsx)
+endif (BUILD_SHARED_LIB)
 set_target_properties(QXlsx PROPERTIES
 	SOVERSION ${PROJECT_VERSION})
 
