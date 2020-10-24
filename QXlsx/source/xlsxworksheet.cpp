@@ -1144,6 +1144,33 @@ bool Worksheet::getImage(int imageIndex, QImage& img)
    return ret;
 }
 
+bool Worksheet::getImage(int row, int column, QImage &img)
+{
+    Q_D(Worksheet);
+
+    if ( d->drawing == nullptr )
+    {
+        return false;
+    }
+
+    for(int i = 0; i < d->drawing->anchors.size(); i++)
+    {
+        if(d->drawing->anchors[i]->row() == row && d->drawing->anchors[i]->col() == column)
+        {
+            DrawingAnchor* danchor = d->drawing->anchors.at( i );
+
+            if ( danchor == nullptr )
+            {
+                return false;
+            }
+
+            bool ret= danchor->getObjectPicture(img);
+            return ret;
+        }
+    }
+    return false;
+}
+
 uint Worksheet::getImageCount()
 {
     Q_D(Worksheet);

@@ -657,6 +657,14 @@ bool Document::getImage(int imageIndex, QImage& img)
     return  false;
 }
 
+bool Document::getImage(int row, int col, QImage &img)
+{
+    if (Worksheet *sheet = currentWorksheet())
+        return sheet->getImage(row, col, img);
+
+    return  false;
+}
+
 uint Document::getImageCount()
 {
     if (Worksheet *sheet = currentWorksheet())

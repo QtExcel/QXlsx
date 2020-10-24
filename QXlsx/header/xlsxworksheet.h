@@ -99,6 +99,7 @@ public:
 
     int insertImage(int row, int column, const QImage &image);
     bool getImage(int imageIndex, QImage& img);
+    bool getImage(int row, int column, QImage& img);
     uint getImageCount();
 
     Chart *insertChart(int row, int column, const QSize &size);
