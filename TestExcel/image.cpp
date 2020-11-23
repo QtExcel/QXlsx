@@ -12,6 +12,10 @@
 #include <QImage>
 #include <QRgb>
 
+#if QT_VERSION >= 0x060000 // Qt 6.0 or over
+#include <QRandomGenerator>
+#endif
+
 #include "xlsxdocument.h"
 
 int image()
@@ -23,8 +27,13 @@ int image()
     for (int i=0; i<10; ++i)
     {
         QImage image(40, 30, QImage::Format_RGB32);
-        image.fill( uint(qrand() % 16581375) );
 
+#if QT_VERSION >= 0x060000 // Qt 6.0 or over
+        QRandomGenerator rgen;
+        image.fill( uint( rgen.generate()  % 16581375 ) );
+#else
+        image.fill( uint(qrand() % 16581375) );
+#endif
         int index = xlsx.insertImage( 10*i, 5, image );
 
        QImage img;

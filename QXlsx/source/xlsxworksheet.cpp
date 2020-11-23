@@ -2940,19 +2940,36 @@ void WorksheetPrivate::validateDimension()
 		return;
 
 	int firstRow = cellTable.constBegin().key();
-	int lastRow = (cellTable.constEnd()-1).key();
+
+#if QT_VERSION >= 0x060000 // Qt 6.0 or over
+        int lastRow = (cellTable.constEnd()--).key();
+#else
+    int lastRow = (cellTable.constEnd()-1).key();
+#endif
+
 	int firstColumn = -1;
 	int lastColumn = -1;
 
     auto it = cellTable.constBegin();
-    while (it != cellTable.constEnd()) {
+    while (it != cellTable.constEnd())
+    {
         Q_ASSERT(!it.value().isEmpty());
 
         if (firstColumn == -1 || it.value().constBegin().key() < firstColumn)
             firstColumn = it.value().constBegin().key();
 
+#if QT_VERSION >= 0x060000 // Qt 6.0 or over
+        if (lastColumn == -1 || (it.value().constEnd()--).key() > lastColumn)
+#else
         if (lastColumn == -1 || (it.value().constEnd()-1).key() > lastColumn)
+#endif
+        {
+#if QT_VERSION >= 0x060000 // Qt 6.0 or over
+            lastColumn = (it.value().constEnd()--).key();
+#else
             lastColumn = (it.value().constEnd()-1).key();
+#endif
+        }
 
         ++it;
     }

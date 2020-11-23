@@ -124,10 +124,19 @@ QColor XlsxColor::fromARGBString(const QString &c)
 {
     Q_ASSERT(c.length() == 8);
     QColor color;
+
+#if QT_VERSION >= 0x060000 // Qt 6.0 or over
+    color.setAlpha(c.mid(0, 2).toInt(0, 16));
+    color.setRed(c.mid(2, 2).toInt(0, 16));
+    color.setGreen(c.mid(4, 2).toInt(0, 16));
+    color.setBlue(c.mid(6, 2).toInt(0, 16));
+#else
     color.setAlpha(c.midRef(0, 2).toInt(0, 16));
     color.setRed(c.midRef(2, 2).toInt(0, 16));
     color.setGreen(c.midRef(4, 2).toInt(0, 16));
     color.setBlue(c.midRef(6, 2).toInt(0, 16));
+#endif
+
     return color;
 }
 

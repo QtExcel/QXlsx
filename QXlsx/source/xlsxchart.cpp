@@ -516,7 +516,11 @@ bool ChartPrivate::loadXmlPlotAreaElement(QXmlStreamReader &reader)
 
 bool ChartPrivate::loadXmlXxxChart(QXmlStreamReader &reader)
 {
+#if QT_VERSION >= 0x060000 // Qt 6.0 or over
+    QStringView name = reader.name();
+#else
     QStringRef name = reader.name();
+#endif
 
     if (name == QLatin1String("areaChart"))
     {
@@ -646,7 +650,13 @@ bool ChartPrivate::loadXmlSer(QXmlStreamReader &reader)
         if (reader.readNextStartElement())
         {
             //TODO beide Header noch auswerten RTR 2019.11
+
+#if QT_VERSION >= 0x060000 // Qt 6.0 or over
+            QStringView name = reader.name();
+#else
             QStringRef name = reader.name();
+#endif
+
             if ( name == QLatin1String("tx") )
             {
                 while ( !reader.atEnd() &&
@@ -2239,7 +2249,12 @@ QString ChartPrivate::readSubTree(QXmlStreamReader &reader)
 {
     QString treeString;
     QString prefix;
+
+#if QT_VERSION >= 0x060000 // Qt 6.0 or over
+    QStringView treeName = reader.name();
+#else
     QStringRef treeName = reader.name();
+#endif
 
     while (!reader.atEnd())
     {
