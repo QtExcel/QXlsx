@@ -37,11 +37,23 @@ Styles::Styles(CreateFlag flag)
     if (QMetaType::type("XlsxColor") == 0
         || !QMetaType::isRegistered(QMetaType::type("XlsxColor")))
 #endif
+
+
     {
         qRegisterMetaType<XlsxColor>("XlsxColor");
+
+#if QT_VERSION >= 0x060000 // 6.0 or higher
+
+
+        // bool QMetaType::save(QDataStream &stream, const void *data)
+
+#else
         qRegisterMetaTypeStreamOperators<XlsxColor>("XlsxColor");
-#if QT_VERSION >= 0x050200
+
+#if QT_VERSION >= 0x050200 // 5.2 or higher
         QMetaType::registerDebugStreamOperator<XlsxColor>();
+#endif
+
 #endif
     }
 
