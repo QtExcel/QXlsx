@@ -1,8 +1,14 @@
 #ifndef RECURSE_RESPONSE_HPP
 #define RECURSE_RESPONSE_HPP
 
+#include <QtGlobal>
 #include <QHash>
 #include <QJsonDocument>
+
+#ifdef QT_VERSION >= 0x060000 // Qt6 or higher version
+#include <QtCore5Compat>
+#endif
+
 #include <functional>
 
 class Response

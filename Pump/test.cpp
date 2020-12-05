@@ -27,7 +27,7 @@ using namespace std;
 #include "xlsxworkbook.h"
 
 #ifdef Q_OS_WIN
-#include "colorprintf.h" // https://github.com/VittGam/colorprintf
+// #include "colorprintf.h" // https://github.com/VittGam/colorprintf
 #endif
 
 int test( QVector<QVariant> params );
@@ -60,28 +60,16 @@ int test( QVector<QVariant> params )
             {
                 if ( output2.saveAs( strArg3 ) )
                 {
-#ifdef Q_OS_WIN
-                    colorprintf(3, "[debug] xlsx is saved. %s\n", strArg3.toStdString().c_str() );
-#else
                     qDebug() << "[debug] xlsx is saved. " << strArg3;
-#endif
                 }
                 else
                 {
-#ifdef Q_OS_WIN
-                    colorprintf(0, "[debug] failed to save. %s\n", strArg3.toStdString().c_str() );
-#else
                     qCritical() << "[debug] failed to save. " << strArg3;
-#endif
                 }
             }
             else
             {
-#ifdef Q_OS_WIN
-                    colorprintf(0, "[debug] failed to load. %s\n", strArg3.toStdString().c_str() );
-#else
                 qCritical() << "[debug] failed to load. " << strArg3;
-#endif
             }
         }
     }

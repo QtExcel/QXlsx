@@ -3,6 +3,10 @@
 TARGET = WebServer
 TEMPLATE = app
 
+equals( QT_MAJOR_VERSION, 6 ) {
+    QT += core5compat
+}
+
 QT += core
 QT += network
 QT -= gui

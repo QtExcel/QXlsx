@@ -1,10 +1,15 @@
 #ifndef RECURSE_REQUEST_HPP
 #define RECURSE_REQUEST_HPP
 
+#include <QtGlobal>
 #include <QTcpSocket>
 #include <QHash>
 #include <QUrl>
 #include <QUrlQuery>
+
+#ifdef QT_VERSION >= 0x060000 // Qt6 or higher version
+#include <QtCore5Compat>
+#endif
 
 class Request
 {
@@ -170,7 +175,14 @@ private:
     //! \brief httpRx
     //! match HTTP request line
     //!
+
+#ifdef QT_VERSION >= 0x060000
+    QRegularExpression httpRx = QRegularExpression("^(?=[A-Z]).* \\/.* HTTP\\/[0-9]\\.[0-9]\\r\\n");
+#else
     QRegExp httpRx = QRegExp("^(?=[A-Z]).* \\/.* HTTP\\/[0-9]\\.[0-9]\\r\\n");
+#endif
+
+
 };
 
 inline bool Request::parse(QString request)
@@ -181,14 +193,19 @@ inline bool Request::parse(QString request)
     // Save client ip address
     this->ip = this->socket->peerAddress();
 
-    // if no header is present, just append all data to request.body
-    if (!this->data.contains(httpRx))
+      // if no header is present, just append all data to request.body
+    if ( ! this->data.contains( httpRx ) )
     {
         this->body.append(this->data);
         return true;
     }
 
+#ifdef QT_VERSION >= 0x060000
+    auto data_list = this->data.split("\r\n");
+#else
     auto data_list = this->data.splitRef("\r\n");
+#endif
+
     bool is_body = false;
 
     for (int i = 0; i < data_list.size(); ++i)
@@ -210,14 +227,36 @@ inline bool Request::parse(QString request)
         else if (i == 0 && entity_item.length() < 2)
         {
             auto first_line = entity_item.at(0).split(" ");
+
+#ifdef QT_VERSION >= 0x060000
+            this->method = first_line.at(0);
+#else
             this->method = first_line.at(0).toString();
+#endif
+
+#ifdef QT_VERSION >= 0x060000
+            this->url = first_line.at(1);
+#else
             this->url = first_line.at(1).toString();
+#endif
+
             this->query.setQuery(this->url.query());
+
+#ifdef QT_VERSION >= 0x060000
+            this->protocol = first_line.at(2);
+#else
             this->protocol = first_line.at(2).toString();
+#endif
+
             continue;
         }
 
+#ifdef QT_VERSION >= 0x060000
+        m_headers[entity_item.at(0).toLower()] = entity_item.at(1);
+#else
         m_headers[entity_item.at(0).toString().toLower()] = entity_item.at(1).toString();
+#endif
+
     }
 
     if (m_headers.contains("host"))
@@ -227,7 +266,12 @@ inline bool Request::parse(QString request)
     // eg: USER_TOKEN=Yes;test=val
     if (m_headers.contains("cookie"))
     {
+
+#ifdef QT_VERSION >= 0x060000
+        for (const auto &cookie : m_headers["cookie"].split(";"))
+#else
         for (const auto &cookie : m_headers["cookie"].splitRef(";"))
+#endif
         {
             int split = cookie.indexOf("=");
             if (split == -1)
@@ -239,7 +283,12 @@ inline bool Request::parse(QString request)
 
             auto value = cookie.mid(split + 1);
 
+#ifdef QT_VERSION >= 0x060000
+            m_cookies[key.toLower()] = value;
+#else
             m_cookies[key.toString().toLower()] = value.toString();
+#endif
+
         }
     }
 

@@ -1,8 +1,13 @@
 #ifndef RECURSE_CONTEXT_HPP
 #define RECURSE_CONTEXT_HPP
 
+#include <QtGlobal>
 #include <QVariant>
 #include <QHash>
+
+#ifdef QT_VERSION >= 0x060000 // Qt6 or higher version
+#include <QtCore5Compat>
+#endif
 
 #include "request.hpp"
 #include "response.hpp"

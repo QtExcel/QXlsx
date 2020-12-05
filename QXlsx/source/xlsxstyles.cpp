@@ -42,12 +42,14 @@ Styles::Styles(CreateFlag flag)
     {
         qRegisterMetaType<XlsxColor>("XlsxColor");
 
-#if QT_VERSION >= 0x060000 // 6.0 or higher
+#if QT_VERSION >= 0x060000
+        // Qt 6
 
-
-        // bool QMetaType::save(QDataStream &stream, const void *data)
+        ///TODO:
 
 #else
+        // Qt 5
+
         qRegisterMetaTypeStreamOperators<XlsxColor>("XlsxColor");
 
 #if QT_VERSION >= 0x050200 // 5.2 or higher

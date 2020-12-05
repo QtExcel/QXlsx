@@ -1,6 +1,7 @@
 #ifndef RECURSE_HPP
 #define RECURSE_HPP
 
+#include <QtGlobal>
 #include <QCoreApplication>
 #include <QFile>
 #include <QHostAddress>
@@ -15,6 +16,11 @@
 #include <QTcpServer>
 #include <QTcpSocket>
 #include <QVector>
+
+#ifdef QT_VERSION >= 0x060000 // Qt6 or higher version
+#include <QtCore5Compat>
+#endif
+
 #include <functional>
 #include <iostream>
 
