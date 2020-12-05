@@ -7,7 +7,7 @@
 #include <QUrl>
 #include <QUrlQuery>
 
-#ifdef QT_VERSION >= 0x060000 // Qt6 or higher version
+#if QT_VERSION_MAJOR >= 6 // Qt6 or higher version
 #include <QtCore5Compat>
 #endif
 
@@ -176,7 +176,7 @@ private:
     //! match HTTP request line
     //!
 
-#ifdef QT_VERSION >= 0x060000
+#if QT_VERSION_MAJOR >= 6 // Qt6 or higher version
     QRegularExpression httpRx = QRegularExpression("^(?=[A-Z]).* \\/.* HTTP\\/[0-9]\\.[0-9]\\r\\n");
 #else
     QRegExp httpRx = QRegExp("^(?=[A-Z]).* \\/.* HTTP\\/[0-9]\\.[0-9]\\r\\n");
@@ -200,7 +200,7 @@ inline bool Request::parse(QString request)
         return true;
     }
 
-#ifdef QT_VERSION >= 0x060000
+#if QT_VERSION_MAJOR >= 6 // Qt6 or higher version
     auto data_list = this->data.split("\r\n");
 #else
     auto data_list = this->data.splitRef("\r\n");
@@ -228,13 +228,13 @@ inline bool Request::parse(QString request)
         {
             auto first_line = entity_item.at(0).split(" ");
 
-#ifdef QT_VERSION >= 0x060000
+#if QT_VERSION_MAJOR >= 6 // Qt6 or higher version
             this->method = first_line.at(0);
 #else
             this->method = first_line.at(0).toString();
 #endif
 
-#ifdef QT_VERSION >= 0x060000
+#if QT_VERSION_MAJOR >= 6 // Qt6 or higher version
             this->url = first_line.at(1);
 #else
             this->url = first_line.at(1).toString();
@@ -242,7 +242,7 @@ inline bool Request::parse(QString request)
 
             this->query.setQuery(this->url.query());
 
-#ifdef QT_VERSION >= 0x060000
+#if QT_VERSION_MAJOR >= 6 // Qt6 or higher version
             this->protocol = first_line.at(2);
 #else
             this->protocol = first_line.at(2).toString();
@@ -251,7 +251,7 @@ inline bool Request::parse(QString request)
             continue;
         }
 
-#ifdef QT_VERSION >= 0x060000
+#if QT_VERSION_MAJOR >= 6 // Qt6 or higher version
         m_headers[entity_item.at(0).toLower()] = entity_item.at(1);
 #else
         m_headers[entity_item.at(0).toString().toLower()] = entity_item.at(1).toString();
@@ -267,7 +267,7 @@ inline bool Request::parse(QString request)
     if (m_headers.contains("cookie"))
     {
 
-#ifdef QT_VERSION >= 0x060000
+#if QT_VERSION_MAJOR >= 6 // Qt6 or higher version
         for (const auto &cookie : m_headers["cookie"].split(";"))
 #else
         for (const auto &cookie : m_headers["cookie"].splitRef(";"))
@@ -283,7 +283,7 @@ inline bool Request::parse(QString request)
 
             auto value = cookie.mid(split + 1);
 
-#ifdef QT_VERSION >= 0x060000
+#if QT_VERSION_MAJOR >= 6 // Qt6 or higher version
             m_cookies[key.toLower()] = value;
 #else
             m_cookies[key.toString().toLower()] = value.toString();
