@@ -128,13 +128,8 @@ bool DocPropsCore::loadFromXmlFile(QIODevice *device)
          if (token == QXmlStreamReader::StartElement)
          {
 
-#if QT_VERSION >= 0x060000 // Qt 6.0 or over
-             const QStringView nsUri = reader.namespaceUri();
-             const QStringView name = reader.name();
-#else
-             const QStringRef nsUri = reader.namespaceUri();
-             const QStringRef name = reader.name();
-#endif
+             const auto& nsUri = reader.namespaceUri();
+             const auto& name = reader.name();
 
              if (name == QStringLiteral("subject") && nsUri == dc)
              {

@@ -149,12 +149,12 @@ void Styles::fixNumFmt(const Format &format)
 
     }
 
-    const QString str = format.numberFormat();
+    const auto& str = format.numberFormat();
     if (!str.isEmpty())
     {
         QHash<QString, QSharedPointer<XlsxFormatNumberData> >::ConstIterator cIt;
         //Assign proper number format index
-        auto it = m_builtinNumFmtsHash.constFind(str);
+        const auto& it = m_builtinNumFmtsHash.constFind(str);
         if (it != m_builtinNumFmtsHash.constEnd())
         {
             const_cast<Format *>(&format)->fixNumberFormat(it.value(), str);
@@ -179,9 +179,9 @@ void Styles::fixNumFmt(const Format &format)
     }
     else
     {
-        int id = format.numberFormatIndex();
+        const auto id = format.numberFormatIndex();
         //Assign proper format code, this is needed by dxf format
-        auto it = m_customNumFmtIdMap.constFind(id);
+        const auto& it = m_customNumFmtIdMap.constFind(id);
         if (it != m_customNumFmtIdMap.constEnd())
         {
             const_cast<Format *>(&format)->fixNumberFormat(id, it.value()->formatString);
@@ -189,8 +189,7 @@ void Styles::fixNumFmt(const Format &format)
         else
         {
             bool found = false;
-            auto it = m_builtinNumFmtsHash.constBegin();
-            while (it != m_builtinNumFmtsHash.constEnd())
+            for ( auto&& it = m_builtinNumFmtsHash.constBegin() ; it != m_builtinNumFmtsHash.constEnd() ; ++it )
             {
                 if (it.value() == id)
                 {
@@ -198,7 +197,6 @@ void Styles::fixNumFmt(const Format &format)
                     found = true;
                     break;
                 }
-                ++it;
             }
 
             if (!found)
@@ -236,7 +234,7 @@ void Styles::addXfFormat(const Format &format, bool force)
     }
 
     //Font
-    auto fontIt = m_fontsHash.constFind(format.fontKey());
+    const auto& fontIt = m_fontsHash.constFind(format.fontKey());
     if (format.hasFontData() && !format.fontIndexValid())
     {
         //Assign proper font index, if has font data.
@@ -253,7 +251,7 @@ void Styles::addXfFormat(const Format &format, bool force)
     }
 
     //Fill
-    auto fillIt = m_fillsHash.constFind(format.fillKey());
+    const auto& fillIt = m_fillsHash.constFind(format.fillKey());
     if (format.hasFillData() && !format.fillIndexValid()) {
         //Assign proper fill index, if has fill data.
         if (fillIt == m_fillsHash.constEnd())
@@ -268,7 +266,7 @@ void Styles::addXfFormat(const Format &format, bool force)
     }
 
     //Border
-    auto borderIt = m_bordersHash.constFind(format.borderKey());
+    const auto& borderIt = m_bordersHash.constFind(format.borderKey());
     if (format.hasBorderData() && !format.borderIndexValid()) {
         //Assign proper border index, if has border data.
         if (borderIt == m_bordersHash.constEnd())
@@ -283,7 +281,7 @@ void Styles::addXfFormat(const Format &format, bool force)
     }
 
     //Format
-    auto formatIt = m_xf_formatsHash.constFind(format.formatKey());
+    const auto& formatIt = m_xf_formatsHash.constFind(format.formatKey());
     if (!format.isEmpty() && !format.xfIndexValid())
     {
         if (formatIt == m_xf_formatsHash.constEnd())
@@ -308,7 +306,7 @@ void Styles::addDxfFormat(const Format &format, bool force)
         fixNumFmt(format);
     }
 
-    auto formatIt = m_dxf_formatsHash.constFind(format.formatKey());
+    const auto& formatIt = m_dxf_formatsHash.constFind(format.formatKey());
     if ( !format.isEmpty() &&
             !format.dxfIndexValid() )
     {
@@ -402,7 +400,7 @@ void Styles::writeFonts(QXmlStreamWriter &writer) const
 {
     writer.writeStartElement(QStringLiteral("fonts"));
     writer.writeAttribute(QStringLiteral("count"), QString::number(m_fontsList.count()));
-    for (int i=0; i<m_fontsList.size(); ++i)
+    for (size_t i=0; i<m_fontsList.size(); ++i)
         writeFont(writer, m_fontsList[i], false);
     writer.writeEndElement();//fonts
 }
@@ -493,7 +491,7 @@ void Styles::writeFills(QXmlStreamWriter &writer) const
     writer.writeStartElement(QStringLiteral("fills"));
     writer.writeAttribute(QStringLiteral("count"), QString::number(m_fillsList.size()));
 
-    for (int i=0; i<m_fillsList.size(); ++i)
+    for (size_t i=0; i<m_fillsList.size(); ++i)
         writeFill(writer, m_fillsList[i]);
 
     writer.writeEndElement(); //fills
@@ -551,7 +549,7 @@ void Styles::writeBorders(QXmlStreamWriter &writer) const
 {
     writer.writeStartElement(QStringLiteral("borders"));
     writer.writeAttribute(QStringLiteral("count"), QString::number(m_bordersList.count()));
-    for (int i=0; i<m_bordersList.size(); ++i)
+    for (size_t i=0; i<m_bordersList.size(); ++i)
         writeBorder(writer, m_bordersList[i]);
     writer.writeEndElement();//borders
 }
@@ -757,9 +755,9 @@ void Styles::writeColors(QXmlStreamWriter &writer) const
 bool Styles::readNumFmts(QXmlStreamReader &reader)
 {
     Q_ASSERT(reader.name() == QLatin1String("numFmts"));
-    QXmlStreamAttributes attributes = reader.attributes();
-    bool hasCount = attributes.hasAttribute(QLatin1String("count"));
-    int count = hasCount ? attributes.value(QLatin1String("count")).toString().toInt() : -1;
+    const auto& attributes = reader.attributes();
+    const auto hasCount = attributes.hasAttribute(QLatin1String("count"));
+    const auto count = hasCount ? attributes.value(QLatin1String("count")).toString().toInt() : -1;
 
     //Read utill we find the numFmts end tag or ....
     while (!reader.atEnd() && !(reader.tokenType() == QXmlStreamReader::EndElement
@@ -767,7 +765,7 @@ bool Styles::readNumFmts(QXmlStreamReader &reader)
         reader.readNextStartElement();
         if (reader.tokenType() == QXmlStreamReader::StartElement) {
             if (reader.name() == QLatin1String("numFmt")) {
-                QXmlStreamAttributes attributes = reader.attributes();
+                const auto& attributes = reader.attributes();
                 QSharedPointer<XlsxFormatNumberData> fmt (new XlsxFormatNumberData);
                 fmt->formatIndex = attributes.value(QLatin1String("numFmtId")).toString().toInt();
                 fmt->formatString = attributes.value(QLatin1String("formatCode")).toString();
@@ -791,9 +789,9 @@ bool Styles::readNumFmts(QXmlStreamReader &reader)
 bool Styles::readFonts(QXmlStreamReader &reader)
 {
     Q_ASSERT(reader.name() == QLatin1String("fonts"));
-    QXmlStreamAttributes attributes = reader.attributes();
-    bool hasCount = attributes.hasAttribute(QLatin1String("count"));
-    int count = hasCount ? attributes.value(QLatin1String("count")).toString().toInt() : -1;
+    const auto& attributes = reader.attributes();
+    const auto hasCount = attributes.hasAttribute(QLatin1String("count"));
+    const auto count = hasCount ? attributes.value(QLatin1String("count")).toString().toInt() : -1;
     while (!reader.atEnd() && !(reader.tokenType() == QXmlStreamReader::EndElement
                                && reader.name() == QLatin1String("fonts"))) {
         reader.readNextStartElement();
@@ -823,7 +821,7 @@ bool Styles::readFont(QXmlStreamReader &reader, Format &format)
                                && reader.name() == QLatin1String("font"))) {
         reader.readNextStartElement();
         if (reader.tokenType() == QXmlStreamReader::StartElement) {
-            QXmlStreamAttributes attributes = reader.attributes();
+            const auto& attributes = reader.attributes();
             if (reader.name() == QLatin1String("name")) {
                 format.setFontName(attributes.value(QLatin1String("val")).toString());
             } else if (reader.name() == QLatin1String("charset")) {
@@ -849,7 +847,7 @@ bool Styles::readFont(QXmlStreamReader &reader, Format &format)
                 color.loadFromXml(reader);
                 format.setProperty(FormatPrivate::P_Font_Color, color);
             } else if (reader.name() == QLatin1String("sz")) {
-                int sz = attributes.value(QLatin1String("val")).toString().toInt();
+                const auto sz = attributes.value(QLatin1String("val")).toString().toInt();
                 format.setFontSize(sz);
             } else if (reader.name() == QLatin1String("u")) {
                 QString value = attributes.value(QLatin1String("val")).toString();
@@ -879,9 +877,9 @@ bool Styles::readFills(QXmlStreamReader &reader)
 {
     Q_ASSERT(reader.name() == QLatin1String("fills"));
 
-    QXmlStreamAttributes attributes = reader.attributes();
-    bool hasCount = attributes.hasAttribute(QLatin1String("count"));
-    int count = hasCount ? attributes.value(QLatin1String("count")).toString().toInt() : -1;
+    const auto& attributes = reader.attributes();
+    const auto hasCount = attributes.hasAttribute(QLatin1String("count"));
+    const auto count = hasCount ? attributes.value(QLatin1String("count")).toString().toInt() : -1;
     while (!reader.atEnd() && !(reader.tokenType() == QXmlStreamReader::EndElement
                                && reader.name() == QLatin1String("fills"))) {
         reader.readNextStartElement();
@@ -934,9 +932,9 @@ bool Styles::readFill(QXmlStreamReader &reader, Format &fill)
         reader.readNextStartElement();
         if (reader.tokenType() == QXmlStreamReader::StartElement) {
             if (reader.name() == QLatin1String("patternFill")) {
-                QXmlStreamAttributes attributes = reader.attributes();
+                const auto& attributes = reader.attributes();
                 if (attributes.hasAttribute(QLatin1String("patternType"))) {
-                    auto it = patternValues.constFind(attributes.value(QLatin1String("patternType")).toString());
+                    const auto& it = patternValues.constFind(attributes.value(QLatin1String("patternType")).toString());
                     fill.setFillPattern(it != patternValues.constEnd() ? it.value() : Format::PatternNone);
 
                     //parse foreground and background colors if they exist
@@ -976,9 +974,9 @@ bool Styles::readBorders(QXmlStreamReader &reader)
 {
     Q_ASSERT(reader.name() == QLatin1String("borders"));
 
-    QXmlStreamAttributes attributes = reader.attributes();
-    bool hasCount = attributes.hasAttribute(QLatin1String("count"));
-    int count = hasCount ? attributes.value(QLatin1String("count")).toString().toInt() : -1;
+    const auto& attributes = reader.attributes();
+    const auto hasCount = attributes.hasAttribute(QLatin1String("count"));
+    const auto count = hasCount ? attributes.value(QLatin1String("count")).toString().toInt() : -1;
     while (!reader.atEnd() && !(reader.tokenType() == QXmlStreamReader::EndElement
                                && reader.name() == QLatin1String("borders"))) {
         reader.readNextStartElement();
@@ -1007,9 +1005,9 @@ bool Styles::readBorder(QXmlStreamReader &reader, Format &border)
 {
     Q_ASSERT(reader.name() == QLatin1String("border"));
 
-    QXmlStreamAttributes attributes = reader.attributes();
-    bool isUp = attributes.hasAttribute(QLatin1String("diagonalUp"));
-    bool isDown = attributes.hasAttribute(QLatin1String("diagonalUp"));
+    const auto& attributes = reader.attributes();
+    const auto isUp = attributes.hasAttribute(QLatin1String("diagonalUp"));
+    const auto isDown = attributes.hasAttribute(QLatin1String("diagonalUp"));
     if (isUp && isDown)
         border.setDiagonalBorderType(Format::DiagnoalBorderBoth);
     else if (isUp)
@@ -1085,10 +1083,10 @@ bool Styles::readSubBorder(QXmlStreamReader &reader, const QString &name, Format
         {QStringLiteral("slantDashDot"), Format::BorderSlantDashDot}
     };
 
-    QXmlStreamAttributes attributes = reader.attributes();
+    const auto& attributes = reader.attributes();
     if (attributes.hasAttribute(QLatin1String("style"))) {
         QString styleString = attributes.value(QLatin1String("style")).toString();
-        auto it = stylesStringsMap.constFind(styleString);
+        const auto& it = stylesStringsMap.constFind(styleString);
         if (it != stylesStringsMap.constEnd()) {
             //get style
             style = it.value();
@@ -1108,9 +1106,9 @@ bool Styles::readSubBorder(QXmlStreamReader &reader, const QString &name, Format
 bool Styles::readCellXfs(QXmlStreamReader &reader)
 {
     Q_ASSERT(reader.name() == QLatin1String("cellXfs"));
-    QXmlStreamAttributes attributes = reader.attributes();
-    bool hasCount = attributes.hasAttribute(QLatin1String("count"));
-    int count = hasCount ? attributes.value(QLatin1String("count")).toString().toInt() : -1;
+    const auto& attributes = reader.attributes();
+    const auto hasCount = attributes.hasAttribute(QLatin1String("count"));
+    const auto count = hasCount ? attributes.value(QLatin1String("count")).toString().toInt() : -1;
     while (!reader.atEnd() && !(reader.tokenType() == QXmlStreamReader::EndElement
                                 && reader.name() == QLatin1String("cellXfs"))) {
         reader.readNextStartElement();
@@ -1118,17 +1116,17 @@ bool Styles::readCellXfs(QXmlStreamReader &reader)
             if (reader.name() == QLatin1String("xf")) {
 
                 Format format;
-                QXmlStreamAttributes xfAttrs = reader.attributes();
+                const auto& xfAttrs = reader.attributes();
 
                 //        qDebug()<<reader.name()<<reader.tokenString()<<" .........";
                 //        for (int i=0; i<xfAttrs.size(); ++i)
                 //            qDebug()<<"... "<<i<<" "<<xfAttrs[i].name()<<xfAttrs[i].value();
 
                 if (xfAttrs.hasAttribute(QLatin1String("numFmtId"))) {
-                    int numFmtIndex = xfAttrs.value(QLatin1String("numFmtId")).toString().toInt();
-                    bool apply = parseXsdBoolean(xfAttrs.value(QLatin1String("applyNumberFormat")).toString());
+                    const auto numFmtIndex = xfAttrs.value(QLatin1String("numFmtId")).toString().toInt();
+                    const auto apply = parseXsdBoolean(xfAttrs.value(QLatin1String("applyNumberFormat")).toString());
                     if(apply) {
-                        auto it = m_customNumFmtIdMap.constFind(numFmtIndex);
+                        const auto& it = m_customNumFmtIdMap.constFind(numFmtIndex);
                         if (it == m_customNumFmtIdMap.constEnd())
                             format.setNumberFormatIndex(numFmtIndex);
                         else
@@ -1137,11 +1135,11 @@ bool Styles::readCellXfs(QXmlStreamReader &reader)
                 }
 
                 if (xfAttrs.hasAttribute(QLatin1String("fontId"))) {
-                    int fontIndex = xfAttrs.value(QLatin1String("fontId")).toString().toInt();
+                    const auto fontIndex = xfAttrs.value(QLatin1String("fontId")).toString().toInt();
                     if (fontIndex >= m_fontsList.size()) {
                         qDebug("Error read styles.xml, cellXfs fontId");
                     } else {
-                        bool apply = parseXsdBoolean(xfAttrs.value(QLatin1String("applyFont")).toString());
+                        const auto apply = parseXsdBoolean(xfAttrs.value(QLatin1String("applyFont")).toString());
                         if(apply) {
                             Format fontFormat = m_fontsList[fontIndex];
                             for (int i=FormatPrivate::P_Font_STARTID; i<FormatPrivate::P_Font_ENDID; ++i) {
@@ -1153,7 +1151,7 @@ bool Styles::readCellXfs(QXmlStreamReader &reader)
                 }
 
                 if (xfAttrs.hasAttribute(QLatin1String("fillId"))) {
-                    int id = xfAttrs.value(QLatin1String("fillId")).toString().toInt();
+                    const auto id = xfAttrs.value(QLatin1String("fillId")).toString().toInt();
                     if (id >= m_fillsList.size()) {
                         qDebug("Error read styles.xml, cellXfs fillId");
                     } else {
@@ -1178,11 +1176,11 @@ bool Styles::readCellXfs(QXmlStreamReader &reader)
                 }
 
                 if (xfAttrs.hasAttribute(QLatin1String("borderId"))) {
-                    int id = xfAttrs.value(QLatin1String("borderId")).toString().toInt();
+                    const auto id = xfAttrs.value(QLatin1String("borderId")).toString().toInt();
                     if (id >= m_bordersList.size()) {
                         qDebug("Error read styles.xml, cellXfs borderId");
                     } else {
-                        bool apply = parseXsdBoolean(xfAttrs.value(QLatin1String("applyBorder")).toString());
+                        const auto apply = parseXsdBoolean(xfAttrs.value(QLatin1String("applyBorder")).toString());
                         if(apply) {
                             Format borderFormat = m_bordersList[id];
                             for (int i=FormatPrivate::P_Border_STARTID; i<FormatPrivate::P_Border_ENDID; ++i) {
@@ -1193,11 +1191,11 @@ bool Styles::readCellXfs(QXmlStreamReader &reader)
                     }
                 }
 
-                bool apply = parseXsdBoolean(xfAttrs.value(QLatin1String("applyAlignment")).toString());
+                const auto apply = parseXsdBoolean(xfAttrs.value(QLatin1String("applyAlignment")).toString());
                 if(apply) {
                     reader.readNextStartElement();
                     if (reader.name() == QLatin1String("alignment")) {
-                        QXmlStreamAttributes alignAttrs = reader.attributes();
+                        const auto& alignAttrs = reader.attributes();
 
                         if (alignAttrs.hasAttribute(QLatin1String("horizontal"))) {
                             static const QMap<QString, Format::HorizontalAlignment> alignStringMap = {
@@ -1209,7 +1207,7 @@ bool Styles::readCellXfs(QXmlStreamReader &reader)
                                 {QStringLiteral("distributed"), Format::AlignHDistributed}
                             };
 
-                            auto it = alignStringMap.constFind(alignAttrs.value(QLatin1String("horizontal")).toString());
+                            const auto& it = alignStringMap.constFind(alignAttrs.value(QLatin1String("horizontal")).toString());
                             if (it != alignStringMap.constEnd())
                                 format.setHorizontalAlignment(it.value());
                         }
@@ -1222,18 +1220,18 @@ bool Styles::readCellXfs(QXmlStreamReader &reader)
                                 {QStringLiteral("distributed"), Format::AlignVDistributed}
                             };
 
-                            auto it = alignStringMap.constFind(alignAttrs.value(QLatin1String("vertical")).toString());
+                            const auto& it = alignStringMap.constFind(alignAttrs.value(QLatin1String("vertical")).toString());
                             if (it != alignStringMap.constEnd())
                                 format.setVerticalAlignment(it.value());
                         }
 
                         if (alignAttrs.hasAttribute(QLatin1String("indent"))) {
-                            int indent = alignAttrs.value(QLatin1String("indent")).toString().toInt();
+                            const auto indent = alignAttrs.value(QLatin1String("indent")).toString().toInt();
                             format.setIndent(indent);
                         }
 
                         if (alignAttrs.hasAttribute(QLatin1String("textRotation"))) {
-                            int rotation = alignAttrs.value(QLatin1String("textRotation")).toString().toInt();
+                            const auto rotation = alignAttrs.value(QLatin1String("textRotation")).toString().toInt();
                             format.setRotation(rotation);
                         }
 
@@ -1263,9 +1261,9 @@ bool Styles::readCellXfs(QXmlStreamReader &reader)
 bool Styles::readDxfs(QXmlStreamReader &reader)
 {
     Q_ASSERT(reader.name() == QLatin1String("dxfs"));
-    QXmlStreamAttributes attributes = reader.attributes();
-    bool hasCount = attributes.hasAttribute(QLatin1String("count"));
-    int count = hasCount ? attributes.value(QLatin1String("count")).toString().toInt() : -1;
+    const auto& attributes = reader.attributes();
+    const auto hasCount = attributes.hasAttribute(QLatin1String("count"));
+    const auto count = hasCount ? attributes.value(QLatin1String("count")).toString().toInt() : -1;
     while (!reader.atEnd() && !(reader.tokenType() == QXmlStreamReader::EndElement
                                 && reader.name() == QLatin1String("dxfs"))) {
         reader.readNextStartElement();
@@ -1291,8 +1289,8 @@ bool Styles::readDxf(QXmlStreamReader &reader)
         reader.readNextStartElement();
         if (reader.tokenType() == QXmlStreamReader::StartElement) {
             if (reader.name() == QLatin1String("numFmt")) {
-                QXmlStreamAttributes attributes = reader.attributes();
-                int id = attributes.value(QLatin1String("numFmtId")).toString().toInt();
+                const auto& attributes = reader.attributes();
+                const auto id = attributes.value(QLatin1String("numFmtId")).toString().toInt();
                 QString code = attributes.value(QLatin1String("formatCode")).toString();
                 format.setNumberFormat(id, code);
             } else if (reader.name() == QLatin1String("font")) {
@@ -1332,7 +1330,7 @@ bool Styles::readIndexedColors(QXmlStreamReader &reader)
         reader.readNextStartElement();
         if (reader.tokenType() == QXmlStreamReader::StartElement) {
             if (reader.name() == QLatin1String("rgbColor")) {
-                QString color = reader.attributes().value(QLatin1String("rgb")).toString();
+                const auto& color = reader.attributes().value(QLatin1String("rgb")).toString();
                 m_indexedColors.append(XlsxColor::fromARGBString(color));
             }
         }
