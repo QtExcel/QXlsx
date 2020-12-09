@@ -5,7 +5,6 @@ project(QXlsx VERSION 1.3.56 LANGUAGES CXX)
 include(GNUInstallDirs)
 
 find_package(Qt5 CONFIG REQUIRED COMPONENTS Gui)
-set(CMAKE_AUTOMOC ON)
 
 #------------------------------------------------------------------------------
 # Library
@@ -13,6 +12,7 @@ set(CMAKE_AUTOMOC ON)
 add_library(QXlsx)
 set_target_properties(QXlsx PROPERTIES
 	SOVERSION ${PROJECT_VERSION})
+set_target_properties(QXlsx PROPERTIES AUTOMOC ON)
 
 #------------------------------------------------------------------------------
 # Target
