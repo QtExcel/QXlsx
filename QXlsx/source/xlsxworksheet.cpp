@@ -2939,39 +2939,27 @@ void WorksheetPrivate::validateDimension()
 	if (dimension.isValid() || cellTable.isEmpty())
 		return;
 
-	int firstRow = cellTable.constBegin().key();
+	const auto firstRow = cellTable.constBegin().key();
 
-#if QT_VERSION >= 0x060000 // Qt 6.0 or over
-        int lastRow = (cellTable.constEnd()--).key();
-#else
-    int lastRow = (cellTable.constEnd()-1).key();
-#endif
+    const auto lastRow = (--cellTable.constEnd()).key();
 
 	int firstColumn = -1;
 	int lastColumn = -1;
 
-    auto it = cellTable.constBegin();
-    while (it != cellTable.constEnd())
+    for ( auto&& it = cellTable.constBegin()
+            ; it != cellTable.constEnd()
+            ; ++it )
     {
         Q_ASSERT(!it.value().isEmpty());
 
         if (firstColumn == -1 || it.value().constBegin().key() < firstColumn)
             firstColumn = it.value().constBegin().key();
 
-#if QT_VERSION >= 0x060000 // Qt 6.0 or over
-        if (lastColumn == -1 || (it.value().constEnd()--).key() > lastColumn)
-#else
-        if (lastColumn == -1 || (it.value().constEnd()-1).key() > lastColumn)
-#endif
+        if (lastColumn == -1 || (--it.value().constEnd()).key() > lastColumn)
         {
-#if QT_VERSION >= 0x060000 // Qt 6.0 or over
-            lastColumn = (it.value().constEnd()--).key();
-#else
-            lastColumn = (it.value().constEnd()-1).key();
-#endif
+            lastColumn = (--it.value().constEnd()).key();
         }
 
-        ++it;
     }
 
 	CellRange cr(firstRow, firstColumn, lastRow, lastColumn);
