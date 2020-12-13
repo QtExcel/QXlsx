@@ -246,7 +246,7 @@ QString convertSharedFormula(const QString &rootFormula, const CellReference &ro
                     refState = PRE_09;
                     refFlag |= 0x02;
                 } else {
-                    segments.append({ segment, refState==_09 ? refFlag : -1 });
+                    segments.append(std::make_pair(segment, refState==_09 ? refFlag : -1 ));
                     segment = QString(ch); //Start new segment.
                     refState = PRE_AZ;
                     refFlag = 0x01;
@@ -255,7 +255,7 @@ QString convertSharedFormula(const QString &rootFormula, const CellReference &ro
                 if (refState == PRE_AZ || refState == AZ) {
                     segment.append(ch);
                 } else {
-                    segments.append({ segment, refState==_09 ? refFlag : -1 });
+                    segments.append(std::make_pair(segment, refState==_09 ? refFlag : -1 ));
                     segment = QString(ch); //Start new segment.
                     refFlag = 0x00;
                 }
@@ -269,7 +269,7 @@ QString convertSharedFormula(const QString &rootFormula, const CellReference &ro
                     refState = INVALID;
             } else {
                 if (refState == _09) {
-                    segments.append({ segment, refFlag });
+                    segments.append(std::make_pair(segment, refFlag ));
                     segment = QString(ch); //Start new segment.
                 } else {
                     segment.append(ch);
@@ -280,7 +280,7 @@ QString convertSharedFormula(const QString &rootFormula, const CellReference &ro
     }
 
     if (!segment.isEmpty())
-        segments.append({ segment, refState==_09 ? refFlag : -1 });
+        segments.append(std::make_pair(segment, refState==_09 ? refFlag : -1 ));
 
     //Replace "A1", "$A1", "A$1" segment with proper one.
     QStringList result;

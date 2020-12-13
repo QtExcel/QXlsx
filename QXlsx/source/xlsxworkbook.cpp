@@ -569,17 +569,13 @@ bool Workbook::loadFromXmlFile(QIODevice *device)
              {
                  QXmlStreamAttributes attributes = reader.attributes();
 
-                 const QString name = attributes.value(QLatin1String("name")).toString();
+                 const auto& name = attributes.value(QLatin1String("name")).toString();
 
                  int sheetId = attributes.value(QLatin1String("sheetId")).toString().toInt();
 
-                 const QString rId = attributes.value(QLatin1String("r:id")).toString();
+                 const auto& rId = attributes.value(QLatin1String("r:id")).toString();
 
-#if QT_VERSION >= 0x060000 // Qt 6.0 or over
-                 const QStringView &stateString = attributes.value(QLatin1String("state"));
-#else
-                 const QStringRef &stateString = attributes.value(QLatin1String("state"));
-#endif
+                 const auto& stateString = attributes.value(QLatin1String("state"));
 
                  AbstractSheet::SheetState state = AbstractSheet::SS_Visible;
                  if (stateString == QLatin1String("hidden"))

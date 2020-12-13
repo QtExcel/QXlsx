@@ -25,12 +25,8 @@ ZipReader::~ZipReader()
 
 void ZipReader::init()
 {
-#if QT_VERSION >= 0x050600 // Qt 5.6 or over 
-    const QVector<QZipReader::FileInfo> allFiles = m_reader->fileInfoList();
-#else
-    const QList<QZipReader::FileInfo> allFiles = m_reader->fileInfoList();
-#endif
-    for (const QZipReader::FileInfo &fi : allFiles) {
+    const auto& allFiles = m_reader->fileInfoList();
+    for (const auto &fi : allFiles) {
         if (fi.isFile || (!fi.isDir && !fi.isFile && !fi.isSymLink))
             m_filePaths.append(fi.filePath);
     }
