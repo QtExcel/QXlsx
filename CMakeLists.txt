@@ -4,22 +4,8 @@ project(QXlsx VERSION 1.3.56 LANGUAGES CXX)
 
 include(GNUInstallDirs)
 
-find_package(Qt5 5.6.0 REQUIRED COMPONENTS Core Gui)
-find_package(Qt5Gui CONFIG REQUIRED Private)
+find_package(Qt5 CONFIG REQUIRED COMPONENTS Gui)
 set(CMAKE_AUTOMOC ON)
-
-add_definitions(
-    -DQT_NO_KEYWORDS
-    -DQT_NO_CAST_TO_ASCII
-    -DQT_NO_CAST_FROM_ASCII
-    -DQT_STRICT_ITERATORS
-    -DQT_NO_URL_CAST_FROM_STRING
-    -DQT_NO_CAST_FROM_BYTEARRAY
-    -DQT_USE_QSTRINGBUILDER
-    -DQT_NO_SIGNALS_SLOTS_KEYWORDS
-    -DQT_USE_FAST_OPERATOR_PLUS
-    -DQT_DISABLE_DEPRECATED_BEFORE=0x050c00
-)
 
 #------------------------------------------------------------------------------
 # Library
@@ -39,7 +25,20 @@ target_sources(QXlsx PRIVATE
   ${files_cpp} ${files_h}
 )
 
-target_link_libraries(QXlsx PUBLIC Qt5::Core Qt5::Gui Qt5::GuiPrivate)
+target_link_libraries(QXlsx PUBLIC Qt5::Gui Qt5::GuiPrivate)
+
+target_compile_definitions(QXlsx PRIVATE
+    QT_NO_KEYWORDS
+    QT_NO_CAST_TO_ASCII
+    QT_NO_CAST_FROM_ASCII
+    QT_STRICT_ITERATORS
+    QT_NO_URL_CAST_FROM_STRING
+    QT_NO_CAST_FROM_BYTEARRAY
+    QT_USE_QSTRINGBUILDER
+    QT_NO_SIGNALS_SLOTS_KEYWORDS
+    QT_USE_FAST_OPERATOR_PLUS
+    QT_DISABLE_DEPRECATED_BEFORE=0x050c00
+)
 target_include_directories(QXlsx
 	PRIVATE ${PROJECT_SOURCE_DIR}/QXlsx/header
 	INTERFACE ${CMAKE_INSTALL_FULL_INCLUDEDIR}/QXlsx)
