@@ -1,7 +1,6 @@
 // xlsxcontenttypes_p.h
 
-#ifndef XLSXCONTENTTYPES_H
-#define XLSXCONTENTTYPES_H
+#pragma once
 
 // references
 class QIODevice;
@@ -53,4 +52,3 @@ private:
 };
 
 QT_END_NAMESPACE_XLSX
-#endif // XLSXCONTENTTYPES_H

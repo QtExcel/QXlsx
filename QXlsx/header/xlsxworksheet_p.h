@@ -1,7 +1,6 @@
 // xlsxworksheet_p.h
 
-#ifndef XLSXWORKSHEET_P_H
-#define XLSXWORKSHEET_P_H
+#pragma once
 
 #include <QString>
 #include <QSharedPointer>
@@ -257,4 +256,3 @@ private:
 };
 
 QT_END_NAMESPACE_XLSX
-#endif // XLSXWORKSHEET_P_H

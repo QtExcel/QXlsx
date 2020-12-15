@@ -1,7 +1,6 @@
 // xlsxvalidation.h
 
-#ifndef QXLSX_XLSXDATAVALIDATION_H
-#define QXLSX_XLSXDATAVALIDATION_H
+#pragma once
 
 // references
 class QXmlStreamReader ;
@@ -99,5 +98,3 @@ private:
 };
 
 QT_END_NAMESPACE_XLSX
-
-#endif // QXLSX_XLSXDATAVALIDATION_H

@@ -1,7 +1,6 @@
 // xlsxabstractooxmlfile.h
 
-#ifndef QXLSX_XLSXABSTRACTOOXMLFILE_H
-#define QXLSX_XLSXABSTRACTOOXMLFILE_H
+#pragma once
 
 // references
 class QIODevice ;
@@ -46,5 +45,3 @@ protected:
 };
 
 QT_END_NAMESPACE_XLSX
-
-#endif // QXLSX_XLSXABSTRACTOOXMLFILE_H

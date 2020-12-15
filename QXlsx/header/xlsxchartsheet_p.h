@@ -1,7 +1,6 @@
 // xlsxchartsheet_p.h
 
-#ifndef XLSXCHARTSHEET_P_H
-#define XLSXCHARTSHEET_P_H
+#pragma once
 
 #include "xlsxglobal.h"
 #include "xlsxchartsheet.h"
@@ -20,4 +19,3 @@ public:
 };
 
 QT_END_NAMESPACE_XLSX
-#endif // XLSXCHARTSHEET_P_H

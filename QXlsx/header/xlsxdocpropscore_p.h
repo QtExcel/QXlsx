@@ -1,7 +1,6 @@
 // xlsxdocpropscore_p.h
 
-#ifndef XLSXDOCPROPSCORE_H
-#define XLSXDOCPROPSCORE_H
+#pragma once
 
 #include "xlsxglobal.h"
 #include "xlsxabstractooxmlfile.h"
@@ -30,5 +29,3 @@ private:
 };
 
 QT_END_NAMESPACE_XLSX
-
-#endif // XLSXDOCPROPSCORE_H

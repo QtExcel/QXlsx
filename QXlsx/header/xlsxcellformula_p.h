@@ -1,7 +1,6 @@
 // xlsxcellformula_p.h
 
-#ifndef XLSXCELLFORMULA_P_H
-#define XLSXCELLFORMULA_P_H
+#pragma once
 
 #include "xlsxglobal.h"
 #include "xlsxcellformula.h"
@@ -27,5 +26,3 @@ public:
 };
 
 QT_END_NAMESPACE_XLSX
-
-#endif // XLSXCELLFORMULA_P_H

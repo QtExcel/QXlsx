@@ -1,7 +1,6 @@
 // xlsxdatetype.h
 
-#ifndef QXLSX_XLSXDATETYPE_H
-#define QXLSX_XLSXDATETYPE_H
+#pragma once
 
 /*
 #include <QDateTime>
@@ -43,4 +42,3 @@ protected:
 };
 
 QT_END_NAMESPACE_XLSX
-#endif 

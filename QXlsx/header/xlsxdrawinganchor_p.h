@@ -1,7 +1,6 @@
 // xlsxdrawinganchor_p.h
 
-#ifndef QXLSX_XLSXDRAWINGANCHOR_P_H
-#define QXLSX_XLSXDRAWINGANCHOR_P_H
+#pragma once
 
 #include <QPoint>
 #include <QSize>
@@ -154,5 +153,3 @@ public:
 };
 
 QT_END_NAMESPACE_XLSX
-
-#endif // QXLSX_XLSXDRAWINGANCHOR_P_H

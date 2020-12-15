@@ -1,7 +1,6 @@
 // xlsxutility_p.h
 
-#ifndef XLSXUTILITY_H
-#define XLSXUTILITY_H
+#pragma once
 
 // references
 class QDateTime ;
@@ -36,4 +35,3 @@ bool isSpaceReserveNeeded(const QString &string);
 QString convertSharedFormula(const QString &rootFormula, const CellReference &rootCell, const CellReference &cell);
 
 QT_END_NAMESPACE_XLSX
-#endif // XLSXUTILITY_H

@@ -22,8 +22,7 @@
 ** WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 **
 ****************************************************************************/
-#ifndef XLSXSIMPLEOOXMLFILE_H
-#define XLSXSIMPLEOOXMLFILE_H
+#pragma once
 
 //
 //  W A R N I N G
@@ -56,5 +55,3 @@ public:
 };
 
 QT_END_NAMESPACE_XLSX
-
-#endif // XLSXSIMPLEOOXMLFILE_H

@@ -1,7 +1,6 @@
 // xlsxzipreader_p.h
 
-#ifndef QXLSX_XLSXZIPREADER_P_H
-#define QXLSX_XLSXZIPREADER_P_H
+#pragma once
 
 // references
 class QZipReader;
@@ -33,5 +32,3 @@ private:
 };
 
 QT_END_NAMESPACE_XLSX
-
-#endif // QXLSX_XLSXZIPREADER_P_H

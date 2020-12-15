@@ -1,7 +1,6 @@
 // xlsxworksheet.h
 
-#ifndef XLSXWORKSHEET_H
-#define XLSXWORKSHEET_H
+#pragma once
 
 // references
 class QIODevice ;
@@ -160,4 +159,3 @@ private:
 };
 
 QT_END_NAMESPACE_XLSX
-#endif // XLSXWORKSHEET_H

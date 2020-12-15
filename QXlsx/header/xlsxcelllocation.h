@@ -1,7 +1,6 @@
 // xlsxcelllocation.h
 
-#ifndef CELL_LOCATION_H
-#define CELL_LOCATION_H
+#pragma once
 
 #include <QSharedPointer>
 
@@ -23,4 +22,3 @@ public:
 };
 
 QT_END_NAMESPACE_XLSX
-#endif

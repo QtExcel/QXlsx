@@ -1,7 +1,6 @@
 // xlsxtheme_p.h
 
-#ifndef XLSXTHEME_H
-#define XLSXTHEME_H
+#pragma once
 
 // references
 class QIODevice ;
@@ -27,5 +26,3 @@ public:
 };
 
 QT_END_NAMESPACE_XLSX
-
-#endif // XLSXTHEME_H

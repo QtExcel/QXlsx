@@ -1,7 +1,6 @@
 // xlsxdrwaing_p.h
 
-#ifndef QXLSX_DRAWING_H
-#define QXLSX_DRAWING_H
+#pragma once
 
 // references
 class QIODevice;
@@ -33,5 +32,3 @@ public:
 };
 
 QT_END_NAMESPACE_XLSX
-
-#endif // QXLSX_DRAWING_H

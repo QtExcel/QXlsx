@@ -1,7 +1,6 @@
 // xlsxchart.h
 
-#ifndef QXLSX_CHART_H
-#define QXLSX_CHART_H
+#pragma once
 
 // references
 class QIODevice ;
@@ -53,5 +52,3 @@ public:
 };
 
 QT_END_NAMESPACE_XLSX
-
-#endif // QXLSX_CHART_H

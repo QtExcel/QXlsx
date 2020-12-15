@@ -1,7 +1,6 @@
 // xlsxdocument_p.h
 
-#ifndef XLSXDOCUMENT_P_H
-#define XLSXDOCUMENT_P_H
+#pragma once
 
 #include <QMap>
 
@@ -36,5 +35,3 @@ public:
 };
 
 QT_END_NAMESPACE_XLSX
-
-#endif // XLSXDOCUMENT_P_H

@@ -1,7 +1,6 @@
 // xlsxworkbook_p.h
 
-#ifndef XLSXWORKBOOK_P_H
-#define XLSXWORKBOOK_P_H
+#pragma once
 
 #include <QSharedPointer>
 #include <QString> // template QStringList
@@ -70,5 +69,3 @@ public:
 };
 
 QT_END_NAMESPACE_XLSX
-
-#endif // XLSXWORKBOOK_P_H

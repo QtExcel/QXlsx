@@ -1,7 +1,6 @@
 // xlsxconditionalformatting.h
 
-#ifndef QXLSX_XLSXCONDITIONALFORMATTING_H
-#define QXLSX_XLSXCONDITIONALFORMATTING_H
+#pragma once
 
 // references
 class QString ;
@@ -117,5 +116,3 @@ private:
 };
 
 QT_END_NAMESPACE_XLSX
-
-#endif // QXLSX_XLSXCONDITIONALFORMATTING_H

@@ -1,7 +1,6 @@
 // xlsxchart_p.h
 
-#ifndef QXLSX_CHART_P_H
-#define QXLSX_CHART_P_H
+#pragma once
 
 // references
 class QXmlStreamReader ;
@@ -144,5 +143,3 @@ public:
 };
 
 QT_END_NAMESPACE_XLSX
-
-#endif // QXLSX_CHART_P_H

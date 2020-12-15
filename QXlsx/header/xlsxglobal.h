@@ -1,7 +1,6 @@
 // xlsxglobal.h
 
-#ifndef XLSXGLOBAL_H
-#define XLSXGLOBAL_H
+#pragma once
 
 #include <QtGlobal> // QT_VERSION
 
@@ -19,5 +18,3 @@
     #define QStringLiteral QLatin1String
     #define Q_DECL_NOTHROW 
 #endif // is QT4
-
-#endif // XLSXGLOBAL_H

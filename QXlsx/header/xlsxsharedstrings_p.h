@@ -22,8 +22,7 @@
 ** WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 **
 ****************************************************************************/
-#ifndef XLSXSHAREDSTRINGS_H
-#define XLSXSHAREDSTRINGS_H
+#pragma once
 
 //
 //  W A R N I N G
@@ -95,5 +94,3 @@ private:
 };
 
 QT_END_NAMESPACE_XLSX
-
-#endif // XLSXSHAREDSTRINGS_H

@@ -1,7 +1,6 @@
 ﻿// xlsxcell.h
 
-#ifndef QXLSX_XLSXCELL_H
-#define QXLSX_XLSXCELL_H
+#pragma once
 
 #include <cstdio>
 
@@ -70,5 +69,3 @@ public:
 };
 
 QT_END_NAMESPACE_XLSX
-
-#endif // QXLSX_XLSXCELL_H
