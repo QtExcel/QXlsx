@@ -1,7 +1,6 @@
 // xlsxcontenttypes_p.h
 
-#ifndef XLSXCONTENTTYPES_H
-#define XLSXCONTENTTYPES_H
+#pragma once
 
 #include <QtGlobal>
 #include <QString>
@@ -52,4 +51,3 @@ private:
 };
 
 QT_END_NAMESPACE_XLSX
-#endif // XLSXCONTENTTYPES_H

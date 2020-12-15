@@ -1,7 +1,6 @@
 // xlsxconditionalformatting.h
 
-#ifndef QXLSX_XLSXCONDITIONALFORMATTING_H
-#define QXLSX_XLSXCONDITIONALFORMATTING_H
+#pragma once
 
 #include <QtGlobal>
 #include <QString>
@@ -116,5 +115,3 @@ private:
 };
 
 QT_END_NAMESPACE_XLSX
-
-#endif // QXLSX_XLSXCONDITIONALFORMATTING_H

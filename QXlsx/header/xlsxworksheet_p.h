@@ -1,7 +1,6 @@
 // xlsxworksheet_p.h
 
-#ifndef XLSXWORKSHEET_P_H
-#define XLSXWORKSHEET_P_H
+#pragma once
 
 #include <QtGlobal>
 #include <QObject>
@@ -261,4 +260,3 @@ private:
 };
 
 QT_END_NAMESPACE_XLSX
-#endif // XLSXWORKSHEET_P_H

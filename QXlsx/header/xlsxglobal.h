@@ -1,7 +1,6 @@
 // xlsxglobal.h
 
-#ifndef XLSXGLOBAL_H
-#define XLSXGLOBAL_H
+#pragma once
 
 #include <cstdio>
 #include <string>
@@ -29,5 +28,3 @@
 #define QStringLiteral QLatin1String
 #define Q_DECL_NOTHROW 
 #endif
-
-#endif // XLSXGLOBAL_H

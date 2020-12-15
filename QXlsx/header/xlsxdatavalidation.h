@@ -1,7 +1,6 @@
 // xlsxvalidation.h
 
-#ifndef QXLSX_XLSXDATAVALIDATION_H
-#define QXLSX_XLSXDATAVALIDATION_H
+#pragma once
 
 #include <QtGlobal>
 #include <QSharedDataPointer>
@@ -101,5 +100,3 @@ private:
 };
 
 QT_END_NAMESPACE_XLSX
-
-#endif // QXLSX_XLSXDATAVALIDATION_H

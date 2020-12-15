@@ -1,7 +1,6 @@
 // xlsxabstractsheet.h
 
-#ifndef XLSXABSTRACTSHEET_H
-#define XLSXABSTRACTSHEET_H
+#pragma once
 
 #include "xlsxglobal.h"
 #include "xlsxabstractooxmlfile.h"
@@ -46,4 +45,3 @@ protected:
 };
 
 QT_END_NAMESPACE_XLSX
-#endif // XLSXABSTRACTSHEET_H

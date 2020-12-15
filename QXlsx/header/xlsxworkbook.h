@@ -1,7 +1,6 @@
 // xlsxworkbook.h
 
-#ifndef XLSXWORKBOOK_H
-#define XLSXWORKBOOK_H
+#pragma once
 
 #include <QtGlobal>
 #include <QList>
@@ -89,5 +88,3 @@ private:
 };
 
 QT_END_NAMESPACE_XLSX
-
-#endif // XLSXWORKBOOK_H

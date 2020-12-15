@@ -1,7 +1,6 @@
 // xlsxdocument.h
 
-#ifndef QXLSX_XLSXDOCUMENT_H
-#define QXLSX_XLSXDOCUMENT_H
+#pragma once
 
 #include <QtGlobal>
 #include <QObject>
@@ -137,5 +136,3 @@ private:
 };
 
 QT_END_NAMESPACE_XLSX
-
-#endif // QXLSX_XLSXDOCUMENT_H

@@ -1,7 +1,6 @@
 // xlsxcellrange.h
 
-#ifndef QXLSX_XLSXCELLRANGE_H
-#define QXLSX_XLSXCELLRANGE_H
+#pragma once
 
 #include <QtGlobal>
 #include <QObject>
@@ -69,5 +68,3 @@ private:
 QT_END_NAMESPACE_XLSX
 
 Q_DECLARE_TYPEINFO(QXlsx::CellRange, Q_MOVABLE_TYPE);
-
-#endif // QXLSX_XLSXCELLRANGE_H

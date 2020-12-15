@@ -1,7 +1,6 @@
 // xlsxdrwaing_p.h
 
-#ifndef QXLSX_DRAWING_H
-#define QXLSX_DRAWING_H
+#pragma once
 
 #include <QtGlobal>
 #include <QList>
@@ -35,5 +34,3 @@ public:
 };
 
 QT_END_NAMESPACE_XLSX
-
-#endif // QXLSX_DRAWING_H

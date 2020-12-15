@@ -1,7 +1,6 @@
 // xlsxconditionalformatting_p.h
 
-#ifndef XLSXCONDITIONALFORMATTING_P_H
-#define XLSXCONDITIONALFORMATTING_P_H
+#pragma once
 
 #include <QtGlobal>
 #include <QSharedData>
@@ -96,4 +95,3 @@ public:
 QT_END_NAMESPACE_XLSX
 
 Q_DECLARE_METATYPE(QXlsx::XlsxCfVoData)
-#endif // XLSXCONDITIONALFORMATTING_P_H

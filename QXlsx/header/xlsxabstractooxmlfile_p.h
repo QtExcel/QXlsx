@@ -1,7 +1,6 @@
 // xlsxabstractooxmlfile_p.h
 
-#ifndef XLSXOOXMLFILE_P_H
-#define XLSXOOXMLFILE_P_H
+#pragma once
 
 #include "xlsxglobal.h"
 
@@ -27,5 +26,3 @@ public:
 };
 
 QT_END_NAMESPACE_XLSX
-
-#endif // XLSXOOXMLFILE_P_H

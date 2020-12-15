@@ -1,7 +1,6 @@
 // xlsxchartsheet.h
 
-#ifndef XLSXCHARTSHEET_H
-#define XLSXCHARTSHEET_H
+#pragma once
 
 #include <QtGlobal>
 #include <QStringList>
@@ -36,4 +35,3 @@ private:
 };
 
 QT_END_NAMESPACE_XLSX
-#endif // XLSXCHARTSHEET_H
