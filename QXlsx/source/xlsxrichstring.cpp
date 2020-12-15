@@ -46,7 +46,7 @@ RichString::RichString()
 /*!
     Constructs a plain string with the given \a text.
 */
-RichString::RichString(const QString text)
+RichString::RichString(const QString& text)
     :d(new RichStringPrivate)
 {
     addFragment(text, Format());
@@ -115,7 +115,7 @@ bool RichString::isNull() const
  */
 bool RichString::isEmtpy() const
 {
-    for (const QString &str : d->fragmentTexts) {
+    for (const auto& str : d->fragmentTexts) {
         if (!str.isEmpty())
             return false;
     }
