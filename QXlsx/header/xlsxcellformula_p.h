@@ -7,7 +7,7 @@
 #include "xlsxcellformula.h"
 #include "xlsxcellrange.h"
 
-#include <QSharedData>
+#include <QSharedData> // base class
 #include <QString>
 
 QT_BEGIN_NAMESPACE_XLSX

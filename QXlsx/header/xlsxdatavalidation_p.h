@@ -3,8 +3,7 @@
 #ifndef XLSXDATAVALIDATION_P_H
 #define XLSXDATAVALIDATION_P_H
 
-#include <QtGlobal>
-#include <QSharedData>
+#include <QSharedData> // base class
 
 #include "xlsxdatavalidation.h"
 

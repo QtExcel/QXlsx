@@ -3,11 +3,12 @@
 #ifndef XLSXCONTENTTYPES_H
 #define XLSXCONTENTTYPES_H
 
-#include <QtGlobal>
+// references
+class QIODevice;
+
+// values
 #include <QString>
-#include <QStringList>
 #include <QMap>
-#include <QIODevice>
 
 #include "xlsxabstractooxmlfile.h"
 

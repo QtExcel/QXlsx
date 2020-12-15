@@ -3,8 +3,7 @@
 #ifndef XLSXCONDITIONALFORMATTING_P_H
 #define XLSXCONDITIONALFORMATTING_P_H
 
-#include <QtGlobal>
-#include <QSharedData>
+#include <QSharedData> // base class
 #include <QSharedPointer>
 #include <QMap>
 

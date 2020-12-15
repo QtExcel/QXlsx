@@ -3,11 +3,13 @@
 #ifndef XLSXWORKBOOK_H
 #define XLSXWORKBOOK_H
 
-#include <QtGlobal>
+// references
+class QIODevice ;
+
+// values
 #include <QList>
 #include <QImage>
 #include <QSharedPointer>
-#include <QIODevice>
 
 #include "xlsxglobal.h"
 #include "xlsxabstractooxmlfile.h"

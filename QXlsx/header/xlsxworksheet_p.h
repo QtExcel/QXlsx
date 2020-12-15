@@ -3,11 +3,7 @@
 #ifndef XLSXWORKSHEET_P_H
 #define XLSXWORKSHEET_P_H
 
-#include <QtGlobal>
-#include <QObject>
 #include <QString>
-#include <QVector>
-#include <QImage>
 #include <QSharedPointer>
 
 #if QT_VERSION >= QT_VERSION_CHECK( 5, 0, 0 )

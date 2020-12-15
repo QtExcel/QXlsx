@@ -36,6 +36,9 @@
 // We mean it.
 //
 
+// references
+class QString ;
+
 #include "xlsxglobal.h"
 
 QT_BEGIN_NAMESPACE_XLSX

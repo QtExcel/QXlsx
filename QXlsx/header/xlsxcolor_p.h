@@ -3,11 +3,14 @@
 #ifndef QXLSX_XLSXCOLOR_P_H
 #define QXLSX_XLSXCOLOR_P_H
 
-#include <QtGlobal>
+// references
+class QXmlStreamWriter;
+class QXmlStreamReader;
+
 #include <QVariant>
 #include <QColor>
-#include <QXmlStreamWriter>
-#include <QXmlStreamReader>
+#include <QString> // template QStringList
+#include <QStringList>
 
 #include "xlsxglobal.h"
 

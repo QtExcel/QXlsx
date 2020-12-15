@@ -3,9 +3,9 @@
 #ifndef QXLSX_ZIPWRITER_H
 #define QXLSX_ZIPWRITER_H
 
-#include <QtGlobal>
-#include <QString>
-#include <QIODevice>
+// references
+class QIODevice ;
+class QString ;
 
 #include "xlsxglobal.h"
 

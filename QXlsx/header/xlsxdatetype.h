@@ -3,13 +3,11 @@
 #ifndef QXLSX_XLSXDATETYPE_H
 #define QXLSX_XLSXDATETYPE_H
 
-#include <QtGlobal>
-#include <QObject>
-#include <QString>
-#include <QStringList>
+/*
 #include <QDateTime>
 #include <QDate>
 #include <QTime>
+*/
 
 #include "xlsxglobal.h"
 

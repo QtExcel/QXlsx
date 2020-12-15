@@ -3,7 +3,6 @@
 #ifndef XLSXDOCUMENT_P_H
 #define XLSXDOCUMENT_P_H
 
-#include <QtGlobal>
 #include <QMap>
 
 #include "xlsxglobal.h"

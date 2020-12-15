@@ -3,9 +3,8 @@
 #ifndef XLSXWORKBOOK_P_H
 #define XLSXWORKBOOK_P_H
 
-#include <QtGlobal>
 #include <QSharedPointer>
-#include <QPair>
+#include <QString> // template QStringList
 #include <QStringList>
 
 #include "xlsxworkbook.h"

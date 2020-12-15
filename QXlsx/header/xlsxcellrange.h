@@ -3,9 +3,6 @@
 #ifndef QXLSX_XLSXCELLRANGE_H
 #define QXLSX_XLSXCELLRANGE_H
 
-#include <QtGlobal>
-#include <QObject>
-
 #include "xlsxglobal.h"
 #include "xlsxcellreference.h"
 

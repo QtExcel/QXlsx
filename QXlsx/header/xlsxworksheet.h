@@ -3,17 +3,16 @@
 #ifndef XLSXWORKSHEET_H
 #define XLSXWORKSHEET_H
 
-#include <QtGlobal>
-#include <QObject>
-#include <QStringList>
-#include <QMap>
+// references
+class QIODevice ;
+class QDateTime ;
+class QUrl ;
+class QImage ;
+
+// values
 #include <QVariant>
-#include <QPointF>
+#include <QVector>
 #include <QSharedPointer>
-#include <QIODevice>
-#include <QDateTime>
-#include <QUrl>
-#include <QImage>
 
 #include "xlsxabstractsheet.h"
 #include "xlsxcell.h"

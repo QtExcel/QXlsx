@@ -1,6 +1,6 @@
 // xlsxformat.cpp
 
-#include <QtGlobal>
+#include <QIODevice>
 #include <QDataStream>
 #include <QDebug>
 

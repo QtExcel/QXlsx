@@ -3,6 +3,9 @@
 #ifndef QXLSX_XLSXABSTRACTOOXMLFILE_H
 #define QXLSX_XLSXABSTRACTOOXMLFILE_H
 
+// references
+class QIODevice ;
+
 #include "xlsxglobal.h"
 
 QT_BEGIN_NAMESPACE_XLSX

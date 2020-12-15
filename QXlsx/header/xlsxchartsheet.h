@@ -3,9 +3,8 @@
 #ifndef XLSXCHARTSHEET_H
 #define XLSXCHARTSHEET_H
 
-#include <QtGlobal>
-#include <QStringList>
-#include <QSharedPointer>
+// references
+class QString ;
 
 #include "xlsxabstractsheet.h"
 

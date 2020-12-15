@@ -3,9 +3,11 @@
 #ifndef XLSXTHEME_H
 #define XLSXTHEME_H
 
-#include <QtGlobal>
-#include <QString>
-#include <QIODevice>
+// references
+class QIODevice ;
+
+// values
+#include <QByteArray>
 
 #include "xlsxabstractooxmlfile.h"
 

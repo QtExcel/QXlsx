@@ -3,7 +3,8 @@
 #ifndef QXLSX_XLSXCELLREFERENCE_H
 #define QXLSX_XLSXCELLREFERENCE_H
 
-#include <QtGlobal>
+// references
+class QString;
 
 #include "xlsxglobal.h"
 

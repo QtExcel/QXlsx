@@ -3,12 +3,13 @@
 #ifndef QXLSX_XLSXCONDITIONALFORMATTING_H
 #define QXLSX_XLSXCONDITIONALFORMATTING_H
 
-#include <QtGlobal>
-#include <QString>
+// references
+class QString ;
+class QXmlStreamReader ;
+class QXmlStreamWriter ;
+
 #include <QList>
 #include <QColor>
-#include <QXmlStreamReader>
-#include <QXmlStreamWriter>
 #include <QSharedDataPointer>
 
 #include "xlsxglobal.h"

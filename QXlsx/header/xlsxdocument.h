@@ -3,11 +3,11 @@
 #ifndef QXLSX_XLSXDOCUMENT_H
 #define QXLSX_XLSXDOCUMENT_H
 
-#include <QtGlobal>
-#include <QObject>
+// references
+class QIODevice ;
+class QImage ;
+
 #include <QVariant>
-#include <QIODevice>
-#include <QImage>
 
 #include "xlsxglobal.h"
 #include "xlsxformat.h"

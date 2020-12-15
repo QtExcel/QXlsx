@@ -3,16 +3,14 @@
 #ifndef QXLSX_DRAWING_H
 #define QXLSX_DRAWING_H
 
-#include <QtGlobal>
+// references
+class QIODevice;
+class QXmlStreamWriter;
+
 #include <QList>
-#include <QString>
-#include <QSharedPointer>
 
 #include "xlsxrelationships_p.h"
 #include "xlsxabstractooxmlfile.h"
-
-class QIODevice;
-class QXmlStreamWriter;
 
 QT_BEGIN_NAMESPACE_XLSX
 

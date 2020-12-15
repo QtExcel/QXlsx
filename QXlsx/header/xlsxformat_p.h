@@ -2,10 +2,8 @@
 #ifndef XLSXFORMAT_P_H
 #define XLSXFORMAT_P_H
 
-#include <QtGlobal>
-#include <QSharedData>
+#include <QSharedData> // base class
 #include <QMap>
-#include <QSet>
 
 #include "xlsxformat.h"
 

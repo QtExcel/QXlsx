@@ -3,10 +3,7 @@
 #ifndef XLSXCELL_P_H
 #define XLSXCELL_P_H
 
-#include <QtGlobal>
-#include <QObject>
-#include <QList>
-#include <QSharedPointer>
+#include <QVariant>
 
 #include "xlsxglobal.h"
 #include "xlsxcell.h"

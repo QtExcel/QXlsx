@@ -3,7 +3,7 @@
 #ifndef XLSXABSTRACTSHEET_P_H
 #define XLSXABSTRACTSHEET_P_H
 
-#include <QtGlobal>
+// values
 #include <QString>
 #include <QSharedPointer>
 

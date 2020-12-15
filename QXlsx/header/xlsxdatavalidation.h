@@ -3,17 +3,15 @@
 #ifndef QXLSX_XLSXDATAVALIDATION_H
 #define QXLSX_XLSXDATAVALIDATION_H
 
-#include <QtGlobal>
+// references
+class QXmlStreamReader ;
+class QXmlStreamWriter ;
+
 #include <QSharedDataPointer>
 #include <QString>
 #include <QList>
-#include <QXmlStreamReader>
-#include <QXmlStreamWriter>
 
 #include "xlsxglobal.h"
-
-class QXmlStreamReader;
-class QXmlStreamWriter;
 
 QT_BEGIN_NAMESPACE_XLSX
 
