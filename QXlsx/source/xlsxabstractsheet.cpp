@@ -1,7 +1,5 @@
 // xlsxabstractsheet.cpp
 
-#include <QtGlobal>
-
 #include "xlsxabstractsheet.h"
 #include "xlsxabstractsheet_p.h"
 #include "xlsxworkbook.h"

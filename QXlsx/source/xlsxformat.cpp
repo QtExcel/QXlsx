@@ -1,13 +1,13 @@
 // xlsxformat.cpp
 
-#include <QIODevice>
-#include <QDataStream>
-#include <QDebug>
-
 #include "xlsxformat.h"
 #include "xlsxformat_p.h"
 #include "xlsxcolor_p.h"
 #include "xlsxnumformatparser_p.h"
+
+#include <QIODevice>
+#include <QDataStream>
+#include <QDebug>
 
 QT_BEGIN_NAMESPACE_XLSX
 

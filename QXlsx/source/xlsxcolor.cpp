@@ -1,13 +1,13 @@
 // xlsxcolor.cpp
 
+#include "xlsxcolor_p.h"
+#include "xlsxstyles_p.h"
+#include "xlsxutility_p.h"
+
 #include <QDataStream>
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
 #include <QDebug>
-
-#include "xlsxcolor_p.h"
-#include "xlsxstyles_p.h"
-#include "xlsxutility_p.h"
 
 QT_BEGIN_NAMESPACE_XLSX
 

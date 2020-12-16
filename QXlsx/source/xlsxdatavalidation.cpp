@@ -1,13 +1,12 @@
 // xlsxdatavalidation.cpp
 
-#include <QtGlobal>
-#include <QXmlStreamReader>
-#include <QXmlStreamWriter>
-
 #include "xlsxdatavalidation.h"
 #include "xlsxdatavalidation_p.h"
 #include "xlsxworksheet.h"
 #include "xlsxcellrange.h"
+
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 
 QT_BEGIN_NAMESPACE_XLSX
 

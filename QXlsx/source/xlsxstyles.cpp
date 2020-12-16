@@ -1,19 +1,14 @@
 // xlsxstyles.cpp
 
-#include <QtGlobal>
-#include <QXmlStreamWriter>
-#include <QXmlStreamReader>
-#include <QFile>
-#include <QMap>
-#include <QDataStream>
-#include <QDebug>
-#include <QBuffer>
-
-#include "xlsxglobal.h"
 #include "xlsxstyles_p.h"
 #include "xlsxformat_p.h"
 #include "xlsxutility_p.h"
 #include "xlsxcolor_p.h"
+
+#include <QXmlStreamWriter>
+#include <QXmlStreamReader>
+#include <QMap>
+#include <QDebug>
 
 QT_BEGIN_NAMESPACE_XLSX
 

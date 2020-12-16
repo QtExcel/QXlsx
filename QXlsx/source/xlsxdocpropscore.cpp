@@ -1,15 +1,12 @@
 // xlsxdocpropscore.cpp
 
-#include <QtGlobal>
+#include "xlsxdocpropscore_p.h"
+
 #include <QXmlStreamWriter>
 #include <QXmlStreamReader>
-#include <QDir>
-#include <QFile>
 #include <QDateTime>
 #include <QDebug>
-#include <QBuffer>
 
-#include "xlsxdocpropscore_p.h"
 
 QT_BEGIN_NAMESPACE_XLSX
 

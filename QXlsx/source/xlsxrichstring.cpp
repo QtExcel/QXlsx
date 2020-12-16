@@ -1,13 +1,12 @@
 // xlsxrichstring.cpp
 
-#include <QtGlobal>
-#include <QDebug>
-#include <QTextDocument>
-#include <QTextFragment>
-
 #include "xlsxrichstring.h"
 #include "xlsxrichstring_p.h"
 #include "xlsxformat_p.h"
+
+#include <QDebug>
+#include <QTextDocument>
+#include <QTextFragment>
 
 QT_BEGIN_NAMESPACE_XLSX
 
@@ -157,7 +156,7 @@ void RichString::setHtml(const QString &text)
     QTextBlock block = doc.firstBlock();
     QTextBlock::iterator it;
     for (it = block.begin(); !(it.atEnd()); ++it) {
-        QTextFragment textFragment = it.fragment();
+        const auto& textFragment = it.fragment();
         if (textFragment.isValid()) {
             Format fmt;
             fmt.setFont(textFragment.charFormat().font());

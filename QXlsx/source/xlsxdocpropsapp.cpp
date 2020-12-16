@@ -4,11 +4,6 @@
 
 #include <QXmlStreamWriter>
 #include <QXmlStreamReader>
-#include <QDir>
-#include <QFile>
-#include <QDateTime>
-#include <QVariant>
-#include <QBuffer>
 
 QT_BEGIN_NAMESPACE_XLSX
 
