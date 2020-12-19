@@ -4,6 +4,8 @@
 
 | Qt     | Tool               | OS                        | Build   |
 | ------ | ------------------ | ------------------------- | ------- |
+| 6.0.0  | MingW 64 bit       | Windows 64bit             | :smile: |
+| ------ | ------------------ | ------------------------- | ------- |
 | 5.12.3 | MingW 64 bit       | Windows 64bit             | :smile: |
 | 5.12.0 | Visual Studio 2017 | Windows 64bit             | :smile: |
 | 5.12.0 | MingW 64 bit       | Windows 64bit             | :smile: |
