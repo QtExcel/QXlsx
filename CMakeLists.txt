@@ -7,7 +7,6 @@ option(BUILD_SHARED_LIB "Build shared library (DLL)." ON)
 include(GNUInstallDirs)
 
 find_package(Qt5 CONFIG REQUIRED COMPONENTS Gui)
-set(CMAKE_AUTOMOC ON)
 
 #------------------------------------------------------------------------------
 # Library
@@ -24,6 +23,7 @@ else (BUILD_SHARED_LIB)
 endif (BUILD_SHARED_LIB)
 set_target_properties(QXlsx PROPERTIES
 	SOVERSION ${PROJECT_VERSION})
+set_target_properties(QXlsx PROPERTIES AUTOMOC ON)
 
 #------------------------------------------------------------------------------
 # Target
