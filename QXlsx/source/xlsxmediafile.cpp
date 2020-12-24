@@ -1,8 +1,9 @@
 // xlsxmediafile.cpp
 
-#include "xlsxmediafile_p.h"
-
+#include <QtGlobal>
 #include <QCryptographicHash>
+
+#include "xlsxmediafile_p.h"
 
 QT_BEGIN_NAMESPACE_XLSX
 

@@ -1,9 +1,9 @@
 // xlsxcellreference.h
 
-#pragma once
+#ifndef QXLSX_XLSXCELLREFERENCE_H
+#define QXLSX_XLSXCELLREFERENCE_H
 
-// references
-class QString;
+#include <QtGlobal>
 
 #include "xlsxglobal.h"
 
@@ -43,3 +43,5 @@ private:
 QT_END_NAMESPACE_XLSX
 
 Q_DECLARE_TYPEINFO(QXlsx::CellReference, Q_MOVABLE_TYPE);
+
+#endif // QXLSX_XLSXCELLREFERENCE_H

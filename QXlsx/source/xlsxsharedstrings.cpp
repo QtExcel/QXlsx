@@ -1,14 +1,18 @@
 // xlsxsharedstrings.cpp
 
-#include "xlsxsharedstrings_p.h"
+#include <QtGlobal>
+#include <QXmlStreamWriter>
+#include <QXmlStreamReader>
+#include <QDir>
+#include <QFile>
+#include <QDebug>
+#include <QBuffer>
+
 #include "xlsxrichstring.h"
+#include "xlsxsharedstrings_p.h"
 #include "xlsxutility_p.h"
 #include "xlsxformat_p.h"
 #include "xlsxcolor_p.h"
-
-#include <QXmlStreamWriter>
-#include <QXmlStreamReader>
-#include <QDebug>
 
 QT_BEGIN_NAMESPACE_XLSX
 

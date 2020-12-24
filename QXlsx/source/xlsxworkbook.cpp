@@ -1,5 +1,13 @@
 // xlsxworkbook.cpp
 
+#include <QtGlobal>
+#include <QXmlStreamWriter>
+#include <QXmlStreamReader>
+#include <QFile>
+#include <QBuffer>
+#include <QDir>
+#include <QtDebug>
+
 #include "xlsxworkbook.h"
 #include "xlsxworkbook_p.h"
 #include "xlsxsharedstrings_p.h"
@@ -12,11 +20,6 @@
 #include "xlsxmediafile_p.h"
 #include "xlsxutility_p.h"
 #include "xlsxchart.h"
-
-#include <QXmlStreamWriter>
-#include <QXmlStreamReader>
-#include <QDir>
-#include <QtDebug>
 
 QT_BEGIN_NAMESPACE_XLSX
 

@@ -1,11 +1,13 @@
 // xlsxdrawing.cpp
 
+#include <QtGlobal>
+#include <QXmlStreamWriter>
+#include <QXmlStreamReader>
+#include <QBuffer>
+
 #include "xlsxdrawing_p.h"
 #include "xlsxdrawinganchor_p.h"
 #include "xlsxabstractsheet.h"
-
-#include <QXmlStreamWriter>
-#include <QXmlStreamReader>
 
 QT_BEGIN_NAMESPACE_XLSX
 

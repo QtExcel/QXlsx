@@ -1,16 +1,19 @@
 // xlsxzipreader_p.h
 
-#pragma once
+#ifndef QXLSX_XLSXZIPREADER_P_H
+#define QXLSX_XLSXZIPREADER_P_H
 
-// references
-class QZipReader;
-class QIODevice;
-
-// values
 #include <QScopedPointer>
 #include <QStringList>
+#include <QIODevice>
 
 #include "xlsxglobal.h"
+
+#if QT_VERSION >= 0x050600
+ #include <QVector>
+#endif
+
+class QZipReader;
 
 QT_BEGIN_NAMESPACE_XLSX
 
@@ -32,3 +35,5 @@ private:
 };
 
 QT_END_NAMESPACE_XLSX
+
+#endif // QXLSX_XLSXZIPREADER_P_H

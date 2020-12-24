@@ -1,8 +1,10 @@
 // xlsxdatetype.cpp
 
-#include "xlsxdatetype.h"
+#include <QtGlobal>
+
 #include "xlsxglobal.h"
 #include "xlsxutility_p.h"
+#include "xlsxdatetype.h"
 
 QT_BEGIN_NAMESPACE_XLSX
 

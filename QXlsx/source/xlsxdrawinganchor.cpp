@@ -1,17 +1,18 @@
 // xlsxdrawinganchor.cpp
 
+#include <QtGlobal>
+#include <QDebug>
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
+#include <QBuffer>
+#include <QDir>
+
 #include "xlsxdrawinganchor_p.h"
 #include "xlsxdrawing_p.h"
 #include "xlsxmediafile_p.h"
 #include "xlsxchart.h"
 #include "xlsxworkbook.h"
 #include "xlsxutility_p.h"
-
-#include <QDebug>
-#include <QXmlStreamReader>
-#include <QXmlStreamWriter>
-#include <QBuffer>
-#include <QDir>
 
 QT_BEGIN_NAMESPACE_XLSX
 
@@ -324,13 +325,13 @@ void DrawingAnchor::loadXmlObjectGraphicFrame(QXmlStreamReader &reader)
         reader.readNextStartElement();
         if (reader.tokenType() == QXmlStreamReader::StartElement) {
             if (reader.name() == QLatin1String("chart")) {
-                const auto& rId = reader.attributes().value(QLatin1String("r:id")).toString();
-                const auto& name = m_drawing->relationships()->getRelationshipById(rId).target;
+                QString rId = reader.attributes().value(QLatin1String("r:id")).toString();
+                QString name = m_drawing->relationships()->getRelationshipById(rId).target;
 
                 QString str = *( splitPath(m_drawing->filePath()).begin() );
                 str = str + QLatin1String("/");
                 str = str + name;
-                const auto& path = QDir::cleanPath(str);
+                QString path = QDir::cleanPath(str);
 
                 bool exist = false;
                 QList<QSharedPointer<Chart> > cfs = m_drawing->workbook->chartFiles();
@@ -369,13 +370,13 @@ void DrawingAnchor::loadXmlObjectPicture(QXmlStreamReader &reader)
         reader.readNextStartElement();
         if (reader.tokenType() == QXmlStreamReader::StartElement) {
             if (reader.name() == QLatin1String("blip")) {
-                const auto& rId = reader.attributes().value(QLatin1String("r:embed")).toString();
-                const auto& name = m_drawing->relationships()->getRelationshipById(rId).target;
+                QString rId = reader.attributes().value(QLatin1String("r:embed")).toString();
+                QString name = m_drawing->relationships()->getRelationshipById(rId).target;
 
                 QString str = *( splitPath(m_drawing->filePath()).begin() );
                 str = str + QLatin1String("/");
                 str = str + name;
-                const auto& path = QDir::cleanPath( str );
+                QString path = QDir::cleanPath( str );
 
                 bool exist = false;
                 QList<QSharedPointer<MediaFile> > mfs = m_drawing->workbook->mediaFiles();

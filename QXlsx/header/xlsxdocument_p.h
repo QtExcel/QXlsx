@@ -1,7 +1,9 @@
 // xlsxdocument_p.h
 
-#pragma once
+#ifndef XLSXDOCUMENT_P_H
+#define XLSXDOCUMENT_P_H
 
+#include <QtGlobal>
 #include <QMap>
 
 #include "xlsxglobal.h"
@@ -35,3 +37,5 @@ public:
 };
 
 QT_END_NAMESPACE_XLSX
+
+#endif // XLSXDOCUMENT_P_H

@@ -2,6 +2,7 @@
 
 #include "xlsxzipwriter_p.h"
 
+#include <QtGlobal>
 #include <QDebug>
 #include <private/qzipwriter_p.h>
 

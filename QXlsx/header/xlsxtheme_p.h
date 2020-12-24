@@ -1,12 +1,11 @@
 // xlsxtheme_p.h
 
-#pragma once
+#ifndef XLSXTHEME_H
+#define XLSXTHEME_H
 
-// references
-class QIODevice ;
-
-// values
-#include <QByteArray>
+#include <QtGlobal>
+#include <QString>
+#include <QIODevice>
 
 #include "xlsxabstractooxmlfile.h"
 
@@ -26,3 +25,5 @@ public:
 };
 
 QT_END_NAMESPACE_XLSX
+
+#endif // XLSXTHEME_H

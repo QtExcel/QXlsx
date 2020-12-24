@@ -1,9 +1,11 @@
 // xlsxchartsheet.h
 
-#pragma once
+#ifndef XLSXCHARTSHEET_H
+#define XLSXCHARTSHEET_H
 
-// references
-class QString ;
+#include <QtGlobal>
+#include <QStringList>
+#include <QSharedPointer>
 
 #include "xlsxabstractsheet.h"
 
@@ -34,3 +36,4 @@ private:
 };
 
 QT_END_NAMESPACE_XLSX
+#endif // XLSXCHARTSHEET_H

@@ -1,11 +1,13 @@
 // xlsxcontenttypes.cpp
 
-#include "xlsxcontenttypes_p.h"
-
 #include <QXmlStreamWriter>
 #include <QXmlStreamReader>
+#include <QFile>
 #include <QMapIterator>
+#include <QBuffer>
 #include <QDebug>
+
+#include "xlsxcontenttypes_p.h"
 
 QT_BEGIN_NAMESPACE_XLSX
 
