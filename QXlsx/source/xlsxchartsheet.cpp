@@ -1,5 +1,10 @@
 // xlsxchartsheet.cpp
 
+#include <QtGlobal>
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
+#include <QDir>
+
 #include "xlsxchartsheet.h"
 #include "xlsxchartsheet_p.h"
 #include "xlsxworkbook.h"
@@ -7,10 +12,6 @@
 #include "xlsxdrawing_p.h"
 #include "xlsxdrawinganchor_p.h"
 #include "xlsxchart.h"
-
-#include <QXmlStreamReader>
-#include <QXmlStreamWriter>
-#include <QDir>
 
 QT_BEGIN_NAMESPACE_XLSX
 
@@ -42,12 +43,12 @@ Chartsheet::Chartsheet(const QString &name, int id, Workbook *workbook, CreateFl
     {
         d_func()->drawing = QSharedPointer<Drawing>(new Drawing(this, flag));
 
-        auto anchor = new DrawingAbsoluteAnchor(drawing(), DrawingAnchor::Picture);
+        DrawingAbsoluteAnchor *anchor = new DrawingAbsoluteAnchor(drawing(), DrawingAnchor::Picture);
 
         anchor->pos = QPoint(0, 0);
         anchor->ext = QSize(9293679, 6068786);
 
-        const auto& chart = QSharedPointer<Chart>(new Chart(this, flag));
+        QSharedPointer<Chart> chart = QSharedPointer<Chart>(new Chart(this, flag));
         chart->setChartType(Chart::CT_BarChart);
         anchor->setObjectGraphicFrame(chart);
 
@@ -123,13 +124,13 @@ bool Chartsheet::loadFromXmlFile(QIODevice *device)
         reader.readNextStartElement();
         if (reader.tokenType() == QXmlStreamReader::StartElement) {
             if (reader.name() == QLatin1String("drawing")) {
-                const auto& rId = reader.attributes().value(QStringLiteral("r:id")).toString();
-                const auto& name = d->relationships->getRelationshipById(rId).target;
+                QString rId = reader.attributes().value(QStringLiteral("r:id")).toString();
+                QString name = d->relationships->getRelationshipById(rId).target;
 
-                QString str(*( splitPath(filePath()).begin() ));
+                QString str = *( splitPath(filePath()).begin() );
                 str = str + QLatin1String("/") ;
                 str = str + name;
-                const auto& path = QDir::cleanPath( str );
+                QString path = QDir::cleanPath( str );
 
                 d->drawing = QSharedPointer<Drawing>(new Drawing(this, F_LoadFromExists));
                 d->drawing->setFilePath(path);

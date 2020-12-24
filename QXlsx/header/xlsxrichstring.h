@@ -22,7 +22,8 @@
 ** WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 **
 ****************************************************************************/
-#pragma once
+#ifndef XLSXRICHSTRING_H
+#define XLSXRICHSTRING_H
 
 #include "xlsxglobal.h"
 #include "xlsxformat.h"
@@ -40,7 +41,7 @@ class   RichString
 {
 public:
     RichString();
-    explicit RichString(const QString& text);
+    explicit RichString(const QString text);
     RichString(const RichString &other);
     ~RichString();
 
@@ -84,3 +85,5 @@ private:
 QT_END_NAMESPACE_XLSX
 
 Q_DECLARE_METATYPE(QXlsx::RichString)
+
+#endif // XLSXRICHSTRING_H

@@ -1,16 +1,19 @@
 // xlsxvalidation.h
 
-#pragma once
+#ifndef QXLSX_XLSXDATAVALIDATION_H
+#define QXLSX_XLSXDATAVALIDATION_H
 
-// references
-class QXmlStreamReader ;
-class QXmlStreamWriter ;
-
+#include <QtGlobal>
 #include <QSharedDataPointer>
 #include <QString>
 #include <QList>
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 
 #include "xlsxglobal.h"
+
+class QXmlStreamReader;
+class QXmlStreamWriter;
 
 QT_BEGIN_NAMESPACE_XLSX
 
@@ -98,3 +101,5 @@ private:
 };
 
 QT_END_NAMESPACE_XLSX
+
+#endif // QXLSX_XLSXDATAVALIDATION_H

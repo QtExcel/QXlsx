@@ -1,17 +1,19 @@
 // xlsxworksheet.h
 
-#pragma once
+#ifndef XLSXWORKSHEET_H
+#define XLSXWORKSHEET_H
 
-// references
-class QIODevice ;
-class QDateTime ;
-class QUrl ;
-class QImage ;
-
-// values
+#include <QtGlobal>
+#include <QObject>
+#include <QStringList>
+#include <QMap>
 #include <QVariant>
-#include <QVector>
+#include <QPointF>
 #include <QSharedPointer>
+#include <QIODevice>
+#include <QDateTime>
+#include <QUrl>
+#include <QImage>
 
 #include "xlsxabstractsheet.h"
 #include "xlsxcell.h"
@@ -159,3 +161,4 @@ private:
 };
 
 QT_END_NAMESPACE_XLSX
+#endif // XLSXWORKSHEET_H

@@ -1,12 +1,13 @@
 // xlsxrichstring.cpp
 
-#include "xlsxrichstring.h"
-#include "xlsxrichstring_p.h"
-#include "xlsxformat_p.h"
-
+#include <QtGlobal>
 #include <QDebug>
 #include <QTextDocument>
 #include <QTextFragment>
+
+#include "xlsxrichstring.h"
+#include "xlsxrichstring_p.h"
+#include "xlsxformat_p.h"
 
 QT_BEGIN_NAMESPACE_XLSX
 
@@ -46,7 +47,7 @@ RichString::RichString()
 /*!
     Constructs a plain string with the given \a text.
 */
-RichString::RichString(const QString& text)
+RichString::RichString(const QString text)
     :d(new RichStringPrivate)
 {
     addFragment(text, Format());
@@ -115,7 +116,7 @@ bool RichString::isNull() const
  */
 bool RichString::isEmtpy() const
 {
-    for (const auto& str : d->fragmentTexts) {
+    for (const QString &str : d->fragmentTexts) {
         if (!str.isEmpty())
             return false;
     }
@@ -156,7 +157,7 @@ void RichString::setHtml(const QString &text)
     QTextBlock block = doc.firstBlock();
     QTextBlock::iterator it;
     for (it = block.begin(); !(it.atEnd()); ++it) {
-        const auto& textFragment = it.fragment();
+        QTextFragment textFragment = it.fragment();
         if (textFragment.isValid()) {
             Format fmt;
             fmt.setFont(textFragment.charFormat().font());

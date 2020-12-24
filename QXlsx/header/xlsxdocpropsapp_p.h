@@ -1,6 +1,7 @@
 // xlsxdocpropsapp_p.h
 
-#pragma once
+#ifndef XLSXDOCPROPSAPP_H
+#define XLSXDOCPROPSAPP_H
 
 #include <QList>
 #include <QStringList>
@@ -35,3 +36,5 @@ private:
 };
 
 QT_END_NAMESPACE_XLSX
+
+#endif // XLSXDOCPROPSAPP_H

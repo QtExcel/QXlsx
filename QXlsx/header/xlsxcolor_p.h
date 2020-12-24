@@ -1,15 +1,13 @@
 // xlsxcolor_p.h
 
-#pragma once
+#ifndef QXLSX_XLSXCOLOR_P_H
+#define QXLSX_XLSXCOLOR_P_H
 
-// references
-class QXmlStreamWriter;
-class QXmlStreamReader;
-
+#include <QtGlobal>
 #include <QVariant>
 #include <QColor>
-#include <QString> // template QStringList
-#include <QStringList>
+#include <QXmlStreamWriter>
+#include <QXmlStreamReader>
 
 #include "xlsxglobal.h"
 
@@ -57,3 +55,5 @@ private:
 QT_END_NAMESPACE_XLSX
 
 Q_DECLARE_METATYPE(QXlsx::XlsxColor)
+
+#endif // QXLSX_XLSXCOLOR_P_H

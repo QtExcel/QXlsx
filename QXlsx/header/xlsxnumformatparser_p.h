@@ -22,7 +22,8 @@
 ** WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 **
 ****************************************************************************/
-#pragma once
+#ifndef QXLSX_NUMFORMATPARSER_H
+#define QXLSX_NUMFORMATPARSER_H
 
 //
 //  W A R N I N G
@@ -35,9 +36,6 @@
 // We mean it.
 //
 
-// references
-class QString ;
-
 #include "xlsxglobal.h"
 
 QT_BEGIN_NAMESPACE_XLSX
@@ -49,3 +47,5 @@ public:
 };
 
 QT_END_NAMESPACE_XLSX
+
+#endif // QXLSX_NUMFORMATPARSER_H
