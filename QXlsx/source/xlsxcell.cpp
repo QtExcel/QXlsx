@@ -1,20 +1,15 @@
 // xlsxcell.cpp
 
-#include <cmath>
-
-#include <QtGlobal>
-#include <QDebug>
-#include <QDateTime>
-#include <QDate>
-#include <QTime>
-
 #include "xlsxcell.h"
 #include "xlsxcell_p.h"
 #include "xlsxformat.h"
-#include "xlsxformat_p.h"
 #include "xlsxutility_p.h"
 #include "xlsxworksheet.h"
 #include "xlsxworkbook.h"
+
+#include <cmath>
+
+#include <QDebug>
 
 QT_BEGIN_NAMESPACE_XLSX
 

@@ -1,19 +1,15 @@
 // xlsxutility_p.h
 
-#ifndef XLSXUTILITY_H
-#define XLSXUTILITY_H
+#pragma once
 
-#include <QtGlobal>
-#include <QObject>
-#include <QString>
-#include <QPoint>
-#include <QString>
+// references
+class QDateTime ;
+class QTime;
+class QVariant;
+
+// values
+#include <QString> // template QStringList
 #include <QStringList>
-#include <QColor>
-#include <QDateTime>
-#include <QDate>
-#include <QTime>
-#include <QVariant>
 
 #include "xlsxglobal.h"
 
@@ -39,4 +35,3 @@ bool isSpaceReserveNeeded(const QString &string);
 QString convertSharedFormula(const QString &rootFormula, const CellReference &rootCell, const CellReference &cell);
 
 QT_END_NAMESPACE_XLSX
-#endif // XLSXUTILITY_H

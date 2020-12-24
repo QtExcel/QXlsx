@@ -1,12 +1,9 @@
 // xlsxcellrange.cpp
 
-#include <QtGlobal>
-#include <QString>
-#include <QPoint>
-#include <QStringList>
-
 #include "xlsxcellrange.h"
 #include "xlsxcellreference.h"
+
+#include <QStringList>
 
 QT_BEGIN_NAMESPACE_XLSX
 
@@ -65,7 +62,7 @@ CellRange::CellRange(const char *range)
 
 void CellRange::init(const QString &range)
 {
-    QStringList rs = range.split(QLatin1Char(':'));
+    const auto& rs = range.split(QLatin1Char(':'));
     if (rs.size() == 2) {
         CellReference start(rs[0]);
         CellReference end(rs[1]);

@@ -1,13 +1,13 @@
 // xlsxcontenttypes_p.h
 
-#ifndef XLSXCONTENTTYPES_H
-#define XLSXCONTENTTYPES_H
+#pragma once
 
-#include <QtGlobal>
+// references
+class QIODevice;
+
+// values
 #include <QString>
-#include <QStringList>
 #include <QMap>
-#include <QIODevice>
 
 #include "xlsxabstractooxmlfile.h"
 
@@ -52,4 +52,3 @@ private:
 };
 
 QT_END_NAMESPACE_XLSX
-#endif // XLSXCONTENTTYPES_H

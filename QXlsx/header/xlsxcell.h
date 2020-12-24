@@ -1,17 +1,10 @@
 ﻿// xlsxcell.h
 
-#ifndef QXLSX_XLSXCELL_H
-#define QXLSX_XLSXCELL_H
+#pragma once
 
 #include <cstdio>
 
-#include <QtGlobal>
-#include <QObject>
-#include <QString>
 #include <QVariant>
-#include <QDate>
-#include <QDateTime>
-#include <QTime>
 
 #include "xlsxglobal.h"
 #include "xlsxformat.h"
@@ -76,5 +69,3 @@ public:
 };
 
 QT_END_NAMESPACE_XLSX
-
-#endif // QXLSX_XLSXCELL_H

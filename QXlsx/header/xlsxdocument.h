@@ -1,13 +1,12 @@
 // xlsxdocument.h
 
-#ifndef QXLSX_XLSXDOCUMENT_H
-#define QXLSX_XLSXDOCUMENT_H
+#pragma once
 
-#include <QtGlobal>
-#include <QObject>
+// references
+class QIODevice ;
+class QImage ;
+
 #include <QVariant>
-#include <QIODevice>
-#include <QImage>
 
 #include "xlsxglobal.h"
 #include "xlsxformat.h"
@@ -137,5 +136,3 @@ private:
 };
 
 QT_END_NAMESPACE_XLSX
-
-#endif // QXLSX_XLSXDOCUMENT_H

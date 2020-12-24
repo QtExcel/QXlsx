@@ -1,11 +1,10 @@
 // xlsxzipwriter_p.h
 
-#ifndef QXLSX_ZIPWRITER_H
-#define QXLSX_ZIPWRITER_H
+#pragma once
 
-#include <QtGlobal>
-#include <QString>
-#include <QIODevice>
+// references
+class QIODevice ;
+class QString ;
 
 #include "xlsxglobal.h"
 
@@ -30,5 +29,3 @@ private:
 };
 
 QT_END_NAMESPACE_XLSX
-
-#endif // QXLSX_ZIPWRITER_H

@@ -1,12 +1,9 @@
 // xlsxchart.h
 
-#ifndef QXLSX_CHART_H
-#define QXLSX_CHART_H
+#pragma once
 
-#include <QtGlobal>
-#include <QSharedPointer>
-#include <QXmlStreamReader>
-#include <QXmlStreamWriter>
+// references
+class QIODevice ;
 
 #include "xlsxabstractooxmlfile.h"
 
@@ -55,5 +52,3 @@ public:
 };
 
 QT_END_NAMESPACE_XLSX
-
-#endif // QXLSX_CHART_H

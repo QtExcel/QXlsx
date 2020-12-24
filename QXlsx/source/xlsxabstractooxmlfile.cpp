@@ -1,11 +1,9 @@
 // xlsxabstractooxmlfile.cpp
 
-#include <QtGlobal>
-#include <QBuffer>
-#include <QByteArray>
-
 #include "xlsxabstractooxmlfile.h"
 #include "xlsxabstractooxmlfile_p.h"
+
+#include <QBuffer>
 
 QT_BEGIN_NAMESPACE_XLSX
 

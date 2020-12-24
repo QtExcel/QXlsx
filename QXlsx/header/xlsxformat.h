@@ -1,7 +1,6 @@
 // xlsxformat.h
 
-#ifndef QXLSX_FORMAT_H
-#define QXLSX_FORMAT_H
+#pragma once
 
 #include <QFont>
 #include <QColor>
@@ -258,5 +257,3 @@ private:
 #endif
 
 QT_END_NAMESPACE_XLSX
-
-#endif // QXLSX_FORMAT_H

@@ -1,14 +1,7 @@
 // xlsxcelllocation.h
 
-#ifndef CELL_LOCATION_H
-#define CELL_LOCATION_H
+#pragma once
 
-#include <QtGlobal>
-#include <QObject>
-#include <QString>
-#include <QVector>
-#include <QList>
-#include <QMetaType>
 #include <QSharedPointer>
 
 #include "xlsxglobal.h"
@@ -29,4 +22,3 @@ public:
 };
 
 QT_END_NAMESPACE_XLSX
-#endif

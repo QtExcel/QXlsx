@@ -1,7 +1,7 @@
 // xlsxcellreference.cpp
 
 #include "xlsxcellreference.h"
-#include <QStringList>
+
 #include <QMap>
 
 #if QT_VERSION >= QT_VERSION_CHECK( 5, 0, 0 )

@@ -1,16 +1,14 @@
 // xlsxchart.cpp
 
-#include <QtGlobal>
-#include <QString>
-#include <QIODevice>
-#include <QXmlStreamReader>
-#include <QXmlStreamWriter>
-#include <QDebug>
-
 #include "xlsxchart_p.h"
 #include "xlsxworksheet.h"
 #include "xlsxcellrange.h"
 #include "xlsxutility_p.h"
+
+#include <QIODevice>
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
+#include <QDebug>
 
 QT_BEGIN_NAMESPACE_XLSX
 

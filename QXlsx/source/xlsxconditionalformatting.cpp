@@ -1,15 +1,14 @@
 // xlsxconditionalformatting.cpp
 
-#include <QtGlobal>
-#include <QXmlStreamReader>
-#include <QXmlStreamWriter>
-#include <QDebug>
-
 #include "xlsxconditionalformatting.h"
 #include "xlsxconditionalformatting_p.h"
 #include "xlsxworksheet.h"
 #include "xlsxcellrange.h"
 #include "xlsxstyles_p.h"
+
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
+#include <QDebug>
 
 QT_BEGIN_NAMESPACE_XLSX
 

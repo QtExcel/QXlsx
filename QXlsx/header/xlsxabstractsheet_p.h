@@ -1,9 +1,8 @@
 // xlsxabstractsheet_p/h
 
-#ifndef XLSXABSTRACTSHEET_P_H
-#define XLSXABSTRACTSHEET_P_H
+#pragma once
 
-#include <QtGlobal>
+// values
 #include <QString>
 #include <QSharedPointer>
 
@@ -32,5 +31,3 @@ public:
 };
 
 QT_END_NAMESPACE_XLSX
-
-#endif // XLSXABSTRACTSHEET_P_H

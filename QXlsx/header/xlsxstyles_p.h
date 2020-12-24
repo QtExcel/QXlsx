@@ -22,8 +22,7 @@
 ** WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 **
 ****************************************************************************/
-#ifndef XLSXSTYLES_H
-#define XLSXSTYLES_H
+#pragma once
 
 //
 //  W A R N I N G
@@ -141,5 +140,3 @@ private:
 };
 
 QT_END_NAMESPACE_XLSX
-
-#endif // XLSXSTYLES_H

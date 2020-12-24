@@ -1,29 +1,10 @@
 // xlsxworksheet.cpp
 
-#include <QtGlobal>
-#include <QVariant>
-#include <QDateTime>
-#include <QDate>
-#include <QTime>
-#include <QPoint>
-#include <QFile>
-#include <QUrl>
-#include <QDebug>
-#include <QBuffer>
-#include <QXmlStreamWriter>
-#include <QXmlStreamReader>
-#include <QTextDocument>
-#include <QDir>
-#include <QMapIterator>
-#include <QMap>
-
-#include <cmath>
-
-#include "xlsxrichstring.h"
-#include "xlsxcellreference.h"
 #include "xlsxworksheet.h"
 #include "xlsxworksheet_p.h"
 #include "xlsxworkbook.h"
+#include "xlsxrichstring.h"
+#include "xlsxcellreference.h"
 #include "xlsxformat.h"
 #include "xlsxformat_p.h"
 #include "xlsxutility_p.h"
@@ -39,6 +20,21 @@
 #include "xlsxcellformula.h"
 #include "xlsxcellformula_p.h"
 #include "xlsxcelllocation.h"
+
+#include <QVariant>
+#include <QDateTime>
+#include <QDate>
+#include <QTime>
+#include <QUrl>
+#include <QDebug>
+#include <QXmlStreamWriter>
+#include <QXmlStreamReader>
+#include <QTextDocument>
+#include <QDir>
+#include <QMapIterator>
+#include <QMap>
+
+#include <cmath>
 
 QT_BEGIN_NAMESPACE_XLSX
 

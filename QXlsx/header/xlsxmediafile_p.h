@@ -1,7 +1,6 @@
 // xlsxmediafile_p.h
 
-#ifndef QXLSX_XLSXMEDIAFILE_H
-#define QXLSX_XLSXMEDIAFILE_H
+#pragma once
 
 #include "xlsxglobal.h"
 
@@ -42,5 +41,3 @@ protected:
 };
 
 QT_END_NAMESPACE_XLSX
-
-#endif // QXLSX_XLSXMEDIAFILE_H

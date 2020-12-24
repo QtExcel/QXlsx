@@ -1,18 +1,15 @@
 // xlsxdrwaing_p.h
 
-#ifndef QXLSX_DRAWING_H
-#define QXLSX_DRAWING_H
+#pragma once
 
-#include <QtGlobal>
+// references
+class QIODevice;
+class QXmlStreamWriter;
+
 #include <QList>
-#include <QString>
-#include <QSharedPointer>
 
 #include "xlsxrelationships_p.h"
 #include "xlsxabstractooxmlfile.h"
-
-class QIODevice;
-class QXmlStreamWriter;
 
 QT_BEGIN_NAMESPACE_XLSX
 
@@ -35,5 +32,3 @@ public:
 };
 
 QT_END_NAMESPACE_XLSX
-
-#endif // QXLSX_DRAWING_H

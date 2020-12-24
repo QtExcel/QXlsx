@@ -1,11 +1,8 @@
 // xlsxformat_p.h
-#ifndef XLSXFORMAT_P_H
-#define XLSXFORMAT_P_H
+#pragma once
 
-#include <QtGlobal>
-#include <QSharedData>
+#include <QSharedData> // base class
 #include <QMap>
-#include <QSet>
 
 #include "xlsxformat.h"
 
@@ -126,5 +123,3 @@ public:
 
 
 QT_END_NAMESPACE_XLSX
-
-#endif

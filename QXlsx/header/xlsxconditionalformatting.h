@@ -1,14 +1,14 @@
 // xlsxconditionalformatting.h
 
-#ifndef QXLSX_XLSXCONDITIONALFORMATTING_H
-#define QXLSX_XLSXCONDITIONALFORMATTING_H
+#pragma once
 
-#include <QtGlobal>
-#include <QString>
+// references
+class QString ;
+class QXmlStreamReader ;
+class QXmlStreamWriter ;
+
 #include <QList>
 #include <QColor>
-#include <QXmlStreamReader>
-#include <QXmlStreamWriter>
 #include <QSharedDataPointer>
 
 #include "xlsxglobal.h"
@@ -116,5 +116,3 @@ private:
 };
 
 QT_END_NAMESPACE_XLSX
-
-#endif // QXLSX_XLSXCONDITIONALFORMATTING_H

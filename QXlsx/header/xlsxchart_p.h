@@ -1,17 +1,16 @@
 // xlsxchart_p.h
 
-#ifndef QXLSX_CHART_P_H
-#define QXLSX_CHART_P_H
+#pragma once
 
-#include <QtGlobal>
-#include <QObject>
+// references
+class QXmlStreamReader ;
+class QXmlStreamWriter ;
+
+// values
 #include <QString>
 #include <QSharedPointer>
-#include <QVector>
 #include <QMap>
 #include <QList>
-#include <QXmlStreamReader>
-#include <QXmlStreamWriter>
 
 #include "xlsxabstractooxmlfile_p.h"
 #include "xlsxchart.h"
@@ -144,5 +143,3 @@ public:
 };
 
 QT_END_NAMESPACE_XLSX
-
-#endif // QXLSX_CHART_P_H

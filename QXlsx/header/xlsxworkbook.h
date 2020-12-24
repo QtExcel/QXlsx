@@ -1,13 +1,14 @@
 // xlsxworkbook.h
 
-#ifndef XLSXWORKBOOK_H
-#define XLSXWORKBOOK_H
+#pragma once
 
-#include <QtGlobal>
+// references
+class QIODevice ;
+
+// values
 #include <QList>
 #include <QImage>
 #include <QSharedPointer>
-#include <QIODevice>
 
 #include "xlsxglobal.h"
 #include "xlsxabstractooxmlfile.h"
@@ -89,5 +90,3 @@ private:
 };
 
 QT_END_NAMESPACE_XLSX
-
-#endif // XLSXWORKBOOK_H

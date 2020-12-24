@@ -1,12 +1,8 @@
 // xlsxcell_p.h
 
-#ifndef XLSXCELL_P_H
-#define XLSXCELL_P_H
+#pragma once
 
-#include <QtGlobal>
-#include <QObject>
-#include <QList>
-#include <QSharedPointer>
+#include <QVariant>
 
 #include "xlsxglobal.h"
 #include "xlsxcell.h"
@@ -38,5 +34,3 @@ public:
 };
 
 QT_END_NAMESPACE_XLSX
-
-#endif // XLSXCELL_P_H
