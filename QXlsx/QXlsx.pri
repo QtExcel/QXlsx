@@ -143,25 +143,32 @@ win32-g++ {
 	}	
 }
 win32-msvc2013 {
-    message("compiling for visual studio 2013")
+    message("Compiling for Visual Studio 2013")
     INCLUDEPATH += $${QXLSX_HEADERPATH}msvc2013 
 	CONFIG(debug, debug|release) {
 	} else {
 	}		
 }
 win32-msvc2015 {
-    message("compiling for visual studio 2015")
+    message("Compiling for Visual Studio 2015")
     INCLUDEPATH += $${QXLSX_HEADERPATH}msvc2015 
 	CONFIG(debug, debug|release) {
 	} else {
 	}		
 }
 win32-msvc2017 {
-    message("compiling for visual studio 2017")
+    message("Compiling for Visual Studio 2017")
     INCLUDEPATH += $${QXLSX_HEADERPATH}msvc2017 
 	CONFIG(debug, debug|release) {
 	} else {
 	}		
+}
+win32-msvc2019 {
+    message("Compiling for Visual Studio 2019")
+    INCLUDEPATH += $${QXLSX_HEADERPATH}msvc2019
+        CONFIG(debug, debug|release) {
+        } else {
+        }
 }
 unix {
    !contains(QT_ARCH, x86_64){
