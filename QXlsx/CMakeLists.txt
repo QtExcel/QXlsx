@@ -1,0 +1,36 @@
+# QXlsx 
+
+cmake_minimum_required(VERSION 3.14)
+
+project(QXlsx LANGUAGES CXX)
+
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
+set(CMAKE_AUTOUIC ON)
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+find_package(QT NAMES Qt6 Qt5 COMPONENTS Gui REQUIRED)
+find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Gui REQUIRED)
+
+set(QXLSX_PARENTPATH ${CMAKE_CURRENT_SOURCE_DIR}/../)
+set(QXLSX_HEADERPATH ${CMAKE_CURRENT_SOURCE_DIR}/../QXlsx/header/)
+set(QXLSX_SOURCEPATH ${CMAKE_CURRENT_SOURCE_DIR}/../QXlsx/source/)
+
+message("Current Path of QXlsx")
+message(${QXLSX_PARENTPATH})
+message(${QXLSX_HEADERPATH})
+message(${QXLSX_SOURCEPATH})
+
+add_library(QXlsx STATIC)
+
+file(GLOB_RECURSE BAR "${QXLSX_SOURCEPATH}/*.cpp")
+file(GLOB_RECURSE BAR "${QXLSX_HEADERPATH}/*.h")
+
+target_include_directories(QXlsx PRIVATE ${QXLSX_HEADERPATH})
+
+target_link_libraries(QXlsx PRIVATE Qt${QT_VERSION_MAJOR}::Gui)
+
+target_compile_definitions(QXlsx PRIVATE QXLSX_LIBRARY)
+
