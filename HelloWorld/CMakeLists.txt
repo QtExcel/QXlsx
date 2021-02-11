@@ -1,8 +1,13 @@
-# CMakeLists.txt for QXlsx Library
+# CMakeLists.txt for HelloWorld (Console Application)
 
+# TODO: Set minumum cmake version 
 cmake_minimum_required(VERSION 3.14)
 
-project(QXlsx LANGUAGES CXX)
+# TODO: Set project name 
+project(HelloWorld LANGUAGES CXX)
+
+##########################
+# bolier-plate code (1) {{
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
@@ -33,20 +38,44 @@ message(${QXLSX_PARENTPATH})
 message(${QXLSX_HEADERPATH})
 message(${QXLSX_SOURCEPATH})
 
+include_directories(${QXLSX_HEADERPATH})
+
 file(GLOB QXLSX_CPP "${QXLSX_SOURCEPATH}/*.cpp")
 file(GLOB QXLSX_H "${QXLSX_HEADERPATH}/*.h")
 
 set(SRC_FILES ${QXLSX_CPP})
 list(APPEND SRC_FILES ${QXLSX_H})
+ 
+# bolier-plate code (1) }}
+###########################
 
-add_library(QXlsx STATIC
- ${SRC_FILES} )
+####################
+# HelloWorld {{
 
-target_include_directories(QXlsx PRIVATE ${QXLSX_HEADERPATH})
+# TODO: set your source code 
+set(APP_SRC_FILES
+  main.cpp) 
+  
+list(APPEND SRC_FILES ${APP_SRC_FILES})
+add_executable(${PROJECT_NAME} ${SRC_FILES})
 
-target_link_libraries(${PROJECT_NAME}
+# HelloWorld }}
+####################
+ 
+##########################
+# bolier-plate code (2) {{
+
+target_include_directories(${PROJECT_NAME} PRIVATE
+ ${QXLSX_HEADERPATH} 
+ ${CMAKE_CURRENT_SOURCE_DIR} )
+ 
+target_link_libraries(${PROJECT_NAME} 
  Qt${QT_VERSION_MAJOR}::Core
  Qt${QT_VERSION_MAJOR}::GuiPrivate
  )
+ 
+ set(CMAKE_WIN32_EXECUTABLE OFF)
+ 
+# bolier-plate code (2) }}
+##########################
 
-target_compile_definitions(QXlsx PRIVATE QXLSX_LIBRARY)
