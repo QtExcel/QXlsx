@@ -4,7 +4,7 @@
 cmake_minimum_required(VERSION 3.14)
 
 # TODO: Set project name 
-project(HelloWorld LANGUAGES CXX)
+project(DateTime LANGUAGES CXX)
 
 # TODO: Set Your C++ version
 set(CMAKE_CXX_STANDARD 11) # C++ 11
@@ -56,7 +56,8 @@ list(APPEND SRC_FILES ${QXLSX_H})
 
 # TODO: set your source code 
 set(APP_SRC_FILES
-  main.cpp) 
+  main.cpp
+  test.cpp ) 
   
 list(APPEND SRC_FILES ${APP_SRC_FILES})
 add_executable(${PROJECT_NAME} ${SRC_FILES})
