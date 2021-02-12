@@ -17,7 +17,8 @@
 
 ## How to set up (Installation)
 
-- See [how to setup QXlsx project](HowToSetProject.md)	
+- :Recommended: See [how to setup QXlsx project (qmake)](HowToSetProject.md)	
+- See [how to setup QXlsx project (cmake)](HowToSetProject-cmake.md)	
 
 ## Tested environment
 
@@ -46,11 +47,6 @@
   - libfort is under MIT license. [https://github.com/seleznevae/libfort](https://github.com/seleznevae/libfort)
   - colorprintf is under MIT license. [https://github.com/VittGam/colorprintf](https://github.com/VittGam/colorprintf)
   - HelloActions-Qt is under MIT license. [https://github.com/jaredtao/HelloActions-Qt](https://github.com/jaredtao/HelloActions-Qt)  
-
-## Congratulations
-- Our code is going to the North Pole.
-- ![](markdown.data/arcvalut.png)
-- See link for more information. https://archiveprogram.github.com/
 
 ## :email: Contact
 - Leave me a issue. [https://github.com/QtExcel/QXlsx/issues](https://github.com/QtExcel/QXlsx/issues)
