@@ -17,7 +17,8 @@
 
 ## 설정하는 방법 (설치)
 
-- [QXlsx 프로젝트 설정하는 방법](HowToSetProject.ko.md) 참조
+- :권장: [QXlsx 프로젝트 설정하는 방법 (qmake)](HowToSetProject.ko.md) 참조
+- [QXlsx 프로젝트 설정하는 방법 (cmake)](HowToSetProject-cmake.ko.md) 참조
 
 ## 테스트 환경
 
@@ -46,11 +47,6 @@
   - libfort 는 MIT 라이센스 입니다. [https://github.com/seleznevae/libfort](https://github.com/seleznevae/libfort)
   - colorprintf 는 MIT 라이센스 입니다. [https://github.com/VittGam/colorprintf](https://github.com/VittGam/colorprintf)
   - HelloActions-Qt 는 MIT 라이센스 입니다. [https://github.com/jaredtao/HelloActions-Qt](https://github.com/jaredtao/HelloActions-Qt)  
-
-## 축하
-- 우리의 코드가 북극에 갑니다.
-- ![](markdown.data/arcvalut.png)
-- 자세한 정보는 링크를 보세요. https://archiveprogram.github.com/
 
 ## :email: 문의
 - 이슈를 남겨 주세요. [https://github.com/QtExcel/QXlsx/issues](https://github.com/QtExcel/QXlsx/issues)
