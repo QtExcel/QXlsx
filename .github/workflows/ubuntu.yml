@@ -37,6 +37,7 @@ jobs:
     steps:
       - name: Install Qt
         run : |
+          sudo apt-get update -y
           sudo apt-get install build-essential libfontconfig1 mesa-common-dev libglu1-mesa-dev cmake qtdeclarative5-dev qml-module-qtquick-controls qtbase5-dev qtcreator qt5-default libqt5serialport5-dev qtbase5-private-dev qtdeclarative5-private-dev mesa-common-dev -y
       - uses: actions/checkout@v1
         with:

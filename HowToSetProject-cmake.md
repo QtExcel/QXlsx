@@ -2,9 +2,9 @@
 
 > *Read this in other languages: [English](HowToSetProject-cmake.md), :kr: [한국어](HowToSetProject-cmake.ko.md)*
 
-:one: Enter the command as shown below.
+- Enter the command as shown below.
 
-:two: Using MingW
+:one: Using MingW
 
 - QXlsx library
 
@@ -24,6 +24,27 @@ cmake -G "MinGW Makefiles" ..\HelloWorld\
 mingw32-make
 ```
 
+:two: Using Visual Studio
+
+- QXlsx library (Release Build)
+
+```
+mkdir build
+cd build
+cmake -G "Visual Studio 16 2019" ..\QXlsx\
+MSBuild /nologo /t:Build /p:Configuration=Release QXlsx.vcxproj
+```
+
+- HelloWorld (Release Build)
+
+```
+mkdir build2
+cd build2
+cmake -G "Visual Studio 16 2019" ..\HelloWorld\
+MSBuild /nologo /t:Build /p:Configuration=Release HelloWorld.vcxproj 
+```
+
+- Or, You may open *.sln/*.vcxproj files in Visual Studio IDE.
 
 :three: Using Linux/Mac/Unix
 
