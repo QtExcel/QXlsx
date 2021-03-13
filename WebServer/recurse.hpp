@@ -18,7 +18,8 @@
 #include <QVector>
 
 #if QT_VERSION_MAJOR >= 6 // Qt6 or higher version
-#include <QtCore5Compat>
+ #include <QRegularExpression>
+ #include <QRegularExpressionMatch>
 #endif
 
 #include <functional>
@@ -439,10 +440,19 @@ namespace Recurse
     {
         QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
 
+#if QT_VERSION_MAJOR >= 6 // Qt6 or higher version
+        QRegularExpression debug_strings("(recurse|development)");
+
+        QRegularExpressionMatch rem = debug_strings.match(env.value("DEBUG"));
+        if ( rem.hasMatch() )
+            m_debug = true;
+#else
         QRegExp debug_strings("(recurse|development)");
 
         if (debug_strings.indexIn(env.value("DEBUG")) != -1)
             m_debug = true;
+#endif
+
     }
 
     inline Application::Application(int &argc, char **argv, QObject *parent)

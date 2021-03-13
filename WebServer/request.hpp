@@ -8,7 +8,7 @@
 #include <QUrlQuery>
 
 #if QT_VERSION_MAJOR >= 6 // Qt6 or higher version
-#include <QtCore5Compat>
+ #include <QRegularExpression>
 #endif
 
 class Request

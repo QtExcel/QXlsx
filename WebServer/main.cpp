@@ -7,10 +7,6 @@
 #include <QVector>
 #include <QList>
 
-#if QT_VERSION_MAJOR >= 6 // Qt6 or higher version
-#include <QtCore5Compat>
-#endif
-
 #include "recurse.hpp"
 
 #include "xlsxdocument.h"
