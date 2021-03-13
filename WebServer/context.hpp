@@ -5,10 +5,6 @@
 #include <QVariant>
 #include <QHash>
 
-#if QT_VERSION_MAJOR >= 6 // Qt6 or higher version
-#include <QtCore5Compat>
-#endif
-
 #include "request.hpp"
 #include "response.hpp"
 
