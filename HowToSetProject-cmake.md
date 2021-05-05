@@ -62,7 +62,7 @@ make
 ```
 mkdir build2
 cd build2
-cmake -G "Unix Makefiles" ..\HelloWorld\
+cmake -G "Unix Makefiles" ../HelloWorld/
 make
 ```
 
