@@ -52,7 +52,6 @@ public:
     ~Worksheet();
 
 public:
-public:
 
     enum PrintPageOrder
     {
