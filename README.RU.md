@@ -18,8 +18,8 @@
 ## Как настроить (Установка)
 
 -: Рекомендуется: 
-- См. [Как настроить проект QXlsx (qmake)] (HowToSetProject.md)
-- См. [Как настроить проект QXlsx (cmake)] (HowToSetProject-cmake.md)
+- См. [Как настроить проект QXlsx (qmake)](HowToSetProject.md)
+- См. [Как настроить проект QXlsx (cmake)](HowToSetProject-cmake.md)	
 
 ## Tested environment
 
