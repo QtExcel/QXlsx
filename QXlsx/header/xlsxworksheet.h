@@ -81,6 +81,16 @@ public:
         NA
     };
 
+    // printOptions
+    bool isPrintHorizontalCentered() const;
+    void setPrintHorizontalCentered(bool centered);
+    bool isPrintVerticalCentered() const;
+    void setPrintVerticalCentered(bool centered);
+    bool arePrintHeadingsVisible() const;
+    void setPrintHeadingsVisible(bool visible);
+    bool arePrintGridLinesVisible() const;
+    void setPrintGridLinesVisible(bool visible);
+
     // pageMargins
     double printLeftMargin() const;
     void setPrintLeftMargin(double margin);
@@ -227,6 +237,9 @@ public:
     bool isWhiteSpaceVisible() const;
     void setWhiteSpaceVisible(bool visible);
  	bool setStartPage(int spagen); //add by liufeijin20181028
+
+    bool isPageBreakPreview() const;
+    void setPageBreakPreview(bool visible);
 
     QVector<CellLocation> getFullCells(int* maxRow, int* maxCol);
 
