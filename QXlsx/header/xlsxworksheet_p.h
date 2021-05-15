@@ -268,11 +268,11 @@ public:
     void saveXmlMergeCells(QXmlStreamWriter &writer) const;
     void saveXmlHyperlinks(QXmlStreamWriter &writer) const;
     void saveXmlDrawings(QXmlStreamWriter &writer) const;
+    void saveXmlDataValidations(QXmlStreamWriter &writer) const;
+    //from Nikki
     void saveXmlPrintOptions(QXmlStreamWriter &writer) const;
     void saveXmlPageMargins(QXmlStreamWriter &writer) const;
     void saveXmlPageSetup(QXmlStreamWriter &writer) const;
-    void saveXmlDataValidations(QXmlStreamWriter &writer) const;
-
     int rowPixelsSize(int row) const;
     int colPixelsSize(int col) const;
 
@@ -283,6 +283,9 @@ public:
     void loadXmlSheetFormatProps(QXmlStreamReader &reader);
     void loadXmlSheetViews(QXmlStreamReader &reader);
     void loadXmlHyperlinks(QXmlStreamReader &reader);
+    //form Nikki
+    void loadXmlPrintOptions(QXmlStreamReader &reader);
+    void loadXmlPageMargins(QXmlStreamReader &reader);
     void loadXmlPageSetup(QXmlStreamReader &reader);
 
     QList<QSharedPointer<XlsxRowInfo> > getRowInfoList(int rowFirst, int rowLast);
