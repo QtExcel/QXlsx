@@ -11,9 +11,9 @@
    - Вы также можете использовать его как статическую библиотеку.
 
 ## Как использовать
-- См. [Примеры] (Example.md)
-- См. [Wiki] (https://github.com/QtExcel/QXlsx/wiki)
-- См. [FAQ] (https://github.com/QtExcel/QXlsx/wiki/FAQ).
+- См. [Примеры](Example.md)
+- См. [Wiki](https://github.com/QtExcel/QXlsx/wiki)
+- См. [FAQ](https://github.com/QtExcel/QXlsx/wiki/FAQ).
 
 ## Как настроить (Установка)
 
