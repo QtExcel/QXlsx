@@ -374,7 +374,7 @@ bool Workbook::copySheet(int index, const QString &newName)
     d->sheets.append(QSharedPointer<AbstractSheet> (sheet));
     d->sheetNames.append(sheet->sheetName());
 
-    return false;
+    return true; // #162
 }
 
 /*!
