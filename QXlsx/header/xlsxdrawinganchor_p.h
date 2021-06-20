@@ -60,6 +60,9 @@ public:
     virtual bool loadFromXml(QXmlStreamReader &reader) = 0;
     virtual void saveToXml(QXmlStreamWriter &writer) const = 0;
 
+    virtual int row();
+    virtual int col();
+
 protected:
     QPoint loadXmlPos(QXmlStreamReader &reader);
     QSize loadXmlExt(QXmlStreamReader &reader);
@@ -137,6 +140,9 @@ public:
     XlsxMarker from;
     QSize ext;
 
+    virtual int row();
+    virtual int col();
+
     bool loadFromXml(QXmlStreamReader &reader);
     void saveToXml(QXmlStreamWriter &writer) const;
 };
@@ -148,6 +154,9 @@ public:
 
     XlsxMarker from;
     XlsxMarker to;
+
+    virtual int row();
+    virtual int col();
 
     bool loadFromXml(QXmlStreamReader &reader);
     void saveToXml(QXmlStreamWriter &writer) const;
