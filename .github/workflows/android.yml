@@ -39,7 +39,7 @@ jobs:
         qt_arch: [android_x86,android_armv7,android_arm64_v8a]
     steps:
       - name: Install Qt
-        uses: jurplel/install-qt-action@v2.10.0
+        uses: jurplel/install-qt-action@v2.13.2
         with:
           version: ${{ matrix.qt_ver }}
           target: ${{ matrix.qt_target }}
