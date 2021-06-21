@@ -106,6 +106,16 @@ void DrawingAnchor::setObjectGraphicFrame(QSharedPointer<Chart> chart)
     m_objectType = GraphicFrame;
 }
 
+int DrawingAnchor::row()
+{
+    return -1;
+}
+
+int DrawingAnchor::col()
+{
+    return -1;
+}
+
 QPoint DrawingAnchor::loadXmlPos(QXmlStreamReader &reader)
 {
     Q_ASSERT(reader.name() == QLatin1String("pos"));
@@ -1025,6 +1035,16 @@ DrawingOneCellAnchor::DrawingOneCellAnchor(Drawing *drawing, ObjectType objectTy
 
 }
 
+int DrawingOneCellAnchor::row()
+{
+    return from.row();
+}
+
+int DrawingOneCellAnchor::col()
+{
+    return from.col();
+}
+
 // check point
 bool DrawingOneCellAnchor::loadFromXml(QXmlStreamReader &reader)
 {
@@ -1081,6 +1101,16 @@ DrawingTwoCellAnchor::DrawingTwoCellAnchor(Drawing *drawing, ObjectType objectTy
     :DrawingAnchor(drawing, objectType)
 {
 
+}
+
+int DrawingTwoCellAnchor::row()
+{
+    return from.row();
+}
+
+int DrawingTwoCellAnchor::col()
+{
+    return from.col();
 }
 
 // check point
