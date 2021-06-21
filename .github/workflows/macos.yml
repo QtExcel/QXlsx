@@ -38,7 +38,7 @@ jobs:
         qt_target: [desktop]
     steps:
       - name: Install Qt
-        uses: jurplel/install-qt-action@v2
+        uses: jurplel/install-qt-action@v2.13.2
         with:
           version: ${{ matrix.qt_ver }}
           target: ${{ matrix.qt_target }}
