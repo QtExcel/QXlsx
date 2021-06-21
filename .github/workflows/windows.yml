@@ -31,7 +31,7 @@ jobs:
     runs-on: windows-2019
     steps:
     - name: Install Qt
-      uses: jurplel/install-qt-action@v2    
+      uses: jurplel/install-qt-action@v2.13.2    
     - name: Checkout
       uses: actions/checkout@v1
     - name: Run Visual Studio
