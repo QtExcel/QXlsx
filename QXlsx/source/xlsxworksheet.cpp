@@ -1408,10 +1408,13 @@ void Worksheet::saveToXmlFile(QIODevice *device) const
 		d->saveXmlSheetData(writer);
 	writer.writeEndElement();//sheetData
 
+    // https://github.com/QtExcel/QXlsx/pull/160#issuecomment-868392759
+    /*
 	d->saveXmlMergeCells(writer);
     for (const ConditionalFormatting &cf : d->conditionalFormattingList)
 		cf.saveToXml(writer);
     d->saveXmlDataValidations(writer);
+    */
 
     //{{ liufeijin :  write  pagesettings  add by liufeijin 20181028
 
