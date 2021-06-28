@@ -52,6 +52,91 @@ public:
     ~Worksheet();
 
 public:
+
+    enum PrintPageOrder
+    {
+        DownThenOver,
+        OverThenDown
+    };
+
+    enum PrintOrientation
+    {
+        Default,
+        Landscape,
+        Portrait
+    };
+
+    enum PrintCellComments
+    {
+        None,
+        AsDisplayed,
+        AtEnd
+    };
+
+    enum PrintErrors
+    {
+        Displayed,
+        Blank,
+        Dash,
+        NA
+    };
+
+    // printOptions
+    bool isPrintHorizontalCentered() const;
+    void setPrintHorizontalCentered(bool centered);
+    bool isPrintVerticalCentered() const;
+    void setPrintVerticalCentered(bool centered);
+    bool arePrintHeadingsVisible() const;
+    void setPrintHeadingsVisible(bool visible);
+    bool arePrintGridLinesVisible() const;
+    void setPrintGridLinesVisible(bool visible);
+
+    // pageMargins
+    double printLeftMargin() const;
+    void setPrintLeftMargin(double margin);
+    double printRightMargin() const;
+    void setPrintRightMargin(double margin);
+    double printTopMargin() const;
+    void setPrintTopMargin(double margin);
+    double printBottomMargin() const;
+    void setPrintBottomMargin(double margin);
+    double printHeaderMargin() const;
+    void setPrintHeaderMargin(double margin);
+    double printFooterMargin() const;
+    void setPrintFooterMargin(double margin);
+
+    // pageSetup
+    quint32 printPaperSize() const;
+    void setPrintPaperSize(quint32 size);
+    quint32 printScale() const;
+    void setPrintScale(quint32 scale);
+    quint32 printFirstPageNumber() const;
+    void setPrintFirstPageNumber(quint32 firstPage);
+    quint32 printFitToWidth() const;
+    void setPrintFitToWidth(quint32 fitToWidth);
+    quint32 printFitToHeight() const;
+    void setPrintFitToHeight(quint32 fitToHeight);
+    PrintPageOrder printPageOrder() const;
+    void setPrintPageOrder(PrintPageOrder pageOrder);
+    PrintOrientation printOrientation() const;
+    void setPrintOrientation(PrintOrientation orientation);
+    bool isPrintBlackAndWhite() const;
+    void setPrintBlackAndWhite(bool blackAndWhite);
+    bool isPrintDraft() const;
+    void setPrintDraft(bool isDraft);
+    PrintCellComments printCellComments() const;
+    void setPrintCellComments(PrintCellComments cellComments);
+    bool isPrintUseFirstPageNumber() const;
+    void setPrintUseFirstPageNumber(bool useFirstPage);
+    PrintErrors printErrors() const;
+    void setPrintErrors(PrintErrors errors);
+    quint32 printHorizontalDpi() const;
+    void setPrintHorizontalDpi(quint32 dpi);
+    quint32 printVerticalDpi() const;
+    void setprintVerticalDpi(quint32 dpi);
+    quint32 printCopies() const;
+    void setPrintCopies(quint32 copies);
+
     bool write(const CellReference &row_column, const QVariant &value, const Format &format=Format());
     bool write(int row, int column, const QVariant &value, const Format &format=Format());
 
@@ -153,6 +238,9 @@ public:
     bool isWhiteSpaceVisible() const;
     void setWhiteSpaceVisible(bool visible);
  	bool setStartPage(int spagen); //add by liufeijin20181028
+
+    bool isPageBreakPreview() const;
+    void setPageBreakPreview(bool visible);
 
     QVector<CellLocation> getFullCells(int* maxRow, int* maxCol);
 

@@ -1324,6 +1324,13 @@ void Worksheet::saveToXmlFile(QIODevice *device) const
 	//    writer.writeAttribute("xmlns:x14ac", "http://schemas.microsoft.com/office/spreadsheetml/2009/9/ac");
 	//    writer.writeAttribute("mc:Ignorable", "x14ac");
 
+    writer.writeStartElement(QStringLiteral("sheetPr"));
+    writer.writeAttribute(QStringLiteral("filterMode"), "false");
+    writer.writeStartElement(QStringLiteral("pageSetUpPr"));
+    writer.writeAttribute(QStringLiteral("fitToPage"), "true");
+    writer.writeEndElement();
+    writer.writeEndElement();
+
 	writer.writeStartElement(QStringLiteral("dimension"));
 	writer.writeAttribute(QStringLiteral("ref"), d->generateDimensionString());
 	writer.writeEndElement();//dimension
@@ -1404,7 +1411,7 @@ void Worksheet::saveToXmlFile(QIODevice *device) const
 	d->saveXmlMergeCells(writer);
     for (const ConditionalFormatting &cf : d->conditionalFormattingList)
 		cf.saveToXml(writer);
-	d->saveXmlDataValidations(writer);
+    d->saveXmlDataValidations(writer);
 
     //{{ liufeijin :  write  pagesettings  add by liufeijin 20181028
 
@@ -1412,7 +1419,7 @@ void Worksheet::saveToXmlFile(QIODevice *device) const
     // NOTE: empty element is not problem. but, empty structure of element is not parsed by Excel.
 
     // pageMargins
-    if ( false == d->PMleft.isEmpty() &&
+    /*if ( false == d->PMleft.isEmpty() &&
          false == d->PMright.isEmpty() &&
          false == d->PMtop.isEmpty() &&
          false == d->PMbotton.isEmpty() &&
@@ -1430,10 +1437,10 @@ void Worksheet::saveToXmlFile(QIODevice *device) const
         writer.writeAttribute(QStringLiteral("footer"), d->PMfooter );
 
         writer.writeEndElement(); // pageMargins
-    }
+    }*/
 
     // dev57
-    if ( !d->Prid.isEmpty() )
+    /*if ( !d->Prid.isEmpty() )
     {
         writer.writeStartElement(QStringLiteral("pageSetup")); // pageSetup
 
@@ -1507,14 +1514,84 @@ void Worksheet::saveToXmlFile(QIODevice *device) const
         }
 
         writer.writeEndElement(); // headerFooter
-    }
+    }*/
 
-	d->saveXmlHyperlinks(writer);
-	d->saveXmlDrawings(writer);
+    d->saveXmlMergeCells(writer);
+    foreach (const ConditionalFormatting cf, d->conditionalFormattingList)
+        cf.saveToXml(writer);
+    d->saveXmlDataValidations(writer);
+    d->saveXmlHyperlinks(writer);
+    d->saveXmlDrawings(writer);
 
-    writer.writeEndElement(); // worksheet
-	writer.writeEndDocument();
+    d->saveXmlPrintOptions(writer);
+    d->saveXmlPageMargins(writer);
+    d->saveXmlPageSetup(writer);
+
+    writer.writeEndElement();//worksheet
+    writer.writeEndDocument();
 }
+
+void WorksheetPrivate::saveXmlPageMargins(QXmlStreamWriter &writer) const
+{
+    writer.writeStartElement(QStringLiteral("pageMargins"));
+
+    writer.writeAttribute(QStringLiteral("left"),   QString::number(pageMargins.left, 'g', 15));
+    writer.writeAttribute(QStringLiteral("right"),  QString::number(pageMargins.right, 'g', 15));
+    writer.writeAttribute(QStringLiteral("top"),    QString::number(pageMargins.top, 'g', 15));
+    writer.writeAttribute(QStringLiteral("bottom"), QString::number(pageMargins.bottom, 'g', 15));
+    writer.writeAttribute(QStringLiteral("header"), QString::number(pageMargins.header, 'g', 15));
+    writer.writeAttribute(QStringLiteral("footer"), QString::number(pageMargins.footer, 'g', 15));
+
+    writer.writeEndElement();
+}
+
+void WorksheetPrivate::saveXmlPageSetup(QXmlStreamWriter &writer) const
+{
+    XlsxPageSetup defaultValues;
+
+    if ((pageSetup.paperSize          == defaultValues.paperSize) &&
+        (pageSetup.scale              == defaultValues.scale) &&
+        (pageSetup.firstPageNumber    == defaultValues.firstPageNumber) &&
+        (pageSetup.fitToWidth         == defaultValues.fitToWidth) &&
+        (pageSetup.fitToHeight        == defaultValues.fitToHeight) &&
+        (pageSetup.pageOrder          == defaultValues.pageOrder) &&
+        (pageSetup.orientation        == defaultValues.orientation) &&
+        (pageSetup.usePrinterDefaults == defaultValues.usePrinterDefaults) &&
+        (pageSetup.blackAndWhite      == defaultValues.blackAndWhite) &&
+        (pageSetup.draft              == defaultValues.draft) &&
+        (pageSetup.cellComments       == defaultValues.cellComments) &&
+        (pageSetup.useFirstPageNumber == defaultValues.useFirstPageNumber) &&
+        (pageSetup.errors             == defaultValues.errors) &&
+        (pageSetup.horizontalDpi      == defaultValues.horizontalDpi) &&
+        (pageSetup.verticalDpi        == defaultValues.verticalDpi) &&
+        (pageSetup.copies             == defaultValues.copies) &&
+        (pageSetup.rID                == defaultValues.rID))
+        return;
+
+    writer.writeStartElement(QStringLiteral("pageSetup"));
+
+    if (pageSetup.paperSize          != defaultValues.paperSize)          writer.writeAttribute(QStringLiteral("paperSize"),          QString::number(pageSetup.paperSize));
+    if (pageSetup.scale              != defaultValues.scale)              writer.writeAttribute(QStringLiteral("scale"),              QString::number(pageSetup.scale));
+    if (pageSetup.firstPageNumber    != defaultValues.firstPageNumber)    writer.writeAttribute(QStringLiteral("firstPageNumber"),    QString::number(pageSetup.firstPageNumber));
+    if (pageSetup.fitToWidth         != defaultValues.fitToWidth)         writer.writeAttribute(QStringLiteral("fitToWidth"),         QString::number(pageSetup.fitToWidth));
+    if (pageSetup.fitToHeight        != defaultValues.fitToHeight)        writer.writeAttribute(QStringLiteral("fitToHeight"),        QString::number(pageSetup.fitToHeight));
+    if (pageSetup.pageOrder          != defaultValues.pageOrder)          writer.writeAttribute(QStringLiteral("pageOrder"),          XlsxPageSetup::pageOrderString(pageSetup.pageOrder));
+    if (pageSetup.orientation        != defaultValues.orientation)        writer.writeAttribute(QStringLiteral("orientation"),        XlsxPageSetup::orientationString(pageSetup.orientation));
+    // NOTE: if this attribute is "false" Microsoft Office 2010 doesn't read the whole element "pageSetup", that's why we always write "true"
+    if (pageSetup.usePrinterDefaults != defaultValues.usePrinterDefaults) writer.writeAttribute(QStringLiteral("usePrinterDefaults"), pageSetup.usePrinterDefaults ? QStringLiteral("1") : QStringLiteral("0"));
+    if (pageSetup.blackAndWhite      != defaultValues.blackAndWhite)      writer.writeAttribute(QStringLiteral("blackAndWhite"),      pageSetup.blackAndWhite ? QStringLiteral("1") : QStringLiteral("0"));
+    if (pageSetup.draft              != defaultValues.draft)              writer.writeAttribute(QStringLiteral("draft"),              pageSetup.draft ? QStringLiteral("1") : QStringLiteral("0"));
+    if (pageSetup.cellComments       != defaultValues.cellComments)       writer.writeAttribute(QStringLiteral("cellComments"),       XlsxPageSetup::cellCommentsString(pageSetup.cellComments));
+    if (pageSetup.useFirstPageNumber != defaultValues.useFirstPageNumber) writer.writeAttribute(QStringLiteral("useFirstPageNumber"), pageSetup.useFirstPageNumber ? QStringLiteral("1") : QStringLiteral("0"));
+    if (pageSetup.errors             != defaultValues.errors)             writer.writeAttribute(QStringLiteral("errors"),             XlsxPageSetup::errorsString(pageSetup.errors));
+    if (pageSetup.horizontalDpi      != defaultValues.horizontalDpi)      writer.writeAttribute(QStringLiteral("horizontalDpi"),      QString::number(pageSetup.horizontalDpi));
+    if (pageSetup.verticalDpi        != defaultValues.verticalDpi)        writer.writeAttribute(QStringLiteral("verticalDpi"),        QString::number(pageSetup.verticalDpi));
+    if (pageSetup.copies             != defaultValues.copies)             writer.writeAttribute(QStringLiteral("copies"),             QString::number(pageSetup.copies));
+    if (pageSetup.rID                != defaultValues.rID)                writer.writeAttribute(QStringLiteral("r:id"),               pageSetup.rID);
+
+    writer.writeEndElement();
+}
+
 
 //{{ liufeijin 
 bool Worksheet::setStartPage(int spagen)
@@ -1842,6 +1919,28 @@ void WorksheetPrivate::saveXmlDrawings(QXmlStreamWriter &writer) const
 
 	writer.writeEmptyElement(QStringLiteral("drawing"));
     writer.writeAttribute(QStringLiteral("r:id"), QStringLiteral("rId%1").arg(relationships->count()));
+}
+
+void WorksheetPrivate::saveXmlPrintOptions(QXmlStreamWriter &writer) const
+{
+    XlsxPrintOptions defaultValues;
+
+    if ((printOptions.horizontalCentered == defaultValues.horizontalCentered) &&
+        (printOptions.verticalCentered   == defaultValues.verticalCentered) &&
+        (printOptions.headings           == defaultValues.headings) &&
+        (printOptions.gridLines          == defaultValues.gridLines) &&
+        (printOptions.gridLinesSet       == defaultValues.gridLinesSet))
+        return;
+
+    writer.writeStartElement(QStringLiteral("printOptions"));
+
+    if (printOptions.horizontalCentered != defaultValues.horizontalCentered) writer.writeAttribute(QStringLiteral("horizontalCentered"), printOptions.horizontalCentered ? QStringLiteral("1") : QStringLiteral("0"));
+    if (printOptions.verticalCentered   != defaultValues.verticalCentered)   writer.writeAttribute(QStringLiteral("verticalCentered"),   printOptions.verticalCentered ? QStringLiteral("1") : QStringLiteral("0"));
+    if (printOptions.headings           != defaultValues.headings)           writer.writeAttribute(QStringLiteral("headings"),           printOptions.headings ? QStringLiteral("1") : QStringLiteral("0"));
+    if (printOptions.gridLines          != defaultValues.gridLines)          writer.writeAttribute(QStringLiteral("gridLines"),          printOptions.gridLines ? QStringLiteral("1") : QStringLiteral("0"));
+    if (printOptions.gridLinesSet       != defaultValues.gridLinesSet)       writer.writeAttribute(QStringLiteral("gridLinesSet"),       printOptions.gridLinesSet ? QStringLiteral("1") : QStringLiteral("0"));
+
+    writer.writeEndElement();
 }
 
 void WorksheetPrivate::splitColsInfo(int colFirst, int colLast)
@@ -2789,6 +2888,68 @@ void WorksheetPrivate::loadXmlHyperlinks(QXmlStreamReader &reader)
 	}
 }
 
+void WorksheetPrivate::loadXmlPageSetup(QXmlStreamReader &reader)
+{
+    Q_ASSERT(reader.name() == QLatin1String("pageSetup"));
+    QXmlStreamAttributes attributes = reader.attributes();
+    XlsxPageSetup defaultValues;
+
+    foreach (QXmlStreamAttribute attrib, attributes) {
+        if(attrib.name() == QLatin1String("paperSize") ) {
+            pageSetup.paperSize = attrib.value().toString().toUInt();
+            if (!pageSetup.paperSize) pageSetup.paperSize = defaultValues.paperSize;
+        } else if(attrib.name() == QLatin1String("scale")) {
+            pageSetup.scale = attrib.value().toString().toUInt();
+            if (pageSetup.scale < 10 || pageSetup.scale > 400) pageSetup.scale = defaultValues.scale;
+        } else if(attrib.name() == QLatin1String("firstPageNumber")) {
+            pageSetup.firstPageNumber = attrib.value().toString().toUInt();
+            if (!pageSetup.firstPageNumber) pageSetup.firstPageNumber = defaultValues.firstPageNumber;
+        } else if(attrib.name() == QLatin1String("fitToWidth")) {
+            pageSetup.fitToWidth = attrib.value().toString().toUInt();
+            if (!pageSetup.fitToWidth) pageSetup.fitToWidth = defaultValues.fitToWidth;
+        } else if(attrib.name() == QLatin1String("fitToHeight")) {
+            pageSetup.fitToHeight = attrib.value().toString().toUInt();
+            if (!pageSetup.fitToHeight) pageSetup.fitToHeight = defaultValues.fitToHeight;
+        } else if(attrib.name() == QLatin1String("pageOrder")) {
+            pageSetup.pageOrder = attrib.value().toString() == XlsxPageSetup::pageOrderString(Worksheet::DownThenOver) ? Worksheet::DownThenOver :
+                                  attrib.value().toString() == XlsxPageSetup::pageOrderString(Worksheet::OverThenDown) ? Worksheet::OverThenDown : pageSetup.pageOrder;
+        } else if(attrib.name() == QLatin1String("orientation")) {
+            pageSetup.orientation = attrib.value().toString() == XlsxPageSetup::orientationString(Worksheet::Default) ? Worksheet::Default :
+                                    attrib.value().toString() == XlsxPageSetup::orientationString(Worksheet::Portrait) ? Worksheet::Portrait :
+                                    attrib.value().toString() == XlsxPageSetup::orientationString(Worksheet::Landscape) ? Worksheet::Landscape : pageSetup.orientation;
+        } else if(attrib.name() == QLatin1String("usePrinterDefaults")) {
+            // NOTE: if this attribute is "false" Microsoft Office 2010 doesn't read the whole element "pageSetup", that's why we do NOT parse this attribute and always write "true"
+            //pageSetup.usePrinterDefaults = parseXsdBoolean(attrib.value().toString(), pageSetup.usePrinterDefaults);
+        } else if(attrib.name() == QLatin1String("blackAndWhite")) {
+            pageSetup.blackAndWhite = parseXsdBoolean(attrib.value().toString(), pageSetup.blackAndWhite);
+        } else if(attrib.name() == QLatin1String("draft")) {
+            pageSetup.draft = parseXsdBoolean(attrib.value().toString(), pageSetup.draft);
+        } else if(attrib.name() == QLatin1String("cellComments")) {
+            pageSetup.cellComments = attrib.value().toString() == XlsxPageSetup::cellCommentsString(Worksheet::None) ? Worksheet::None :
+                                     attrib.value().toString() == XlsxPageSetup::cellCommentsString(Worksheet::AsDisplayed) ? Worksheet::AsDisplayed :
+                                     attrib.value().toString() == XlsxPageSetup::cellCommentsString(Worksheet::AtEnd) ? Worksheet::AtEnd : pageSetup.cellComments;
+        } else if(attrib.name() == QLatin1String("useFirstPageNumber")) {
+            pageSetup.useFirstPageNumber = parseXsdBoolean(attrib.value().toString(), pageSetup.useFirstPageNumber);
+        } else if(attrib.name() == QLatin1String("errors")) {
+            pageSetup.errors = attrib.value().toString() == XlsxPageSetup::errorsString(Worksheet::Displayed) ? Worksheet::Displayed :
+                               attrib.value().toString() == XlsxPageSetup::errorsString(Worksheet::Blank) ? Worksheet::Blank :
+                               attrib.value().toString() == XlsxPageSetup::errorsString(Worksheet::Dash) ? Worksheet::Dash :
+                               attrib.value().toString() == XlsxPageSetup::errorsString(Worksheet::NA) ? Worksheet::NA : pageSetup.errors;
+        } else if(attrib.name() == QLatin1String("horizontalDpi")) {
+            pageSetup.horizontalDpi = attrib.value().toString().toUInt();
+            if (!pageSetup.horizontalDpi) pageSetup.horizontalDpi = defaultValues.horizontalDpi;
+        } else if(attrib.name() == QLatin1String("verticalDpi")) {
+            pageSetup.verticalDpi = attrib.value().toString().toUInt();
+            if (!pageSetup.verticalDpi) pageSetup.verticalDpi = defaultValues.verticalDpi;
+        } else if(attrib.name() == QLatin1String("copies")) {
+            pageSetup.copies = attrib.value().toString().toUInt();
+            if (!pageSetup.copies) pageSetup.copies = defaultValues.copies;
+        } else if(attrib.name() == QLatin1String("r:id")) {
+            pageSetup.rID = attrib.value().toString();
+        }
+    }
+}
+
 QList <QSharedPointer<XlsxColumnInfo> > WorksheetPrivate::getColumnInfoList(int colFirst, int colLast)
 {
 	QList <QSharedPointer<XlsxColumnInfo> > columnsInfoList;
@@ -3001,7 +3162,7 @@ void WorksheetPrivate::validateDimension()
  */
 SharedStrings *WorksheetPrivate::sharedStrings() const
 {
-	return workbook->sharedStrings();
+    return workbook->sharedStrings();
 }
 
 QVector<CellLocation> Worksheet::getFullCells(int* maxRow, int* maxCol)
@@ -3069,5 +3230,527 @@ QVector<CellLocation> Worksheet::getFullCells(int* maxRow, int* maxCol)
 
     return ret;
 }
+
+/*!
+ * Returns whether printed content should be horizontally centered
+ */
+bool Worksheet::isPrintHorizontalCentered() const
+{
+    Q_D(const Worksheet);
+    return d->printOptions.horizontalCentered;
+}
+
+/*!
+ * Sets or unsets horizontal centering of printed content
+ */
+void Worksheet::setPrintHorizontalCentered(bool centered)
+{
+    Q_D(Worksheet);
+    d->printOptions.horizontalCentered = centered;
+}
+
+/*!
+ * Returns whether printed content should be vertically centered
+ */
+bool Worksheet::isPrintVerticalCentered() const
+{
+    Q_D(const Worksheet);
+    return d->printOptions.verticalCentered;
+}
+
+/*!
+ * Sets or unsets vertical centering of printed content
+ */
+void Worksheet::setPrintVerticalCentered(bool centered)
+{
+    Q_D(Worksheet);
+    d->printOptions.verticalCentered = centered;
+}
+
+/*!
+ * Returns whether headings should be printed
+ */
+bool Worksheet::arePrintHeadingsVisible() const
+{
+    Q_D(const Worksheet);
+    return d->printOptions.headings;
+}
+
+/*!
+ * Sets or unsets printing of headings
+ */
+void Worksheet::setPrintHeadingsVisible(bool visible)
+{
+    Q_D(Worksheet);
+    d->printOptions.headings = visible;
+}
+
+/*!
+ * Returns whether gridlines should be printed
+ */
+bool Worksheet::arePrintGridLinesVisible() const
+{
+    Q_D(const Worksheet);
+    return d->printOptions.gridLines && d->printOptions.gridLinesSet;
+}
+
+/*!
+ * Sets or unsets printing of gridlines
+ */
+void Worksheet::setPrintGridLinesVisible(bool visible)
+{
+    Q_D(Worksheet);
+    // both options must be set for grid lines to be printed
+    // if any of these options is unset grid lines won't be printed
+    d->printOptions.gridLines = visible;
+    if (visible) d->printOptions.gridLinesSet = visible;
+}
+
+/*!
+ * Returns left printing margin in inches
+ */
+double Worksheet::printLeftMargin() const
+{
+    Q_D(const Worksheet);
+    return d->pageMargins.left;
+}
+
+/*!
+ * Sets left printing margin in inches
+ */
+void Worksheet::setPrintLeftMargin(double margin)
+{
+    Q_D(Worksheet);
+    d->pageMargins.left = margin;
+}
+
+/*!
+ * Returns right printing margin in inches
+ */
+double Worksheet::printRightMargin() const
+{
+    Q_D(const Worksheet);
+    return d->pageMargins.right;
+}
+
+/*!
+ * Sets right printing margin in inches
+ */
+void Worksheet::setPrintRightMargin(double margin)
+{
+    Q_D(Worksheet);
+    d->pageMargins.right = margin;
+}
+
+/*!
+ * Returns top printing margin in inches
+ */
+double Worksheet::printTopMargin() const
+{
+    Q_D(const Worksheet);
+    return d->pageMargins.top;
+}
+
+/*!
+ * Sets top printing margin in inches
+ */
+void Worksheet::setPrintTopMargin(double margin)
+{
+    Q_D(Worksheet);
+    d->pageMargins.top = margin;
+}
+
+/*!
+ * Returns bottom printing margin in inches
+ */
+double Worksheet::printBottomMargin() const
+{
+    Q_D(const Worksheet);
+    return d->pageMargins.bottom;
+}
+
+/*!
+ * Sets bottom's printing margin in inches
+ */
+void Worksheet::setPrintBottomMargin(double margin)
+{
+    Q_D(Worksheet);
+    d->pageMargins.bottom = margin;
+}
+
+/*!
+ * Returns printing margin of the header in inches
+ */
+double Worksheet::printHeaderMargin() const
+{
+    Q_D(const Worksheet);
+    return d->pageMargins.header;
+}
+
+/*!
+ * Sets printing margin of the header in inches
+ */
+void Worksheet::setPrintHeaderMargin(double margin)
+{
+    Q_D(Worksheet);
+    d->pageMargins.header = margin;
+}
+
+/*!
+ * Returns printing margin of the footer in inches
+ */
+double Worksheet::printFooterMargin() const
+{
+    Q_D(const Worksheet);
+    return d->pageMargins.footer;
+}
+
+/*!
+ * Sets printing margin of the footer in inches
+ */
+void Worksheet::setPrintFooterMargin(double margin)
+{
+    Q_D(Worksheet);
+    d->pageMargins.footer = margin;
+}
+
+/*!
+ * Returns the index of the paper size used for printing
+ *
+ * 1 = Letter paper (8.5 in. by 11 in.)
+ * 2 = Letter small paper (8.5 in. by 11 in.)
+ * 3 = Tabloid paper (11 in. by 17 in.)
+ * 4 = Ledger paper (17 in. by 11 in.)
+ * 5 = Legal paper (8.5 in. by 14 in.)
+ * 6 = Statement paper (5.5 in. by 8.5 in.)
+ * 7 = Executive paper (7.25 in. by 10.5 in.)
+ * 8 = A3 paper (297 mm by 420 mm)
+ * 9 = A4 paper (210 mm by 297 mm)
+ * 10 = A4 small paper (210 mm by 297 mm)
+ * 11 = A5 paper (148 mm by 210 mm)
+ * 12 = B4 paper (250 mm by 353 mm)
+ * 13 = B5 paper (176 mm by 250 mm)
+ * 14 = Folio paper (8.5 in. by 13 in.)
+ * 15 = Quarto paper (215 mm by 275 mm)
+ * 16 = Standard paper (10 in. by 14 in.)
+ * 17 = Standard paper (11 in. by 17 in.)
+ * 18 = Note paper (8.5 in. by 11 in.)
+ * 19 = #9 envelope (3.875 in. by 8.875 in.)
+ * 20 = #10 envelope (4.125 in. by 9.5 in.)
+ * 21 = #11 envelope (4.5 in. by 10.375 in.)
+ * 22 = #12 envelope (4.75 in. by 11 in.)
+ * 23 = #14 envelope (5 in. by 11.5 in.)
+ * 24 = C paper (17 in. by 22 in.)
+ * 25 = D paper (22 in. by 34 in.)
+ * 26 = E paper (34 in. by 44 in.)
+ * 27 = DL envelope (110 mm by 220 mm)
+ * 28 = C5 envelope (162 mm by 229 mm)
+ * 29 = C3 envelope (324 mm by 458 mm)
+ * 30 = C4 envelope (229 mm by 324 mm)
+ * 31 = C6 envelope (114 mm by 162 mm)
+ * 32 = C65 envelope (114 mm by 229 mm)
+ * 33 = B4 envelope (250 mm by 353 mm)
+ * 34 = B5 envelope (176 mm by 250 mm)
+ * 35 = B6 envelope (176 mm by 125 mm)
+ * 36 = Italy envelope (110 mm by 230 mm)
+ * 37 = Monarch envelope (3.875 in. by 7.5 in.).
+ * 38 = 6 3/4 envelope (3.625 in. by 6.5 in.)
+ * 39 = US standard fanfold (14.875 in. by 11 in.)
+ * 40 = German standard fanfold (8.5 in. by 12 in.)
+ * 41 = German legal fanfold (8.5 in. by 13 in.)
+ * 42 = ISO B4 (250 mm by 353 mm)
+ * 43 = Japanese double postcard (200 mm by 148 mm)
+ * 44 = Standard paper (9 in. by 11 in.)
+ * 45 = Standard paper (10 in. by 11 in.)
+ * 46 = Standard paper (15 in. by 11 in.)
+ * 47 = Invite envelope (220 mm by 220 mm)
+ * 50 = Letter extra paper (9.275 in. by 12 in.)
+ * 51 = Legal extra paper (9.275 in. by 15 in.)
+ * 52 = Tabloid extra paper (11.69 in. by 18 in.)
+ * 53 = A4 extra paper (236 mm by 322 mm)
+ * 54 = Letter transverse paper (8.275 in. by 11 in.)
+ * 55 = A4 transverse paper (210 mm by 297 mm)
+ * 56 = Letter extra transverse paper (9.275 in. by 12 in.)
+ * 57 = SuperA/SuperA/A4 paper (227 mm by 356 mm)
+ * 58 = SuperB/SuperB/A3 paper (305 mm by 487 mm)
+ * 59 = Letter plus paper (8.5 in. by 12.69 in.)
+ * 60 = A4 plus paper (210 mm by 330 mm)
+ * 61 = A5 transverse paper (148 mm by 210 mm)
+ * 62 = JIS B5 transverse paper (182 mm by 257 mm)
+ * 63 = A3 extra paper (322 mm by 445 mm)
+ * 64 = A5 extra paper (174 mm by 235 mm)
+ * 65 = ISO B5 extra paper (201 mm by 276 mm)
+ * 66 = A2 paper (420 mm by 594 mm)
+ * 67 = A3 transverse paper (297 mm by 420 mm)
+ * 68 = A3 extra transverse paper (322 mm by 445 mm)
+ */
+quint32 Worksheet::printPaperSize() const
+{
+    Q_D(const Worksheet);
+    return d->pageSetup.paperSize;
+}
+
+/*!
+ * Sets the index of the paper size used for printing; see printPaperSize function for known indexes
+ */
+void Worksheet::setPrintPaperSize(quint32 paperSizeIdx)
+{
+    Q_D(Worksheet);
+    if (paperSizeIdx) d->pageSetup.paperSize = paperSizeIdx;
+}
+
+/*!
+ * Returns printing scale
+ */
+quint32 Worksheet::printScale() const
+{
+    Q_D(const Worksheet);
+    return d->pageSetup.scale;
+}
+
+/*!
+ * Sets printing scale the valid values are in the range [ 10 ... 4000 ]
+ */
+void Worksheet::setPrintScale(quint32 scale)
+{
+    Q_D(Worksheet);
+    if (scale >= 10 && scale <= 400) d->pageSetup.scale = scale;
+}
+
+/*!
+ * Returns first page number used for printing
+ */
+quint32 Worksheet::printFirstPageNumber() const
+{
+    Q_D(const Worksheet);
+    return d->pageSetup.firstPageNumber;
+}
+
+/*!
+ * Sets first page number used for printing
+ */
+void Worksheet::setPrintFirstPageNumber(quint32 firstPage)
+{
+    Q_D(Worksheet);
+    d->pageSetup.firstPageNumber = firstPage;
+}
+
+/*!
+ * Returns number of horizontal pages to fit on
+ */
+quint32 Worksheet::printFitToWidth() const
+{
+    Q_D(const Worksheet);
+    return d->pageSetup.fitToWidth;
+}
+
+/*!
+ * Sets number of horizontal pages to fit on
+ */
+void Worksheet::setPrintFitToWidth(quint32 fitToWidth)
+{
+    Q_D(Worksheet);
+    d->pageSetup.fitToWidth = fitToWidth;
+}
+
+/*!
+ * Returns number of vertical pages to fit on
+ */
+quint32 Worksheet::printFitToHeight() const
+{
+    Q_D(const Worksheet);
+    return d->pageSetup.fitToHeight;
+}
+
+/*!
+ * Sets number of vertical pages to fit on
+ */
+void Worksheet::setPrintFitToHeight(quint32 fitToHeight)
+{
+    Q_D(Worksheet);
+    d->pageSetup.fitToHeight = fitToHeight;
+}
+
+/*!
+ * Returns the order of printed pages
+ */
+Worksheet::PrintPageOrder Worksheet::printPageOrder() const
+{
+    Q_D(const Worksheet);
+    return d->pageSetup.pageOrder;
+}
+
+/*!
+ * Sets the order of printed pages
+ */
+void Worksheet::setPrintPageOrder(PrintPageOrder pageOrder)
+{
+    Q_D(Worksheet);
+    d->pageSetup.pageOrder = pageOrder;
+}
+
+/*!
+ * Returns the orientation of printed pages
+ */
+Worksheet::PrintOrientation Worksheet::printOrientation() const
+{
+    Q_D(const Worksheet);
+    return d->pageSetup.orientation;
+}
+
+/*!
+ * Sets the orientation of printed pages
+ */
+void Worksheet::setPrintOrientation(PrintOrientation orientation)
+{
+    Q_D(Worksheet);
+    d->pageSetup.orientation = orientation;
+}
+
+/*!
+ * Returns wheather the printing will be black and white
+ */
+bool Worksheet::isPrintBlackAndWhite() const
+{
+    Q_D(const Worksheet);
+    return d->pageSetup.blackAndWhite;
+}
+
+/*!
+ * Sets wheather the printing will be black and white
+ */
+void Worksheet::setPrintBlackAndWhite(bool blackAndWhite)
+{
+    Q_D(Worksheet);
+    d->pageSetup.blackAndWhite = blackAndWhite;
+}
+
+/*!
+ * Returns wheather the printing will be done without graphics (is draft)
+ */
+bool Worksheet::isPrintDraft() const
+{
+    Q_D(const Worksheet);
+    return d->pageSetup.draft;
+}
+
+/*!
+ * Sets wheather the printing will be done without graphics (is draft)
+ */
+void Worksheet::setPrintDraft(bool isDraft)
+{
+    Q_D(Worksheet);
+    d->pageSetup.draft = isDraft;
+}
+
+/*!
+ * Returns how cell comments will be printed
+ */
+Worksheet::PrintCellComments Worksheet::printCellComments() const
+{
+    Q_D(const Worksheet);
+    return d->pageSetup.cellComments;
+}
+
+/*!
+ * Sets how cell comments will be printed
+ */
+void Worksheet::setPrintCellComments(PrintCellComments cellComments)
+{
+    Q_D(Worksheet);
+    d->pageSetup.cellComments = cellComments;
+}
+
+/*!
+ * Returns wheather the first page number will be used
+ */
+bool Worksheet::isPrintUseFirstPageNumber() const
+{
+    Q_D(const Worksheet);
+    return d->pageSetup.useFirstPageNumber;
+}
+
+/*!
+ * Sets wheather the first page number will be used
+ */
+void Worksheet::setPrintUseFirstPageNumber(bool useFirstPage)
+{
+    Q_D(Worksheet);
+    d->pageSetup.useFirstPageNumber = useFirstPage;
+}
+
+/*!
+ * Returns how errors in cells will be printed
+ */
+Worksheet::PrintErrors Worksheet::printErrors() const
+{
+    Q_D(const Worksheet);
+    return d->pageSetup.errors;
+}
+
+/*!
+ * Sets how errors in cells will be printed
+ */
+void Worksheet::setPrintErrors(PrintErrors errors)
+{
+    Q_D(Worksheet);
+    d->pageSetup.errors = errors;
+}
+
+/*!
+ * Returns horizontal print resolution
+ */
+quint32 Worksheet::printHorizontalDpi() const
+{
+    Q_D(const Worksheet);
+    return d->pageSetup.horizontalDpi;
+}
+
+/*!
+ * Sets horizontal print resolution
+ */
+void Worksheet::setPrintHorizontalDpi(quint32 dpi)
+{
+    Q_D(Worksheet);
+    d->pageSetup.horizontalDpi = dpi;
+}
+
+/*!
+ * Returns vertical print resolution
+ */
+quint32 Worksheet::printVerticalDpi() const
+{
+    Q_D(const Worksheet);
+    return d->pageSetup.verticalDpi;
+}
+
+/*!
+ * Sets vertical print resolution
+ */
+void Worksheet::setprintVerticalDpi(quint32 dpi)
+{
+    Q_D(Worksheet);
+    d->pageSetup.verticalDpi = dpi;
+}
+
+/*!
+ * Returns how many copies will be printed
+ */
+quint32 Worksheet::printCopies() const
+{
+    Q_D(const Worksheet);
+    return d->pageSetup.copies;
+}
+
+/*!
+ * Sets how many copies will be printed
+ */
+void Worksheet::setPrintCopies(quint32 copies)
+{
+    Q_D(Worksheet);
+    d->pageSetup.copies = copies;
+}
+
+
 
 QT_END_NAMESPACE_XLSX
