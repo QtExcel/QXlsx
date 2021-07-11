@@ -22,15 +22,15 @@ using namespace std;
 #include "xlsxrichstring.h"
 #include "xlsxworkbook.h"
 
-int test162( QVector<QVariant> params );
+int test167( QVector<QVariant> params );
 
 int test( QVector<QVariant> params )
 {
     qDebug() << "[debug] current path : " << QDir::currentPath();
-    return test162( params );
+    return test167( params );
 }
 
-int test162( QVector<QVariant> params )
+int test167( QVector<QVariant> params )
 {
     using namespace QXlsx;
 
