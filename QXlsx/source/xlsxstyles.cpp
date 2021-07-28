@@ -32,7 +32,7 @@ Styles::Styles(CreateFlag flag)
 
     // issue #89
 #if QT_VERSION >= QT_VERSION_CHECK( 5, 0, 0 )
-    if (QMetaType::type("XlsxColor") == QMetaType::UnknownType)
+    if (QMetaType::fromName("XlsxColor").isRegistered()) 
 #else
     if (QMetaType::type("XlsxColor") == 0
         || !QMetaType::isRegistered(QMetaType::type("XlsxColor")))
