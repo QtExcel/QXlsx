@@ -130,22 +130,43 @@ QVariant Cell::readValue() const
             return QVariant();
         }
 
-        if ( vDT.type() == QVariant::DateTime )
-        {
-            ret = vDT;
-        }
-        else if ( vDT.type() == QVariant::Date )
-        {
-            ret = vDT;
-        }
-        else if ( vDT.type() == QVariant::Time )
-        {
-            ret = vDT;
-        }
-        else
-        {
-            return QVariant();
-        }
+        // https://github.com/QtExcel/QXlsx/issues/171
+        // https://www.qt.io/blog/whats-new-in-qmetatype-qvariant
+        #if QT_VERSION >= 0x060000 // Qt 6.0 or over
+                if ( vDT.metaType().id() == QMetaType::QDateTime )
+                {
+                    ret = vDT;
+                }
+                else if ( vDT.metaType().id() == QMetaType::QDate )
+                {
+                    ret = vDT;
+                }
+                else if ( vDT.metaType().id() == QMetaType::QTime )
+                {
+                    ret = vDT;
+                }
+                else
+                {
+                    return QVariant();
+                }
+        #else
+                if ( vDT.type() == QVariant::DateTime )
+                {
+                    ret = vDT;
+                }
+                else if ( vDT.type() == QVariant::Date )
+                {
+                    ret = vDT;
+                }
+                else if ( vDT.type() == QVariant::Time )
+                {
+                    ret = vDT;
+                }
+                else
+                {
+                    return QVariant();
+                }
+        #endif
 
         // QDateTime dt = dateTime();
         // ret = dt;
