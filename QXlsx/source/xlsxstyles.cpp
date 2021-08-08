@@ -30,15 +30,17 @@ Styles::Styles(CreateFlag flag)
 
     //!Fix me! Where should we put these register code?
 
-    // issue #89
-#if QT_VERSION >= QT_VERSION_CHECK( 5, 0, 0 )
-    if (QMetaType::type("XlsxColor") == QMetaType::UnknownType)
+    // issue #172, #89
+#if QT_VERSION >= 0x060000 // Qt 6.0 or over
+    if (QMetaType::fromName("XlsxColor").isRegistered())
 #else
-    if (QMetaType::type("XlsxColor") == 0
-        || !QMetaType::isRegistered(QMetaType::type("XlsxColor")))
+    #if QT_VERSION >= QT_VERSION_CHECK( 5, 0, 0 ) // Qt 5 or higher
+        if (QMetaType::type("XlsxColor") == QMetaType::UnknownType)
+    #else
+        if (QMetaType::type("XlsxColor") == 0
+            || !QMetaType::isRegistered(QMetaType::type("XlsxColor")))
+    #endif
 #endif
-
-
     {
         qRegisterMetaType<XlsxColor>("XlsxColor");
 
@@ -52,9 +54,9 @@ Styles::Styles(CreateFlag flag)
 
         qRegisterMetaTypeStreamOperators<XlsxColor>("XlsxColor");
 
-#if QT_VERSION >= 0x050200 // 5.2 or higher
-        QMetaType::registerDebugStreamOperator<XlsxColor>();
-#endif
+    #if QT_VERSION >= 0x050200 // 5.2 or higher
+            QMetaType::registerDebugStreamOperator<XlsxColor>();
+    #endif
 
 #endif
     }
