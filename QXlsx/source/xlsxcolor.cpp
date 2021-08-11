@@ -119,19 +119,53 @@ XlsxColor::operator QVariant() const
 
 QColor XlsxColor::fromARGBString(const QString &c)
 {
-    Q_ASSERT(c.length() == 8);
+    // issue #173 https://github.com/QtExcel/QXlsx/issues/173
+
     QColor color;
+    QString strColor = "00000000";
+
+    if ( c.length() == 8 )
+    {
+        strColor = c;
+    }
+
+    if ( c.length() == 6 )
+    {
+        strColor = QString("00") + c;
+    }
 
 #if QT_VERSION >= 0x060000 // Qt 6.0 or over
-    color.setAlpha(c.mid(0, 2).toInt(0, 16));
-    color.setRed(c.mid(2, 2).toInt(0, 16));
-    color.setGreen(c.mid(4, 2).toInt(0, 16));
-    color.setBlue(c.mid(6, 2).toInt(0, 16));
+    QString strAlpha = strColor.mid(0, 2);
+    int alpha = strAlpha.toInt(0, 16);
+    color.setAlpha( alpha );
+
+    QString strRed = strColor.mid(2, 2);
+    int red = strRed.toInt(0, 16);
+    color.setRed( red );
+
+    QString strGreen = strColor.mid(4, 2);
+    int green = strGreen.toInt(0, 16);
+    color.setGreen( green );
+
+    QString strBlue = strColor.mid(6, 2);
+    int blue = strBlue.toInt(0, 16);
+    color.setBlue( blue );
 #else
-    color.setAlpha(c.midRef(0, 2).toInt(0, 16));
-    color.setRed(c.midRef(2, 2).toInt(0, 16));
-    color.setGreen(c.midRef(4, 2).toInt(0, 16));
-    color.setBlue(c.midRef(6, 2).toInt(0, 16));
+    QStringRef strAlpha = strColor.midRef(0, 2);
+    int alpha = strAlpha.toInt(0, 16);
+    color.setAlpha( alpha );
+
+    QStringRef strRed = strColor.midRef(2, 2);
+    int red = strRed.toInt(0, 16);
+    color.setRed( red );
+
+    QStringRef strGreen = strColor.midRef(4, 2);
+    int green = strGreen.toInt(0, 16);
+    color.setGreen( green );
+
+    QStringRef strBlue = strColor.midRef(6, 2);
+    int blue = strBlue.toInt(0, 16);
+    color.setBlue( blue );
 #endif
 
     return color;
