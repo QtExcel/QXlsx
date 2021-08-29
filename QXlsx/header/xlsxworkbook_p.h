@@ -5,7 +5,6 @@
 
 #include <QtGlobal>
 #include <QSharedPointer>
-#include <QPair>
 #include <QStringList>
 
 #include "xlsxworkbook.h"
