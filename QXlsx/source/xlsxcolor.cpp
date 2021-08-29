@@ -122,7 +122,7 @@ QColor XlsxColor::fromARGBString(const QString &c)
     // issue #173 https://github.com/QtExcel/QXlsx/issues/173
 
     QColor color;
-    QString strColor = "00000000";
+    QString strColor = QStringLiteral("00000000");
 
     if ( c.length() == 8 )
     {
@@ -131,7 +131,7 @@ QColor XlsxColor::fromARGBString(const QString &c)
 
     if ( c.length() == 6 )
     {
-        strColor = QString("00") + c;
+        strColor = QLatin1String("00") + c;
     }
 
 #if QT_VERSION >= 0x060000 // Qt 6.0 or over
@@ -234,7 +234,7 @@ QDebug operator<<(QDebug dbg, const XlsxColor &c)
     else if (c.isIndexedColor())
         dbg.nospace() << "XlsxColor(indexed," << c.indexedColor() << ")";
     else if (c.isThemeColor())
-        dbg.nospace() << "XlsxColor(theme," << c.themeColor().join(QLatin1String(":")) << ")";
+        dbg.nospace() << "XlsxColor(theme," << c.themeColor().join(QLatin1Char(':')) << ')';
 
     return dbg.space();
 }
