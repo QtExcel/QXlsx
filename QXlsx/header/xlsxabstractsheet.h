@@ -12,7 +12,7 @@ class Workbook;
 class Drawing;
 class AbstractSheetPrivate;
 
-class AbstractSheet : public AbstractOOXmlFile
+class QXLSX_EXPORT AbstractSheet : public AbstractOOXmlFile
 {
     Q_DECLARE_PRIVATE(AbstractSheet)
 

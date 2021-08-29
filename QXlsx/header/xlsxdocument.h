@@ -24,7 +24,7 @@ class Chart;
 class CellReference;
 class DocumentPrivate;
 
-class Document : public QObject
+class QXLSX_EXPORT Document : public QObject
 {
 	Q_OBJECT
     Q_DECLARE_PRIVATE(Document) // D-Pointer. Qt classes have a Q_DECLARE_PRIVATE

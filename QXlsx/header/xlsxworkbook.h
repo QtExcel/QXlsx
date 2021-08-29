@@ -28,7 +28,7 @@ class Chartsheet;
 class Worksheet;
 class WorkbookPrivate;
 
-class Workbook : public AbstractOOXmlFile
+class QXLSX_EXPORT Workbook : public AbstractOOXmlFile
 {
     Q_DECLARE_PRIVATE(Workbook)
 public:
