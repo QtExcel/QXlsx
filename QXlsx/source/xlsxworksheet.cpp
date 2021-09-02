@@ -1482,7 +1482,7 @@ void Worksheet::saveToXmlFile(QIODevice *device) const
         writer.writeEndElement(); // pageSetup
 
     } // if ( !d->Prid.isEmpty() )
-	
+
     // headerFooter
     if( !(d->MoodFooter.isNull()) ||
         !(d->MoodFooter.isNull()) )
@@ -1516,7 +1516,7 @@ void Worksheet::saveToXmlFile(QIODevice *device) const
 	writer.writeEndDocument();
 }
 
-//{{ liufeijin 
+//{{ liufeijin
 bool Worksheet::setStartPage(int spagen)
 {
     Q_D(Worksheet);
@@ -2339,19 +2339,26 @@ void WorksheetPrivate::loadXmlSheetData(QXmlStreamReader &reader)
 
 	Q_ASSERT(reader.name() == QLatin1String("sheetData"));
 
-	while (!reader.atEnd() && !(reader.name() == QLatin1String("sheetData") && reader.tokenType() == QXmlStreamReader::EndElement)) 
+	// issue #164 manually count rows and columns
+    	int rowSum=0,columnSum=0;
+
+	while (!reader.atEnd() && !(reader.name() == QLatin1String("sheetData") && reader.tokenType() == QXmlStreamReader::EndElement))
 	{
-		if (reader.readNextStartElement()) 
+		if (reader.readNextStartElement())
 		{
-			if (reader.name() == QLatin1String("row")) 
-			{
+			if (reader.name() == QLatin1String("row"))
+            		{
+				// issue #164
+				rowSum++;
+        columnSum=0;
+
 				QXmlStreamAttributes attributes = reader.attributes();
 
 				if (attributes.hasAttribute(QLatin1String("customFormat"))
 						|| attributes.hasAttribute(QLatin1String("customHeight"))
 						|| attributes.hasAttribute(QLatin1String("hidden"))
 						|| attributes.hasAttribute(QLatin1String("outlineLevel"))
-						|| attributes.hasAttribute(QLatin1String("collapsed"))) 
+						|| attributes.hasAttribute(QLatin1String("collapsed")))
 				{
 
 					QSharedPointer<XlsxRowInfo> info(new XlsxRowInfo);
@@ -2387,12 +2394,14 @@ void WorksheetPrivate::loadXmlSheetData(QXmlStreamReader &reader)
 					}
 				}
 
-			} 
+			}
 			else if (reader.name() == QLatin1String("c")) // Cell
-			{ 
-				
+			{
+				// issue #164
+        columnSum++;
 				//Cell
 				QXmlStreamAttributes attributes = reader.attributes();
+        // issue #164 some xlsx files don't have r attr in c tag to get cell position on sheet
 				QString r = attributes.value(QLatin1String("r")).toString();
 				CellReference pos(r);
 
@@ -2400,7 +2409,7 @@ void WorksheetPrivate::loadXmlSheetData(QXmlStreamReader &reader)
 				Format format;
 				qint32 styleIndex = -1;
 				if (attributes.hasAttribute(QLatin1String("s"))) // Style (defined in the styles.xml file)
-				{ 
+				{
 					//"s" == style index
 					int idx = attributes.value(QLatin1String("s")).toString().toInt();
 					format = workbook->styles()->xfFormat(idx);
@@ -2410,12 +2419,12 @@ void WorksheetPrivate::loadXmlSheetData(QXmlStreamReader &reader)
                 // Cell::CellType cellType = Cell::NumberType;
                 Cell::CellType cellType = Cell::CustomType;
 
-				if (attributes.hasAttribute(QLatin1String("t"))) // Type 
+				if (attributes.hasAttribute(QLatin1String("t"))) // Type
 				{
 					QString typeString = attributes.value(QLatin1String("t")).toString();
                     if (typeString == QLatin1String("s")) // Shared string
 					{
-						cellType = Cell::SharedStringType; 
+						cellType = Cell::SharedStringType;
 					}
                     else if (typeString == QLatin1String("inlineStr")) //  Inline String
 					{
@@ -2474,28 +2483,28 @@ void WorksheetPrivate::loadXmlSheetData(QXmlStreamReader &reader)
                                 int si = formula.sharedIndex();
                                 sharedFormulaMap[ si ] = formula;
 							}
-						} 
-						else if (reader.name() == QLatin1String("v")) // Value 
+						}
+						else if (reader.name() == QLatin1String("v")) // Value
 						{
 							QString value = reader.readElementText();
-							if (cellType == Cell::SharedStringType) 
+							if (cellType == Cell::SharedStringType)
 							{
 								int sst_idx = value.toInt();
 								sharedStrings()->incRefByStringIndex(sst_idx);
 								RichString rs = sharedStrings()->getSharedString(sst_idx);
 								QString strPlainString = rs.toPlainString();
-								cell->d_func()->value = strPlainString; 
+								cell->d_func()->value = strPlainString;
 								if (rs.isRichString())
 									cell->d_func()->richString = rs;
-							} 
-							else if (cellType == Cell::NumberType) 
+							}
+							else if (cellType == Cell::NumberType)
 							{
 								cell->d_func()->value = value.toDouble();
-							} 
-							else if (cellType == Cell::BooleanType) 
+							}
+							else if (cellType == Cell::BooleanType)
 							{
 								cell->d_func()->value = value.toInt() ? true : false;
-							} 
+							}
                             else  if (cellType == Cell::DateType)
                             {
                                 // [dev54] DateType
@@ -2508,11 +2517,11 @@ void WorksheetPrivate::loadXmlSheetData(QXmlStreamReader &reader)
                                 // cell->d_func()->value = vDatetimeValue;
                                 cell->d_func()->value = dValue; // dev67
                             }
-							else 
+							else
                             {
                                 // ELSE type
 								cell->d_func()->value = value;
-							} 
+							}
 
                         }
                         else if (reader.name() == QLatin1String("is"))
@@ -2544,7 +2553,13 @@ void WorksheetPrivate::loadXmlSheetData(QXmlStreamReader &reader)
 					}
 				}
 
-                cellTable[ pos.row() ][ pos.column() ] = cell;
+		// issue #164 some xlsx files don't have r attr in c tag
+                if(r.isEmpty())
+                {
+                    cellTable[ rowX ][ columnY ] = cell;
+                } else {
+                    cellTable[ pos.row() ][ pos.column() ] = cell;
+                }
 
 			}
 		}

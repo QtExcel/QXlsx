@@ -123,6 +123,8 @@ bool Relationships::loadFromXmlFile(QIODevice *device)
                  relationship.id = attributes.value(QLatin1String("Id")).toString();
                  relationship.type = attributes.value(QLatin1String("Type")).toString();
                  relationship.target = attributes.value(QLatin1String("Target")).toString();
+                 // issue #164 fix target path
+                 if(relationship.target.startsWith("/xl/worksheets")) relationship.target.remove(0,1);
                  relationship.targetMode = attributes.value(QLatin1String("TargetMode")).toString();
                  m_relationships.append(relationship);
              }

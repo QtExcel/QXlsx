@@ -615,6 +615,8 @@ bool Workbook::loadFromXmlFile(QIODevice *device)
                  QString str = *( splitPath(strFilePath).begin() );
                  str = str + QLatin1String("/");
                  str = str + relationship.target;
+		 // issue #164 fix path
+                 if(str.startsWith("xl/xl/")) str.remove(0,3);
                  const QString fullPath = QDir::cleanPath( str );
 
                  sheet->setFilePath(fullPath);
