@@ -2556,7 +2556,7 @@ void WorksheetPrivate::loadXmlSheetData(QXmlStreamReader &reader)
 		// issue #164 some xlsx files don't have r attr in c tag
                 if(r.isEmpty())
                 {
-                    cellTable[ rowX ][ columnY ] = cell;
+                    cellTable[ rowSum ][ columnSum ] = cell;
                 } else {
                     cellTable[ pos.row() ][ pos.column() ] = cell;
                 }
