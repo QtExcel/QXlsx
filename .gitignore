@@ -403,3 +403,5 @@ ASALocalRun/
 /QXlsx/CMakeFiles/
 /QXlsx/Makefile
 
+# clangd cache
+.cache/
