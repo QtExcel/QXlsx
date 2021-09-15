@@ -423,7 +423,7 @@ bool CellFormula::loadFromXml(QXmlStreamReader &reader)
 
         if (attributes.hasAttribute(QLatin1String("si")))
         {
-            d->si = attributes.value(QLatin1String("si")).toString().toInt();
+            d->si = attributes.value(QLatin1String("si")).toInt();
         }
     }
 

@@ -95,7 +95,7 @@ bool XlsxColor::loadFromXml(QXmlStreamReader &reader)
         const auto& colorString = attributes.value(QLatin1String("rgb")).toString();
         val.setValue(fromARGBString(colorString));
     } else if (attributes.hasAttribute(QLatin1String("indexed"))) {
-        int index = attributes.value(QLatin1String("indexed")).toString().toInt();
+        int index = attributes.value(QLatin1String("indexed")).toInt();
         val.setValue(index);
     } else if (attributes.hasAttribute(QLatin1String("theme"))) {
         const auto& theme = attributes.value(QLatin1String("theme")).toString();

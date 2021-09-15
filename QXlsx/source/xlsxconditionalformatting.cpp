@@ -436,13 +436,13 @@ bool ConditionalFormattingPrivate::readCfRule(QXmlStreamReader &reader, XlsxCfRu
     if (attrs.hasAttribute(QLatin1String("type")))
         rule->attrs[XlsxCfRuleData::A_type] = attrs.value(QLatin1String("type")).toString();
     if (attrs.hasAttribute(QLatin1String("dxfId"))) {
-        int id = attrs.value(QLatin1String("dxfId")).toString().toInt();
+        int id = attrs.value(QLatin1String("dxfId")).toInt();
         if (styles)
             rule->dxfFormat = styles->dxfFormat(id);
         else
             rule->dxfFormat.setDxfIndex(id);
     }
-    rule->priority = attrs.value(QLatin1String("priority")).toString().toInt();
+    rule->priority = attrs.value(QLatin1String("priority")).toInt();
     if (attrs.value(QLatin1String("stopIfTrue")) == QLatin1String("1")) {
         //default is false
         rule->attrs[XlsxCfRuleData::A_stopIfTrue] = QLatin1String("1");

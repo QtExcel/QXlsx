@@ -571,7 +571,7 @@ bool Workbook::loadFromXmlFile(QIODevice *device)
 
                  const auto& name = attributes.value(QLatin1String("name")).toString();
 
-                 int sheetId = attributes.value(QLatin1String("sheetId")).toString().toInt();
+                 int sheetId = attributes.value(QLatin1String("sheetId")).toInt();
 
                  const auto& rId = attributes.value(QLatin1String("r:id")).toString();
 
@@ -637,17 +637,17 @@ bool Workbook::loadFromXmlFile(QIODevice *device)
                         {
                             QXmlStreamAttributes attrs = reader.attributes();
                             if (attrs.hasAttribute(QLatin1String("xWindow")))
-                                d->x_window = attrs.value(QLatin1String("xWindow")).toString().toInt();
+                                d->x_window = attrs.value(QLatin1String("xWindow")).toInt();
                             if (attrs.hasAttribute(QLatin1String("yWindow")))
-                                d->y_window = attrs.value(QLatin1String("yWindow")).toString().toInt();
+                                d->y_window = attrs.value(QLatin1String("yWindow")).toInt();
                             if (attrs.hasAttribute(QLatin1String("windowWidth")))
-                                d->window_width = attrs.value(QLatin1String("windowWidth")).toString().toInt();
+                                d->window_width = attrs.value(QLatin1String("windowWidth")).toInt();
                             if (attrs.hasAttribute(QLatin1String("windowHeight")))
-                                d->window_height = attrs.value(QLatin1String("windowHeight")).toString().toInt();
+                                d->window_height = attrs.value(QLatin1String("windowHeight")).toInt();
                             if (attrs.hasAttribute(QLatin1String("firstSheet")))
-                                d->firstsheet = attrs.value(QLatin1String("firstSheet")).toString().toInt();
+                                d->firstsheet = attrs.value(QLatin1String("firstSheet")).toInt();
                             if (attrs.hasAttribute(QLatin1String("activeTab")))
-                                d->activesheetIndex = attrs.value(QLatin1String("activeTab")).toString().toInt();
+                                d->activesheetIndex = attrs.value(QLatin1String("activeTab")).toInt();
                         }
                     }
                 }
@@ -675,7 +675,7 @@ bool Workbook::loadFromXmlFile(QIODevice *device)
                  if (attrs.hasAttribute(QLatin1String("comment")))
                      data.comment = attrs.value(QLatin1String("comment")).toString();
                  if (attrs.hasAttribute(QLatin1String("localSheetId"))) {
-                     int localId = attrs.value(QLatin1String("localSheetId")).toString().toInt();
+                     int localId = attrs.value(QLatin1String("localSheetId")).toInt();
                      int sheetId = d->sheets.at(localId)->sheetId();
                      data.sheetId = sheetId;
                  }

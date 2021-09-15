@@ -122,8 +122,8 @@ QPoint DrawingAnchor::loadXmlPos(QXmlStreamReader &reader)
 
     QPoint pos;
     QXmlStreamAttributes attrs = reader.attributes();
-    pos.setX(attrs.value(QLatin1String("x")).toString().toInt());
-    pos.setY(attrs.value(QLatin1String("y")).toString().toInt());
+    pos.setX(attrs.value(QLatin1String("x")).toInt());
+    pos.setY(attrs.value(QLatin1String("y")).toInt());
     return pos;
 }
 
@@ -133,8 +133,8 @@ QSize DrawingAnchor::loadXmlExt(QXmlStreamReader &reader)
 
     QSize size;
     QXmlStreamAttributes attrs = reader.attributes();
-    size.setWidth(attrs.value(QLatin1String("cx")).toString().toInt());
-    size.setHeight(attrs.value(QLatin1String("cy")).toString().toInt());
+    size.setWidth(attrs.value(QLatin1String("cx")).toInt());
+    size.setHeight(attrs.value(QLatin1String("cy")).toInt());
     return size;
 }
 

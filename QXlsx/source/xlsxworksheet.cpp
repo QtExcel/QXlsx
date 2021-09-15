@@ -2358,7 +2358,7 @@ void WorksheetPrivate::loadXmlSheetData(QXmlStreamReader &reader)
                     if (attributes.hasAttribute(QLatin1String("customFormat")) &&
                             attributes.hasAttribute(QLatin1String("s")))
                     {
-						int idx = attributes.value(QLatin1String("s")).toString().toInt();
+						int idx = attributes.value(QLatin1String("s")).toInt();
 						info->format = workbook->styles()->xfFormat(idx);
 					}
 
@@ -2368,7 +2368,7 @@ void WorksheetPrivate::loadXmlSheetData(QXmlStreamReader &reader)
 						//Row height is only specified when customHeight is set
                         if(attributes.hasAttribute(QLatin1String("ht")))
                         {
-							info->height = attributes.value(QLatin1String("ht")).toString().toDouble();
+							info->height = attributes.value(QLatin1String("ht")).toDouble();
 						}
 					}
 
@@ -2377,12 +2377,12 @@ void WorksheetPrivate::loadXmlSheetData(QXmlStreamReader &reader)
 					info->collapsed = attributes.value(QLatin1String("collapsed")) == QLatin1String("1");
 
 					if (attributes.hasAttribute(QLatin1String("outlineLevel")))
-						info->outlineLevel = attributes.value(QLatin1String("outlineLevel")).toString().toInt();
+						info->outlineLevel = attributes.value(QLatin1String("outlineLevel")).toInt();
 
 					//"r" is optional too.
                     if (attributes.hasAttribute(QLatin1String("r")))
                     {
-						int row = attributes.value(QLatin1String("r")).toString().toInt();
+						int row = attributes.value(QLatin1String("r")).toInt();
 						rowsInfo[row] = info;
 					}
 				}
@@ -2402,7 +2402,7 @@ void WorksheetPrivate::loadXmlSheetData(QXmlStreamReader &reader)
 				if (attributes.hasAttribute(QLatin1String("s"))) // Style (defined in the styles.xml file)
 				{ 
 					//"s" == style index
-					int idx = attributes.value(QLatin1String("s")).toString().toInt();
+					int idx = attributes.value(QLatin1String("s")).toInt();
 					format = workbook->styles()->xfFormat(idx);
 					styleIndex = idx;
 				}
@@ -2412,7 +2412,7 @@ void WorksheetPrivate::loadXmlSheetData(QXmlStreamReader &reader)
 
 				if (attributes.hasAttribute(QLatin1String("t"))) // Type 
 				{
-					QString typeString = attributes.value(QLatin1String("t")).toString();
+					const QStringRef typeString = attributes.value(QLatin1String("t"));
                     if (typeString == QLatin1String("s")) // Shared string
 					{
 						cellType = Cell::SharedStringType; 
@@ -2567,8 +2567,8 @@ void WorksheetPrivate::loadXmlColumnsInfo(QXmlStreamReader &reader)
                 QSharedPointer<XlsxColumnInfo> info(new XlsxColumnInfo(0, 1, false));
 
 				QXmlStreamAttributes colAttrs = reader.attributes();
-				int min = colAttrs.value(QLatin1String("min")).toString().toInt();
-				int max = colAttrs.value(QLatin1String("max")).toString().toInt();
+				int min = colAttrs.value(QLatin1String("min")).toInt();
+				int max = colAttrs.value(QLatin1String("max")).toInt();
 				info->firstColumn = min;
 				info->lastColumn = max;
 
@@ -2583,7 +2583,7 @@ void WorksheetPrivate::loadXmlColumnsInfo(QXmlStreamReader &reader)
                 // [dev54]
                 if (colAttrs.hasAttribute(QLatin1String("width")))
                 {
-					double width = colAttrs.value(QLatin1String("width")).toString().toDouble();
+					double width = colAttrs.value(QLatin1String("width")).toDouble();
 					info->width = width;
                     info->isSetWidth = true; // [dev54]
 				}
@@ -2593,13 +2593,13 @@ void WorksheetPrivate::loadXmlColumnsInfo(QXmlStreamReader &reader)
 
                 if (colAttrs.hasAttribute(QLatin1String("style")))
                 {
-					int idx = colAttrs.value(QLatin1String("style")).toString().toInt();
+					int idx = colAttrs.value(QLatin1String("style")).toInt();
 					info->format = workbook->styles()->xfFormat(idx);
 				}
 
 				if (colAttrs.hasAttribute(QLatin1String("outlineLevel")))
                 {
-					info->outlineLevel = colAttrs.value(QLatin1String("outlineLevel")).toString().toInt();
+					info->outlineLevel = colAttrs.value(QLatin1String("outlineLevel")).toInt();
                 }
 
                 // qDebug() << "[debug] " << __FUNCTION__ << min << max << info->width << hasWidth;
@@ -2630,7 +2630,7 @@ void WorksheetPrivate::loadXmlMergeCells(QXmlStreamReader &reader)
     }
     else
     {
-        count = attributes.value(QLatin1String("count")).toString().toInt();
+        count = attributes.value(QLatin1String("count")).toInt();
     }
 
     while ( !reader.atEnd() &&
@@ -2664,7 +2664,7 @@ void WorksheetPrivate::loadXmlDataValidations(QXmlStreamReader &reader)
 {
 	Q_ASSERT(reader.name() == QLatin1String("dataValidations"));
 	QXmlStreamAttributes attributes = reader.attributes();
-	int count = attributes.value(QLatin1String("count")).toString().toInt();
+	int count = attributes.value(QLatin1String("count")).toInt();
 
 	while (!reader.atEnd() && !(reader.name() == QLatin1String("dataValidations")
 			&& reader.tokenType() == QXmlStreamReader::EndElement)) {
@@ -2717,7 +2717,7 @@ void WorksheetPrivate::loadXmlSheetFormatProps(QXmlStreamReader &reader)
     {
         if(attrib.name() == QLatin1String("baseColWidth") )
         {
-			formatProps.baseColWidth = attrib.value().toString().toInt();
+			formatProps.baseColWidth = attrib.value().toInt();
         }
         else if(attrib.name() == QLatin1String("customHeight"))
         {
@@ -2725,21 +2725,21 @@ void WorksheetPrivate::loadXmlSheetFormatProps(QXmlStreamReader &reader)
         }
         else if(attrib.name() == QLatin1String("defaultColWidth"))
         {
-            double dDefaultColWidth = attrib.value().toString().toDouble();
+            double dDefaultColWidth = attrib.value().toDouble();
             formatProps.defaultColWidth = dDefaultColWidth;
             isSetWidth = true;
         }
         else if(attrib.name() == QLatin1String("defaultRowHeight"))
         {
-			formatProps.defaultRowHeight = attrib.value().toString().toDouble();
+			formatProps.defaultRowHeight = attrib.value().toDouble();
         }
         else if(attrib.name() == QLatin1String("outlineLevelCol"))
         {
-			formatProps.outlineLevelCol = attrib.value().toString().toInt();
+			formatProps.outlineLevelCol = attrib.value().toInt();
         }
         else if(attrib.name() == QLatin1String("outlineLevelRow"))
         {
-			formatProps.outlineLevelRow = attrib.value().toString().toInt();
+			formatProps.outlineLevelRow = attrib.value().toInt();
         }
         else if(attrib.name() == QLatin1String("thickBottom"))
         {

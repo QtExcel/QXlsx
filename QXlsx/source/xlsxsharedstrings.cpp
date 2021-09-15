@@ -301,9 +301,9 @@ Format SharedStrings::readRichStringPart_rPr(QXmlStreamReader &reader)
             if (reader.name() == QLatin1String("rFont")) {
                 format.setFontName(attributes.value(QLatin1String("val")).toString());
             } else if (reader.name() == QLatin1String("charset")) {
-                format.setProperty(FormatPrivate::P_Font_Charset, attributes.value(QLatin1String("val")).toString().toInt());
+                format.setProperty(FormatPrivate::P_Font_Charset, attributes.value(QLatin1String("val")).toInt());
             } else if (reader.name() == QLatin1String("family")) {
-                format.setProperty(FormatPrivate::P_Font_Family, attributes.value(QLatin1String("val")).toString().toInt());
+                format.setProperty(FormatPrivate::P_Font_Family, attributes.value(QLatin1String("val")).toInt());
             } else if (reader.name() == QLatin1String("b")) {
                 format.setFontBold(true);
             } else if (reader.name() == QLatin1String("i")) {
@@ -315,15 +315,15 @@ Format SharedStrings::readRichStringPart_rPr(QXmlStreamReader &reader)
             } else if (reader.name() == QLatin1String("shadow")) {
                 format.setProperty(FormatPrivate::P_Font_Shadow, true);
             } else if (reader.name() == QLatin1String("condense")) {
-                format.setProperty(FormatPrivate::P_Font_Condense, attributes.value(QLatin1String("val")).toString().toInt());
+                format.setProperty(FormatPrivate::P_Font_Condense, attributes.value(QLatin1String("val")).toInt());
             } else if (reader.name() == QLatin1String("extend")) {
-                format.setProperty(FormatPrivate::P_Font_Extend, attributes.value(QLatin1String("val")).toString().toInt());
+                format.setProperty(FormatPrivate::P_Font_Extend, attributes.value(QLatin1String("val")).toInt());
             } else if (reader.name() == QLatin1String("color")) {
                 XlsxColor color;
                 color.loadFromXml(reader);
                 format.setProperty(FormatPrivate::P_Font_Color, color);
             } else if (reader.name() == QLatin1String("sz")) {
-                format.setFontSize(attributes.value(QLatin1String("val")).toString().toInt());
+                format.setFontSize(attributes.value(QLatin1String("val")).toInt());
             } else if (reader.name() == QLatin1String("u")) {
                 QString value = attributes.value(QLatin1String("val")).toString();
                 if (value == QLatin1String("double"))
@@ -359,7 +359,7 @@ bool SharedStrings::loadFromXmlFile(QIODevice *device)
              if (reader.name() == QLatin1String("sst")) {
                  QXmlStreamAttributes attributes = reader.attributes();
                  if ((hasUniqueCountAttr = attributes.hasAttribute(QLatin1String("uniqueCount"))))
-                     count = attributes.value(QLatin1String("uniqueCount")).toString().toInt();
+                     count = attributes.value(QLatin1String("uniqueCount")).toInt();
              } else if (reader.name() == QLatin1String("si")) {
                  readString(reader);
              }
