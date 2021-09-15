@@ -73,6 +73,8 @@ public:
 
 	qint32 styleNumber() const;
 
+	static bool isDateType(CellType cellType, const Format &format);
+
 };
 
 QT_END_NAMESPACE_XLSX

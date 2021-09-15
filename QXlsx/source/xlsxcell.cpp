@@ -350,4 +350,15 @@ qint32 Cell::styleNumber() const
 	return ret; 
 }
 
+bool Cell::isDateType(CellType cellType, const Format &format)
+{
+    if ( cellType == NumberType ||
+         cellType == DateType ||
+         cellType == CustomType )
+    {
+        return format.isValid() && format.isDateTimeFormat();
+    }
+	return false;
+}
+
 QT_END_NAMESPACE_XLSX

@@ -2448,12 +2448,10 @@ void WorksheetPrivate::loadXmlSheetData(QXmlStreamReader &reader)
 					}
 				}
 
-                // [dev54] temp cell for checking datetype
-                Cell tempCell(QVariant(), cellType, format, q, styleIndex);
-                if ( tempCell.isDateTime() )
-                {
-                    cellType = Cell::DateType;
-                }
+				if (Cell::isDateType(cellType, format))
+				{
+					cellType = Cell::DateType;
+				}
 
 				// create a heap of new cell
 				QSharedPointer<Cell> cell(new Cell(QVariant(), cellType, format, q, styleIndex));
@@ -3003,7 +3001,6 @@ void WorksheetPrivate::validateDimension()
         {
             lastColumn = (--it.value().constEnd()).key();
         }
-
     }
 
 	CellRange cr(firstRow, firstColumn, lastRow, lastColumn);
