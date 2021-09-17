@@ -48,3 +48,19 @@ jobs:
           qmake
           make
           ./TestExcel
+      - name: Install Project
+        run: |
+          cd QXlsx
+          cmake .
+          make VERBOSE=1
+          sudo make install
+      - name: Use Installed Project
+        run: |
+          cd HelloWorld
+          rm CMakeLists.txt
+          cp CMakeLists-use.txt CMakeLists.txt
+          mkdir build-cmake
+          cd build-cmake
+          cmake ..
+          make VERBOSE=1
+          ./HelloWorld

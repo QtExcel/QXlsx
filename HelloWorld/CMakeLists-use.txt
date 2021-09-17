@@ -1,0 +1,52 @@
+# CMakeLists.txt for Console Application
+
+# TODO: Set minumum cmake version 
+cmake_minimum_required(VERSION 3.14)
+
+# TODO: Set project name 
+project(HelloWorld LANGUAGES CXX)
+
+# TODO: Set Your C++ version
+set(CMAKE_CXX_STANDARD 11) # C++ 11
+
+##########################
+# bolier-plate code (1) {{
+
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
+
+set(CMAKE_AUTOUIC ON)
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
+
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+find_package(QT NAMES Qt6 Qt5 COMPONENTS Core Gui REQUIRED)
+find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core Gui REQUIRED)
+find_package(QXlsx REQUIRED)
+
+# bolier-plate code (1) }}
+###########################
+
+#########################
+# Console Application {{
+
+# TODO: set your source code 
+set(APP_SRC_FILES
+  main.cpp) 
+  
+list(APPEND SRC_FILES ${APP_SRC_FILES})
+add_executable(${PROJECT_NAME} ${SRC_FILES})
+
+# Console Application }}
+########################
+ 
+##########################
+# bolier-plate code (2) {{
+
+target_link_libraries(${PROJECT_NAME} QXlsx::QXlsx)
+ 
+ set(CMAKE_WIN32_EXECUTABLE OFF)
+ 
+# bolier-plate code (2) }}
+##########################
+

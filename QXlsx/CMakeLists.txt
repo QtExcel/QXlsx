@@ -2,7 +2,8 @@
 
 cmake_minimum_required(VERSION 3.14)
 
-project(QXlsx LANGUAGES CXX)
+project(QXlsx VERSION 1.4.3 LANGUAGES CXX)
+include(GNUInstallDirs)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
@@ -39,14 +40,46 @@ file(GLOB QXLSX_H "${QXLSX_HEADERPATH}/*.h")
 set(SRC_FILES ${QXLSX_CPP})
 list(APPEND SRC_FILES ${QXLSX_H})
 
-add_library(QXlsx STATIC
- ${SRC_FILES} )
+add_library(QXlsx ${SRC_FILES})
+set_target_properties(QXlsx PROPERTIES SOVERSION ${PROJECT_VERSION})
 
-target_include_directories(QXlsx PRIVATE ${QXLSX_HEADERPATH})
+target_include_directories(QXlsx
+	PRIVATE ${QXLSX_HEADERPATH}
+	INTERFACE ${CMAKE_INSTALL_FULL_INCLUDEDIR}/QXlsx)
 
 target_link_libraries(${PROJECT_NAME}
- Qt${QT_VERSION_MAJOR}::Core
- Qt${QT_VERSION_MAJOR}::GuiPrivate
- )
+	PUBLIC Qt${QT_VERSION_MAJOR}::Core
+	PRIVATE Qt${QT_VERSION_MAJOR}::GuiPrivate
+	INTERFACE Qt${QT_VERSION_MAJOR}::Gui
+)
 
 target_compile_definitions(QXlsx PRIVATE QXLSX_LIBRARY)
+
+install(TARGETS QXlsx
+	EXPORT QXlsxTargets
+	LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+	ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+	RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+	INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+)
+install(FILES ${QXLSX_H} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/QXlsx)
+install(EXPORT QXlsxTargets
+	FILE QXlsxTargets.cmake
+	NAMESPACE QXlsx::
+	DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/QXlsx
+)
+include(CMakePackageConfigHelpers)
+configure_package_config_file(${CMAKE_CURRENT_SOURCE_DIR}/QXlsxConfig.cmake.in
+	"${CMAKE_CURRENT_BINARY_DIR}/QXlsxConfig.cmake"
+	INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/QXlsx
+)
+write_basic_package_version_file(
+	"${CMAKE_CURRENT_BINARY_DIR}/QXlsxConfigVersion.cmake"
+	VERSION "${version}"
+	COMPATIBILITY AnyNewerVersion
+)
+install(FILES
+	"${CMAKE_CURRENT_BINARY_DIR}/QXlsxConfig.cmake"
+	"${CMAKE_CURRENT_BINARY_DIR}/QXlsxConfigVersion.cmake"
+	DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/QXlsx
+)

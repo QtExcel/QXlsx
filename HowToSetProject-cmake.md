@@ -2,6 +2,8 @@
 
 > *Read this in other languages: [English](HowToSetProject-cmake.md), :kr: [한국어](HowToSetProject-cmake.ko.md)*
 
+### Without installing QXlsx
+
 - Enter the command as shown below.
 
 :one: Using MingW
@@ -66,4 +68,20 @@ cmake -G "Unix Makefiles" ../HelloWorld/
 make
 ```
 
+### With installing QXlsx
 
+```
+mkdir build
+cd build
+cmake ../QXlsx/
+make
+sudo make install
+```
+
+Then, in some other projects's CMakeLists.txt:
+
+```
+find_package(QXlsx)
+```
+
+See HelloWorld/CMakeLists-use.txt for an example.
