@@ -108,8 +108,8 @@ QVariant datetimeFromNumber(double num, bool is1904)
     }
 #endif
 
-    float whole = 0;
-    float fractional = std::modf(num, &whole);
+    double whole = 0;
+    double fractional = std::modf(num, &whole);
 
     if ( num < double(1) )
     {
