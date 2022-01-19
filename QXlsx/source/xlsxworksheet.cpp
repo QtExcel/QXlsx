@@ -3003,7 +3003,6 @@ void WorksheetPrivate::validateDimension()
         {
             lastColumn = (--it.value().constEnd()).key();
         }
-
     }
 
 	CellRange cr(firstRow, firstColumn, lastRow, lastColumn);
