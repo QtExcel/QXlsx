@@ -450,7 +450,7 @@ bool Worksheet::write(int row, int column, const QVariant &value, const Format &
         else if (d->workbook->isStringsToNumbersEnabled() && (value.toDouble(&ok), ok))
         {
 			//Try convert string to number if the flag enabled.
-			ret = writeString(row, column, value.toString(), format);
+			ret = writeNumeric(row, column, value.toDouble(), format);
         }
         else
         {
