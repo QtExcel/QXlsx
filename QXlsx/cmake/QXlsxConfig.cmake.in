@@ -1,0 +1,10 @@
+@PACKAGE_INIT@
+
+include(CMakeFindDependencyMacro)
+
+@PACKAGE_DEPENDENCIES@
+
+# Add the targets file
+include("${CMAKE_CURRENT_LIST_DIR}/QXlsxTargets.cmake")
+
+check_required_components(QXlsx)

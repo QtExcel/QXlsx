@@ -50,3 +50,30 @@ target_link_libraries(${PROJECT_NAME}
  )
 
 target_compile_definitions(QXlsx PRIVATE QXLSX_LIBRARY)
+
+# install the library on a system
+include(GNUInstallDirs)
+install(FILES ${QXLSX_H} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/qxlsx)
+install(
+    TARGETS QXlsx
+    EXPORT QXlsxTargets
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+)
+install(
+    EXPORT QXlsxTargets
+    FILE QXlsxTargets.cmake
+    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/QXlsx
+    NAMESPACE QXlsx::
+)
+include(CMakePackageConfigHelpers)
+configure_package_config_file(
+    cmake/QXlsxConfig.cmake.in
+    "${CMAKE_CURRENT_BINARY_DIR}/QXlsxConfig.cmake"
+    INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/QXlsx
+)
+install(
+    FILES "${CMAKE_CURRENT_BINARY_DIR}/QXlsxConfig.cmake"
+    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/QXlsx
+)
