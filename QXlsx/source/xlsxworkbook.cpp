@@ -207,6 +207,7 @@ AbstractSheet *Workbook::addSheet(const QString &name, int sheetId, AbstractShee
     {
         qWarning("unsupported sheet type.");
         Q_ASSERT(false);
+		return sheet;
     }
 
     d->sheets.append(QSharedPointer<AbstractSheet>(sheet));
@@ -259,6 +260,7 @@ AbstractSheet *Workbook::insertSheet(int index, const QString &name, AbstractShe
     {
         qWarning("unsupported sheet type.");
         Q_ASSERT(false);
+		return sheet;
     }
 
     d->sheets.insert(index, QSharedPointer<AbstractSheet>(sheet));
