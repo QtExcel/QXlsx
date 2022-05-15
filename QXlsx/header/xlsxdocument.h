@@ -100,6 +100,7 @@ public:
     bool insertSheet(int index, const QString &name = QString(),
                      AbstractSheet::SheetType type = AbstractSheet::ST_WorkSheet);
 	bool selectSheet(const QString &name);
+	bool selectSheet(int index);
 	bool renameSheet(const QString &oldName, const QString &newName);
 	bool copySheet(const QString &srcName, const QString &distName = QString());
 	bool moveSheet(const QString &srcName, int distIndex);
