@@ -1205,6 +1205,16 @@ bool Document::selectSheet(const QString &name)
 }
 
 /*!
+ * \brief Set worksheet whose index is \a index to be active sheet.
+ * Returns true if success.
+ */
+bool Document::selectSheet(int index)
+{
+	Q_D(Document);
+	return d->workbook->setActiveSheet(index);
+}
+
+/*!
  * Returns the names of worksheets contained in current document.
  */
 QStringList Document::sheetNames() const
