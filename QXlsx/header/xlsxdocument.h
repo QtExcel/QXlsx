@@ -30,9 +30,9 @@ class Document : public QObject
     Q_DECLARE_PRIVATE(Document) // D-Pointer. Qt classes have a Q_DECLARE_PRIVATE
                                 // macro in the public class. The macro reads: qglobal.h
 public:
-	explicit Document(QObject *parent = NULL);
-	Document(const QString& xlsxName, QObject* parent = NULL);
-	Document(QIODevice* device, QObject* parent = NULL);
+	explicit Document(QObject *parent = nullptr);
+	Document(const QString& xlsxName, QObject* parent = nullptr);
+	Document(QIODevice* device, QObject* parent = nullptr);
 	~Document();
 
 	bool write(const CellReference &cell, const QVariant &value, const Format &format=Format());
