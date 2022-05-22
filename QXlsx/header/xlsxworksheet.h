@@ -46,7 +46,7 @@ private:
     friend class Workbook;
     friend class ::WorksheetTest;
     Worksheet(const QString &sheetName, int sheetId, Workbook *book, CreateFlag flag);
-    Worksheet *copy(const QString &distName, int distId) const;
+    Worksheet *copy(const QString &distName, int distId) const override;
 
 public:
     ~Worksheet();
@@ -157,8 +157,8 @@ public:
     QVector<CellLocation> getFullCells(int* maxRow, int* maxCol);
 
 private:
-    void saveToXmlFile(QIODevice *device) const;
-    bool loadFromXmlFile(QIODevice *device);
+    void saveToXmlFile(QIODevice *device) const override;
+    bool loadFromXmlFile(QIODevice *device) override;
 };
 
 QT_END_NAMESPACE_XLSX

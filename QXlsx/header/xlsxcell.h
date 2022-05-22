@@ -49,7 +49,7 @@ public:
     Cell(const QVariant &data = QVariant(),
             CellType type = NumberType,
             const Format &format = Format(),
-            Worksheet *parent = NULL,
+            Worksheet *parent = nullptr,
             qint32 styleIndex = (-1) );
     Cell(const Cell * const cell);
     ~Cell();
