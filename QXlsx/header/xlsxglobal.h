@@ -16,6 +16,12 @@
 #include <QStringList>
 #include <QSharedPointer>
 
+#if defined(QXlsx_EXPORTS)
+#  define QXLSX_EXPORT Q_DECL_EXPORT
+#else
+#  define QXLSX_EXPORT Q_DECL_IMPORT
+#endif
+
 #define QT_BEGIN_NAMESPACE_XLSX namespace QXlsx {
 #define QT_END_NAMESPACE_XLSX }
 

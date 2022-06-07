@@ -24,7 +24,7 @@ class SharedStrings;
 
 class FormatPrivate;
 
-class Format
+class QXLSX_EXPORT Format
 {
 public:
     enum FontScript

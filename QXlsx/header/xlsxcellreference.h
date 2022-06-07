@@ -9,7 +9,7 @@
 
 QT_BEGIN_NAMESPACE_XLSX
 
-class   CellReference
+class QXLSX_EXPORT CellReference
 {
 public:
     CellReference();

@@ -17,7 +17,7 @@ class CellRange;
 class Worksheet;
 class WorksheetPrivate;
 
-class   CellFormula
+class QXLSX_EXPORT CellFormula
 {
 public:
     enum FormulaType { NormalType, ArrayType, DataTableType, SharedType };

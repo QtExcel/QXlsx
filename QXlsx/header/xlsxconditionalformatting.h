@@ -24,7 +24,7 @@ class Worksheet;
 class Styles;
 class ConditionalFormattingPrivate;
 
-class ConditionalFormatting
+class QXLSX_EXPORT ConditionalFormatting
 {
 public:
     enum HighlightRuleType {
