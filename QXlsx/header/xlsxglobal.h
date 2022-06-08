@@ -18,8 +18,10 @@
 
 #if defined(QXlsx_EXPORTS)
 #  define QXLSX_EXPORT Q_DECL_EXPORT
-#else
+#elif defined (QXlsx_IMPORTS)
 #  define QXLSX_EXPORT Q_DECL_IMPORT
+#else
+#  define QXLSX_EXPORT   /**/
 #endif
 
 #define QT_BEGIN_NAMESPACE_XLSX namespace QXlsx {
