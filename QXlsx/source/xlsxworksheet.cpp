@@ -2412,7 +2412,7 @@ void WorksheetPrivate::loadXmlSheetData(QXmlStreamReader &reader)
 
 				if (attributes.hasAttribute(QLatin1String("t"))) // Type 
 				{
-					const QStringRef typeString = attributes.value(QLatin1String("t"));
+					const auto typeString = attributes.value(QLatin1String("t"));
                     if (typeString == QLatin1String("s")) // Shared string
 					{
 						cellType = Cell::SharedStringType; 
