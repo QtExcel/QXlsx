@@ -16,6 +16,9 @@
 #include <QStringList>
 #include <QSharedPointer>
 
+#if defined(QXlsx_STATICLIB)
+#  define QXLSX_EXPORT
+#else
 #if defined(QXlsx_EXPORTS)
 #  define QXLSX_EXPORT Q_DECL_EXPORT
 #else
