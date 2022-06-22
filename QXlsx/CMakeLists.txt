@@ -148,6 +148,9 @@ add_library(QXlsx
 )
 
 add_library(QXlsx::QXlsx ALIAS QXlsx)
+if (BUILD_SHARED_LIBS)
+    target_compile_definitions(QXlsx PUBLIC QXlsx_SHAREDLIB)
+endif()
 
 target_link_libraries(${PROJECT_NAME}
    Qt${QT_VERSION_MAJOR}::Core
