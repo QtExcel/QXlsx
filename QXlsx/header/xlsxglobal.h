@@ -16,10 +16,12 @@
 #include <QStringList>
 #include <QSharedPointer>
 
+#if defined(QXlsx_SHAREDLIB)
 #if defined(QXlsx_EXPORTS)
 #  define QXLSX_EXPORT Q_DECL_EXPORT
-#elif defined (QXlsx_IMPORTS)
+#else
 #  define QXLSX_EXPORT Q_DECL_IMPORT
+#endif
 #else
 #  define QXLSX_EXPORT
 #endif

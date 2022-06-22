@@ -15,7 +15,7 @@ CONFIG += c++11
 DEFINES += QT_DEPRECATED_WARNINGS
 
 # For DLL visibility
-#DEFINES += QXlsx_EXPORTS
+#DEFINES += QXlsx_SHAREDLIB QXlsx_EXPORTS
 
 # You can also make your code fail to compile if you use deprecated APIs.
 # In order to do so, uncomment the following line.
