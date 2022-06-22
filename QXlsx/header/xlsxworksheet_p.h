@@ -115,27 +115,27 @@ struct XlsxColumnInfo
                     double width = 0,
                     const Format &format = Format(),
                     bool hidden = false)
-        : firstColumn(firstColumn),
-          lastColumn(lastColumn),
-          customWidth(false),
-          isSetWidth(isSetWidth),
-          width(width),
+        : width(width),
           format(format),
-          hidden(hidden),
+          firstColumn(firstColumn),
+          lastColumn(lastColumn),
           outlineLevel(0),
+          isSetWidth(isSetWidth),
+          customWidth(false),
+          hidden(hidden),
           collapsed(false)
     {
 
     }
 
+    double width;
+    Format format;
     int firstColumn;
     int lastColumn;
-    bool customWidth;
-    double width;
-    bool isSetWidth;
-    Format format;
-    bool hidden;
     int outlineLevel;
+    bool isSetWidth;
+    bool customWidth;
+    bool hidden;
     bool collapsed;
 };
 
