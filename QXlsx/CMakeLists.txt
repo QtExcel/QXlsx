@@ -153,7 +153,7 @@ target_compile_definitions(QXlsx PUBLIC
     -DQT_DISABLE_DEPRECATED_BEFORE=0x050F00
 )
 
-target_compile_features(QXlsx INTERFACE cxx17)
+target_compile_features(QXlsx INTERFACE cxx_std_11)
 
 if (BUILD_SHARED_LIBS)
     target_compile_definitions(QXlsx PUBLIC QXlsx_SHAREDLIB)
