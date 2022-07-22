@@ -1,6 +1,6 @@
 # CMakeLists.txt for QXlsx Library
 
-cmake_minimum_required(VERSION 3.21)
+cmake_minimum_required(VERSION 3.16)
 
 project(QXlsx
     VERSION 1.4.4
