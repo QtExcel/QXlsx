@@ -17,9 +17,9 @@ find_package(QT NAMES Qt6 Qt5 COMPONENTS Core Gui REQUIRED)
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core Gui REQUIRED)
 
 if (QT_MAJOR_VERSION EQUAL 6)
-    set(CMAKE_CXX_STANDARD 17)
+    set(CMAKE_CXX_STANDARD 17 CACHE STRING "")
 else()
-    set(CMAKE_CXX_STANDARD 11)
+    set(CMAKE_CXX_STANDARD 11 CACHE STRING "")
 endif()
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
@@ -41,19 +41,6 @@ message("Current Path of QXlsx")
 message(${QXLSX_PARENTPATH})
 message(${QXLSX_HEADERPATH})
 message(${QXLSX_SOURCEPATH})
-
-add_definitions(
-    -DQT_NO_KEYWORDS
-    -DQT_NO_CAST_TO_ASCII
-    -DQT_NO_CAST_FROM_ASCII
-    -DQT_STRICT_ITERATORS
-    -DQT_NO_URL_CAST_FROM_STRING
-    -DQT_NO_CAST_FROM_BYTEARRAY
-    -DQT_USE_QSTRINGBUILDER
-    -DQT_NO_SIGNALS_SLOTS_KEYWORDS
-    -DQT_USE_FAST_OPERATOR_PLUS
-    -DQT_DISABLE_DEPRECATED_BEFORE=0x050F00
-)
 
 # Due historical reasons this value is kept off
 option(BUILD_SHARED_LIBS "Build in shared lib mode" OFF)
@@ -152,6 +139,22 @@ add_library(QXlsx
 )
 
 add_library(QXlsx::QXlsx ALIAS QXlsx)
+
+target_compile_definitions(QXlsx PUBLIC
+    -DQT_NO_KEYWORDS
+    -DQT_NO_CAST_TO_ASCII
+    -DQT_NO_CAST_FROM_ASCII
+    -DQT_STRICT_ITERATORS
+    -DQT_NO_URL_CAST_FROM_STRING
+    -DQT_NO_CAST_FROM_BYTEARRAY
+    -DQT_USE_QSTRINGBUILDER
+    -DQT_NO_SIGNALS_SLOTS_KEYWORDS
+    -DQT_USE_FAST_OPERATOR_PLUS
+    -DQT_DISABLE_DEPRECATED_BEFORE=0x050F00
+)
+
+target_compile_features(QXlsx INTERFACE cxx_std_11)
+
 if (BUILD_SHARED_LIBS)
     target_compile_definitions(QXlsx PUBLIC QXlsx_SHAREDLIB)
 endif()
