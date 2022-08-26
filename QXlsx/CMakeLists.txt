@@ -140,7 +140,7 @@ add_library(QXlsx
 
 add_library(QXlsx::QXlsx ALIAS QXlsx)
 
-target_compile_definitions(QXlsx PUBLIC
+target_compile_definitions(QXlsx PRIVATE
     -DQT_NO_KEYWORDS
     -DQT_NO_CAST_TO_ASCII
     -DQT_NO_CAST_FROM_ASCII
