@@ -4,7 +4,6 @@
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
 #include <QDir>
-
 #include "xlsxchartsheet.h"
 #include "xlsxchartsheet_p.h"
 #include "xlsxworkbook.h"
@@ -43,7 +42,7 @@ Chartsheet::Chartsheet(const QString &name, int id, Workbook *workbook, CreateFl
     {
         d_func()->drawing = QSharedPointer<Drawing>(new Drawing(this, flag));
 
-        DrawingAbsoluteAnchor *anchor = new DrawingAbsoluteAnchor(drawing(), DrawingAnchor::Picture);
+        QSharedPointer<DrawingAbsoluteAnchor> anchor = QSharedPointer<DrawingAbsoluteAnchor>(new DrawingAbsoluteAnchor(drawing(), DrawingAnchor::Picture));
 
         anchor->pos = QPoint(0, 0);
         anchor->ext = QSize(9293679, 6068786);
