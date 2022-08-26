@@ -1014,7 +1014,7 @@ bool Styles::readBorder(QXmlStreamReader &reader, Format &border)
 
     const auto& attributes = reader.attributes();
     const auto isUp = attributes.hasAttribute(QLatin1String("diagonalUp"));
-    const auto isDown = attributes.hasAttribute(QLatin1String("diagonalUp"));
+    const auto isDown = attributes.hasAttribute(QLatin1String("diagonalDown"));
     if (isUp && isDown)
         border.setDiagonalBorderType(Format::DiagnoalBorderBoth);
     else if (isUp)
