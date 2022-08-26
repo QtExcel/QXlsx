@@ -813,9 +813,7 @@ bool Worksheet::writeFormula(int row, int column, const CellFormula &formula_, c
 				}
 			}
 		}
-	} else if (formula.formulaType() == CellFormula::SharedType) {
-
-	}
+	} 
 
 	return true;
 }
