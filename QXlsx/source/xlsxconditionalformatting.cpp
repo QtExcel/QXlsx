@@ -551,7 +551,7 @@ bool ConditionalFormattingPrivate::readCfColorScale(QXmlStreamReader &reader, Xl
                 else if (!rule->attrs.contains(XlsxCfRuleData::A_cfvo2))
                     rule->attrs[XlsxCfRuleData::A_cfvo2] = QVariant::fromValue(data);
                 else
-                    rule->attrs[XlsxCfRuleData::A_cfvo2] = QVariant::fromValue(data);
+                    rule->attrs[XlsxCfRuleData::A_cfvo3] = QVariant::fromValue(data);
             } else if (reader.name() == QLatin1String("color")) {
                 XlsxColor color;
                 color.loadFromXml(reader);
