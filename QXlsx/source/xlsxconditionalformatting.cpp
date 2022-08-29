@@ -138,7 +138,9 @@ ConditionalFormatting::ConditionalFormatting(const ConditionalFormatting &other)
  */
 ConditionalFormatting &ConditionalFormatting::operator=(const ConditionalFormatting &other)
 {
-    this->d = other.d;
+    if (this != &other) {
+        this->d = other.d;
+    }
     return *this;
 }
 

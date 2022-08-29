@@ -124,7 +124,9 @@ DataValidation::DataValidation(const DataValidation &other)
  */
 DataValidation &DataValidation::operator=(const DataValidation &other)
 {
-    this->d = other.d;
+    if (this != &other) {
+           this->d = other.d;
+    }
     return *this;
 }
 

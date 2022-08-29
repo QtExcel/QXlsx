@@ -75,7 +75,9 @@ RichString::~RichString()
  */
 RichString &RichString::operator =(const RichString &other)
 {
-    this->d = other.d;
+    if (this != &other) {
+        this->d = other.d;
+    }
     return *this;
 }
 
