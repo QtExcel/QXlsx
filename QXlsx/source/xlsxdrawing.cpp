@@ -62,17 +62,17 @@ bool Drawing::loadFromXmlFile(QIODevice *device)
         {
             if (reader.name() == QLatin1String("absoluteAnchor")) // CT_AbsoluteAnchor
             {
-                QSharedPointer<DrawingAbsoluteAnchor> anchor = QSharedPointer<DrawingAbsoluteAnchor>(new DrawingAbsoluteAnchor(this));
+                DrawingAbsoluteAnchor * anchor = new DrawingAbsoluteAnchor(this);
                 anchor->loadFromXml(reader);
             }
             else if (reader.name() == QLatin1String("oneCellAnchor")) // CT_OneCellAnchor
             {
-                 QSharedPointer<DrawingOneCellAnchor> anchor = QSharedPointer<DrawingOneCellAnchor>(new DrawingOneCellAnchor(this));
+                DrawingOneCellAnchor * anchor = new DrawingOneCellAnchor(this);
                 anchor->loadFromXml(reader);
             }
             else if (reader.name() == QLatin1String("twoCellAnchor")) // CT_TwoCellAnchor
             {
-                QSharedPointer<DrawingTwoCellAnchor> anchor = QSharedPointer<DrawingTwoCellAnchor>(new DrawingTwoCellAnchor(this));
+                DrawingTwoCellAnchor * anchor = new DrawingTwoCellAnchor(this);
                 anchor->loadFromXml(reader);
             }
         }
