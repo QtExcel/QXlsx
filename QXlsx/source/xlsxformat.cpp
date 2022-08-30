@@ -178,9 +178,7 @@ Format::Format(const Format &other)
  */
 Format &Format::operator =(const Format &other)
 {
-	if (this != &other) {
-		d = other.d;
-	}
+	d = other.d;
 	return *this;
 }
 

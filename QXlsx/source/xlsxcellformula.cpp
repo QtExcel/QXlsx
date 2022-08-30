@@ -100,9 +100,7 @@ CellFormula::CellFormula(const CellFormula &other)
  */
 CellFormula &CellFormula::operator =(const CellFormula &other)
 {
-    if (this != &other) {
-       d = other.d;
-    }
+    d = other.d;
     return *this;
 }
 

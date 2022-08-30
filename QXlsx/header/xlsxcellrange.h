@@ -42,12 +42,10 @@ public:
 
     inline void operator =(const CellRange &other)
     {
-        if (this != &other) {
         top = other.top;
         bottom = other.bottom;
         left = other.left;
         right = other.right;
-        }
     }
     inline bool operator ==(const CellRange &other) const
     {
