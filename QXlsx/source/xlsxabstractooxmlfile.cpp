@@ -17,7 +17,9 @@ AbstractOOXmlFilePrivate::AbstractOOXmlFilePrivate(AbstractOOXmlFile *q, Abstrac
 
 AbstractOOXmlFilePrivate::~AbstractOOXmlFilePrivate()
 {
-
+    if (relationships) {
+          delete relationships;
+    }
 }
 
 /*!
@@ -41,8 +43,6 @@ AbstractOOXmlFile::AbstractOOXmlFile(AbstractOOXmlFilePrivate *d)
 
 AbstractOOXmlFile::~AbstractOOXmlFile()
 {
-    if (d_ptr->relationships)
-        delete d_ptr->relationships;
     delete d_ptr;
 }
 
