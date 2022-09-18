@@ -141,17 +141,24 @@ add_library(QXlsx
 add_library(QXlsx::QXlsx ALIAS QXlsx)
 
 target_compile_definitions(QXlsx PRIVATE
-    -DQT_NO_KEYWORDS
-    -DQT_NO_CAST_TO_ASCII
-    -DQT_NO_CAST_FROM_ASCII
-    -DQT_STRICT_ITERATORS
-    -DQT_NO_URL_CAST_FROM_STRING
-    -DQT_NO_CAST_FROM_BYTEARRAY
-    -DQT_USE_QSTRINGBUILDER
-    -DQT_NO_SIGNALS_SLOTS_KEYWORDS
-    -DQT_USE_FAST_OPERATOR_PLUS
-    -DQT_DISABLE_DEPRECATED_BEFORE=0x050F00
+    QT_NO_KEYWORDS
+    QT_NO_CAST_TO_ASCII
+    QT_NO_CAST_FROM_ASCII
+    QT_NO_URL_CAST_FROM_STRING
+    QT_NO_CAST_FROM_BYTEARRAY
+    QT_USE_QSTRINGBUILDER
+    QT_NO_SIGNALS_SLOTS_KEYWORDS
+    QT_USE_FAST_OPERATOR_PLUS
+    QT_DISABLE_DEPRECATED_BEFORE=0x050F00
 )
+
+if (NOT WIN32)
+    # Strict iterators can't be used on Windows, they lead to a link error
+    # when application code iterates over a QVector<QPoint> for instance, unless
+    # Qt itself was also built with strict iterators.
+    # See example at https://bugreports.qt.io/browse/AUTOSUITE-946
+    target_compile_definitions(QXlsx PRIVATE QT_STRICT_ITERATORS)
+endif()
 
 target_compile_features(QXlsx INTERFACE cxx_std_11)
 
