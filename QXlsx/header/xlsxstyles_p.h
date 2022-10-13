@@ -78,9 +78,7 @@ public:
     void saveToXmlFile(QIODevice *device) const;
     bool loadFromXmlFile(QIODevice *device);
 
-#if QT_VERSION >= 0x050600
     QColor getColorByIndex(int idx);
-#endif
 
 private:
     friend class Format;
