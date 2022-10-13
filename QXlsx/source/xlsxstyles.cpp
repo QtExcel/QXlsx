@@ -54,9 +54,7 @@ Styles::Styles(CreateFlag flag)
 
         qRegisterMetaTypeStreamOperators<XlsxColor>("XlsxColor");
 
-    #if QT_VERSION >= 0x050200 // 5.2 or higher
-            QMetaType::registerDebugStreamOperator<XlsxColor>();
-    #endif
+        QMetaType::registerDebugStreamOperator<XlsxColor>();
 
 #endif
     }
@@ -1385,11 +1383,8 @@ bool Styles::loadFromXmlFile(QIODevice *device)
     return true;
 }
 
-#if QT_VERSION >= 0x050600
 QColor Styles::getColorByIndex(int idx)
 {
-    // #if QT_VERSION >= 0x050600
-
     if (m_indexedColors.isEmpty()) {
         m_indexedColors = {
             QColor(QRgba64::fromArgb32(0x000000)), QColor(QRgba64::fromArgb32(0xFFFFFF)), QColor(QRgba64::fromArgb32(0xFF0000)), QColor(QRgba64::fromArgb32(0x00FF00)),
@@ -1415,6 +1410,5 @@ QColor Styles::getColorByIndex(int idx)
         return QColor();
     return m_indexedColors[idx];
 }
-#endif
 
 QT_END_NAMESPACE_XLSX

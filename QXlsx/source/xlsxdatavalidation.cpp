@@ -475,9 +475,9 @@ DataValidation DataValidation::loadFromXml(QXmlStreamReader &reader)
     QXmlStreamAttributes attrs = reader.attributes();
 
     QString sqref = attrs.value(QLatin1String("sqref")).toString();
-    const auto sqrefParts = sqref.split(QLatin1Char(' '));
-    for (const QString &range : sqrefParts)
-        validation.addRange(range);
+    const auto sqrefParts = sqref.split(u' ');
+    for (const auto range : sqrefParts)
+        validation.addRange(CellRange{range});
 
     if (attrs.hasAttribute(QLatin1String("type"))) {
         QString t = attrs.value(QLatin1String("type")).toString();

@@ -14,7 +14,7 @@ set(CMAKE_AUTOMOC ON)
 include(GNUInstallDirs)
 
 find_package(QT NAMES Qt6 Qt5 COMPONENTS Core Gui REQUIRED)
-find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core Gui REQUIRED)
+find_package(Qt${QT_VERSION_MAJOR} 5.10 COMPONENTS Core Gui REQUIRED)
 
 if (QT_MAJOR_VERSION EQUAL 6)
     set(CMAKE_CXX_STANDARD 17 CACHE STRING "")
@@ -167,8 +167,9 @@ if (BUILD_SHARED_LIBS)
 endif()
 
 target_link_libraries(${PROJECT_NAME}
-   Qt${QT_VERSION_MAJOR}::Core
-   Qt${QT_VERSION_MAJOR}::GuiPrivate
+    PRIVATE
+    Qt${QT_VERSION_MAJOR}::Core
+    Qt${QT_VERSION_MAJOR}::GuiPrivate
 )
 
 target_include_directories(QXlsx

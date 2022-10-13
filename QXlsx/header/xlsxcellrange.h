@@ -18,8 +18,7 @@ public:
     CellRange();
     CellRange(int firstRow, int firstColumn, int lastRow, int lastColumn);
     CellRange(const CellReference &topLeft, const CellReference &bottomRight);
-    CellRange(const QString &range);
-    CellRange(const char *range);
+    CellRange(QStringView range);
     CellRange(const CellRange &other);
     ~CellRange();
 
@@ -58,8 +57,6 @@ public:
                 || left != other.left || right != other.right;
     }
 private:
-    void init(const QString &range);
-
     int top;
     int left;
     int bottom;
