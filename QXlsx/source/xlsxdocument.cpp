@@ -1327,8 +1327,8 @@ QMap<int, int> Document::getMaximalColumnWidth(int firstRow, int lastRow)
     const int defaultPixelSize = 11;    //Default font pixel size of excel?
     int maxRows = -1;
     int maxCols = -1;
-	QMap<int, int> colWidth;
-	if (!currentWorksheet()) return colWidth;
+    QMap<int, int> colWidth;
+    if (!currentWorksheet()) return colWidth;
     QVector<CellLocation> cellLocation = currentWorksheet()->getFullCells(&maxRows, &maxCols);
 
     
@@ -1375,7 +1375,7 @@ bool Document::autosizeColumnWidth(const CellRange &range)
     }
 
     const QMap<int, int> colWidth = getMaximalColumnWidth(range.firstRow(), range.lastRow());
-	if(colWidth.isEmpty()) return false;
+    if(colWidth.isEmpty()) return false;
     auto it = colWidth.constBegin();
     while (it != colWidth.constEnd()) {
         if( (it.key() >= range.firstColumn()) && (it.key() <= range.lastColumn()) )
@@ -1398,7 +1398,7 @@ bool Document::autosizeColumnWidth(int column)
     bool erg = false;
 
     const QMap<int, int> colWidth = getMaximalColumnWidth();
-	if(colWidth.isEmpty()) return false;
+    if(colWidth.isEmpty()) return false;
     auto it = colWidth.constBegin();
     while (it != colWidth.constEnd()) {
         if( it.key() == column)
@@ -1423,7 +1423,7 @@ bool Document::autosizeColumnWidth(int colFirst, int colLast)
     bool erg = false;
 
     const QMap<int, int> colWidth = getMaximalColumnWidth();
-	if(colWidth.isEmpty()) return false;
+    if(colWidth.isEmpty()) return false;
     auto it = colWidth.constBegin();
     while (it != colWidth.constEnd()) {
         if( (it.key() >= colFirst) && (it.key() <= colLast) )
@@ -1446,7 +1446,7 @@ bool Document::autosizeColumnWidth(void)
     bool erg = false;
 
     const QMap<int, int> colWidth = getMaximalColumnWidth();
-	if(colWidth.isEmpty()) return false;
+    if(colWidth.isEmpty()) return false;
     auto it = colWidth.constBegin();
     while (it != colWidth.constEnd()) {
         erg |= setColumnWidth(it.key(), it.value());
