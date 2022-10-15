@@ -17,7 +17,7 @@
 
 ## How to set up (Installation)
 
-- :Recommended: See [how to setup QXlsx project (qmake)](HowToSetProject.md)	
+- See [how to setup QXlsx project (qmake)](HowToSetProject.md)	
 - See [how to setup QXlsx project (cmake)](HowToSetProject-cmake.md)	
 
 ## Tested environment

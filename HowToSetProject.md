@@ -4,6 +4,7 @@
 > *Read this in other languages: [English](HowToSetProject.md), :kr: [한국어](HowToSetProject.ko.md)*
 
 - Here's an easy way to apply QXlsx.
+- This works only with qmake, for cmake look at [the other doc](HowToSetProject-cmake.md).
 - Describes when to apply to Windows.
 - The method of applying it on Linux or Mac is similar, and I will write help if there is an additional request.
 - * Hi! I'm j2doll. My native language is not English and my English is not fluent. Please understand. :-)
