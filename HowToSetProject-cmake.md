@@ -2,68 +2,32 @@
 
 > *Read this in other languages: [English](HowToSetProject-cmake.md), :kr: [한국어](HowToSetProject-cmake.ko.md)*
 
-- Enter the command as shown below.
+### To install QXlsx
 
-:one: Using MingW
+Enter the command as shown below.
 
-- QXlsx library
-
-```
+```sh
 mkdir build
 cd build
-cmake -G "MinGW Makefiles" ..\QXlsx\
-mingw32-make
+cmake ../QXlsx/ -DCMAKE_INSTALL_PREFIX=... -DCMAKE_BUILD_TYPE=Release
+cmake --build .
+cmake --install .
 ```
 
-- HelloWorld
+### To use in your application
 
-```
-mkdir build2
-cd build2
-cmake -G "MinGW Makefiles" ..\HelloWorld\
-mingw32-make
-```
+In your CMakeLists.txt:
 
-:two: Using Visual Studio
-
-- QXlsx library (Release Build)
-
-```
-mkdir build
-cd build
-cmake -G "Visual Studio 16 2019" ..\QXlsx\
-MSBuild /nologo /t:Build /p:Configuration=Release QXlsx.vcxproj
+```cmake
+find_package(QXlsxQt5 REQUIRED) # or QXlsxQt6
+target_link_libraries(myapp PRIVATE QXlsx::QXlsx)
 ```
 
-- HelloWorld (Release Build)
+### To use in your application without installation
 
+In your CMakeLists.txt:
+
+```cmake
+add_subdirectory(QXlsx)
+target_link_libraries(myapp PRIVATE QXlsx::QXlsx)
 ```
-mkdir build2
-cd build2
-cmake -G "Visual Studio 16 2019" ..\HelloWorld\
-MSBuild /nologo /t:Build /p:Configuration=Release HelloWorld.vcxproj 
-```
-
-- Or, You may open *.sln/*.vcxproj files in Visual Studio IDE.
-
-:three: Using Linux/Mac/Unix
-
-- QXlsx library
-
-```
-mkdir build
-cd build
-cmake -G "Unix Makefiles" ../QXlsx/
-make
-```
-
-- HelloWorld
-
-```
-mkdir build2
-cd build2
-cmake -G "Unix Makefiles" ../HelloWorld/
-make
-```
-
-
