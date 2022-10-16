@@ -21,7 +21,7 @@ QT_BEGIN_NAMESPACE_XLSX
 
 class CellReference;
 
-bool parseXsdBoolean(QStringView value, bool defaultValue=false);
+bool parseXsdBoolean(const QString &value, bool defaultValue=false);
 
 QStringList splitPath(const QString &path);
 QString getRelFilePath(const QString &filePath);

@@ -15,7 +15,7 @@ public:
     CellReference();
     CellReference(int row, int column);
     CellReference(const QString &cell);
-    CellReference(QStringView cell);
+    CellReference(const char *cell);
     CellReference(const CellReference &other);
     ~CellReference();
 

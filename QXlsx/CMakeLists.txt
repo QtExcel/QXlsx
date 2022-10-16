@@ -168,9 +168,8 @@ if (BUILD_SHARED_LIBS)
 endif()
 
 target_link_libraries(${PROJECT_NAME}
-    PRIVATE
-    Qt${QT_VERSION_MAJOR}::Core
-    Qt${QT_VERSION_MAJOR}::GuiPrivate
+   Qt${QT_VERSION_MAJOR}::Core
+   Qt${QT_VERSION_MAJOR}::GuiPrivate
 )
 
 target_include_directories(QXlsx

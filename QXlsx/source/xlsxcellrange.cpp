@@ -49,9 +49,23 @@ CellRange::CellRange(const CellReference &topLeft, const CellReference &bottomRi
     \overload
     Constructs the range form the given \a range string.
 */
-CellRange::CellRange(QStringView range)
+CellRange::CellRange(const QString &range)
 {
-    const auto rs = range.split(u':');
+    init(range);
+}
+
+/*!
+    \overload
+    Constructs the range form the given \a range string.
+*/
+CellRange::CellRange(const char *range)
+{
+    init(QString::fromLatin1(range));
+}
+
+void CellRange::init(const QString &range)
+{
+    QStringList rs = range.split(QLatin1Char(':'));
     if (rs.size() == 2) {
         CellReference start(rs[0]);
         CellReference end(rs[1]);
