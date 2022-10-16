@@ -610,9 +610,9 @@ bool ConditionalFormatting::loadFromXml(QXmlStreamReader &reader, Styles *styles
     d->cfRules.clear();
     QXmlStreamAttributes attrs = reader.attributes();
     const QString sqref = attrs.value(QLatin1String("sqref")).toString();
-    const auto sqrefParts = sqref.split(u' ');
-    for (const auto &range : sqrefParts) {
-        addRange(CellRange{range});
+    const auto sqrefParts = sqref.split(QLatin1Char(' '));
+    for (const QString &range : sqrefParts) {
+        this->addRange(range);
     }
 
     while (!reader.atEnd()) {
@@ -722,15 +722,9 @@ bool ConditionalFormatting::saveToXml(QXmlStreamWriter &writer) const
 
         it = rule->attrs.constFind(XlsxCfRuleData::A_formula1_temp);
         if (it != rule->attrs.constEnd()) {
-            const auto _ranges = ranges();
-            if (!_ranges.isEmpty()) {
-                const QString str = _ranges.first().toString();
-                const int ix = str.indexOf(u':');
-                if (ix != -1) {
-                    const QString startCell = str.left(ix);
-                    writer.writeTextElement(QStringLiteral("formula"), it.value().toString().arg(startCell));
-                }
-            }
+            QString str = ( ranges().begin() )->toString();
+            QString startCell = *( str.split(QLatin1Char(':')).begin() );
+            writer.writeTextElement(QStringLiteral("formula"), it.value().toString().arg(startCell));
         } else if ((it = rule->attrs.constFind(XlsxCfRuleData::A_formula1)) != rule->attrs.constEnd()) {
             writer.writeTextElement(QStringLiteral("formula"), it.value().toString());
         }
