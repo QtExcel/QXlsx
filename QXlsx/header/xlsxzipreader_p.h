@@ -9,9 +9,7 @@
 
 #include "xlsxglobal.h"
 
-#if QT_VERSION >= 0x050600
- #include <QVector>
-#endif
+#include <QVector>
 
 class QZipReader;
 
