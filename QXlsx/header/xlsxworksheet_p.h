@@ -10,11 +10,7 @@
 #include <QImage>
 #include <QSharedPointer>
 
-#if QT_VERSION >= QT_VERSION_CHECK( 5, 0, 0 )
 #include <QRegularExpression>
-#else
-#include <QRegExp>
-#endif
 
 #include "xlsxworksheet.h"
 #include "xlsxabstractsheet_p.h"
@@ -249,11 +245,7 @@ public:
     bool showOutlineSymbols;
     bool showWhiteSpace;
 
-#if QT_VERSION >= QT_VERSION_CHECK( 5, 0, 0 )
     QRegularExpression urlPattern;
-#else
-    QRegExp urlPattern;
-#endif
 
 private:
 
