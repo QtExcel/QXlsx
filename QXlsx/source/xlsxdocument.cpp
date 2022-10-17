@@ -1327,10 +1327,10 @@ QMap<int, int> Document::getMaximalColumnWidth(int firstRow, int lastRow)
     const int defaultPixelSize = 11;    //Default font pixel size of excel?
     int maxRows = -1;
     int maxCols = -1;
-    QVector<CellLocation> cellLocation = currentWorksheet()->getFullCells(&maxRows, &maxCols);
-
     QMap<int, int> colWidth;
-
+    if (!currentWorksheet()) return colWidth;
+    QVector<CellLocation> cellLocation = currentWorksheet()->getFullCells(&maxRows, &maxCols);
+    
     for(int i=0; i < cellLocation.size(); i++)
     {
         int col = cellLocation.at(i).col;
