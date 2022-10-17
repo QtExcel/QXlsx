@@ -1375,7 +1375,6 @@ bool Document::autosizeColumnWidth(const CellRange &range)
     }
 
     const QMap<int, int> colWidth = getMaximalColumnWidth(range.firstRow(), range.lastRow());
-    if(colWidth.isEmpty()) return false;
     auto it = colWidth.constBegin();
     while (it != colWidth.constEnd()) {
         if( (it.key() >= range.firstColumn()) && (it.key() <= range.lastColumn()) )
@@ -1398,7 +1397,6 @@ bool Document::autosizeColumnWidth(int column)
     bool erg = false;
 
     const QMap<int, int> colWidth = getMaximalColumnWidth();
-    if(colWidth.isEmpty()) return false;
     auto it = colWidth.constBegin();
     while (it != colWidth.constEnd()) {
         if( it.key() == column)
@@ -1423,7 +1421,6 @@ bool Document::autosizeColumnWidth(int colFirst, int colLast)
     bool erg = false;
 
     const QMap<int, int> colWidth = getMaximalColumnWidth();
-    if(colWidth.isEmpty()) return false;
     auto it = colWidth.constBegin();
     while (it != colWidth.constEnd()) {
         if( (it.key() >= colFirst) && (it.key() <= colLast) )
@@ -1446,7 +1443,6 @@ bool Document::autosizeColumnWidth(void)
     bool erg = false;
 
     const QMap<int, int> colWidth = getMaximalColumnWidth();
-    if(colWidth.isEmpty()) return false;
     auto it = colWidth.constBegin();
     while (it != colWidth.constEnd()) {
         erg |= setColumnWidth(it.key(), it.value());
