@@ -63,10 +63,8 @@ double datetimeToNumber(const QDateTime &dt, bool is1904)
 
     double excel_time = epoch.msecsTo(dt) / (1000*60*60*24.0);
 
-#if QT_VERSION >= 0x050200
     if (dt.isDaylightTime())    // Add one hour if the date is Daylight
         excel_time += 1.0 / 24.0;
-#endif
 
     if (!is1904 && excel_time > 59) {//31+28
         //Account for Excel erroneously treating 1900 as a leap year.
@@ -95,14 +93,12 @@ QVariant datetimeFromNumber(double num, bool is1904)
     QDateTime dtOld = epoch.addMSecs(msecs);
     dtRet = dtOld;
 
-#if QT_VERSION >= 0x050200
     // Remove one hour to see whether the date is Daylight
     QDateTime dtNew = dtRet.addMSecs( -3600000 ); // issue102
     if ( dtNew.isDaylightTime() )
     {
         dtRet = dtNew;
     }
-#endif
 
     double whole = 0;
     double fractional = std::modf(num, &whole);
