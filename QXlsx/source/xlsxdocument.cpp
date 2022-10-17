@@ -1330,9 +1330,7 @@ QMap<int, int> Document::getMaximalColumnWidth(int firstRow, int lastRow)
     QMap<int, int> colWidth;
     if (!currentWorksheet()) return colWidth;
     QVector<CellLocation> cellLocation = currentWorksheet()->getFullCells(&maxRows, &maxCols);
-
     
-
     for(int i=0; i < cellLocation.size(); i++)
     {
         int col = cellLocation.at(i).col;
