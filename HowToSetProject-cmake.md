@@ -25,9 +25,26 @@ target_link_libraries(myapp PRIVATE QXlsx::QXlsx)
 
 ### To use in your application without installation
 
+There are 2 possible ways:
+
+1) Use cmake subdirectory
 In your CMakeLists.txt:
 
 ```cmake
 add_subdirectory(QXlsx)
+target_link_libraries(myapp PRIVATE QXlsx::QXlsx)
+```
+2) Use cmake FetchContent
+In your CMakeLists.txt:
+
+```cmake
+
+FetchContent_Declare(
+  QXlsx
+  GIT_REPOSITORY https://github.com/QtExcel/QXlsx.git
+  GIT_TAG        sha-of-the-commit
+  SOURCE_SUBDIR  QXlsx
+)
+FetchContent_MakeAvailable(QXlsx)
 target_link_libraries(myapp PRIVATE QXlsx::QXlsx)
 ```
