@@ -277,7 +277,14 @@ bool DocumentPrivate::loadPackage(QIODevice *device)
 		//If the .rel file exists, load it.
 		if (zipReader.filePaths().contains(rel_path))
 			sheet->relationships()->loadFromXmlData(zipReader.fileData(rel_path));
-		sheet->loadFromXmlData(zipReader.fileData(sheet->filePath()));
+
+		if (strFilePath.startsWith(QStringLiteral("xl/xl/")) &&
+			!zipReader.filePaths().contains(strFilePath) &&
+			zipReader.filePaths().contains(strFilePath.mid(3))) {
+			sheet->loadFromXmlData(zipReader.fileData(strFilePath.mid(3)));
+		} else {
+			sheet->loadFromXmlData(zipReader.fileData(strFilePath));
+		}
 	}
 
 	//load external links
