@@ -79,8 +79,8 @@ public:
     RichString getSharedString(int index) const;
     QList<RichString> getSharedStrings() const;
 
-    void saveToXmlFile(QIODevice *device) const;
-    bool loadFromXmlFile(QIODevice *device);
+    void saveToXmlFile(QIODevice *device) const override;
+    bool loadFromXmlFile(QIODevice *device) override;
 
 private:
     void readString(QXmlStreamReader &reader); // <si>

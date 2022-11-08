@@ -106,12 +106,12 @@ void DrawingAnchor::setObjectGraphicFrame(QSharedPointer<Chart> chart)
     m_objectType = GraphicFrame;
 }
 
-int DrawingAnchor::row()
+int DrawingAnchor::row() const
 {
     return -1;
 }
 
-int DrawingAnchor::col()
+int DrawingAnchor::col() const
 {
     return -1;
 }
@@ -1034,12 +1034,12 @@ DrawingOneCellAnchor::DrawingOneCellAnchor(Drawing *drawing, ObjectType objectTy
 
 }
 
-int DrawingOneCellAnchor::row()
+int DrawingOneCellAnchor::row() const
 {
     return from.row();
 }
 
-int DrawingOneCellAnchor::col()
+int DrawingOneCellAnchor::col() const
 {
     return from.col();
 }
@@ -1102,12 +1102,12 @@ DrawingTwoCellAnchor::DrawingTwoCellAnchor(Drawing *drawing, ObjectType objectTy
 
 }
 
-int DrawingTwoCellAnchor::row()
+int DrawingTwoCellAnchor::row() const
 {
     return from.row();
 }
 
-int DrawingTwoCellAnchor::col()
+int DrawingTwoCellAnchor::col() const
 {
     return from.col();
 }

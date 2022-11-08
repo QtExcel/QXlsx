@@ -75,8 +75,8 @@ private:
 
     Workbook(Workbook::CreateFlag flag);
 
-    void saveToXmlFile(QIODevice *device) const;
-    bool loadFromXmlFile(QIODevice *device);
+    void saveToXmlFile(QIODevice *device) const override;
+    bool loadFromXmlFile(QIODevice *device) override;
 
     SharedStrings *sharedStrings() const;
     Styles *styles();
