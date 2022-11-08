@@ -26,8 +26,8 @@ public:
     QString property(const QString &name) const;
     QStringList propertyNames() const;
 
-    void saveToXmlFile(QIODevice *device) const;
-    bool loadFromXmlFile(QIODevice *device);
+    void saveToXmlFile(QIODevice *device) const override;
+    bool loadFromXmlFile(QIODevice *device) override;
 
 private:
     QStringList m_titlesOfPartsList;

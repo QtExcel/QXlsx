@@ -26,8 +26,8 @@ class Drawing : public AbstractOOXmlFile
 public:
     Drawing(AbstractSheet *sheet, CreateFlag flag);
     ~Drawing();
-    void saveToXmlFile(QIODevice *device) const;
-    bool loadFromXmlFile(QIODevice *device);
+    void saveToXmlFile(QIODevice *device) const override;
+    bool loadFromXmlFile(QIODevice *device) override;
 
     AbstractSheet *sheet;
     Workbook *workbook;
