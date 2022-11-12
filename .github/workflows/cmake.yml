@@ -1,0 +1,119 @@
+name: CMake
+
+on:
+  push:
+    paths-ignore:
+      - 'Example.md'
+      - 'HowToSetProject.ko.md'
+      - 'HowToSetProject.md'
+      - 'README.ko.md'
+      - 'README.md'
+      - 'TestEnv.md'
+      - 'ToTest.md'
+      - 'ToUpgrade.md'
+      - 'Vision.md'
+      - 'LICENSE'
+  pull_request:
+    paths-ignore:
+      - 'Example.md'
+      - 'HowToSetProject.ko.md'
+      - 'HowToSetProject.md'
+      - 'README.ko.md'
+      - 'README.md'
+      - 'TestEnv.md'
+      - 'ToTest.md'
+      - 'ToUpgrade.md'
+      - 'Vision.md'
+      - 'LICENSE'
+
+env:
+  # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
+  BUILD_TYPE: Release
+
+jobs:
+  build:
+    runs-on: ubuntu-${{ matrix.ubuntu_version }}
+    name: Ubuntu-${{ matrix.ubuntu_version }}-Qt-${{ matrix.qt_version }}-shared-${{ matrix.shared }}
+    strategy:
+      fail-fast: false
+      matrix:
+        ubuntu_version: [20.04, 22.04]
+        qt_version: [5.12.12, 5.15.2, 6.4.0]
+        shared: [ON, OFF]
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Install Qt
+      uses: jurplel/install-qt-action@v3
+      with:
+          version: ${{ matrix.qt_version }}
+          cache: 'true'
+          cache-key-prefix: ${{ runner.os }}-Qt-Cache-${{ matrix.qt_version }}
+          dir: ${{ github.workspace }}/Qt
+
+    - name: Install packages
+      run: sudo apt-get install -y libxkbcommon-dev libxcb-xkb-dev
+
+    - name: Configure CMake
+      run: cmake -DCMAKE_BUILD_TYPE="${{env.BUILD_TYPE}}" -DBUILD_SHARED_LIBS=${{ matrix.shared }} -B "${{github.workspace}}/build" -S "QXlsx"
+
+    - name: Build
+      run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
+
+  MSVC:
+    name: windows-${{ matrix.win_version }}-Qt-${{ matrix.qt_version }}-shared-${{ matrix.shared }}
+    runs-on: windows-${{ matrix.win_version }}
+    strategy:
+      fail-fast: false
+      matrix:
+        win_version: [2019, 2022]
+        qt_version: [5.12.12, 5.15.2, 6.4.0]
+        shared: [ON, OFF]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v3
+        with:
+            version: ${{ matrix.qt_version }}
+            cache: 'true'
+            cache-key-prefix: ${{ runner.os }}-Qt-Cache-${{ matrix.qt_version }}
+            dir: ${{ github.workspace }}/Qt
+
+      - name: Configure CMake
+        run: cmake -DCMAKE_BUILD_TYPE="${{env.BUILD_TYPE}}" -DBUILD_SHARED_LIBS=${{ matrix.shared }} -B "${{github.workspace}}/build" -S "QXlsx"
+
+      - name: Build
+        run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
+
+  macos:
+    runs-on: macos-${{ matrix.macos_version }}
+    name: macos-${{ matrix.macos_version }}-Qt-${{ matrix.qt_version }}-shared-${{ matrix.shared }}
+    strategy:
+      fail-fast: false
+      matrix:
+        macos_version: [11, 12]
+        qt_version: [5.15.2, 6.4.0]
+        shared: [ON, OFF]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v3
+        with:
+            version: ${{ matrix.qt_version }}
+            cache: 'true'
+            cache-key-prefix: ${{ runner.os }}-Qt-Cache-${{ matrix.qt_version }}
+            dir: ${{ github.workspace }}/Qt
+
+      - name: Configure CMake
+        run: cmake -DCMAKE_BUILD_TYPE="${{env.BUILD_TYPE}}" -DBUILD_SHARED_LIBS=${{ matrix.shared }} -B "${{github.workspace}}/build" -S "QXlsx"
+
+      - name: Build
+        run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
