@@ -34,11 +34,11 @@ In your CMakeLists.txt:
 add_subdirectory(QXlsx)
 target_link_libraries(myapp PRIVATE QXlsx::QXlsx)
 ```
+
 2) Use cmake FetchContent
 In your CMakeLists.txt:
 
 ```cmake
-
 FetchContent_Declare(
   QXlsx
   GIT_REPOSITORY https://github.com/QtExcel/QXlsx.git
@@ -48,3 +48,5 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(QXlsx)
 target_link_libraries(myapp PRIVATE QXlsx::QXlsx)
 ```
+
+if `QT_VERSION_MAJOR` is not set, QXlsx's CMakeLists.txt will try to find a Qt version (5 or 6) itself.
