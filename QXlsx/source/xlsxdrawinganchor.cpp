@@ -338,10 +338,8 @@ void DrawingAnchor::loadXmlObjectGraphicFrame(QXmlStreamReader &reader)
                 QString rId = reader.attributes().value(QLatin1String("r:id")).toString();
                 QString name = m_drawing->relationships()->getRelationshipById(rId).target;
 
-                QString str = *( splitPath(m_drawing->filePath()).begin() );
-                str = str + QLatin1String("/");
-                str = str + name;
-                QString path = QDir::cleanPath(str);
+                const auto parts = splitPath(m_drawing->filePath());
+                QString path = QDir::cleanPath(parts.first() + QLatin1String("/") + name);
 
                 bool exist = false;
                 QList<QSharedPointer<Chart> > cfs = m_drawing->workbook->chartFiles();
@@ -383,10 +381,8 @@ void DrawingAnchor::loadXmlObjectPicture(QXmlStreamReader &reader)
                 QString rId = reader.attributes().value(QLatin1String("r:embed")).toString();
                 QString name = m_drawing->relationships()->getRelationshipById(rId).target;
 
-                QString str = *( splitPath(m_drawing->filePath()).begin() );
-                str = str + QLatin1String("/");
-                str = str + name;
-                QString path = QDir::cleanPath( str );
+                const auto parts = splitPath(m_drawing->filePath());
+                QString path = QDir::cleanPath(parts.first() + QLatin1String("/") + name);
 
                 bool exist = false;
                 QList<QSharedPointer<MediaFile> > mfs = m_drawing->workbook->mediaFiles();

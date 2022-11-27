@@ -222,7 +222,8 @@ bool DocumentPrivate::loadPackage(QIODevice *device)
 	if (rels_xl.isEmpty())
 		return false;
     const QString xlworkbook_Path = rels_xl[0].target;
-    const QString xlworkbook_Dir = *( splitPath(xlworkbook_Path).begin() );
+    const auto parts = splitPath(xlworkbook_Path);
+    const QString xlworkbook_Dir = parts.first();
     const QString relFilePath = getRelFilePath(xlworkbook_Path);
 
     workbook->relationships()->loadFromXmlData( zipReader.fileData(relFilePath) );
