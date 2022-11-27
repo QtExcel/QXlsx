@@ -139,8 +139,11 @@ QString createSafeSheetName(const QString &nameProposal)
         ret = unescapeSheetName(ret);
 
     //Replace invalid chars with space.
-    if (nameProposal.contains(QRegularExpression(QStringLiteral("[/\\\\?*\\][:]"))))
-        ret.replace(QRegularExpression(QStringLiteral("[/\\\\?*\\][:]")), QStringLiteral(" "));
+    static QRegularExpression invalidChars(QStringLiteral("[/\\\\?*\\][:]"));
+    if (nameProposal.contains(invalidChars)) {
+        static QRegularExpression validChars(QStringLiteral("[/\\\\?*\\][:]"));
+        ret.replace(validChars, QStringLiteral(" "));
+    }
 
     if (ret.startsWith(QLatin1Char('\'')))
         ret[0] = QLatin1Char(' ');

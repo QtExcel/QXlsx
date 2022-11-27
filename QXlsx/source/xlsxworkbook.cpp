@@ -612,10 +612,8 @@ bool Workbook::loadFromXmlFile(QIODevice *device)
                  QString strFilePath = filePath();
 
                  // const QString fullPath = QDir::cleanPath(splitPath(strFilePath).constFirst() + QLatin1String("/") + relationship.target);
-                 QString str = *( splitPath(strFilePath).begin() );
-                 str = str + QLatin1String("/");
-                 str = str + relationship.target;
-                 const QString fullPath = QDir::cleanPath( str );
+                 const auto parts = splitPath(strFilePath);
+                 QString fullPath = QDir::cleanPath(parts.first() + QLatin1String("/") + relationship.target);
 
                  sheet->setFilePath(fullPath);
              }
@@ -660,10 +658,8 @@ bool Workbook::loadFromXmlFile(QIODevice *device)
 
                  QSharedPointer<SimpleOOXmlFile> link(new SimpleOOXmlFile(F_LoadFromExists));
 
-                 QString str = *( splitPath(filePath()).begin() );
-                 str = str + QLatin1String("/");
-                 str = str + relationship.target;
-                 const QString fullPath = QDir::cleanPath( str );
+                 const auto parts = splitPath(filePath());
+                 QString fullPath = QDir::cleanPath(parts.first() + QLatin1String("/") + relationship.target);
 
                  link->setFilePath(fullPath);
                  d->externalLinks.append(link);
