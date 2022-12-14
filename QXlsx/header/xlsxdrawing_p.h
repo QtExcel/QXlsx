@@ -6,7 +6,6 @@
 #include <QtGlobal>
 #include <QList>
 #include <QString>
-#include <QSharedPointer>
 
 #include "xlsxrelationships_p.h"
 #include "xlsxabstractooxmlfile.h"

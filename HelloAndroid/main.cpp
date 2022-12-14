@@ -85,10 +85,10 @@ int main(int argc, char *argv[])
           int row = cl.row - 1;
           int col = cl.col - 1;
 
-          QSharedPointer<Cell> ptrCell = cl.cell; // cell pointer
+          auto ptrCell = cl.cell; // cell pointer
 
           // value of cell
-          QVariant var = cl.cell.data()->value();
+          QVariant var = ptrCell->value();
           QString str = var.toString();
 
           // set string value to (col, row)

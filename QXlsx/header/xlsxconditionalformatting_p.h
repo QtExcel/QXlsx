@@ -3,10 +3,10 @@
 #ifndef XLSXCONDITIONALFORMATTING_P_H
 #define XLSXCONDITIONALFORMATTING_P_H
 
-#include <QtGlobal>
 #include <QSharedData>
-#include <QSharedPointer>
 #include <QMap>
+
+#include <memory>
 
 #include "xlsxconditionalformatting.h"
 #include "xlsxformat.h"
@@ -89,7 +89,7 @@ public:
     bool readCfDataBar(QXmlStreamReader &reader, XlsxCfRuleData *cfRule);
     bool readCfColorScale(QXmlStreamReader &reader, XlsxCfRuleData *cfRule);
 
-    QList<QSharedPointer<XlsxCfRuleData> >cfRules;
+    QList<std::shared_ptr<XlsxCfRuleData> >cfRules;
     QList<CellRange> ranges;
 };
 

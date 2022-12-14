@@ -12,16 +12,12 @@
 #include <sstream>
 
 
-XlsxTableModel::XlsxTableModel(QList<QString> colTitle, QList<VLIST> data, QObject *parent)
+XlsxTableModel::XlsxTableModel(const QList<QString> &colTitle, QList<VLIST> data, QObject *parent)
     : QAbstractTableModel(parent)
 {
         // [1] set name of column
 
-        for (int ic = 0; ic < colTitle.size() ; ic++ )
-        {
-            QString strCol = colTitle.at(ic);
-            m_colNames.append( strCol );
-        }
+        m_colNames = colTitle;
         m_roleCount = m_colNames.size();
 
         // [2]  set data

@@ -5,7 +5,6 @@
 
 #include <QtGlobal>
 #include <QStringList>
-#include <QSharedPointer>
 
 #include "xlsxabstractsheet.h"
 

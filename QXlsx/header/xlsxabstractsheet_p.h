@@ -3,9 +3,9 @@
 #ifndef XLSXABSTRACTSHEET_P_H
 #define XLSXABSTRACTSHEET_P_H
 
-#include <QtGlobal>
 #include <QString>
-#include <QSharedPointer>
+
+#include <memory>
 
 #include "xlsxglobal.h"
 
@@ -23,7 +23,7 @@ public:
     ~AbstractSheetPrivate();
 
     Workbook *workbook;
-    QSharedPointer<Drawing> drawing;
+    std::shared_ptr<Drawing> drawing;
 
     QString name;
     int id;

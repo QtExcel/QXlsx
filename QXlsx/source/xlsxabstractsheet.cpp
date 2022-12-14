@@ -171,7 +171,7 @@ int AbstractSheet::sheetId() const
 Drawing *AbstractSheet::drawing() const
 {
     Q_D(const AbstractSheet);
-    return d->drawing.data();
+    return d->drawing.get();
 }
 
 /*!
