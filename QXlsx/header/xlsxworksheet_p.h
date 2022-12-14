@@ -135,10 +135,6 @@ struct XlsxColumnInfo
     bool collapsed;
 };
 
-// #ifndef QMapIntSharedPointerCell
-// typedef QMap<int, QSharedPointer<Cell> > QMapIntSharedPointerCell;
-// #endif
-
 class WorksheetPrivate : public AbstractSheetPrivate
 {
     Q_DECLARE_PUBLIC(Worksheet)
