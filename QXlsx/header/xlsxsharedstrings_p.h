@@ -38,7 +38,6 @@
 
 #include <QHash>
 #include <QStringList>
-#include <QSharedPointer>
 #include <QIODevice>
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>

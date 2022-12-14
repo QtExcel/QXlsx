@@ -162,11 +162,11 @@ DocumentPrivate::DocumentPrivate(Document *p) :
 
 void DocumentPrivate::init()
 {
-	if (contentTypes.isNull())
-		contentTypes = QSharedPointer<ContentTypes>(new ContentTypes(ContentTypes::F_NewFromScratch));
+    if (!contentTypes)
+        contentTypes = std::make_shared<ContentTypes>(ContentTypes::F_NewFromScratch);
 
-	if (workbook.isNull())
-		workbook = QSharedPointer<Workbook>(new Workbook(Workbook::F_NewFromScratch));
+    if (workbook.isNull())
+        workbook = QSharedPointer<Workbook>(new Workbook(Workbook::F_NewFromScratch));
 }
 
 bool DocumentPrivate::loadPackage(QIODevice *device)
@@ -178,7 +178,7 @@ bool DocumentPrivate::loadPackage(QIODevice *device)
 	//Load the Content_Types file
 	if (!filePaths.contains(QLatin1String("[Content_Types].xml")))
 		return false;
-	contentTypes = QSharedPointer<ContentTypes>(new ContentTypes(ContentTypes::F_LoadFromExists));
+    contentTypes = std::make_shared<ContentTypes>(ContentTypes::F_LoadFromExists);
 	contentTypes->loadFromXmlData(zipReader.fileData(QStringLiteral("[Content_Types].xml")));
 
 	//Load root rels file
@@ -217,7 +217,7 @@ bool DocumentPrivate::loadPackage(QIODevice *device)
 
 	//load workbook now, Get the workbook file path from the root rels file
 	//In normal case, this should be "xl/workbook.xml"
-	workbook = QSharedPointer<Workbook>(new Workbook(Workbook::F_LoadFromExists));
+    workbook = QSharedPointer<Workbook>(new Workbook(Workbook::F_LoadFromExists));
 	QList<XlsxRelationship> rels_xl = rootRels.documentRelationships(QStringLiteral("/officeDocument"));
 	if (rels_xl.isEmpty())
 		return false;
@@ -1096,7 +1096,7 @@ QStringList Document::documentPropertyNames() const
 Workbook *Document::workbook() const
 {
 	Q_D(const Document);
-	return d->workbook.data();
+    return d->workbook.data();
 }
 
 /*!

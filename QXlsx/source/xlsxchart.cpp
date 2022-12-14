@@ -70,7 +70,7 @@ void Chart::addSeries(const CellRange &range, AbstractSheet *sheet, bool headerH
 
     if (range.columnCount() == 1 || range.rowCount() == 1)
     {
-        QSharedPointer<XlsxSeries> series = QSharedPointer<XlsxSeries>(new XlsxSeries);
+        auto series = std::make_shared<XlsxSeries>();
         series->numberDataSource_numRef = sheetName + QLatin1String("!") + range.toString(true, true);
         d->seriesList.append(series);
     }
@@ -100,7 +100,7 @@ void Chart::addSeries(const CellRange &range, AbstractSheet *sheet, bool headerH
         for (int col=firstDataColumn; col<=range.lastColumn(); ++col)
         {
             CellRange subRange(firstDataRow, col, range.lastRow(), col);
-            QSharedPointer<XlsxSeries> series = QSharedPointer<XlsxSeries>(new XlsxSeries);
+            auto series = std::make_shared<XlsxSeries>();
             series->axDataSource_numRef = axDataSouruce_numRef;
             series->numberDataSource_numRef = sheetName + QLatin1String("!") + subRange.toString(true, true);
 
@@ -154,7 +154,7 @@ void Chart::addSeries(const CellRange &range, AbstractSheet *sheet, bool headerH
         for (int row=firstDataRow; row<=range.lastRow(); ++row)
         {
             CellRange subRange(row, firstDataColumn, row, range.lastColumn());
-            QSharedPointer<XlsxSeries> series = QSharedPointer<XlsxSeries>(new XlsxSeries);
+            auto series = std::make_shared<XlsxSeries>();
             series->axDataSource_numRef = axDataSouruce_numRef;
             series->numberDataSource_numRef = sheetName + QLatin1String("!") + subRange.toString(true, true);
 
@@ -636,7 +636,7 @@ bool ChartPrivate::loadXmlSer(QXmlStreamReader &reader)
 {
     Q_ASSERT(reader.name() == QLatin1String("ser"));
 
-    QSharedPointer<XlsxSeries> series = QSharedPointer<XlsxSeries>(new XlsxSeries);
+    auto series = std::make_shared<XlsxSeries>();
     seriesList.append(series);
 
     while ( !reader.atEnd() &&
@@ -1111,7 +1111,7 @@ void ChartPrivate::saveXmlPieChart(QXmlStreamWriter &writer) const
     writer.writeAttribute(QStringLiteral("val"), QStringLiteral("1"));
 
     for (int i=0; i<seriesList.size(); ++i)
-        saveXmlSer(writer, seriesList[i].data(), i);
+        saveXmlSer(writer, seriesList[i].get(), i);
 
     writer.writeEndElement(); //pieChart, pie3DChart
 }
@@ -1127,18 +1127,16 @@ void ChartPrivate::saveXmlBarChart(QXmlStreamWriter &writer) const
 
     for ( int i = 0 ; i < seriesList.size() ; ++i )
     {
-        saveXmlSer(writer, seriesList[i].data(), i);
+        saveXmlSer(writer, seriesList[i].get(), i);
     }
 
     if ( axisList.isEmpty() )
     {
         const_cast<ChartPrivate*>(this)->axisList.append(
-                    QSharedPointer<XlsxAxis>(
-                        new XlsxAxis( XlsxAxis::T_Cat, XlsxAxis::Bottom, 0, 1, axisNames[XlsxAxis::Bottom] )));
+                    std::make_shared<XlsxAxis>( XlsxAxis::T_Cat, XlsxAxis::Bottom, 0, 1, axisNames[XlsxAxis::Bottom] ));
 
         const_cast<ChartPrivate*>(this)->axisList.append(
-                    QSharedPointer<XlsxAxis>(
-                        new XlsxAxis( XlsxAxis::T_Val, XlsxAxis::Left, 1, 0, axisNames[XlsxAxis::Left] )));
+                    std::make_shared<XlsxAxis>( XlsxAxis::T_Val, XlsxAxis::Left, 1, 0, axisNames[XlsxAxis::Left] ));
     }
 
 
@@ -1166,14 +1164,14 @@ void ChartPrivate::saveXmlLineChart(QXmlStreamWriter &writer) const
     // writer.writeEmptyElement(QStringLiteral("grouping")); // dev22
 
     for (int i=0; i<seriesList.size(); ++i)
-        saveXmlSer(writer, seriesList[i].data(), i);
+        saveXmlSer(writer, seriesList[i].get(), i);
 
     if (axisList.isEmpty())
     {
-        const_cast<ChartPrivate*>(this)->axisList.append(QSharedPointer<XlsxAxis>(new XlsxAxis(XlsxAxis::T_Cat, XlsxAxis::Bottom, 0, 1, axisNames[XlsxAxis::Bottom] )));
-        const_cast<ChartPrivate*>(this)->axisList.append(QSharedPointer<XlsxAxis>(new XlsxAxis(XlsxAxis::T_Val, XlsxAxis::Left, 1, 0, axisNames[XlsxAxis::Left] )));
+        const_cast<ChartPrivate*>(this)->axisList.append(std::make_shared<XlsxAxis>(XlsxAxis::T_Cat, XlsxAxis::Bottom, 0, 1, axisNames[XlsxAxis::Bottom] ));
+        const_cast<ChartPrivate*>(this)->axisList.append(std::make_shared<XlsxAxis>(XlsxAxis::T_Val, XlsxAxis::Left, 1, 0, axisNames[XlsxAxis::Left] ));
         if (chartType==Chart::CT_Line3DChart)
-            const_cast<ChartPrivate*>(this)->axisList.append(QSharedPointer<XlsxAxis>(new XlsxAxis(XlsxAxis::T_Ser, XlsxAxis::Bottom, 2, 0)));
+            const_cast<ChartPrivate*>(this)->axisList.append(std::make_shared<XlsxAxis>(XlsxAxis::T_Ser, XlsxAxis::Bottom, 2, 0));
     }
 
     Q_ASSERT((axisList.size()==2||chartType==Chart::CT_LineChart)|| (axisList.size()==3 && chartType==Chart::CT_Line3DChart));
@@ -1196,16 +1194,14 @@ void ChartPrivate::saveXmlScatterChart(QXmlStreamWriter &writer) const
     writer.writeEmptyElement(QStringLiteral("c:scatterStyle"));
 
     for (int i=0; i<seriesList.size(); ++i)
-        saveXmlSer(writer, seriesList[i].data(), i);
+        saveXmlSer(writer, seriesList[i].get(), i);
 
     if (axisList.isEmpty())
     {
         const_cast<ChartPrivate*>(this)->axisList.append(
-                    QSharedPointer<XlsxAxis>(
-                        new XlsxAxis(XlsxAxis::T_Val, XlsxAxis::Bottom, 0, 1, axisNames[XlsxAxis::Bottom] )));
+                    std::make_shared<XlsxAxis>(XlsxAxis::T_Val, XlsxAxis::Bottom, 0, 1, axisNames[XlsxAxis::Bottom] ));
         const_cast<ChartPrivate*>(this)->axisList.append(
-                    QSharedPointer<XlsxAxis>(
-                        new XlsxAxis(XlsxAxis::T_Val, XlsxAxis::Left, 1, 0, axisNames[XlsxAxis::Left] )));
+                    std::make_shared<XlsxAxis>(XlsxAxis::T_Val, XlsxAxis::Left, 1, 0, axisNames[XlsxAxis::Left] ));
     }
 
     int axisListSize = axisList.size();
@@ -1229,12 +1225,12 @@ void ChartPrivate::saveXmlAreaChart(QXmlStreamWriter &writer) const
     // writer.writeEmptyElement(QStringLiteral("grouping")); // dev22
 
     for (int i=0; i<seriesList.size(); ++i)
-        saveXmlSer(writer, seriesList[i].data(), i);
+        saveXmlSer(writer, seriesList[i].get(), i);
 
     if (axisList.isEmpty())
     {
-        const_cast<ChartPrivate*>(this)->axisList.append(QSharedPointer<XlsxAxis>(new XlsxAxis(XlsxAxis::T_Cat, XlsxAxis::Bottom, 0, 1)));
-        const_cast<ChartPrivate*>(this)->axisList.append(QSharedPointer<XlsxAxis>(new XlsxAxis(XlsxAxis::T_Val, XlsxAxis::Left, 1, 0)));
+        const_cast<ChartPrivate*>(this)->axisList.append(std::make_shared<XlsxAxis>(XlsxAxis::T_Cat, XlsxAxis::Bottom, 0, 1));
+        const_cast<ChartPrivate*>(this)->axisList.append(std::make_shared<XlsxAxis>(XlsxAxis::T_Val, XlsxAxis::Left, 1, 0));
     }
 
     //Note: Area3D have 2~3 axes
@@ -1259,7 +1255,7 @@ void ChartPrivate::saveXmlDoughnutChart(QXmlStreamWriter &writer) const
     writer.writeAttribute(QStringLiteral("val"), QStringLiteral("1"));
 
     for (int i=0; i<seriesList.size(); ++i)
-        saveXmlSer(writer, seriesList[i].data(), i);
+        saveXmlSer(writer, seriesList[i].get(), i);
 
     writer.writeStartElement(QStringLiteral("c:holeSize"));
     writer.writeAttribute(QStringLiteral("val"), QString::number(50));
@@ -1343,12 +1339,12 @@ void ChartPrivate::saveXmlSer(QXmlStreamWriter &writer, XlsxSeries *ser, int id)
 bool ChartPrivate::loadXmlAxisCatAx(QXmlStreamReader &reader)
 {
 
-    XlsxAxis* axis = new XlsxAxis();
+    auto axis = std::make_shared<XlsxAxis>();
     axis->type = XlsxAxis::T_Cat;
-    axisList.append( QSharedPointer<XlsxAxis>(axis) );
+    axisList.append(axis);
 
     // load EG_AxShared
-    if ( ! loadXmlAxisEG_AxShared( reader, axis ) )
+    if ( ! loadXmlAxisEG_AxShared( reader, axis.get() ) )
     {
         qDebug() << "failed to load EG_AxShared";
         return false;
@@ -1369,12 +1365,12 @@ bool ChartPrivate::loadXmlAxisCatAx(QXmlStreamReader &reader)
 bool ChartPrivate::loadXmlAxisDateAx(QXmlStreamReader &reader)
 {
 
-    XlsxAxis* axis = new XlsxAxis();
+    auto axis = std::make_shared<XlsxAxis>();
     axis->type = XlsxAxis::T_Date;
-    axisList.append( QSharedPointer<XlsxAxis>(axis) );
+    axisList.append(axis);
 
     // load EG_AxShared
-    if ( ! loadXmlAxisEG_AxShared( reader, axis ) )
+    if ( ! loadXmlAxisEG_AxShared( reader, axis.get() ) )
     {
         qDebug() << "failed to load EG_AxShared";
         return false;
@@ -1396,12 +1392,12 @@ bool ChartPrivate::loadXmlAxisDateAx(QXmlStreamReader &reader)
 bool ChartPrivate::loadXmlAxisSerAx(QXmlStreamReader &reader)
 {
 
-    XlsxAxis* axis = new XlsxAxis();
+    auto axis = std::make_shared<XlsxAxis>();
     axis->type = XlsxAxis::T_Ser;
-    axisList.append( QSharedPointer<XlsxAxis>(axis) );
+    axisList.append(axis);
 
     // load EG_AxShared
-    if ( ! loadXmlAxisEG_AxShared( reader, axis ) )
+    if ( ! loadXmlAxisEG_AxShared( reader, axis.get() ) )
     {
         qDebug() << "failed to load EG_AxShared";
         return false;
@@ -1419,11 +1415,11 @@ bool ChartPrivate::loadXmlAxisValAx(QXmlStreamReader &reader)
 {
     Q_ASSERT(reader.name() == QLatin1String("valAx"));
 
-    XlsxAxis* axis = new XlsxAxis();
+    auto axis = std::make_shared<XlsxAxis>();
     axis->type = XlsxAxis::T_Val;
-    axisList.append( QSharedPointer<XlsxAxis>(axis) );
+    axisList.append(axis);
 
-    if ( ! loadXmlAxisEG_AxShared( reader, axis ) )
+    if ( ! loadXmlAxisEG_AxShared( reader, axis.get() ) )
     {
         qDebug() << "failed to load EG_AxShared";
         return false;
@@ -1922,8 +1918,8 @@ void ChartPrivate::saveXmlAxis(QXmlStreamWriter &writer) const
 {
     for ( int i = 0 ; i < axisList.size() ; ++i )
     {
-        XlsxAxis* axis = axisList[i].data();
-        if ( NULL == axis )
+        XlsxAxis* axis = axisList[i].get();
+        if ( nullptr == axis )
             continue;
 
         if ( axis->type == XlsxAxis::T_Cat  ) { saveXmlAxisCatAx( writer, axis ); }

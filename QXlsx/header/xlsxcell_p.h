@@ -6,7 +6,6 @@
 #include <QtGlobal>
 #include <QObject>
 #include <QList>
-#include <QSharedPointer>
 
 #include "xlsxglobal.h"
 #include "xlsxcell.h"

@@ -191,18 +191,18 @@ Worksheet *Worksheet::copy(const QString &distName, int distId) const
 
 	sheet_d->dimension = d->dimension;
 
-	QMapIterator<int, QMap<int, QSharedPointer<Cell> > > it(d->cellTable);
+    QMapIterator<int, QMap<int, std::shared_ptr<Cell> > > it(d->cellTable);
     while (it.hasNext())
     {
 		it.next();
 		int row = it.key();
-		QMapIterator<int, QSharedPointer<Cell> > it2(it.value());
+        QMapIterator<int, std::shared_ptr<Cell> > it2(it.value());
         while (it2.hasNext())
         {
 			it2.next();
 			int col = it2.key();
 
-			QSharedPointer<Cell> cell(new Cell(it2.value().data()));
+            auto cell = std::make_shared<Cell>(it2.value().get());
 			cell->d_ptr->parent = sheet;
 
 			if (cell->cellType() == Cell::SharedStringType)
@@ -599,7 +599,7 @@ Cell *Worksheet::cellAt(int row, int col) const
     if (!it->contains(col))
 		return 0;
 
-    return (*it)[col].data();
+    return (*it)[col].get();
 }
 
 Format WorksheetPrivate::cellFormat(int row, int col) const
@@ -647,7 +647,7 @@ bool Worksheet::writeString(int row, int column, const RichString &value, const 
 	if (value.fragmentCount() == 1 && value.fragmentFormat(0).isValid())
 		fmt.mergeFormat(value.fragmentFormat(0));
 	d->workbook->styles()->addXfFormat(fmt);
-	QSharedPointer<Cell> cell = QSharedPointer<Cell>(new Cell(value.toPlainString(), Cell::SharedStringType, fmt, this));
+    auto cell = std::make_shared<Cell>(value.toPlainString(), Cell::SharedStringType, fmt, this);
 	cell->d_ptr->richString = value;
 	d->cellTable[row][column] = cell;
 	return true;
@@ -717,7 +717,7 @@ bool Worksheet::writeInlineString(int row, int column, const QString &value, con
 
 	Format fmt = format.isValid() ? format : d->cellFormat(row, column);
 	d->workbook->styles()->addXfFormat(fmt);
-	d->cellTable[row][column] = QSharedPointer<Cell>(new Cell(value, Cell::InlineStringType, fmt, this));
+    d->cellTable[row][column] = std::make_shared<Cell>(value, Cell::InlineStringType, fmt, this);
 	return true;
 }
 
@@ -746,7 +746,7 @@ bool Worksheet::writeNumeric(int row, int column, double value, const Format &fo
 
 	Format fmt = format.isValid() ? format : d->cellFormat(row, column);
 	d->workbook->styles()->addXfFormat(fmt);
-	d->cellTable[row][column] = QSharedPointer<Cell>(new Cell(value, Cell::NumberType, fmt, this));
+    d->cellTable[row][column] = std::make_shared<Cell>(value, Cell::NumberType, fmt, this);
 	return true;
 }
 
@@ -792,7 +792,7 @@ bool Worksheet::writeFormula(int row, int column, const CellFormula &formula_, c
 		d->sharedFormulaMap[si] = formula;
 	}
 
-	QSharedPointer<Cell> data = QSharedPointer<Cell>(new Cell(result, Cell::NumberType, fmt, this));
+    auto data = std::make_shared<Cell>(result, Cell::NumberType, fmt, this);
 	data->d_ptr->formula = formula;
 	d->cellTable[row][column] = data;
 
@@ -806,7 +806,7 @@ bool Worksheet::writeFormula(int row, int column, const CellFormula &formula_, c
 					if(Cell *cell = cellAt(r, c)) {
 						cell->d_ptr->formula = sf;
 					} else {
-						QSharedPointer<Cell> newCell = QSharedPointer<Cell>(new Cell(result, Cell::NumberType, fmt, this));
+                        auto newCell = std::make_shared<Cell>(result, Cell::NumberType, fmt, this);
 						newCell->d_ptr->formula = sf;
 						d->cellTable[r][c] = newCell;
 					}
@@ -845,7 +845,7 @@ bool Worksheet::writeBlank(int row, int column, const Format &format)
 	d->workbook->styles()->addXfFormat(fmt);
 
 	//Note: NumberType with an invalid QVariant value means blank.
-	d->cellTable[row][column] = QSharedPointer<Cell>(new Cell(QVariant(), Cell::NumberType, fmt, this));
+    d->cellTable[row][column] = std::make_shared<Cell>(QVariant{}, Cell::NumberType, fmt, this);
 
 	return true;
 }
@@ -874,7 +874,7 @@ bool Worksheet::writeBool(int row, int column, bool value, const Format &format)
 
 	Format fmt = format.isValid() ? format : d->cellFormat(row, column);
 	d->workbook->styles()->addXfFormat(fmt);
-	d->cellTable[row][column] = QSharedPointer<Cell>(new Cell(value, Cell::BooleanType, fmt, this));
+    d->cellTable[row][column] = std::make_shared<Cell>(value, Cell::BooleanType, fmt, this);
 
 	return true;
 }
@@ -908,7 +908,7 @@ bool Worksheet::writeDateTime(int row, int column, const QDateTime &dt, const Fo
 
 	double value = datetimeToNumber(dt, d->workbook->isDate1904());
 
-	d->cellTable[row][column] = QSharedPointer<Cell>(new Cell(value, Cell::NumberType, fmt, this));
+    d->cellTable[row][column] = std::make_shared<Cell>(value, Cell::NumberType, fmt, this);
 
 	return true;
 }
@@ -938,7 +938,7 @@ bool Worksheet::writeDate(int row, int column, const QDate &dt, const Format &fo
 
     double value = datetimeToNumber(QDateTime(dt, QTime(0,0,0)), d->workbook->isDate1904());
 
-    d->cellTable[row][column] = QSharedPointer<Cell>(new Cell(value, Cell::NumberType, fmt, this));
+    d->cellTable[row][column] = std::make_shared<Cell>(value, Cell::NumberType, fmt, this);
 
     return true;
 }
@@ -971,7 +971,7 @@ bool Worksheet::writeTime(int row, int column, const QTime &t, const Format &for
 		fmt.setNumberFormat(QStringLiteral("hh:mm:ss"));
 	d->workbook->styles()->addXfFormat(fmt);
 
-	d->cellTable[row][column] = QSharedPointer<Cell>(new Cell(timeToNumber(t), Cell::NumberType, fmt, this));
+    d->cellTable[row][column] = std::make_shared<Cell>(timeToNumber(t), Cell::NumberType, fmt, this);
 
 	return true;
 }
@@ -1037,7 +1037,7 @@ bool Worksheet::writeHyperlink(int row, int column, const QUrl &url, const Forma
 
 	//Write the hyperlink string as normal string.
 	d->sharedStrings()->addSharedString(displayString);
-	d->cellTable[row][column] = QSharedPointer<Cell>(new Cell(displayString, Cell::SharedStringType, fmt, this));
+    d->cellTable[row][column] = std::make_shared<Cell>(displayString, Cell::SharedStringType, fmt, this);
 
 	//Store the hyperlink data in a separate table
 	d->urlTable[row][column] = QSharedPointer<XlsxHyperlinkData>(new XlsxHyperlinkData(XlsxHyperlinkData::External, urlString, locationString, QString(), tip));
@@ -1070,7 +1070,7 @@ bool Worksheet::addConditionalFormatting(const ConditionalFormatting &cf)
 		return false;
 
 	for (int i=0; i<cf.d->cfRules.size(); ++i) {
-		const QSharedPointer<XlsxCfRuleData> &rule = cf.d->cfRules[i];
+        const std::shared_ptr<XlsxCfRuleData> &rule = cf.d->cfRules[i];
 		if (!rule->dxfFormat.isEmpty())
 			d->workbook->styles()->addDxfFormat(rule->dxfFormat);
 		rule->priority = 1;
@@ -1094,10 +1094,10 @@ int Worksheet::insertImage(int row, int column, const QImage &image)
 
 	if (!d->drawing)
     {
-		d->drawing = QSharedPointer<Drawing>(new Drawing(this, F_NewFromScratch));
+        d->drawing = std::make_shared<Drawing>(this, F_NewFromScratch);
     }
 
-    DrawingOneCellAnchor* anchor = new DrawingOneCellAnchor(d->drawing.data(), DrawingAnchor::Picture);
+    DrawingOneCellAnchor* anchor = new DrawingOneCellAnchor(d->drawing.get(), DrawingAnchor::Picture);
 
 	/*
 		The size are expressed as English Metric Units (EMUs).
@@ -1194,9 +1194,9 @@ Chart *Worksheet::insertChart(int row, int column, const QSize &size)
 	Q_D(Worksheet);
 
 	if (!d->drawing)
-		d->drawing = QSharedPointer<Drawing>(new Drawing(this, F_NewFromScratch));
+        d->drawing = std::make_shared<Drawing>(this, F_NewFromScratch);
 
-	DrawingOneCellAnchor *anchor = new DrawingOneCellAnchor(d->drawing.data(), DrawingAnchor::Picture);
+    DrawingOneCellAnchor *anchor = new DrawingOneCellAnchor(d->drawing.get(), DrawingAnchor::Picture);
 
 	/*
 		The size are expressed as English Metric Units (EMUs). There are
@@ -1591,7 +1591,7 @@ void WorksheetPrivate::saveXmlSheetData(QXmlStreamWriter &writer) const
 	}
 }
 
-void WorksheetPrivate::saveXmlCellData(QXmlStreamWriter &writer, int row, int col, QSharedPointer<Cell> cell) const
+void WorksheetPrivate::saveXmlCellData(QXmlStreamWriter &writer, int row, int col, std::shared_ptr<Cell> cell) const
 {
     Q_Q(const Worksheet);
 
@@ -1835,7 +1835,7 @@ void WorksheetPrivate::saveXmlDrawings(QXmlStreamWriter &writer) const
 	if (!drawing)
 		return;
 
-	int idx = workbook->drawings().indexOf(drawing.data());
+    int idx = workbook->drawings().indexOf(drawing.get());
     relationships->addWorksheetRelationship(QStringLiteral("/drawing"), QStringLiteral("../drawings/drawing%1.xml").arg(idx+1));
 
 	writer.writeEmptyElement(QStringLiteral("drawing"));
@@ -2452,7 +2452,7 @@ void WorksheetPrivate::loadXmlSheetData(QXmlStreamReader &reader)
 				}
 
 				// create a heap of new cell
-				QSharedPointer<Cell> cell(new Cell(QVariant(), cellType, format, q, styleIndex));
+                auto cell = std::make_shared<Cell>(QVariant{}, cellType, format, q, styleIndex);
 
                 while (!reader.atEnd() &&
                        !(reader.name() == QLatin1String("c") &&
@@ -2949,7 +2949,7 @@ bool Worksheet::loadFromXmlFile(QIODevice *device)
                 const auto parts = splitPath(filePath());
                 QString path = QDir::cleanPath(parts.first() + QLatin1String("/") + name);
 
-				d->drawing = QSharedPointer<Drawing>(new Drawing(this, F_LoadFromExists));
+                d->drawing = std::make_shared<Drawing>(this, F_LoadFromExists);
 				d->drawing->setFilePath(path);
             }
             else if (reader.name() == QLatin1String("extLst"))
@@ -3041,21 +3041,21 @@ QVector<CellLocation> Worksheet::getFullCells(int* maxRow, int* maxCol)
         return ret;
     }
 
-    QMapIterator< int, QMap< int, QSharedPointer<Cell> > > _it( d->cellTable );
+    QMapIterator< int, QMap< int, std::shared_ptr<Cell> > > _it( d->cellTable );
 
     while ( _it.hasNext() )
     {
         _it.next();
 
         int keyI = _it.key(); // key (cell row)
-        QMapIterator<int, QSharedPointer<Cell> > _iit( _it.value() ); // value
+        QMapIterator<int, std::shared_ptr<Cell> > _iit( _it.value() ); // value
 
         while ( _iit.hasNext() )
         {
             _iit.next();
 
             int keyII = _iit.key(); // key (cell column)
-            QSharedPointer<Cell> ptrCell = _iit.value(); // value
+            std::shared_ptr<Cell> ptrCell = _iit.value(); // value
 
             CellLocation cl;
 

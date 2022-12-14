@@ -14,7 +14,6 @@
 #include <QIODevice>
 #include <QByteArray>
 #include <QStringList>
-#include <QSharedPointer>
 
 #if defined(QXlsx_SHAREDLIB)
 #if defined(QXlsx_EXPORTS)

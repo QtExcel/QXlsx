@@ -4,7 +4,6 @@
 #define QXLSX_CHART_H
 
 #include <QtGlobal>
-#include <QSharedPointer>
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
 

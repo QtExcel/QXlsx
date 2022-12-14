@@ -162,7 +162,7 @@ bool ConditionalFormatting::addHighlightCellsRule(HighlightRuleType type, const 
 
     bool skipFormula = false;
 
-    QSharedPointer<XlsxCfRuleData> cfRule(new XlsxCfRuleData);
+    auto cfRule = std::make_shared<XlsxCfRuleData>();
     if (type >= Highlight_LessThan && type <= Highlight_NotBetween) {
         cfRule->attrs[XlsxCfRuleData::A_type] = QStringLiteral("cellIs");
         QString op;
@@ -297,7 +297,7 @@ bool ConditionalFormatting::addHighlightCellsRule(HighlightRuleType type, const 
  */
 bool ConditionalFormatting::addDataBarRule(const QColor &color, ValueObjectType type1, const QString &val1, ValueObjectType type2, const QString &val2, bool showData, bool stopIfTrue)
 {
-    QSharedPointer<XlsxCfRuleData> cfRule(new XlsxCfRuleData);
+    auto cfRule = std::make_shared<XlsxCfRuleData>();
 
     cfRule->attrs[XlsxCfRuleData::A_type] = QStringLiteral("dataBar");
     cfRule->attrs[XlsxCfRuleData::A_color1] = XlsxColor(color);
@@ -335,7 +335,7 @@ bool ConditionalFormatting::add2ColorScaleRule(const QColor &minColor, const QCo
     QString val1 = QStringLiteral("0");
     QString val2 = QStringLiteral("0");
 
-    QSharedPointer<XlsxCfRuleData> cfRule(new XlsxCfRuleData);
+    auto cfRule = std::make_shared<XlsxCfRuleData>();
 
     cfRule->attrs[XlsxCfRuleData::A_type] = QStringLiteral("colorScale");
     cfRule->attrs[XlsxCfRuleData::A_color1] = XlsxColor(minColor);
@@ -365,7 +365,7 @@ bool ConditionalFormatting::add3ColorScaleRule(const QColor &minColor, const QCo
     QString val2 = QStringLiteral("50");
     QString val3 = QStringLiteral("0");
 
-    QSharedPointer<XlsxCfRuleData> cfRule(new XlsxCfRuleData);
+    auto cfRule = std::make_shared<XlsxCfRuleData>();
 
     cfRule->attrs[XlsxCfRuleData::A_type] = QStringLiteral("colorScale");
     cfRule->attrs[XlsxCfRuleData::A_color1] = XlsxColor(minColor);
@@ -619,8 +619,8 @@ bool ConditionalFormatting::loadFromXml(QXmlStreamReader &reader, Styles *styles
         reader.readNextStartElement();
         if (reader.tokenType() == QXmlStreamReader::StartElement) {
             if (reader.name() == QLatin1String("cfRule")) {
-                QSharedPointer<XlsxCfRuleData> cfRule(new XlsxCfRuleData);
-                d->readCfRule(reader, cfRule.data(), styles);
+                auto cfRule = std::make_shared<XlsxCfRuleData>();
+                d->readCfRule(reader, cfRule.get(), styles);
                 d->cfRules.append(cfRule);
             }
         }
@@ -645,7 +645,7 @@ bool ConditionalFormatting::saveToXml(QXmlStreamWriter &writer) const
     writer.writeAttribute(QStringLiteral("sqref"), sqref.join(QLatin1String(" ")));
 
     for (int i=0; i<d->cfRules.size(); ++i) {
-        const QSharedPointer<XlsxCfRuleData> &rule = d->cfRules[i];
+        const std::shared_ptr<XlsxCfRuleData> &rule = d->cfRules[i];
         writer.writeStartElement(QStringLiteral("cfRule"));
         writer.writeAttribute(QStringLiteral("type"), rule->attrs[XlsxCfRuleData::A_type].toString());
         if (rule->dxfFormat.dxfIndexValid())

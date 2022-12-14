@@ -9,7 +9,6 @@
 #include <QMap>
 #include <QVariant>
 #include <QPointF>
-#include <QSharedPointer>
 #include <QIODevice>
 #include <QDateTime>
 #include <QUrl>

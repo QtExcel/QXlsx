@@ -3,15 +3,15 @@
 #ifndef QXLSX_CHART_P_H
 #define QXLSX_CHART_P_H
 
-#include <QtGlobal>
 #include <QObject>
 #include <QString>
-#include <QSharedPointer>
 #include <QVector>
 #include <QMap>
 #include <QList>
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
+
+#include <memory>
 
 #include "xlsxabstractooxmlfile_p.h"
 #include "xlsxchart.h"
@@ -130,8 +130,8 @@ protected:
 
 public:
     Chart::ChartType chartType;
-    QList< QSharedPointer<XlsxSeries> > seriesList;
-    QList< QSharedPointer<XlsxAxis> > axisList;
+    QList< std::shared_ptr<XlsxSeries> > seriesList;
+    QList< std::shared_ptr<XlsxAxis> > axisList;
     QMap< XlsxAxis::AxisPos, QString > axisNames;
     QString chartTitle;
     AbstractSheet* sheet;

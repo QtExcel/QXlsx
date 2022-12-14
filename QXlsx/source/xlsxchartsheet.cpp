@@ -41,7 +41,7 @@ Chartsheet::Chartsheet(const QString &name, int id, Workbook *workbook, CreateFl
 
     if (flag == Chartsheet::F_NewFromScratch)
     {
-        d_func()->drawing = QSharedPointer<Drawing>(new Drawing(this, flag));
+        d_func()->drawing = std::make_shared<Drawing>(this, flag);
 
         DrawingAbsoluteAnchor *anchor = new DrawingAbsoluteAnchor(drawing(), DrawingAnchor::Picture);
 
@@ -105,7 +105,7 @@ void Chartsheet::saveToXmlFile(QIODevice *device) const
     writer.writeAttribute(QStringLiteral("zoomToFit"), QStringLiteral("1"));
     writer.writeEndElement(); //sheetViews
 
-    int idx = d->workbook->drawings().indexOf(d->drawing.data());
+    int idx = d->workbook->drawings().indexOf(d->drawing.get());
     d->relationships->addWorksheetRelationship(QStringLiteral("/drawing"), QStringLiteral("../drawings/drawing%1.xml").arg(idx+1));
 
     writer.writeEmptyElement(QStringLiteral("drawing"));
@@ -130,7 +130,7 @@ bool Chartsheet::loadFromXmlFile(QIODevice *device)
                 const auto parts = splitPath(filePath());
                 QString path = QDir::cleanPath(parts.first() + QLatin1String("/") + name);
 
-                d->drawing = QSharedPointer<Drawing>(new Drawing(this, F_LoadFromExists));
+                d->drawing = std::make_shared<Drawing>(this, F_LoadFromExists);
                 d->drawing->setFilePath(path);
             }
         }
