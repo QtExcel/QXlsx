@@ -686,7 +686,7 @@ bool Workbook::loadFromXmlFile(QIODevice *device)
 /*!
  * \internal
  */
-QList<QSharedPointer<MediaFile> > Workbook::mediaFiles() const
+QList<std::shared_ptr<MediaFile> > Workbook::mediaFiles() const
 {
     Q_D(const Workbook);
 
@@ -696,7 +696,7 @@ QList<QSharedPointer<MediaFile> > Workbook::mediaFiles() const
 /*!
  * \internal
  */
-void Workbook::addMediaFile(QSharedPointer<MediaFile> media, bool force)
+void Workbook::addMediaFile(std::shared_ptr<MediaFile> media, bool force)
 {
     Q_D(Workbook);
 

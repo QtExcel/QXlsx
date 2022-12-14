@@ -308,9 +308,8 @@ bool DocumentPrivate::loadPackage(QIODevice *device)
 	}
 
 	//load media files
-	QList<QSharedPointer<MediaFile> > mediaFileToLoad = workbook->mediaFiles();
-	for (int i=0; i<mediaFileToLoad.size(); ++i) {
-		QSharedPointer<MediaFile> mf = mediaFileToLoad[i];
+    const auto mediaFileToLoad = workbook->mediaFiles();
+    for (const auto &mf : mediaFileToLoad) {
 		const QString path = mf->fileName();
 		const QString suffix = path.mid(path.lastIndexOf(QLatin1Char('.'))+1);
 		mf->set(zipReader.fileData(path), suffix);
@@ -433,9 +432,10 @@ bool DocumentPrivate::savePackage(QIODevice *device) const
 	}
 
 	// save image files
-    for (int i=0; i<workbook->mediaFiles().size(); ++i)
+    const auto mfs = workbook->mediaFiles();
+    for (int i=0; i < mfs.size(); ++i)
     {
-		QSharedPointer<MediaFile> mf = workbook->mediaFiles()[i];
+        auto mf = mfs[i];
 		if (!mf->mimeType().isEmpty())
 			contentTypes->addDefault(mf->suffix(), mf->mimeType());
 
@@ -1288,12 +1288,11 @@ Document::~Document()
 bool Document::changeimage(int filenoinmidea, QString newfile)
 {
 	Q_D(const Document);
-	QImage newpic;
+
+    QImage newpic(newfile);
 	
-	newpic=QImage(newfile);
-	
-	QList<QSharedPointer<MediaFile> > mediaFileToLoad = d->workbook->mediaFiles();
-	QSharedPointer<MediaFile> mf = mediaFileToLoad[filenoinmidea];
+    auto mediaFileToLoad = d->workbook->mediaFiles();
+    const auto mf = mediaFileToLoad[filenoinmidea];
 	
 	const QString suffix = newfile.mid(newfile.lastIndexOf(QLatin1Char('.'))+1);
 	QString mimetypemy;

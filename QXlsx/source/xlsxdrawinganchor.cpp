@@ -68,7 +68,7 @@ void DrawingAnchor::setObjectPicture(const QImage &img)
     buffer.open(QIODevice::WriteOnly);
     img.save(&buffer, "PNG");
 
-    m_pictureFile = QSharedPointer<MediaFile>(new MediaFile(ba, QStringLiteral("png"), QStringLiteral("image/png")));
+    m_pictureFile = std::make_shared<MediaFile>(ba, QStringLiteral("png"), QStringLiteral("image/png"));
     m_drawing->workbook->addMediaFile(m_pictureFile);
 
     m_objectType = Picture;
@@ -91,7 +91,7 @@ void DrawingAnchor::setObjectShape(const QImage &img)
     buffer.open(QIODevice::WriteOnly);
     img.save(&buffer, "PNG");
 
-    m_pictureFile = QSharedPointer<MediaFile>(new MediaFile(ba, QStringLiteral("png"), QStringLiteral("image/png")));
+    m_pictureFile = std::make_shared<MediaFile>(ba, QStringLiteral("png"), QStringLiteral("image/png"));
     m_drawing->workbook->addMediaFile(m_pictureFile);
 
     m_objectType = Shape;
@@ -385,16 +385,16 @@ void DrawingAnchor::loadXmlObjectPicture(QXmlStreamReader &reader)
                 QString path = QDir::cleanPath(parts.first() + QLatin1String("/") + name);
 
                 bool exist = false;
-                QList<QSharedPointer<MediaFile> > mfs = m_drawing->workbook->mediaFiles();
-                for (int i=0; i<mfs.size(); ++i) {
-                    if (mfs[i]->fileName() == path) {
+                const auto mfs = m_drawing->workbook->mediaFiles();
+                for (const auto &mf : mfs) {
+                    if (mf->fileName() == path) {
                         //already exist
                         exist = true;
-                        m_pictureFile = mfs[i];
+                        m_pictureFile = mf;
                     }
                 }
                 if (!exist) {
-                    m_pictureFile = QSharedPointer<MediaFile> (new MediaFile(path));
+                    m_pictureFile = std::make_shared<MediaFile>(path);
                     m_drawing->workbook->addMediaFile(m_pictureFile, true);
                 }
             }
@@ -794,7 +794,7 @@ void DrawingAnchor::saveXmlObjectGroupShape(QXmlStreamWriter &writer) const
 
 void DrawingAnchor::saveXmlObjectPicture(QXmlStreamWriter &writer) const
 {
-    Q_ASSERT(m_objectType == Picture && !m_pictureFile.isNull());
+    Q_ASSERT(m_objectType == Picture && m_pictureFile);
 
     writer.writeStartElement(QStringLiteral("xdr:pic"));
 
@@ -878,7 +878,7 @@ void DrawingAnchor::saveXmlObjectShape(QXmlStreamWriter &writer) const
         writer.writeEmptyElement(QStringLiteral("a:avLst"));
         writer.writeEndElement(); //a:prstGeom
 
-    if(!m_pictureFile.isNull()){
+    if(m_pictureFile){
         m_drawing->relationships()->addDocumentRelationship(QStringLiteral("/image"), QStringLiteral("../media/image%1.%2").arg(m_pictureFile->index()+1).arg(m_pictureFile->suffix()));
         writer.writeStartElement(QStringLiteral("a:blipFill"));
         writer.writeAttribute(QStringLiteral("dpi"), QString::number(dpiTA));
