@@ -11,8 +11,11 @@ CONFIG += console
 CONFIG -= app_bundle
 
 # C++14 or higher version is required.
-CONFIG += c++14
-QMAKE_CXXFLAGS += -std=c++14
+# CONFIG += c++14
+# QMAKE_CXXFLAGS += -std=c++14
+# C++17 or higher version is required.
+CONFIG += c++17
+QMAKE_CXXFLAGS += -std=c++17
 
 macx {
     QMAKE_CXXFLAGS += -stdlib=libc++

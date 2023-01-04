@@ -133,10 +133,16 @@ bool loadXlsx(QString fileName, QString& strHtml)
             int row = cl.row - 1;
             int col = cl.col - 1;
 
-            QSharedPointer<Cell> ptrCell = cl.cell; // cell pointer
+            //  Update ShowConsole example for 9ab612f
+            // {{
+            // QSharedPointer<Cell> ptrCell = cl.cell; // cell pointer
+            std::shared_ptr<Cell> ptrCell = cl.cell; // cell pointer
 
             // value of cell
-            QVariant var = cl.cell.data()->value();
+            // QVariant var = cl.cell.data()->value();
+            QVariant var = ptrCell->value();
+            // }}
+
             QString str = var.toString();
 
             cellValues[row][col] = str;
