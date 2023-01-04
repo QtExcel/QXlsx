@@ -30,7 +30,7 @@ int main(int argc, char *argv[])
 
     if ( argc != 2 )
     {
-        std::cout << "[Usage] ShowConsole *.xlsx";
+        std::cout << "[Usage] ShowConsole *.xlsx" << std::endl;
         return 0;
     }
 
@@ -93,10 +93,16 @@ int main(int argc, char *argv[])
             int row = cl.row - 1;
             int col = cl.col - 1;
 
-            QSharedPointer<Cell> ptrCell = cl.cell; // cell pointer
+            // https://github.com/QtExcel/QXlsx/commit/9ab612ff5c9defc35333799c55b01be31aa66fc2
+            // {{
+            // QSharedPointer<Cell> ptrCell = cl.cell; // cell pointer
+            std::shared_ptr<Cell> ptrCell = cl.cell; // cell pointer
 
             // value of cell
-            QVariant var = cl.cell.data()->value();
+            // QVariant var = cl.cell.data()->value();
+            QVariant var = ptrCell->value();
+            // }}
+
             QString str = var.toString();
 
             cellValues[row][col] = str;
