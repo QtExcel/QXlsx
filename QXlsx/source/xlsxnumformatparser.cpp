@@ -42,6 +42,7 @@ bool NumFormatParser::isDateTime(const QString &formatCode)
 
         // date/time can only be positive number,
         // so only the first section of the format make sense.
+        case '#': // this is new an working // https://github.com/QtExcel/QXlsx/issues/190
         case ';':
             return false;
             break;
