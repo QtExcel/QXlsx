@@ -25,9 +25,17 @@ int main(int argc, char *argv[])
 {
     QCoreApplication app(argc, argv);
 
+    //--------------------------------------
     // [1]  Writing excel file(*.xlsx)
+
     QXlsx::Document xlsxW;
-    xlsxW.write("A1", "Hello Qt!"); // write "Hello Qt!" to cell(A,1). it's shared string.
+
+    int row = 1; int col = 1; //
+
+    // xlsxW.write("A1", "Hello Qt!"); // write "Hello Qt!" to cell(A,1). it's shared string.
+    QVariant writeValue = QString("Hello Qt!");
+    xlsxW.write(row, col, writeValue);
+
     if ( xlsxW.saveAs("Test.xlsx") ) // save the document as 'Test.xlsx'
     {
         qDebug() << "[debug] success to write xlsx file";
@@ -35,17 +43,19 @@ int main(int argc, char *argv[])
     else
     {
         qDebug() << "[debug][error] failed to write xlsx file";
+        exit(-1);
     }
 
     qDebug() << "[debug] current directory is " << QDir::currentPath();
 
+    //--------------------------------------
     // [2] Reading excel file(*.xlsx)
+
     Document xlsxR("Test.xlsx"); 
     if ( xlsxR.load() ) // load excel file
     {
         qDebug() << "[debug] success to load xlsx file.";
 
-        int row = 1; int col = 1;
         Cell* cell = xlsxR.cellAt(row, col); // get cell pointer.
         if ( cell != NULL )
         {
@@ -55,6 +65,7 @@ int main(int argc, char *argv[])
         else
         {
             qDebug() << "[debug][error] cell(1,1) is not set.";
+            exit(-2);
         }
     }
     else

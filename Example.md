@@ -29,16 +29,18 @@ int main(int argc, char *argv[])
 {
     QCoreApplication app(argc, argv);
 
+    int row = 1; int col = 1;
+	
     // [1]  Writing excel file(*.xlsx)
     QXlsx::Document xlsxW;
-    xlsxW.write("A1", "Hello Qt!"); // write "Hello Qt!" to cell(A,1). it's shared string.
+	QVariant writeValue = QString("Hello Qt!");
+    xlsxW.write(row, col, writeValue); // write "Hello Qt!" to cell(A,1).
     xlsxW.saveAs("Test.xlsx"); // save the document as 'Test.xlsx'
 
     // [2] Reading excel file(*.xlsx)
     Document xlsxR("Test.xlsx"); 
     if (xlsxR.load()) // load excel file
     { 
-        int row = 1; int col = 1;
         Cell* cell = xlsxR.cellAt(row, col); // get cell pointer.
         if ( cell != NULL )
         {
@@ -54,24 +56,24 @@ int main(int argc, char *argv[])
 ## [TestExcel](https://github.com/QtExcel/QXlsx/tree/master/TestExcel)
 
 - :zap: Basic examples (based on QtXlsx examples)
-    - calendar
-    - chart
-    - chart sheet
-    - data validation
-    - demo
-    - document property
-    - extract data
-    - formula
-    - hyperlink
-    - image
-    - merge cells
-    - number format
-    - page margins
-    - read style
-    - richtext
-    - row column
-    - style
-    - worksheet operations
+    - [calendar](https://github.com/QtExcel/QXlsx/blob/master/TestExcel/calendar.cpp)
+    - [chart](https://github.com/QtExcel/QXlsx/blob/master/TestExcel/chart.cpp)
+    - [chart sheet](https://github.com/QtExcel/QXlsx/blob/master/TestExcel/chartsheet.cpp)
+    - [data validation](https://github.com/QtExcel/QXlsx/blob/master/TestExcel/datavalidation.cpp)
+    - [demo](https://github.com/QtExcel/QXlsx/blob/master/TestExcel/demo.cpp)
+    - [document property](https://github.com/QtExcel/QXlsx/blob/master/TestExcel/documentproperty.cpp)
+    - [extract data](https://github.com/QtExcel/QXlsx/blob/master/TestExcel/extractdata.cpp)
+    - [formula](https://github.com/QtExcel/QXlsx/blob/master/TestExcel/formulas.cpp)
+    - [hyperlink](https://github.com/QtExcel/QXlsx/blob/master/TestExcel/hyperlinks.cpp)
+    - [image](https://github.com/QtExcel/QXlsx/blob/master/TestExcel/image.cpp)
+    - [merge cells](https://github.com/QtExcel/QXlsx/blob/master/TestExcel/mergecells.cpp)
+    - [number format](https://github.com/QtExcel/QXlsx/blob/master/TestExcel/numberformat.cpp)
+    - [page margins](https://github.com/QtExcel/QXlsx/blob/master/TestExcel/pageMargins.cpp)
+    - [read style](https://github.com/QtExcel/QXlsx/blob/master/TestExcel/readStyle.cpp)
+    - [richtext](https://github.com/QtExcel/QXlsx/blob/master/TestExcel/richtext.cpp)
+    - [row column](https://github.com/QtExcel/QXlsx/blob/master/TestExcel/rowcolumn.cpp)
+    - [style](https://github.com/QtExcel/QXlsx/blob/master/TestExcel/style.cpp)
+    - [worksheet operations](https://github.com/QtExcel/QXlsx/blob/master/TestExcel/worksheetoperations.cpp)
 
 ![](markdown.data/testexcel.png)
 
@@ -79,21 +81,23 @@ int main(int argc, char *argv[])
 
 - See 'HelloAndroid' example using QML and native C++.
 
-- Qt 5.11.1 / QtCreator 4.6.2 / gcc 4.9 / Android x86 (using Emulator [Android Oreo]) / Android Studio 3.1.3 (Android NDK 17.1)
+- Qt 5.11.1 / gcc 4.9 / QtCreator 4.6.2 
+- Android x86 (using Emulator <Android Oreo / API 26>)
+- Android Studio 3.1.3 (Android NDK 17.1)
 
 ![](markdown.data/android.jpg)
 
 ## [WebServer](https://github.com/QtExcel/QXlsx/tree/master/WebServer)
 - Load xlsx file and display on Web.
-- Connect to `http://127.0.0.1:3001`
-- C++ 14 is required. Old compilers is not supported.(based on recurse)
+	- Connect to `http://127.0.0.1:3001` 
+- C++ 14(17) is required. Old compilers is not supported.
 
 ![](markdown.data/webserver.png)
 
 ## [ShowConsole](https://github.com/QtExcel/QXlsx/tree/master/ShowConsole)
 - Load xlsx file and display in console.
   - [Usage] ShowConsole *.xlsx
-- C++ 11 is required. Old compilers is not supported. (based on libfort)
+- C++ 11 is required. Old compilers is not supported.
 
 ![](markdown.data/show-console.jpg)
 
@@ -105,6 +109,8 @@ int main(int argc, char *argv[])
 ## XlsxFactory 
 - Load xlsx file and display on Qt widgets. 
 - Moved to personal repository for advanced app.
+	- https://j2doll.tistory.com/654
+	- The source code of this program cannot be released because it contains a commercial license.
 
 ![](markdown.data/copycat.png)
 ![](markdown.data/copycat2.jpg)
