@@ -57,7 +57,7 @@ struct XlsxSheetFormatProps
 {
     XlsxSheetFormatProps(int baseColWidth = 8,
                          bool customHeight = false,
-                         double defaultColWidth = 8.43, // https://learn.microsoft.com/en-us/office/troubleshoot/excel/determine-column-widths
+                         double defaultColWidth = 8.430f, // https://learn.microsoft.com/en-us/office/troubleshoot/excel/determine-column-widths
                          double defaultRowHeight = 15,
                          quint8 outlineLevelCol = 0,
                          quint8 outlineLevelRow = 0,
