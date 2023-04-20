@@ -1,5 +1,7 @@
 # QXlsx
 
+[![Conan Center](https://shields.io/conan/v/qxlsx)](https://conan.io/center/qxlsx)
+
 > *Read this in other languages: [English](README.md), :kr: [Korean](README.ko.md), :ru: [Russian](README.RU.md)*
 
 <p align="center"><img src="https://raw.githubusercontent.com/QtExcel/QXlsx/master/markdown.data/QXlsx-Desktop.png"></p>
