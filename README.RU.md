@@ -1,12 +1,14 @@
 # QXlsx
 
-> *Read this in other languages: [English](README.md), :kr: [한국어](README.ko.md), [Russian](README.RU.md)*
+[![Conan Center](https://shields.io/conan/v/qxlsx)](https://conan.io/center/qxlsx)
+
+> *Read this in other languages: [English](README.md), :kr: [한국어](README.ko.md), :ru: [Русский](README.RU.md)*
 
 <p align="center"><img src="https://raw.githubusercontent.com/QtExcel/QXlsx/master/markdown.data/QXlsx-Desktop.png"></p>
 
 - QXlsx - это библиотека чтения / записи файлов Excel (*. Xlsx).
-   - Поскольку QtXlsx больше не поддерживается (2014 г.), я создал новый проект, основанный на QtXlsx. (2017-)
-- Язык разработки QXlsx - C ++. (с Qt)
+   - Поскольку QtXlsxWriter больше не поддерживается, я создал новый проект, основанный на QtXlsx. (2017-)
+- Язык разработки QXlsx - C++. (с Qt)
 - Вам не нужно использовать статическую библиотеку или динамический общий объект с помощью QXlsx.
    - Вы также можете использовать его как статическую библиотеку.
 
@@ -21,19 +23,11 @@
 - См. [Как настроить проект QXlsx (qmake)](HowToSetProject.md)
 - См. [Как настроить проект QXlsx (cmake)](HowToSetProject-cmake.md)	
 
-## Tested environment
+## Github Actions
 
-| Travis CI (Linux) | AppVeyor (Windows) | CodeFactor | Github Actions <br> Linux/Win/Mac | iOS / Android  |
-| :---------------: | :----------------: | :--------: | :------------------------: | :----------------------------: |
-| [![Build Status](https://travis-ci.com/QtExcel/QXlsx.svg?branch=master)](https://travis-ci.com/QtExcel/QXlsx) | [![Build status](https://ci.appveyor.com/api/projects/status/jkod8257gg66vm6e?svg=true)](https://ci.appveyor.com/project/QtExcel/qxlsx) | [![CodeFactor](https://www.codefactor.io/repository/github/qtexcel/qxlsx/badge)](https://www.codefactor.io/repository/github/qtexcel/qxlsx) | [![Ubuntu](https://github.com/QtExcel/QXlsx/workflows/Ubuntu/badge.svg)](https://github.com/QtExcel/QXlsx/actions/Ubuntu)  [![MacOS](https://github.com/QtExcel/QXlsx/workflows/MacOS/badge.svg)](https://github.com/QtExcel/QXlsx/actions/MacOS)  [![Windows](https://github.com/QtExcel/QXlsx/workflows/Windows/badge.svg)](https://github.com/QtExcel/QXlsx/actions/Windows) | [![IOS](https://github.com/QtExcel/QXlsx/workflows/IOS/badge.svg)](https://github.com/QtExcel/QXlsx/actions/IOS)  [![Android](https://github.com/QtExcel/QXlsx/workflows/Android/badge.svg)](https://github.com/QtExcel/QXlsx/actions/Android) |  
-
+[![Android](https://github.com/QtExcel/QXlsx/actions/workflows/android.yml/badge.svg)](https://github.com/QtExcel/QXlsx/actions/workflows/android.yml) [![IOS](https://github.com/QtExcel/QXlsx/actions/workflows/ios.yml/badge.svg)](https://github.com/QtExcel/QXlsx/actions/workflows/ios.yml) [![MacOS](https://github.com/QtExcel/QXlsx/actions/workflows/macos.yml/badge.svg)](https://github.com/QtExcel/QXlsx/actions/workflows/macos.yml) [![Ubuntu](https://github.com/QtExcel/QXlsx/actions/workflows/ubuntu.yml/badge.svg)](https://github.com/QtExcel/QXlsx/actions/workflows/ubuntu.yml) [![Windows](https://github.com/QtExcel/QXlsx/actions/workflows/windows.yml/badge.svg)](https://github.com/QtExcel/QXlsx/actions/workflows/windows.yml) [![CMake](https://github.com/QtExcel/QXlsx/actions/workflows/cmake.yml/badge.svg)](https://github.com/QtExcel/QXlsx/actions/workflows/cmake.yml) [![cmake-ubuntu](https://github.com/QtExcel/QXlsx/actions/workflows/cmake-ubuntu.yml/badge.svg)](https://github.com/QtExcel/QXlsx/actions/workflows/cmake-ubuntu.yml)
 
 - См. [Протестированные среды](TestEnv.md)
-
-## Делать
-- [Проверить](ToTest.md)
-- [Что обновлять](ToUpgrade.md).
-- [Vision](Vision.md)
 
 ## Вклады
 - См. [Участники] (https://github.com/QtExcel/QXlsx/graphs/contributors).
