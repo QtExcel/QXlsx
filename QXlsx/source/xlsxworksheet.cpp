@@ -219,6 +219,23 @@ Worksheet *Worksheet::copy(const QString &distName, int distId) const
 //    sheet_d->dataValidationsList = d->dataValidationsList;
 //    sheet_d->conditionalFormattingList = d->conditionalFormattingList;
 
+	sheet_d->PpaperSize = d->PpaperSize;
+    	sheet_d->Pscale = d->Pscale;
+    	sheet_d->PfirstPageNumber = d->PfirstPageNumber;
+    	sheet_d->Porientation = d->Porientation;
+    	sheet_d->PuseFirstPageNumber = d->PuseFirstPageNumber;
+    	sheet_d->PhorizontalDpi = d->PhorizontalDpi;
+    	sheet_d->PverticalDpi = d->PverticalDpi;
+    	sheet_d->Prid = d->Prid;
+    	sheet_d->Pcopies = d->Pcopies;
+    	sheet_d->PMfooter = d->PMfooter;
+    	sheet_d->PMheader = d->PMheader;
+    	sheet_d->PMbotton = d->PMbotton;
+    	sheet_d->PMtop = d->PMtop;
+    	sheet_d->PMright = d->PMright;
+    	sheet_d->PMleft = d->PMleft;
+    	sheet_d->ModdHeader = d->ModdHeader;
+	
 	return sheet;
 }
 

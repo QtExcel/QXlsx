@@ -1191,7 +1191,7 @@ bool Styles::readCellXfs(QXmlStreamReader &reader)
                     }
                 }
 
-                const auto apply = parseXsdBoolean(xfAttrs.value(QLatin1String("applyAlignment")).toString());
+                const auto apply = parseXsdBoolean(xfAttrs.value(QLatin1String("applyAlignment")).toString(), true);
                 if(apply) {
                     reader.readNextStartElement();
                     if (reader.name() == QLatin1String("alignment")) {
