@@ -1,11 +1,13 @@
 # QXlsx
 
-> *Read this in other languages: [English](README.md), :kr: [한국어](README.ko.md)*
+[![Conan Center](https://shields.io/conan/v/qxlsx)](https://conan.io/center/qxlsx)
+
+> *Read this in other languages: [English](README.md), :kr: [한국어](README.ko.md), :ru: [Русский](README.RU.md)*
 
 <p align="center"><img src="https://raw.githubusercontent.com/QtExcel/QXlsx/master/markdown.data/QXlsx-Desktop.png"></p>
 
 - QXlsx는 엑셀 파일(*.xlsx)을 읽고 쓰는 라이브러리입니다.
-  - QtXlsx가 더 이상 지원되지 않기 때문에(2014), QtXlsx에 기반한 새로운 프로젝트를 만들었습니다. (2017-)
+  - QtXlsxWriter가 더 이상 지원되지 않기 때문에, QtXlsx에 기반한 새로운 프로젝트를 만들었습니다. (2017-)
 - QXlsx는 개발언어로 C++을 사용합니다. (Qt 사용)
 - QXlsx는 정적 또는 동적 라이브러리를 사용하지 않아도 되도록 제작되었습니다.
   - 물론 정적 라이브러리(static library)로 사용할 수도 있습니다.
@@ -20,19 +22,11 @@
 - :권장: [QXlsx 프로젝트 설정하는 방법 (qmake)](HowToSetProject.ko.md) 참조
 - [QXlsx 프로젝트 설정하는 방법 (cmake)](HowToSetProject-cmake.ko.md) 참조
 
-## 테스트 환경
+## Github Actions
 
-| Travis CI (Linux) | AppVeyor (Windows) | CodeFactor | Github Actions <br> Linux/Win/Mac | iOS / Android  |
-| :---------------: | :----------------: | :--------: | :------------------------: | :----------------------------: |
-| [![Build Status](https://travis-ci.com/QtExcel/QXlsx.svg?branch=master)](https://travis-ci.com/QtExcel/QXlsx) | [![Build status](https://ci.appveyor.com/api/projects/status/jkod8257gg66vm6e?svg=true)](https://ci.appveyor.com/project/QtExcel/qxlsx) | [![CodeFactor](https://www.codefactor.io/repository/github/qtexcel/qxlsx/badge)](https://www.codefactor.io/repository/github/qtexcel/qxlsx) | [![Ubuntu](https://github.com/QtExcel/QXlsx/workflows/Ubuntu/badge.svg)](https://github.com/QtExcel/QXlsx/actions/Ubuntu)  [![MacOS](https://github.com/QtExcel/QXlsx/workflows/MacOS/badge.svg)](https://github.com/QtExcel/QXlsx/actions/MacOS)  [![Windows](https://github.com/QtExcel/QXlsx/workflows/Windows/badge.svg)](https://github.com/QtExcel/QXlsx/actions/Windows) | [![IOS](https://github.com/QtExcel/QXlsx/workflows/IOS/badge.svg)](https://github.com/QtExcel/QXlsx/actions/IOS)  [![Android](https://github.com/QtExcel/QXlsx/workflows/Android/badge.svg)](https://github.com/QtExcel/QXlsx/actions/Android) |  
-
+[![Android](https://github.com/QtExcel/QXlsx/actions/workflows/android.yml/badge.svg)](https://github.com/QtExcel/QXlsx/actions/workflows/android.yml) [![IOS](https://github.com/QtExcel/QXlsx/actions/workflows/ios.yml/badge.svg)](https://github.com/QtExcel/QXlsx/actions/workflows/ios.yml) [![MacOS](https://github.com/QtExcel/QXlsx/actions/workflows/macos.yml/badge.svg)](https://github.com/QtExcel/QXlsx/actions/workflows/macos.yml) [![Ubuntu](https://github.com/QtExcel/QXlsx/actions/workflows/ubuntu.yml/badge.svg)](https://github.com/QtExcel/QXlsx/actions/workflows/ubuntu.yml) [![Windows](https://github.com/QtExcel/QXlsx/actions/workflows/windows.yml/badge.svg)](https://github.com/QtExcel/QXlsx/actions/workflows/windows.yml) [![CMake](https://github.com/QtExcel/QXlsx/actions/workflows/cmake.yml/badge.svg)](https://github.com/QtExcel/QXlsx/actions/workflows/cmake.yml) [![cmake-ubuntu](https://github.com/QtExcel/QXlsx/actions/workflows/cmake-ubuntu.yml/badge.svg)](https://github.com/QtExcel/QXlsx/actions/workflows/cmake-ubuntu.yml)
 
 - [테스트된 환경](TestEnv.md) 참조
-
-## 할 일
-- [테스트 할 일](ToTest.md)
-- [업그레이드 할 일](ToUpgrade.md)
-- [비전](Vision.md)
 
 ## 컨트리뷰터
 - [컨트리뷰터](https://github.com/QtExcel/QXlsx/graphs/contributors) 참조.
