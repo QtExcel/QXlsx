@@ -17,8 +17,8 @@ add_subdirectory(QXlsx)
 #########################
 # Console Application {{
 
-add_executable(HelloWorld main.cpp)
-target_link_libraries(HelloWorld PRIVATE QXlsx::QXlsx)
+add_executable(${PROJECT_NAME} main.cpp)
+target_link_libraries(${PROJECT_NAME} PRIVATE QXlsx::QXlsx)
 
 # Console Application }}
 ########################
