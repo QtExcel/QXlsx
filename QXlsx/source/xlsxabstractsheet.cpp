@@ -16,7 +16,9 @@ AbstractSheetPrivate::AbstractSheetPrivate(AbstractSheet *p, AbstractSheet::Crea
     sheetState = AbstractSheet::SS_Visible;
 }
 
-AbstractSheetPrivate::~AbstractSheetPrivate() {}
+AbstractSheetPrivate::~AbstractSheetPrivate()
+{
+}
 
 /*!
   \class AbstractSheet

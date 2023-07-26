@@ -56,7 +56,7 @@ public:
 
 public:
     void addSeries(const CellRange &range,
-                   AbstractSheet *sheet = NULL,
+                   AbstractSheet *sheet = nullptr,
                    bool headerH         = false,
                    bool headerV         = false,
                    bool swapHeaders     = false);

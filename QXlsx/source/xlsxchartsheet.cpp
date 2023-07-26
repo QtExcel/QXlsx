@@ -18,11 +18,13 @@ QT_BEGIN_NAMESPACE_XLSX
 
 ChartsheetPrivate::ChartsheetPrivate(Chartsheet *p, Chartsheet::CreateFlag flag)
     : AbstractSheetPrivate(p, flag)
-    , chart(0)
+    , chart(nullptr)
 {
 }
 
-ChartsheetPrivate::~ChartsheetPrivate() {}
+ChartsheetPrivate::~ChartsheetPrivate()
+{
+}
 
 /*!
   \class Chartsheet
@@ -66,13 +68,15 @@ Chartsheet *Chartsheet::copy(const QString &distName, int distId) const
     //: Todo
     Q_UNUSED(distName)
     Q_UNUSED(distId)
-    return 0;
+    return nullptr;
 }
 
 /*!
  * Destroys this workssheet.
  */
-Chartsheet::~Chartsheet() {}
+Chartsheet::~Chartsheet()
+{
+}
 
 /*!
  * Returns the chart object of the sheet.

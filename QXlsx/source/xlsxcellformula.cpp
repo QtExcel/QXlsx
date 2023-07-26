@@ -40,7 +40,9 @@ CellFormulaPrivate::CellFormulaPrivate(const CellFormulaPrivate &other)
 {
 }
 
-CellFormulaPrivate::~CellFormulaPrivate() {}
+CellFormulaPrivate::~CellFormulaPrivate()
+{
+}
 
 /*!
   \class CellFormula
@@ -110,7 +112,9 @@ CellFormula &CellFormula::operator=(const CellFormula &other)
 /*!
  * Destroys this formula.
  */
-CellFormula::~CellFormula() {}
+CellFormula::~CellFormula()
+{
+}
 
 /*!
  * Returns the type of the formula.

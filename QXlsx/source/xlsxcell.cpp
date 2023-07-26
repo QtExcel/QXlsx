@@ -85,7 +85,7 @@ Cell::Cell(const Cell *const cell)
  */
 Cell::~Cell()
 {
-    if (NULL != d_ptr)
+    if (nullptr != d_ptr)
         delete d_ptr;
 }
 

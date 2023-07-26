@@ -69,7 +69,9 @@ Styles::Styles(CreateFlag flag)
     }
 }
 
-Styles::~Styles() {}
+Styles::~Styles()
+{
+}
 
 Format Styles::xfFormat(int idx) const
 {
