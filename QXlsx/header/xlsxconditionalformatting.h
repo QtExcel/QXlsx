@@ -110,7 +110,7 @@ private:
 
 private:
     bool saveToXml(QXmlStreamWriter &writer) const;
-    bool loadFromXml(QXmlStreamReader &reader, Styles* styles = NULL);
+    bool loadFromXml(QXmlStreamReader &reader, Styles* styles = nullptr);
 
     QSharedDataPointer<ConditionalFormattingPrivate> d;
 };

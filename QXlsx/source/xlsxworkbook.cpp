@@ -192,7 +192,7 @@ AbstractSheet *Workbook::addSheet(const QString &name, int sheetId, AbstractShee
     if (sheetId > d->last_sheet_id)
         d->last_sheet_id = sheetId;
 
-    AbstractSheet *sheet = NULL;
+    AbstractSheet *sheet = nullptr;
     if (type == AbstractSheet::ST_WorkSheet)
     {
         // create work sheet (value sheet)
