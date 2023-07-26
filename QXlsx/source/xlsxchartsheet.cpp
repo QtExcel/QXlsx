@@ -16,7 +16,7 @@
 QT_BEGIN_NAMESPACE_XLSX
 
 ChartsheetPrivate::ChartsheetPrivate(Chartsheet *p, Chartsheet::CreateFlag flag)
-    : AbstractSheetPrivate(p, flag), chart(0)
+    : AbstractSheetPrivate(p, flag), chart(nullptr)
 {
 
 }
@@ -67,7 +67,7 @@ Chartsheet *Chartsheet::copy(const QString &distName, int distId) const
     //:Todo
     Q_UNUSED(distName)
     Q_UNUSED(distId)
-    return 0;
+    return nullptr;
 }
 
 /*!

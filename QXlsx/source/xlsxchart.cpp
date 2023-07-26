@@ -1461,7 +1461,7 @@ bool ChartPrivate::loadXmlAxisValAx(QXmlStreamReader &reader)
 */
 bool ChartPrivate::loadXmlAxisEG_AxShared(QXmlStreamReader &reader, XlsxAxis* axis)
 {
-    Q_ASSERT( NULL != axis );
+    Q_ASSERT( nullptr != axis );
     Q_ASSERT( reader.name().endsWith(QLatin1String("Ax")) );
     QString name = reader.name().toString(); //
 
@@ -2214,7 +2214,7 @@ QString ChartPrivate::GetAxisPosString( XlsxAxis::AxisPos axisPos ) const
 QString ChartPrivate::GetAxisName(XlsxAxis* axis) const
 {
     QString strAxisName;
-    if ( NULL == axis )
+    if ( nullptr == axis )
         return strAxisName;
 
     QString pos = GetAxisPosString( axis->axisPos ); // l, t, r, b

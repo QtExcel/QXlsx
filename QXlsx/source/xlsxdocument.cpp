@@ -684,7 +684,7 @@ Chart *Document::insertChart(int row, int col, const QSize &size)
 {
 	if (Worksheet *sheet = currentWorksheet())
 		return sheet->insertChart(row, col, size);
-	return 0;
+	return nullptr;
 }
 
 /*!
@@ -998,7 +998,7 @@ Cell *Document::cellAt(const CellReference &pos) const
 {
 	if (Worksheet *sheet = currentWorksheet())
 		return sheet->cellAt(pos);
-	return 0;
+	return nullptr;
 }
 
 /*!
@@ -1011,7 +1011,7 @@ Cell *Document::cellAt(int row, int col) const
 {
 	if (Worksheet *sheet = currentWorksheet())
 		return sheet->cellAt(row, col);
-	return 0;
+	return nullptr;
 }
 
 /*!
@@ -1192,7 +1192,7 @@ Worksheet *Document::currentWorksheet() const
 	if (st && st->sheetType() == AbstractSheet::ST_WorkSheet)
 		return static_cast<Worksheet *>(st);
 	else
-		return 0;
+		return nullptr;
 }
 
 /*!
