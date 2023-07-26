@@ -9,7 +9,9 @@
 
 QT_BEGIN_NAMESPACE_XLSX
 
-DateType::DateType() {}
+DateType::DateType()
+{
+}
 
 /*
 DateType::DateType(bool is1904)

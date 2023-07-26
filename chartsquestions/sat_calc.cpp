@@ -13,7 +13,9 @@ sat_calc::sat_calc()
     : output_line_count(5)
 {
 }
-sat_calc::~sat_calc() {}
+sat_calc::~sat_calc()
+{
+}
 
 void sat_calc::get_chromatogram(const QString &chromatogram)
 {

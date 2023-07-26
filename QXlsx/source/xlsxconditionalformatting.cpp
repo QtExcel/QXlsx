@@ -14,7 +14,9 @@
 
 QT_BEGIN_NAMESPACE_XLSX
 
-ConditionalFormattingPrivate::ConditionalFormattingPrivate() {}
+ConditionalFormattingPrivate::ConditionalFormattingPrivate()
+{
+}
 
 ConditionalFormattingPrivate::ConditionalFormattingPrivate(
     const ConditionalFormattingPrivate &other)
@@ -22,7 +24,9 @@ ConditionalFormattingPrivate::ConditionalFormattingPrivate(
 {
 }
 
-ConditionalFormattingPrivate::~ConditionalFormattingPrivate() {}
+ConditionalFormattingPrivate::~ConditionalFormattingPrivate()
+{
+}
 
 void ConditionalFormattingPrivate::writeCfVo(QXmlStreamWriter &writer,
                                              const XlsxCfVoData &cfvo) const
@@ -151,7 +155,9 @@ ConditionalFormatting &ConditionalFormatting::operator=(const ConditionalFormatt
 /*!
  * Destroy the object.
  */
-ConditionalFormatting::~ConditionalFormatting() {}
+ConditionalFormatting::~ConditionalFormatting()
+{
+}
 
 /*!
  * Add a hightlight rule with the given \a type, \a formula1, \a formula2,

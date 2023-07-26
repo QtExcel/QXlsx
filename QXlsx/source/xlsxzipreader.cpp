@@ -18,7 +18,9 @@ ZipReader::ZipReader(QIODevice *device)
     init();
 }
 
-ZipReader::~ZipReader() {}
+ZipReader::~ZipReader()
+{
+}
 
 void ZipReader::init()
 {

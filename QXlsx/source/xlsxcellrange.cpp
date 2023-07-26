@@ -106,7 +106,9 @@ CellRange::CellRange(const CellRange &other)
 /*!
     Destroys the range.
 */
-CellRange::~CellRange() {}
+CellRange::~CellRange()
+{
+}
 
 /*!
      Convert the range to string notation, such as "A1:B5".

@@ -49,7 +49,9 @@ DataValidationPrivate::DataValidationPrivate(const DataValidationPrivate &other)
 {
 }
 
-DataValidationPrivate::~DataValidationPrivate() {}
+DataValidationPrivate::~DataValidationPrivate()
+{
+}
 
 /*!
  * \class DataValidation
@@ -143,7 +145,9 @@ DataValidation &DataValidation::operator=(const DataValidation &other)
 /*!
  * Destroy the object.
  */
-DataValidation::~DataValidation() {}
+DataValidation::~DataValidation()
+{
+}
 
 /*!
     Returns the validation type.

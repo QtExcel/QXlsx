@@ -26,7 +26,9 @@ RichStringPrivate::RichStringPrivate(const RichStringPrivate &other)
 {
 }
 
-RichStringPrivate::~RichStringPrivate() {}
+RichStringPrivate::~RichStringPrivate()
+{
+}
 
 /*!
     \class RichString
@@ -62,7 +64,9 @@ RichString::RichString(const RichString &other)
 /*!
     Destructs the string.
  */
-RichString::~RichString() {}
+RichString::~RichString()
+{
+}
 
 /*!
     Assigns \a other to this string and returns a reference to this string

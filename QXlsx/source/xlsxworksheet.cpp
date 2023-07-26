@@ -59,7 +59,9 @@ WorksheetPrivate::WorksheetPrivate(Worksheet *p, Worksheet::CreateFlag flag)
 {
 }
 
-WorksheetPrivate::~WorksheetPrivate() {}
+WorksheetPrivate::~WorksheetPrivate()
+{
+}
 
 /*
   Calculate the "spans" attribute of the <row> tag. This is an
@@ -220,7 +222,9 @@ Worksheet *Worksheet::copy(const QString &distName, int distId) const
 /*!
  * Destroys this workssheet.
  */
-Worksheet::~Worksheet() {}
+Worksheet::~Worksheet()
+{
+}
 
 /*!
  * Returns whether sheet is protected.
