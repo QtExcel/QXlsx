@@ -57,13 +57,6 @@ WorksheetPrivate::WorksheetPrivate(Worksheet *p, Worksheet::CreateFlag flag)
     , showWhiteSpace(true)
     , urlPattern(QStringLiteral("^([fh]tt?ps?://)|(mailto:)|(file://)"))
 {
-    previous_row = 0;
-
-    outline_row_level = 0;
-    outline_col_level = 0;
-
-    default_row_height = 15;
-    default_row_zeroed = false;
 }
 
 WorksheetPrivate::~WorksheetPrivate() {}
@@ -548,7 +541,7 @@ QVariant Worksheet::read(int row, int column) const
 Cell *Worksheet::cellAt(const CellReference &row_column) const
 {
     if (!row_column.isValid())
-        return 0;
+        return nullptr;
 
     return cellAt(row_column.row(), row_column.column());
 }
@@ -562,9 +555,9 @@ Cell *Worksheet::cellAt(int row, int col) const
     Q_D(const Worksheet);
     auto it = d->cellTable.constFind(row);
     if (it == d->cellTable.constEnd())
-        return 0;
+        return nullptr;
     if (!it->contains(col))
-        return 0;
+        return nullptr;
 
     return (*it)[col].get();
 }
@@ -1324,17 +1317,14 @@ void Worksheet::saveToXmlFile(QIODevice *device) const
 
     writer.writeStartElement(QStringLiteral("sheetFormatPr"));
     writer.writeAttribute(QStringLiteral("defaultRowHeight"),
-                          QString::number(d->default_row_height));
-    if (d->default_row_height != 15)
-        writer.writeAttribute(QStringLiteral("customHeight"), QStringLiteral("1"));
-    if (d->default_row_zeroed)
-        writer.writeAttribute(QStringLiteral("zeroHeight"), QStringLiteral("1"));
-    if (d->outline_row_level)
-        writer.writeAttribute(QStringLiteral("outlineLevelRow"),
-                              QString::number(d->outline_row_level));
-    if (d->outline_col_level)
-        writer.writeAttribute(QStringLiteral("outlineLevelCol"),
-                              QString::number(d->outline_col_level));
+                          QString::number(d->sheetFormatProps.defaultRowHeight));
+    writer.writeAttribute(QStringLiteral("customHeight"),
+                          xsdBoolean(d->sheetFormatProps.customHeight));
+    writer.writeAttribute(QStringLiteral("zeroHeight"), xsdBoolean(d->sheetFormatProps.zeroHeight));
+    writer.writeAttribute(QStringLiteral("outlineLevelRow"),
+                          QString::number(d->sheetFormatProps.outlineLevelRow));
+    writer.writeAttribute(QStringLiteral("outlineLevelCol"),
+                          QString::number(d->sheetFormatProps.outlineLevelCol));
     // for Excel 2010
     //     writer.writeAttribute("x14ac:dyDescent", "0.25");
     writer.writeEndElement(); // sheetFormatPr
@@ -2232,7 +2222,7 @@ int WorksheetPrivate::rowPixelsSize(int row) const
     if (it != row_sizes.constEnd())
         height = it.value();
     else
-        height = default_row_height;
+        height = sheetFormatProps.defaultRowHeight;
     return static_cast<int>(4.0 / 3.0 * height);
 }
 

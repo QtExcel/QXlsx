@@ -292,4 +292,9 @@ QString convertSharedFormula(const QString &rootFormula,
     return result.join(QString());
 }
 
+QString xsdBoolean(bool value)
+{
+    return value ? QStringLiteral("1") : QStringLiteral("0");
+}
+
 QT_END_NAMESPACE_XLSX
