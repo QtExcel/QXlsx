@@ -5,8 +5,8 @@
 
 #include "xlsxglobal.h"
 
-#include <QString>
 #include <QByteArray>
+#include <QString>
 
 QT_BEGIN_NAMESPACE_XLSX
 
@@ -14,10 +14,10 @@ class MediaFile
 {
 public:
     MediaFile(const QString &fileName);
-    MediaFile(const QByteArray &bytes, const QString &suffix, const QString &mimeType=QString());
+    MediaFile(const QByteArray &bytes, const QString &suffix, const QString &mimeType = QString());
 
 public:
-    void set(const QByteArray &bytes, const QString &suffix, const QString &mimeType=QString());
+    void set(const QByteArray &bytes, const QString &suffix, const QString &mimeType = QString());
     QString suffix() const;
     QString mimeType() const;
     QByteArray contents() const;

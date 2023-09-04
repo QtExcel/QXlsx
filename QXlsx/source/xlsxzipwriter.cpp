@@ -2,9 +2,10 @@
 
 #include "xlsxzipwriter_p.h"
 
-#include <QtGlobal>
-#include <QDebug>
 #include <private/qzipwriter_p.h>
+
+#include <QDebug>
+#include <QtGlobal>
 
 QT_BEGIN_NAMESPACE_XLSX
 

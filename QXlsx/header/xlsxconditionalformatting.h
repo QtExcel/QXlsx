@@ -3,17 +3,17 @@
 #ifndef QXLSX_XLSXCONDITIONALFORMATTING_H
 #define QXLSX_XLSXCONDITIONALFORMATTING_H
 
-#include <QtGlobal>
-#include <QString>
-#include <QList>
-#include <QColor>
-#include <QXmlStreamReader>
-#include <QXmlStreamWriter>
-#include <QSharedDataPointer>
-
-#include "xlsxglobal.h"
 #include "xlsxcellrange.h"
 #include "xlsxcellreference.h"
+#include "xlsxglobal.h"
+
+#include <QColor>
+#include <QList>
+#include <QSharedDataPointer>
+#include <QString>
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
+#include <QtGlobal>
 
 class ConditionalFormattingTest;
 
@@ -70,15 +70,7 @@ public:
         Highlight_Expression
     };
 
-    enum ValueObjectType
-    {
-        VOT_Formula,
-        VOT_Max,
-        VOT_Min,
-        VOT_Num,
-        VOT_Percent,
-        VOT_Percentile
-    };
+    enum ValueObjectType { VOT_Formula, VOT_Max, VOT_Min, VOT_Num, VOT_Percent, VOT_Percentile };
 
 public:
     ConditionalFormatting();
@@ -86,13 +78,32 @@ public:
     ~ConditionalFormatting();
 
 public:
-    bool addHighlightCellsRule(HighlightRuleType type, const Format &format, bool stopIfTrue=false);
-    bool addHighlightCellsRule(HighlightRuleType type, const QString &formula1, const Format &format, bool stopIfTrue=false);
-    bool addHighlightCellsRule(HighlightRuleType type, const QString &formula1, const QString &formula2, const Format &format, bool stopIfTrue=false);
-    bool addDataBarRule(const QColor &color, bool showData=true, bool stopIfTrue=false);
-    bool addDataBarRule(const QColor &color, ValueObjectType type1, const QString &val1, ValueObjectType type2, const QString &val2, bool showData=true, bool stopIfTrue=false);
-    bool add2ColorScaleRule(const QColor &minColor, const QColor &maxColor, bool stopIfTrue=false);
-    bool add3ColorScaleRule(const QColor &minColor, const QColor &midColor, const QColor &maxColor,  bool stopIfTrue=false);
+    bool addHighlightCellsRule(HighlightRuleType type,
+                               const Format &format,
+                               bool stopIfTrue = false);
+    bool addHighlightCellsRule(HighlightRuleType type,
+                               const QString &formula1,
+                               const Format &format,
+                               bool stopIfTrue = false);
+    bool addHighlightCellsRule(HighlightRuleType type,
+                               const QString &formula1,
+                               const QString &formula2,
+                               const Format &format,
+                               bool stopIfTrue = false);
+    bool addDataBarRule(const QColor &color, bool showData = true, bool stopIfTrue = false);
+    bool addDataBarRule(const QColor &color,
+                        ValueObjectType type1,
+                        const QString &val1,
+                        ValueObjectType type2,
+                        const QString &val2,
+                        bool showData   = true,
+                        bool stopIfTrue = false);
+    bool
+        add2ColorScaleRule(const QColor &minColor, const QColor &maxColor, bool stopIfTrue = false);
+    bool add3ColorScaleRule(const QColor &minColor,
+                            const QColor &midColor,
+                            const QColor &maxColor,
+                            bool stopIfTrue = false);
 
     QList<CellRange> ranges() const;
 
@@ -101,7 +112,7 @@ public:
     void addRange(int firstRow, int firstCol, int lastRow, int lastCol);
     void addRange(const CellRange &range);
 
-    //needed by QSharedDataPointer!!
+    // needed by QSharedDataPointer!!
     ConditionalFormatting &operator=(const ConditionalFormatting &other);
 
 private:
@@ -110,7 +121,7 @@ private:
 
 private:
     bool saveToXml(QXmlStreamWriter &writer) const;
-    bool loadFromXml(QXmlStreamReader &reader, Styles* styles = NULL);
+    bool loadFromXml(QXmlStreamReader &reader, Styles *styles = NULL);
 
     QSharedDataPointer<ConditionalFormattingPrivate> d;
 };

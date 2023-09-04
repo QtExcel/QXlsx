@@ -1,46 +1,55 @@
 // xlsxconditionalformatting.cpp
 
-#include <QtGlobal>
+#include "xlsxconditionalformatting.h"
+
+#include "xlsxcellrange.h"
+#include "xlsxconditionalformatting_p.h"
+#include "xlsxstyles_p.h"
+#include "xlsxworksheet.h"
+
+#include <QDebug>
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
-#include <QDebug>
-
-#include "xlsxconditionalformatting.h"
-#include "xlsxconditionalformatting_p.h"
-#include "xlsxworksheet.h"
-#include "xlsxcellrange.h"
-#include "xlsxstyles_p.h"
+#include <QtGlobal>
 
 QT_BEGIN_NAMESPACE_XLSX
 
-ConditionalFormattingPrivate::ConditionalFormattingPrivate()
-{
+ConditionalFormattingPrivate::ConditionalFormattingPrivate() {}
 
+ConditionalFormattingPrivate::ConditionalFormattingPrivate(
+    const ConditionalFormattingPrivate &other)
+    : QSharedData(other)
+{
 }
 
-ConditionalFormattingPrivate::ConditionalFormattingPrivate(const ConditionalFormattingPrivate &other)
-    :QSharedData(other)
-{
+ConditionalFormattingPrivate::~ConditionalFormattingPrivate() {}
 
-}
-
-ConditionalFormattingPrivate::~ConditionalFormattingPrivate()
-{
-
-}
-
-void ConditionalFormattingPrivate::writeCfVo(QXmlStreamWriter &writer, const XlsxCfVoData &cfvo) const
+void ConditionalFormattingPrivate::writeCfVo(QXmlStreamWriter &writer,
+                                             const XlsxCfVoData &cfvo) const
 {
     writer.writeEmptyElement(QStringLiteral("cfvo"));
     QString type;
-    switch(cfvo.type) {
-    case ConditionalFormatting::VOT_Formula: type=QStringLiteral("formula"); break;
-    case ConditionalFormatting::VOT_Max: type=QStringLiteral("max"); break;
-    case ConditionalFormatting::VOT_Min: type=QStringLiteral("min"); break;
-    case ConditionalFormatting::VOT_Num: type=QStringLiteral("num"); break;
-    case ConditionalFormatting::VOT_Percent: type=QStringLiteral("percent"); break;
-    case ConditionalFormatting::VOT_Percentile: type=QStringLiteral("percentile"); break;
-    default: break;
+    switch (cfvo.type) {
+    case ConditionalFormatting::VOT_Formula:
+        type = QStringLiteral("formula");
+        break;
+    case ConditionalFormatting::VOT_Max:
+        type = QStringLiteral("max");
+        break;
+    case ConditionalFormatting::VOT_Min:
+        type = QStringLiteral("min");
+        break;
+    case ConditionalFormatting::VOT_Num:
+        type = QStringLiteral("num");
+        break;
+    case ConditionalFormatting::VOT_Percent:
+        type = QStringLiteral("percent");
+        break;
+    case ConditionalFormatting::VOT_Percentile:
+        type = QStringLiteral("percentile");
+        break;
+    default:
+        break;
     }
     writer.writeAttribute(QStringLiteral("type"), type);
     writer.writeAttribute(QStringLiteral("val"), cfvo.value);
@@ -55,7 +64,6 @@ void ConditionalFormattingPrivate::writeCfVo(QXmlStreamWriter &writer, const Xls
  *
  * The conditional formatting can be applied to a single cell or ranges of cells.
  */
-
 
 /*!
     \enum ConditionalFormatting::HighlightRuleType
@@ -118,18 +126,16 @@ void ConditionalFormattingPrivate::writeCfVo(QXmlStreamWriter &writer, const Xls
     Construct a conditional formatting object
 */
 ConditionalFormatting::ConditionalFormatting()
-    :d(new ConditionalFormattingPrivate())
+    : d(new ConditionalFormattingPrivate())
 {
-
 }
 
 /*!
     Constructs a copy of \a other.
 */
 ConditionalFormatting::ConditionalFormatting(const ConditionalFormatting &other)
-    :d(other.d)
+    : d(other.d)
 {
-
 }
 
 /*!
@@ -142,20 +148,21 @@ ConditionalFormatting &ConditionalFormatting::operator=(const ConditionalFormatt
     return *this;
 }
 
-
 /*!
  * Destroy the object.
  */
-ConditionalFormatting::~ConditionalFormatting()
-{
-}
+ConditionalFormatting::~ConditionalFormatting() {}
 
 /*!
  * Add a hightlight rule with the given \a type, \a formula1, \a formula2,
  * \a format and \a stopIfTrue.
  * Return false if failed.
  */
-bool ConditionalFormatting::addHighlightCellsRule(HighlightRuleType type, const QString &formula1, const QString &formula2, const Format &format, bool stopIfTrue)
+bool ConditionalFormatting::addHighlightCellsRule(HighlightRuleType type,
+                                                  const QString &formula1,
+                                                  const QString &formula2,
+                                                  const Format &format,
+                                                  bool stopIfTrue)
 {
     if (format.isEmpty())
         return false;
@@ -167,68 +174,90 @@ bool ConditionalFormatting::addHighlightCellsRule(HighlightRuleType type, const 
         cfRule->attrs[XlsxCfRuleData::A_type] = QStringLiteral("cellIs");
         QString op;
         switch (type) {
-        case Highlight_Between: op = QStringLiteral("between"); break;
-        case Highlight_Equal: op = QStringLiteral("equal"); break;
-        case Highlight_GreaterThan: op = QStringLiteral("greaterThan"); break;
-        case Highlight_GreaterThanOrEqual: op = QStringLiteral("greaterThanOrEqual"); break;
-        case Highlight_LessThan: op = QStringLiteral("lessThan"); break;
-        case Highlight_LessThanOrEqual: op = QStringLiteral("lessThanOrEqual"); break;
-        case Highlight_NotBetween: op = QStringLiteral("notBetween"); break;
-        case Highlight_NotEqual: op = QStringLiteral("notEqual"); break;
-        default: break;
+        case Highlight_Between:
+            op = QStringLiteral("between");
+            break;
+        case Highlight_Equal:
+            op = QStringLiteral("equal");
+            break;
+        case Highlight_GreaterThan:
+            op = QStringLiteral("greaterThan");
+            break;
+        case Highlight_GreaterThanOrEqual:
+            op = QStringLiteral("greaterThanOrEqual");
+            break;
+        case Highlight_LessThan:
+            op = QStringLiteral("lessThan");
+            break;
+        case Highlight_LessThanOrEqual:
+            op = QStringLiteral("lessThanOrEqual");
+            break;
+        case Highlight_NotBetween:
+            op = QStringLiteral("notBetween");
+            break;
+        case Highlight_NotEqual:
+            op = QStringLiteral("notEqual");
+            break;
+        default:
+            break;
         }
         cfRule->attrs[XlsxCfRuleData::A_operator] = op;
     } else if (type >= Highlight_ContainsText && type <= Highlight_EndsWith) {
         if (type == Highlight_ContainsText) {
-            cfRule->attrs[XlsxCfRuleData::A_type] = QStringLiteral("containsText");
+            cfRule->attrs[XlsxCfRuleData::A_type]     = QStringLiteral("containsText");
             cfRule->attrs[XlsxCfRuleData::A_operator] = QStringLiteral("containsText");
-            cfRule->attrs[XlsxCfRuleData::A_formula1_temp] = QStringLiteral("NOT(ISERROR(SEARCH(\"%1\",%2)))").arg(formula1);
+            cfRule->attrs[XlsxCfRuleData::A_formula1_temp] =
+                QStringLiteral("NOT(ISERROR(SEARCH(\"%1\",%2)))").arg(formula1);
         } else if (type == Highlight_NotContainsText) {
-            cfRule->attrs[XlsxCfRuleData::A_type] = QStringLiteral("notContainsText");
+            cfRule->attrs[XlsxCfRuleData::A_type]     = QStringLiteral("notContainsText");
             cfRule->attrs[XlsxCfRuleData::A_operator] = QStringLiteral("notContains");
-            cfRule->attrs[XlsxCfRuleData::A_formula1_temp] = QStringLiteral("ISERROR(SEARCH(\"%2\",%1))").arg(formula1);
+            cfRule->attrs[XlsxCfRuleData::A_formula1_temp] =
+                QStringLiteral("ISERROR(SEARCH(\"%2\",%1))").arg(formula1);
         } else if (type == Highlight_BeginsWith) {
-            cfRule->attrs[XlsxCfRuleData::A_type] = QStringLiteral("beginsWith");
+            cfRule->attrs[XlsxCfRuleData::A_type]     = QStringLiteral("beginsWith");
             cfRule->attrs[XlsxCfRuleData::A_operator] = QStringLiteral("beginsWith");
-            cfRule->attrs[XlsxCfRuleData::A_formula1_temp] = QStringLiteral("LEFT(%2,LEN(\"%1\"))=\"%1\"").arg(formula1);
+            cfRule->attrs[XlsxCfRuleData::A_formula1_temp] =
+                QStringLiteral("LEFT(%2,LEN(\"%1\"))=\"%1\"").arg(formula1);
         } else {
-            cfRule->attrs[XlsxCfRuleData::A_type] = QStringLiteral("endsWith");
+            cfRule->attrs[XlsxCfRuleData::A_type]     = QStringLiteral("endsWith");
             cfRule->attrs[XlsxCfRuleData::A_operator] = QStringLiteral("endsWith");
-            cfRule->attrs[XlsxCfRuleData::A_formula1_temp] = QStringLiteral("RIGHT(%2,LEN(\"%1\"))=\"%1\"").arg(formula1);
+            cfRule->attrs[XlsxCfRuleData::A_formula1_temp] =
+                QStringLiteral("RIGHT(%2,LEN(\"%1\"))=\"%1\"").arg(formula1);
         }
         cfRule->attrs[XlsxCfRuleData::A_text] = formula1;
-        skipFormula = true;
+        skipFormula                           = true;
     } else if (type == Highlight_TimePeriod) {
         cfRule->attrs[XlsxCfRuleData::A_type] = QStringLiteral("timePeriod");
-        //:Todo
+        //: Todo
         return false;
     } else if (type == Highlight_Duplicate) {
         cfRule->attrs[XlsxCfRuleData::A_type] = QStringLiteral("duplicateValues");
     } else if (type == Highlight_Unique) {
         cfRule->attrs[XlsxCfRuleData::A_type] = QStringLiteral("uniqueValues");
     } else if (type == Highlight_Errors) {
-        cfRule->attrs[XlsxCfRuleData::A_type] = QStringLiteral("containsErrors");
+        cfRule->attrs[XlsxCfRuleData::A_type]          = QStringLiteral("containsErrors");
         cfRule->attrs[XlsxCfRuleData::A_formula1_temp] = QStringLiteral("ISERROR(%1)");
-        skipFormula = true;
+        skipFormula                                    = true;
     } else if (type == Highlight_NoErrors) {
-        cfRule->attrs[XlsxCfRuleData::A_type] = QStringLiteral("notContainsErrors");
+        cfRule->attrs[XlsxCfRuleData::A_type]          = QStringLiteral("notContainsErrors");
         cfRule->attrs[XlsxCfRuleData::A_formula1_temp] = QStringLiteral("NOT(ISERROR(%1))");
-        skipFormula = true;
+        skipFormula                                    = true;
     } else if (type == Highlight_Blanks) {
-        cfRule->attrs[XlsxCfRuleData::A_type] = QStringLiteral("containsBlanks");
+        cfRule->attrs[XlsxCfRuleData::A_type]          = QStringLiteral("containsBlanks");
         cfRule->attrs[XlsxCfRuleData::A_formula1_temp] = QStringLiteral("LEN(TRIM(%1))=0");
-        skipFormula = true;
+        skipFormula                                    = true;
     } else if (type == Highlight_NoBlanks) {
-        cfRule->attrs[XlsxCfRuleData::A_type] = QStringLiteral("notContainsBlanks");
+        cfRule->attrs[XlsxCfRuleData::A_type]          = QStringLiteral("notContainsBlanks");
         cfRule->attrs[XlsxCfRuleData::A_formula1_temp] = QStringLiteral("LEN(TRIM(%1))>0");
-        skipFormula = true;
+        skipFormula                                    = true;
     } else if (type >= Highlight_Top && type <= Highlight_BottomPercent) {
         cfRule->attrs[XlsxCfRuleData::A_type] = QStringLiteral("top10");
         if (type == Highlight_Bottom || type == Highlight_BottomPercent)
             cfRule->attrs[XlsxCfRuleData::A_bottom] = QStringLiteral("1");
         if (type == Highlight_TopPercent || type == Highlight_BottomPercent)
             cfRule->attrs[XlsxCfRuleData::A_percent] = QStringLiteral("1");
-        cfRule->attrs[XlsxCfRuleData::A_rank] = !formula1.isEmpty() ? formula1 : QStringLiteral("10");
+        cfRule->attrs[XlsxCfRuleData::A_rank] =
+            !formula1.isEmpty() ? formula1 : QStringLiteral("10");
         skipFormula = true;
     } else if (type >= Highlight_AboveAverage && type <= Highlight_BelowStdDev3) {
         cfRule->attrs[XlsxCfRuleData::A_type] = QStringLiteral("aboveAverage");
@@ -242,7 +271,7 @@ bool ConditionalFormatting::addHighlightCellsRule(HighlightRuleType type, const 
             cfRule->attrs[XlsxCfRuleData::A_stdDev] = QStringLiteral("2");
         else if (type == Highlight_AboveStdDev3 || type == Highlight_BelowStdDev3)
             cfRule->attrs[XlsxCfRuleData::A_stdDev] = QStringLiteral("3");
-    } else if (type == Highlight_Expression){
+    } else if (type == Highlight_Expression) {
         cfRule->attrs[XlsxCfRuleData::A_type] = QStringLiteral("expression");
     } else {
         return false;
@@ -253,9 +282,11 @@ bool ConditionalFormatting::addHighlightCellsRule(HighlightRuleType type, const 
         cfRule->attrs[XlsxCfRuleData::A_stopIfTrue] = true;
     if (!skipFormula) {
         if (!formula1.isEmpty())
-            cfRule->attrs[XlsxCfRuleData::A_formula1] = formula1.startsWith(QLatin1String("=")) ? formula1.mid(1) : formula1;
+            cfRule->attrs[XlsxCfRuleData::A_formula1] =
+                formula1.startsWith(QLatin1String("=")) ? formula1.mid(1) : formula1;
         if (!formula2.isEmpty())
-            cfRule->attrs[XlsxCfRuleData::A_formula2] = formula2.startsWith(QLatin1String("=")) ? formula2.mid(1) : formula2;
+            cfRule->attrs[XlsxCfRuleData::A_formula2] =
+                formula2.startsWith(QLatin1String("=")) ? formula2.mid(1) : formula2;
     }
     d->cfRules.append(cfRule);
     return true;
@@ -266,10 +297,12 @@ bool ConditionalFormatting::addHighlightCellsRule(HighlightRuleType type, const 
  *
  * Add a hightlight rule with the given \a type \a format and \a stopIfTrue.
  */
-bool ConditionalFormatting::addHighlightCellsRule(HighlightRuleType type, const Format &format, bool stopIfTrue)
+bool ConditionalFormatting::addHighlightCellsRule(HighlightRuleType type,
+                                                  const Format &format,
+                                                  bool stopIfTrue)
 {
-    if ((type >= Highlight_AboveAverage && type <= Highlight_BelowStdDev3)
-            || (type >= Highlight_Duplicate && type <= Highlight_NoErrors)) {
+    if ((type >= Highlight_AboveAverage && type <= Highlight_BelowStdDev3) ||
+        (type >= Highlight_Duplicate && type <= Highlight_NoErrors)) {
         return addHighlightCellsRule(type, QString(), QString(), format, stopIfTrue);
     }
 
@@ -282,7 +315,10 @@ bool ConditionalFormatting::addHighlightCellsRule(HighlightRuleType type, const 
  * Add a hightlight rule with the given \a type, \a formula, \a format and \a stopIfTrue.
  * Return false if failed.
  */
-bool ConditionalFormatting::addHighlightCellsRule(HighlightRuleType type, const QString &formula, const Format &format, bool stopIfTrue)
+bool ConditionalFormatting::addHighlightCellsRule(HighlightRuleType type,
+                                                  const QString &formula,
+                                                  const Format &format,
+                                                  bool stopIfTrue)
 {
     if (type == Highlight_Between || type == Highlight_NotBetween)
         return false;
@@ -295,11 +331,17 @@ bool ConditionalFormatting::addHighlightCellsRule(HighlightRuleType type, const 
  * , \a type2, \a val2, \a showData and \a stopIfTrue.
  * Return false if failed.
  */
-bool ConditionalFormatting::addDataBarRule(const QColor &color, ValueObjectType type1, const QString &val1, ValueObjectType type2, const QString &val2, bool showData, bool stopIfTrue)
+bool ConditionalFormatting::addDataBarRule(const QColor &color,
+                                           ValueObjectType type1,
+                                           const QString &val1,
+                                           ValueObjectType type2,
+                                           const QString &val2,
+                                           bool showData,
+                                           bool stopIfTrue)
 {
     auto cfRule = std::make_shared<XlsxCfRuleData>();
 
-    cfRule->attrs[XlsxCfRuleData::A_type] = QStringLiteral("dataBar");
+    cfRule->attrs[XlsxCfRuleData::A_type]   = QStringLiteral("dataBar");
     cfRule->attrs[XlsxCfRuleData::A_color1] = XlsxColor(color);
     if (stopIfTrue)
         cfRule->attrs[XlsxCfRuleData::A_stopIfTrue] = true;
@@ -321,23 +363,26 @@ bool ConditionalFormatting::addDataBarRule(const QColor &color, ValueObjectType 
  */
 bool ConditionalFormatting::addDataBarRule(const QColor &color, bool showData, bool stopIfTrue)
 {
-    return addDataBarRule(color, VOT_Min, QStringLiteral("0"), VOT_Max, QStringLiteral("0"), showData, stopIfTrue);
+    return addDataBarRule(
+        color, VOT_Min, QStringLiteral("0"), VOT_Max, QStringLiteral("0"), showData, stopIfTrue);
 }
 
 /*!
  * Add a colorScale rule with the given \a minColor, \a maxColor and \a stopIfTrue.
  * Return false if failed.
  */
-bool ConditionalFormatting::add2ColorScaleRule(const QColor &minColor, const QColor &maxColor, bool stopIfTrue)
+bool ConditionalFormatting::add2ColorScaleRule(const QColor &minColor,
+                                               const QColor &maxColor,
+                                               bool stopIfTrue)
 {
     ValueObjectType type1 = VOT_Min;
     ValueObjectType type2 = VOT_Max;
-    QString val1 = QStringLiteral("0");
-    QString val2 = QStringLiteral("0");
+    QString val1          = QStringLiteral("0");
+    QString val2          = QStringLiteral("0");
 
     auto cfRule = std::make_shared<XlsxCfRuleData>();
 
-    cfRule->attrs[XlsxCfRuleData::A_type] = QStringLiteral("colorScale");
+    cfRule->attrs[XlsxCfRuleData::A_type]   = QStringLiteral("colorScale");
     cfRule->attrs[XlsxCfRuleData::A_color1] = XlsxColor(minColor);
     cfRule->attrs[XlsxCfRuleData::A_color2] = XlsxColor(maxColor);
     if (stopIfTrue)
@@ -356,18 +401,21 @@ bool ConditionalFormatting::add2ColorScaleRule(const QColor &minColor, const QCo
  * Add a colorScale rule with the given \a minColor, \a midColor, \a maxColor and \a stopIfTrue.
  * Return false if failed.
  */
-bool ConditionalFormatting::add3ColorScaleRule(const QColor &minColor, const QColor &midColor, const QColor &maxColor, bool stopIfTrue)
+bool ConditionalFormatting::add3ColorScaleRule(const QColor &minColor,
+                                               const QColor &midColor,
+                                               const QColor &maxColor,
+                                               bool stopIfTrue)
 {
     ValueObjectType type1 = VOT_Min;
     ValueObjectType type2 = VOT_Percent;
     ValueObjectType type3 = VOT_Max;
-    QString val1 = QStringLiteral("0");
-    QString val2 = QStringLiteral("50");
-    QString val3 = QStringLiteral("0");
+    QString val1          = QStringLiteral("0");
+    QString val2          = QStringLiteral("50");
+    QString val3          = QStringLiteral("0");
 
     auto cfRule = std::make_shared<XlsxCfRuleData>();
 
-    cfRule->attrs[XlsxCfRuleData::A_type] = QStringLiteral("colorScale");
+    cfRule->attrs[XlsxCfRuleData::A_type]   = QStringLiteral("colorScale");
     cfRule->attrs[XlsxCfRuleData::A_color1] = XlsxColor(minColor);
     cfRule->attrs[XlsxCfRuleData::A_color2] = XlsxColor(midColor);
     cfRule->attrs[XlsxCfRuleData::A_color3] = XlsxColor(maxColor);
@@ -429,7 +477,9 @@ void ConditionalFormatting::addRange(const CellRange &range)
     d->ranges.append(range);
 }
 
-bool ConditionalFormattingPrivate::readCfRule(QXmlStreamReader &reader, XlsxCfRuleData *rule, Styles *styles)
+bool ConditionalFormattingPrivate::readCfRule(QXmlStreamReader &reader,
+                                              XlsxCfRuleData *rule,
+                                              Styles *styles)
 {
     Q_ASSERT(reader.name() == QLatin1String("cfRule"));
     QXmlStreamAttributes attrs = reader.attributes();
@@ -444,19 +494,19 @@ bool ConditionalFormattingPrivate::readCfRule(QXmlStreamReader &reader, XlsxCfRu
     }
     rule->priority = attrs.value(QLatin1String("priority")).toInt();
     if (attrs.value(QLatin1String("stopIfTrue")) == QLatin1String("1")) {
-        //default is false
+        // default is false
         rule->attrs[XlsxCfRuleData::A_stopIfTrue] = QLatin1String("1");
     }
     if (attrs.value(QLatin1String("aboveAverage")) == QLatin1String("0")) {
-        //default is true
+        // default is true
         rule->attrs[XlsxCfRuleData::A_aboveAverage] = QLatin1String("0");
     }
     if (attrs.value(QLatin1String("percent")) == QLatin1String("1")) {
-        //default is false
+        // default is false
         rule->attrs[XlsxCfRuleData::A_percent] = QLatin1String("1");
     }
     if (attrs.value(QLatin1String("bottom")) == QLatin1String("1")) {
-        //default is false
+        // default is false
         rule->attrs[XlsxCfRuleData::A_bottom] = QLatin1String("1");
     }
     if (attrs.hasAttribute(QLatin1String("operator")))
@@ -466,7 +516,8 @@ bool ConditionalFormattingPrivate::readCfRule(QXmlStreamReader &reader, XlsxCfRu
         rule->attrs[XlsxCfRuleData::A_text] = attrs.value(QLatin1String("text")).toString();
 
     if (attrs.hasAttribute(QLatin1String("timePeriod")))
-        rule->attrs[XlsxCfRuleData::A_timePeriod] = attrs.value(QLatin1String("timePeriod")).toString();
+        rule->attrs[XlsxCfRuleData::A_timePeriod] =
+            attrs.value(QLatin1String("timePeriod")).toString();
 
     if (attrs.hasAttribute(QLatin1String("rank")))
         rule->attrs[XlsxCfRuleData::A_rank] = attrs.value(QLatin1String("rank")).toString();
@@ -475,7 +526,7 @@ bool ConditionalFormattingPrivate::readCfRule(QXmlStreamReader &reader, XlsxCfRu
         rule->attrs[XlsxCfRuleData::A_stdDev] = attrs.value(QLatin1String("stdDev")).toString();
 
     if (attrs.value(QLatin1String("equalAverage")) == QLatin1String("1")) {
-        //default is false
+        // default is false
         rule->attrs[XlsxCfRuleData::A_equalAverage] = QLatin1String("1");
     }
 
@@ -496,8 +547,8 @@ bool ConditionalFormattingPrivate::readCfRule(QXmlStreamReader &reader, XlsxCfRu
                 readCfColorScale(reader, rule);
             }
         }
-        if (reader.tokenType() == QXmlStreamReader::EndElement
-                && reader.name() == QStringLiteral("conditionalFormatting")) {
+        if (reader.tokenType() == QXmlStreamReader::EndElement &&
+            reader.name() == QStringLiteral("conditionalFormatting")) {
             break;
         }
     }
@@ -527,8 +578,8 @@ bool ConditionalFormattingPrivate::readCfDataBar(QXmlStreamReader &reader, XlsxC
                 rule->attrs[XlsxCfRuleData::A_color1] = color;
             }
         }
-        if (reader.tokenType() == QXmlStreamReader::EndElement
-                && reader.name() == QStringLiteral("dataBar")) {
+        if (reader.tokenType() == QXmlStreamReader::EndElement &&
+            reader.name() == QStringLiteral("dataBar")) {
             break;
         }
     }
@@ -563,8 +614,8 @@ bool ConditionalFormattingPrivate::readCfColorScale(QXmlStreamReader &reader, Xl
                     rule->attrs[XlsxCfRuleData::A_color3] = color;
             }
         }
-        if (reader.tokenType() == QXmlStreamReader::EndElement
-                && reader.name() == QStringLiteral("colorScale")) {
+        if (reader.tokenType() == QXmlStreamReader::EndElement &&
+            reader.name() == QStringLiteral("colorScale")) {
             break;
         }
     }
@@ -590,13 +641,13 @@ bool ConditionalFormattingPrivate::readCfVo(QXmlStreamReader &reader, XlsxCfVoDa
         t = ConditionalFormatting::VOT_Num;
     else if (type == QLatin1String("percent"))
         t = ConditionalFormatting::VOT_Percent;
-    else //if (type == QLatin1String("percentile"))
+    else // if (type == QLatin1String("percentile"))
         t = ConditionalFormatting::VOT_Percentile;
 
-    cfvo.type = t;
+    cfvo.type  = t;
     cfvo.value = attrs.value(QLatin1String("val")).toString();
     if (attrs.value(QLatin1String("gte")) == QLatin1String("0")) {
-        //default is true
+        // default is true
         cfvo.gte = false;
     }
     return true;
@@ -609,8 +660,8 @@ bool ConditionalFormatting::loadFromXml(QXmlStreamReader &reader, Styles *styles
     d->ranges.clear();
     d->cfRules.clear();
     QXmlStreamAttributes attrs = reader.attributes();
-    const QString sqref = attrs.value(QLatin1String("sqref")).toString();
-    const auto sqrefParts = sqref.split(QLatin1Char(' '));
+    const QString sqref        = attrs.value(QLatin1String("sqref")).toString();
+    const auto sqrefParts      = sqref.split(QLatin1Char(' '));
     for (const QString &range : sqrefParts) {
         this->addRange(range);
     }
@@ -624,12 +675,11 @@ bool ConditionalFormatting::loadFromXml(QXmlStreamReader &reader, Styles *styles
                 d->cfRules.append(cfRule);
             }
         }
-        if (reader.tokenType() == QXmlStreamReader::EndElement
-                && reader.name() == QStringLiteral("conditionalFormatting")) {
+        if (reader.tokenType() == QXmlStreamReader::EndElement &&
+            reader.name() == QStringLiteral("conditionalFormatting")) {
             break;
         }
     }
-
 
     return true;
 }
@@ -644,12 +694,14 @@ bool ConditionalFormatting::saveToXml(QXmlStreamWriter &writer) const
     }
     writer.writeAttribute(QStringLiteral("sqref"), sqref.join(QLatin1String(" ")));
 
-    for (int i=0; i<d->cfRules.size(); ++i) {
+    for (int i = 0; i < d->cfRules.size(); ++i) {
         const std::shared_ptr<XlsxCfRuleData> &rule = d->cfRules[i];
         writer.writeStartElement(QStringLiteral("cfRule"));
-        writer.writeAttribute(QStringLiteral("type"), rule->attrs[XlsxCfRuleData::A_type].toString());
+        writer.writeAttribute(QStringLiteral("type"),
+                              rule->attrs[XlsxCfRuleData::A_type].toString());
         if (rule->dxfFormat.dxfIndexValid())
-            writer.writeAttribute(QStringLiteral("dxfId"), QString::number(rule->dxfFormat.dxfIndex()));
+            writer.writeAttribute(QStringLiteral("dxfId"),
+                                  QString::number(rule->dxfFormat.dxfIndex()));
         writer.writeAttribute(QStringLiteral("priority"), QString::number(rule->priority));
 
         auto it = rule->attrs.constFind(XlsxCfRuleData::A_stopIfTrue);
@@ -699,7 +751,7 @@ bool ConditionalFormatting::saveToXml(QXmlStreamWriter &writer) const
             d->writeCfVo(writer, rule->attrs[XlsxCfRuleData::A_cfvo1].value<XlsxCfVoData>());
             d->writeCfVo(writer, rule->attrs[XlsxCfRuleData::A_cfvo2].value<XlsxCfVoData>());
             rule->attrs[XlsxCfRuleData::A_color1].value<XlsxColor>().saveToXml(writer);
-            writer.writeEndElement();//dataBar
+            writer.writeEndElement(); // dataBar
         } else if (rule->attrs[XlsxCfRuleData::A_type] == QLatin1String("colorScale")) {
             writer.writeStartElement(QStringLiteral("colorScale"));
             d->writeCfVo(writer, rule->attrs[XlsxCfRuleData::A_cfvo1].value<XlsxCfVoData>());
@@ -716,20 +768,21 @@ bool ConditionalFormatting::saveToXml(QXmlStreamWriter &writer) const
             if (it != rule->attrs.constEnd())
                 it.value().value<XlsxColor>().saveToXml(writer);
 
-            writer.writeEndElement();//colorScale
+            writer.writeEndElement(); // colorScale
         }
-
 
         it = rule->attrs.constFind(XlsxCfRuleData::A_formula1_temp);
         if (it != rule->attrs.constEnd()) {
             const auto _ranges = ranges();
-            const auto begin = _ranges.begin();
+            const auto begin   = _ranges.begin();
             if (begin != _ranges.end()) {
-                QString str = begin->toString();
+                QString str       = begin->toString();
                 QString startCell = str.mid(0, str.indexOf(u':'));
-                writer.writeTextElement(QStringLiteral("formula"), it.value().toString().arg(startCell));
+                writer.writeTextElement(QStringLiteral("formula"),
+                                        it.value().toString().arg(startCell));
             }
-        } else if ((it = rule->attrs.constFind(XlsxCfRuleData::A_formula1)) != rule->attrs.constEnd()) {
+        } else if ((it = rule->attrs.constFind(XlsxCfRuleData::A_formula1)) !=
+                   rule->attrs.constEnd()) {
             writer.writeTextElement(QStringLiteral("formula"), it.value().toString());
         }
 
@@ -741,10 +794,10 @@ bool ConditionalFormatting::saveToXml(QXmlStreamWriter &writer) const
         if (it != rule->attrs.constEnd())
             writer.writeTextElement(QStringLiteral("formula"), it.value().toString());
 
-        writer.writeEndElement(); //cfRule
+        writer.writeEndElement(); // cfRule
     }
 
-    writer.writeEndElement(); //conditionalFormatting
+    writer.writeEndElement(); // conditionalFormatting
     return true;
 }
 

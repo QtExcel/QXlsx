@@ -1,9 +1,9 @@
 // datavalidation.cpp
 
-#include <QtGlobal>
-
-#include "xlsxdocument.h"
 #include "xlsxdatavalidation.h"
+#include "xlsxdocument.h"
+
+#include <QtGlobal>
 
 QXLSX_USE_NAMESPACE
 
@@ -20,7 +20,7 @@ int datavalidation()
     xlsx.addDataValidation(validation);
     //![1]
 
-	xlsx.saveAs("datavalidation.xlsx"); 
+    xlsx.saveAs("datavalidation.xlsx");
 
     return 0;
 }

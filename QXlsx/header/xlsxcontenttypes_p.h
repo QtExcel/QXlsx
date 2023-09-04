@@ -3,13 +3,13 @@
 #ifndef XLSXCONTENTTYPES_H
 #define XLSXCONTENTTYPES_H
 
-#include <QtGlobal>
+#include "xlsxabstractooxmlfile.h"
+
+#include <QIODevice>
+#include <QMap>
 #include <QString>
 #include <QStringList>
-#include <QMap>
-#include <QIODevice>
-
-#include "xlsxabstractooxmlfile.h"
+#include <QtGlobal>
 
 QT_BEGIN_NAMESPACE_XLSX
 
@@ -21,7 +21,7 @@ public:
     void addDefault(const QString &key, const QString &value);
     void addOverride(const QString &key, const QString &value);
 
-    //Convenient funcation for addOverride()
+    // Convenient funcation for addOverride()
     void addDocPropCore();
     void addDocPropApp();
     void addStyles();
@@ -43,6 +43,7 @@ public:
 
     void saveToXmlFile(QIODevice *device) const override;
     bool loadFromXmlFile(QIODevice *device) override;
+
 private:
     QMap<QString, QString> m_defaults;
     QMap<QString, QString> m_overrides;

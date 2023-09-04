@@ -1,16 +1,16 @@
 // pageMargins.cpp
 
-#include <QtGlobal>
-#include <QObject>
-#include <QString>
-#include <QDebug>
-
-#include "xlsxdocument.h"
-#include "xlsxchartsheet.h"
 #include "xlsxcellrange.h"
 #include "xlsxchart.h"
+#include "xlsxchartsheet.h"
+#include "xlsxdocument.h"
 #include "xlsxrichstring.h"
 #include "xlsxworkbook.h"
+
+#include <QDebug>
+#include <QObject>
+#include <QString>
+#include <QtGlobal>
 
 QXLSX_USE_NAMESPACE
 

@@ -3,8 +3,8 @@
 #ifndef XLSXABSTRACTSHEET_H
 #define XLSXABSTRACTSHEET_H
 
-#include "xlsxglobal.h"
 #include "xlsxabstractooxmlfile.h"
+#include "xlsxglobal.h"
 
 QT_BEGIN_NAMESPACE_XLSX
 
@@ -22,7 +22,7 @@ public:
 public:
     // NOTE: If all Qt  compiler supports C++1x, recommend to use a 'class enum'.
     enum SheetType { ST_WorkSheet, ST_ChartSheet, ST_DialogSheet, ST_MacroSheet };
-    enum SheetState { SS_Visible,SS_Hidden, SS_VeryHidden };
+    enum SheetState { SS_Visible, SS_Hidden, SS_VeryHidden };
 
 public:
     QString sheetName() const;

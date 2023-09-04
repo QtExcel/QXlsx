@@ -1,10 +1,10 @@
 // mergecells.cpp
 
-#include <QtGlobal>
-#include <QDebug>
-
 #include "xlsxdocument.h"
 #include "xlsxformat.h"
+
+#include <QDebug>
+#include <QtGlobal>
 
 QXLSX_USE_NAMESPACE
 
@@ -31,13 +31,9 @@ int mergecells()
 
     // mergedCells
 
-
-
-
     //![2]
 
-	xlsx.saveAs("mergecells.xlsx"); 
+    xlsx.saveAs("mergecells.xlsx");
 
     return 0;
 }
-

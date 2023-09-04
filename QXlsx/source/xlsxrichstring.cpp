@@ -1,34 +1,32 @@
 // xlsxrichstring.cpp
 
-#include <QtGlobal>
+#include "xlsxrichstring.h"
+
+#include "xlsxformat_p.h"
+#include "xlsxrichstring_p.h"
+
 #include <QDebug>
 #include <QTextDocument>
 #include <QTextFragment>
-
-#include "xlsxrichstring.h"
-#include "xlsxrichstring_p.h"
-#include "xlsxformat_p.h"
+#include <QtGlobal>
 
 QT_BEGIN_NAMESPACE_XLSX
 
 RichStringPrivate::RichStringPrivate()
-    :_dirty(true)
+    : _dirty(true)
 {
-
 }
 
 RichStringPrivate::RichStringPrivate(const RichStringPrivate &other)
-    :QSharedData(other), fragmentTexts(other.fragmentTexts)
-    ,fragmentFormats(other.fragmentFormats)
-    , _idKey(other.idKey()), _dirty(other._dirty)
+    : QSharedData(other)
+    , fragmentTexts(other.fragmentTexts)
+    , fragmentFormats(other.fragmentFormats)
+    , _idKey(other.idKey())
+    , _dirty(other._dirty)
 {
-
 }
 
-RichStringPrivate::~RichStringPrivate()
-{
-
-}
+RichStringPrivate::~RichStringPrivate() {}
 
 /*!
     \class RichString
@@ -40,15 +38,15 @@ RichStringPrivate::~RichStringPrivate()
     Constructs a null string.
  */
 RichString::RichString()
-    :d(new RichStringPrivate)
+    : d(new RichStringPrivate)
 {
 }
 
 /*!
     Constructs a plain string with the given \a text.
 */
-RichString::RichString(const QString& text)
-    :d(new RichStringPrivate)
+RichString::RichString(const QString &text)
+    : d(new RichStringPrivate)
 {
     addFragment(text, Format());
 }
@@ -57,23 +55,19 @@ RichString::RichString(const QString& text)
     Constructs a copy of \a other.
  */
 RichString::RichString(const RichString &other)
-    :d(other.d)
+    : d(other.d)
 {
-
 }
 
 /*!
     Destructs the string.
  */
-RichString::~RichString()
-{
-
-}
+RichString::~RichString() {}
 
 /*!
     Assigns \a other to this string and returns a reference to this string
  */
-RichString &RichString::operator =(const RichString &other)
+RichString &RichString::operator=(const RichString &other)
 {
     this->d = other.d;
     return *this;
@@ -84,11 +78,11 @@ RichString &RichString::operator =(const RichString &other)
 */
 RichString::operator QVariant() const
 {
-    const auto& cref
+    const auto &cref
 #if QT_VERSION >= 0x060000 // Qt 6.0 or over
         = QMetaType::fromType<RichString>();
 #else
-        = qMetaTypeId<RichString>() ;
+        = qMetaTypeId<RichString>();
 #endif
     return QVariant(cref, this);
 }
@@ -98,7 +92,7 @@ RichString::operator QVariant() const
  */
 bool RichString::isRichString() const
 {
-    if (fragmentCount() > 1) //Is this enough??
+    if (fragmentCount() > 1) // Is this enough??
         return true;
     return false;
 }
@@ -116,7 +110,7 @@ bool RichString::isNull() const
  */
 bool RichString::isEmtpy() const
 {
-    for (const auto& str : d->fragmentTexts) {
+    for (const auto &str : d->fragmentTexts) {
         if (!str.isEmpty())
             return false;
     }
@@ -218,9 +212,9 @@ QByteArray RichStringPrivate::idKey() const
         if (fragmentTexts.size() == 1) {
             bytes = fragmentTexts[0].toUtf8();
         } else {
-            //Generate a hash value base on QByteArray ?
+            // Generate a hash value base on QByteArray ?
             bytes.append("@@QtXlsxRichString=");
-            for (int i=0; i<fragmentTexts.size(); ++i) {
+            for (int i = 0; i < fragmentTexts.size(); ++i) {
                 bytes.append("@Text");
                 bytes.append(fragmentTexts[i].toUtf8());
                 bytes.append("@Format");
@@ -272,9 +266,9 @@ bool operator<(const RichString &rs1, const RichString &rs2)
     Returns true if this string \a rs1 is equal to string \a rs2;
     otherwise returns false.
  */
-bool operator ==(const RichString &rs1, const QString &rs2)
+bool operator==(const RichString &rs1, const QString &rs2)
 {
-    if (rs1.fragmentCount() == 1 && rs1.fragmentText(0) == rs2) //format == 0
+    if (rs1.fragmentCount() == 1 && rs1.fragmentText(0) == rs2) // format == 0
         return true;
 
     return false;
@@ -285,9 +279,9 @@ bool operator ==(const RichString &rs1, const QString &rs2)
     Returns true if this string \a rs1 is not equal to string \a rs2;
     otherwise returns false.
  */
-bool operator !=(const RichString &rs1, const QString &rs2)
+bool operator!=(const RichString &rs1, const QString &rs2)
 {
-    if (rs1.fragmentCount() == 1 && rs1.fragmentText(0) == rs2) //format == 0
+    if (rs1.fragmentCount() == 1 && rs1.fragmentText(0) == rs2) // format == 0
         return false;
 
     return true;
@@ -298,7 +292,7 @@ bool operator !=(const RichString &rs1, const QString &rs2)
     Returns true if this string \a rs1 is equal to string \a rs2;
     otherwise returns false.
  */
-bool operator ==(const QString &rs1, const RichString &rs2)
+bool operator==(const QString &rs1, const RichString &rs2)
 {
     return rs2 == rs1;
 }
@@ -308,14 +302,14 @@ bool operator ==(const QString &rs1, const RichString &rs2)
     Returns true if this string \a rs1 is not equal to string \a rs2;
     otherwise returns false.
  */
-bool operator !=(const QString &rs1, const RichString &rs2)
+bool operator!=(const QString &rs1, const RichString &rs2)
 {
     return rs2 != rs1;
 }
 
 uint qHash(const RichString &rs, uint seed) Q_DECL_NOTHROW
 {
-   return qHash(rs.d->idKey(), seed);
+    return qHash(rs.d->idKey(), seed);
 }
 
 #ifndef QT_NO_DEBUG_STREAM
