@@ -197,17 +197,10 @@ public:
     QMap<int, CellFormula> sharedFormulaMap; // shared formula map
 
     CellRange dimension;
-    int previous_row;
 
     mutable QMap<int, QString> row_spans;
     QMap<int, double> row_sizes;
     QMap<int, double> col_sizes;
-
-    int outline_row_level;
-    int outline_col_level;
-
-    int default_row_height;
-    bool default_row_zeroed;
 
     // pagesetup and print settings add by liufeijin 20181028, liufeijin
     QString PpaperSize;
