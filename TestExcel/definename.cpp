@@ -1,10 +1,10 @@
 // definename.cpp
 
-#include <QtGlobal>
-#include <QtCore>
-#include <QDebug>
-
 #include "xlsxdocument.h"
+
+#include <QDebug>
+#include <QtCore>
+#include <QtGlobal>
 
 QXLSX_USE_NAMESPACE
 
@@ -12,10 +12,10 @@ int definename()
 {
     //![0]
     Document xlsx;
-    for (int i=1; i<=10; ++i) {
+    for (int i = 1; i <= 10; ++i) {
         xlsx.write(i, 1, i);
-        xlsx.write(i, 2, i*i);
-        xlsx.write(i, 3, i*i*i);
+        xlsx.write(i, 2, i * i);
+        xlsx.write(i, 3, i * i * i);
     }
     //![0]
 
@@ -38,8 +38,7 @@ int definename()
     xlsx.saveAs("definename1.xlsx");
 
     Document xlsx2("definename1.xlsx");
-    if ( xlsx2.load() )
-    {
+    if (xlsx2.load()) {
         xlsx2.saveAs("definename2.xlsx");
     }
 

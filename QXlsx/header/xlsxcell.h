@@ -3,18 +3,18 @@
 #ifndef QXLSX_XLSXCELL_H
 #define QXLSX_XLSXCELL_H
 
+#include "xlsxformat.h"
+#include "xlsxglobal.h"
+
 #include <cstdio>
 
-#include <QtGlobal>
-#include <QObject>
-#include <QString>
-#include <QVariant>
 #include <QDate>
 #include <QDateTime>
+#include <QObject>
+#include <QString>
 #include <QTime>
-
-#include "xlsxglobal.h"
-#include "xlsxformat.h"
+#include <QVariant>
+#include <QtGlobal>
 
 QT_BEGIN_NAMESPACE_XLSX
 
@@ -26,7 +26,7 @@ class WorksheetPrivate;
 
 class QXLSX_EXPORT Cell
 {
-	Q_DECLARE_PRIVATE(Cell)
+    Q_DECLARE_PRIVATE(Cell)
 
 private:
     friend class Worksheet;
@@ -43,38 +43,37 @@ public:
         SharedStringType,
         StringType,
         CustomType, // custom or un-defined cell type
-	};
+    };
 
 public:
     Cell(const QVariant &data = QVariant(),
-            CellType type = NumberType,
-            const Format &format = Format(),
-            Worksheet *parent = nullptr,
-            qint32 styleIndex = (-1) );
-    Cell(const Cell * const cell);
+         CellType type        = NumberType,
+         const Format &format = Format(),
+         Worksheet *parent    = nullptr,
+         qint32 styleIndex    = (-1));
+    Cell(const Cell *const cell);
     ~Cell();
 
 public:
-    CellPrivate * const d_ptr; // See D-pointer and Q-pointer of Qt, for more information.
+    CellPrivate *const d_ptr; // See D-pointer and Q-pointer of Qt, for more information.
 
 public:
-	CellType cellType() const;
-	QVariant value() const;
-	QVariant readValue() const;
-	Format format() const;
-	
-	bool hasFormula() const;
-	CellFormula formula() const;
+    CellType cellType() const;
+    QVariant value() const;
+    QVariant readValue() const;
+    Format format() const;
 
-	bool isDateTime() const;
+    bool hasFormula() const;
+    CellFormula formula() const;
+
+    bool isDateTime() const;
     QVariant dateTime() const; // QDateTime, QDate, QTime
 
-	bool isRichString() const;
+    bool isRichString() const;
 
-	qint32 styleNumber() const;
+    qint32 styleNumber() const;
 
-	static bool isDateType(CellType cellType, const Format &format);
-
+    static bool isDateType(CellType cellType, const Format &format);
 };
 
 QT_END_NAMESPACE_XLSX

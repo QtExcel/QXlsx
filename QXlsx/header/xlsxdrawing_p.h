@@ -3,12 +3,12 @@
 #ifndef QXLSX_DRAWING_H
 #define QXLSX_DRAWING_H
 
-#include <QtGlobal>
+#include "xlsxabstractooxmlfile.h"
+#include "xlsxrelationships_p.h"
+
 #include <QList>
 #include <QString>
-
-#include "xlsxrelationships_p.h"
-#include "xlsxabstractooxmlfile.h"
+#include <QtGlobal>
 
 class QIODevice;
 class QXmlStreamWriter;

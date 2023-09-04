@@ -1,17 +1,17 @@
 // main.cpp
 
-#include <QtGlobal>
-#include <QCoreApplication>
-#include <QtCore>
-#include <QDebug>
-
 #include <iostream>
+
+#include <QCoreApplication>
+#include <QDebug>
+#include <QtCore>
+#include <QtGlobal>
 using namespace std;
 
-#include "xlsxdocument.h"
-#include "xlsxchartsheet.h"
 #include "xlsxcellrange.h"
 #include "xlsxchart.h"
+#include "xlsxchartsheet.h"
+#include "xlsxdocument.h"
 #include "xlsxrichstring.h"
 #include "xlsxworkbook.h"
 
@@ -36,46 +36,44 @@ extern int richtext();
 extern int rowcolumn();
 extern int style();
 extern int worksheetoperations();
-extern int readStyle(); 
+extern int readStyle();
 extern int pages();
 
 int main(int argc, char *argv[])
 {
-	QCoreApplication app(argc, argv);
+    QCoreApplication app(argc, argv);
 
-	if ( argc == 2 )
-	{
-		QString strArg1 = argv[1];
-		if ( strArg1 == QString("hello") )
-		{
-			hello();
-			return 0;
-		}
-	}
+    if (argc == 2) {
+        QString strArg1 = argv[1];
+        if (strArg1 == QString("hello")) {
+            hello();
+            return 0;
+        }
+    }
 
-	hello();
-	readStyle();
-	calendar();
+    hello();
+    readStyle();
+    calendar();
     chart();
     chartExtended();
     chartsheet();
-	datavalidation();
-	definename();
-	demo();
-	documentproperty();
-	extractdata();
-	formula();
-	hyperlink();
-	image();
-	mergecells();
-	numberformat();
-	richtext();
-	rowcolumn();
-	style();
-	worksheetoperations();
+    datavalidation();
+    definename();
+    demo();
+    documentproperty();
+    extractdata();
+    formula();
+    hyperlink();
+    image();
+    mergecells();
+    numberformat();
+    richtext();
+    rowcolumn();
+    style();
+    worksheetoperations();
     pages();
-	
+
     qDebug() << "**** end of main() ****";
 
-	return 0;
+    return 0;
 }

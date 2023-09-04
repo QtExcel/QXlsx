@@ -15,17 +15,13 @@ class QXLSX_EXPORT AbstractOOXmlFile
     Q_DECLARE_PRIVATE(AbstractOOXmlFile)
 
 public:
-    enum CreateFlag
-    {
-        F_NewFromScratch,
-        F_LoadFromExists
-    };
+    enum CreateFlag { F_NewFromScratch, F_LoadFromExists };
 
 public:
     virtual ~AbstractOOXmlFile();
 
     virtual void saveToXmlFile(QIODevice *device) const = 0;
-    virtual bool loadFromXmlFile(QIODevice *device) = 0;
+    virtual bool loadFromXmlFile(QIODevice *device)     = 0;
 
     virtual QByteArray saveToXmlData() const;
     virtual bool loadFromXmlData(const QByteArray &data);

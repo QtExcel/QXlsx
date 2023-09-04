@@ -1,67 +1,82 @@
 // demo.cpp
 
-#include <QtGlobal>
-#include <QtCore>
 #include <QDebug>
+#include <QtCore>
+#include <QtGlobal>
 
 #if QT_VERSION >= 0x060000 // Qt 6.0 or over
-#include <QRandomGenerator>
+#    include <QRandomGenerator>
 #endif
 
+#include "xlsxcellrange.h"
 #include "xlsxdocument.h"
 #include "xlsxformat.h"
-#include "xlsxcellrange.h"
 #include "xlsxworksheet.h"
 
 QXLSX_USE_NAMESPACE
 
-void writeHorizontalAlignCell(Document &xlsx, const QString &cell, const QString &text, Format::HorizontalAlignment align)
+void writeHorizontalAlignCell(Document &xlsx,
+                              const QString &cell,
+                              const QString &text,
+                              Format::HorizontalAlignment align)
 {
-   Format format;
-   format.setHorizontalAlignment(align);
-   format.setBorderStyle(Format::BorderThin);
-   xlsx.write(cell, text, format);
+    Format format;
+    format.setHorizontalAlignment(align);
+    format.setBorderStyle(Format::BorderThin);
+    xlsx.write(cell, text, format);
 }
 
-void writeVerticalAlignCell(Document &xlsx, const QString &range, const QString &text, Format::VerticalAlignment align)
+void writeVerticalAlignCell(Document &xlsx,
+                            const QString &range,
+                            const QString &text,
+                            Format::VerticalAlignment align)
 {
-   Format format;
-   format.setVerticalAlignment(align);
-   format.setBorderStyle(Format::BorderThin);
-   CellRange r(range);
-   xlsx.write(r.firstRow(), r.firstColumn(), text);
-   xlsx.mergeCells(r, format);
+    Format format;
+    format.setVerticalAlignment(align);
+    format.setBorderStyle(Format::BorderThin);
+    CellRange r(range);
+    xlsx.write(r.firstRow(), r.firstColumn(), text);
+    xlsx.mergeCells(r, format);
 }
 
-void writeBorderStyleCell(Document &xlsx, const QString &cell, const QString &text, Format::BorderStyle bs)
+void writeBorderStyleCell(Document &xlsx,
+                          const QString &cell,
+                          const QString &text,
+                          Format::BorderStyle bs)
 {
-   Format format;
-   format.setBorderStyle(bs);
-   xlsx.write(cell, text, format);
+    Format format;
+    format.setBorderStyle(bs);
+    xlsx.write(cell, text, format);
 }
 
 void writeSolidFillCell(Document &xlsx, const QString &cell, const QColor &color)
 {
-   Format format;
-   format.setPatternBackgroundColor(color);
-   xlsx.write(cell, QVariant(), format);
+    Format format;
+    format.setPatternBackgroundColor(color);
+    xlsx.write(cell, QVariant(), format);
 }
 
-void writePatternFillCell(Document &xlsx, const QString &cell, Format::FillPattern pattern, const QColor &color)
+void writePatternFillCell(Document &xlsx,
+                          const QString &cell,
+                          Format::FillPattern pattern,
+                          const QColor &color)
 {
-   Format format;
-   format.setPatternForegroundColor(color);
-   format.setFillPattern(pattern);
-   xlsx.write(cell, QVariant(), format);
+    Format format;
+    format.setPatternForegroundColor(color);
+    format.setFillPattern(pattern);
+    xlsx.write(cell, QVariant(), format);
 }
 
-void writeBorderAndFontColorCell(Document &xlsx, const QString &cell, const QString &text, const QColor &color)
+void writeBorderAndFontColorCell(Document &xlsx,
+                                 const QString &cell,
+                                 const QString &text,
+                                 const QColor &color)
 {
-   Format format;
-   format.setBorderStyle(Format::BorderThin);
-   format.setBorderColor(color);
-   format.setFontColor(color);
-   xlsx.write(cell, text, format);
+    Format format;
+    format.setBorderStyle(Format::BorderThin);
+    format.setBorderColor(color);
+    format.setFontColor(color);
+    xlsx.write(cell, text, format);
 }
 
 void writeFontNameCell(Document &xlsx, const QString &cell, const QString &text)
@@ -102,13 +117,13 @@ int demo()
     Document xlsx;
 
     //---------------------------------------------------------------
-    //Create the first sheet (Otherwise, default "Sheet1" will be created)
+    // Create the first sheet (Otherwise, default "Sheet1" will be created)
     xlsx.addSheet("Aligns & Borders");
-    xlsx.setColumnWidth(2, 20); //Column B
-    xlsx.setColumnWidth(8, 12); //Column H
+    xlsx.setColumnWidth(2, 20); // Column B
+    xlsx.setColumnWidth(8, 12); // Column H
     xlsx.currentWorksheet()->setGridLinesVisible(false);
 
-    //Alignment
+    // Alignment
     writeHorizontalAlignCell(xlsx, "B3", "AlignLeft", Format::AlignLeft);
     writeHorizontalAlignCell(xlsx, "B5", "AlignHCenter", Format::AlignHCenter);
     writeHorizontalAlignCell(xlsx, "B7", "AlignRight", Format::AlignRight);
@@ -116,7 +131,7 @@ int demo()
     writeVerticalAlignCell(xlsx, "F3:F7", "AlignVCenter", Format::AlignVCenter);
     writeVerticalAlignCell(xlsx, "H3:H7", "AlignBottom", Format::AlignBottom);
 
-    //Border
+    // Border
     writeBorderStyleCell(xlsx, "B13", "BorderMedium", Format::BorderMedium);
     writeBorderStyleCell(xlsx, "B15", "BorderDashed", Format::BorderDashed);
     writeBorderStyleCell(xlsx, "B17", "BorderDotted", Format::BorderDotted);
@@ -124,7 +139,7 @@ int demo()
     writeBorderStyleCell(xlsx, "B21", "BorderDouble", Format::BorderDouble);
     writeBorderStyleCell(xlsx, "B23", "BorderDashDot", Format::BorderDashDot);
 
-    //Fill
+    // Fill
     writeSolidFillCell(xlsx, "D13", Qt::red);
     writeSolidFillCell(xlsx, "D15", Qt::blue);
     writeSolidFillCell(xlsx, "D17", Qt::yellow);
@@ -146,7 +161,7 @@ int demo()
     writeBorderAndFontColorCell(xlsx, "H23", "Qt::gray", Qt::gray);
 
     //---------------------------------------------------------------
-    //Create the second sheet.
+    // Create the second sheet.
     xlsx.addSheet("Fonts");
 
     xlsx.write("B3", "Normal");
@@ -186,7 +201,7 @@ int demo()
     xlsx.mergeCells("J3:J9");
 
     //---------------------------------------------------------------
-    //Create the third sheet.
+    // Create the third sheet.
     xlsx.addSheet("Formulas");
     xlsx.setColumnWidth(1, 2, 40);
     Format rAlign;
@@ -249,7 +264,7 @@ int demo()
     xlsx.write("B33", "=HYPERLINK(\"http://qt-project.org\")", lAlign);
 
     //---------------------------------------------------------------
-    //Create the fourth sheet.
+    // Create the fourth sheet.
     xlsx.addSheet("NumFormats");
     xlsx.setColumnWidth(2, 40);
     writeInternalNumFormatsCell(xlsx, 4, 2.5681, 2);
@@ -267,7 +282,7 @@ int demo()
     writeCustomNumFormatsCell(xlsx, 16, 60, "[Red][<=100];[Green][>100]");
 
     //---------------------------------------------------------------
-    //Create the fifth sheet.
+    // Create the fifth sheet.
     xlsx.addSheet("Merging");
     Format centerAlign;
     centerAlign.setHorizontalAlignment(Format::AlignHCenter);
@@ -280,7 +295,7 @@ int demo()
     xlsx.mergeCells("E8:F21", centerAlign);
 
     //---------------------------------------------------------------
-    //Create the fifth sheet.
+    // Create the fifth sheet.
     xlsx.addSheet("Grouping");
 
 #if QT_VERSION >= 0x060000 // Qt 6.0 or over
@@ -288,10 +303,8 @@ int demo()
     qsrand(QDateTime::currentMSecsSinceEpoch());
 #endif
 
-    for (int row=2; row<31; ++row)
-    {
-        for (int col=1; col<=10; ++col)
-        {
+    for (int row = 2; row < 31; ++row) {
+        for (int col = 1; col <= 10; ++col) {
 #if QT_VERSION >= 0x060000 // Qt 6.0 or over
             QRandomGenerator rgen;
             xlsx.write(row, col, rgen.generate() % 100);
@@ -310,9 +323,9 @@ int demo()
 
     xlsx.saveAs("demo1.xlsx");
 
-    //Make sure that read/write works well.
+    // Make sure that read/write works well.
     Document xlsx2("demo1.xlsx");
-    xlsx2.saveAs("demo2.xlsx"); 
+    xlsx2.saveAs("demo2.xlsx");
 
     return 0;
 }

@@ -3,32 +3,37 @@
 #ifndef XLSXWORKBOOK_P_H
 #define XLSXWORKBOOK_P_H
 
-#include <QtGlobal>
+#include "xlsxabstractooxmlfile_p.h"
+#include "xlsxrelationships_p.h"
+#include "xlsxsimpleooxmlfile_p.h"
+#include "xlsxtheme_p.h"
+#include "xlsxworkbook.h"
+
 #include <QSharedPointer>
 #include <QStringList>
-
-#include "xlsxworkbook.h"
-#include "xlsxabstractooxmlfile_p.h"
-#include "xlsxtheme_p.h"
-#include "xlsxsimpleooxmlfile_p.h"
-#include "xlsxrelationships_p.h"
+#include <QtGlobal>
 
 QT_BEGIN_NAMESPACE_XLSX
 
-struct XlsxDefineNameData
-{
+struct XlsxDefineNameData {
     XlsxDefineNameData()
-        :sheetId(-1)
-    {}
-    XlsxDefineNameData(const QString &name, const QString &formula, const QString &comment, int sheetId=-1)
-        :name(name), formula(formula), comment(comment), sheetId(sheetId)
+        : sheetId(-1)
     {
-
+    }
+    XlsxDefineNameData(const QString &name,
+                       const QString &formula,
+                       const QString &comment,
+                       int sheetId = -1)
+        : name(name)
+        , formula(formula)
+        , comment(comment)
+        , sheetId(sheetId)
+    {
     }
     QString name;
     QString formula;
     QString comment;
-    //using internal sheetId, instead of the localSheetId(order in the workbook)
+    // using internal sheetId, instead of the localSheetId(order in the workbook)
     int sheetId;
 };
 
@@ -39,13 +44,13 @@ public:
     WorkbookPrivate(Workbook *q, Workbook::CreateFlag flag);
 
     QSharedPointer<SharedStrings> sharedStrings;
-    QList<QSharedPointer<AbstractSheet> > sheets;
-    QList<QSharedPointer<SimpleOOXmlFile> > externalLinks;
+    QList<QSharedPointer<AbstractSheet>> sheets;
+    QList<QSharedPointer<SimpleOOXmlFile>> externalLinks;
     QStringList sheetNames;
     QSharedPointer<Styles> styles;
     QSharedPointer<Theme> theme;
-    QList<std::shared_ptr<MediaFile> > mediaFiles;
-    QList<QSharedPointer<Chart> > chartFiles;
+    QList<std::shared_ptr<MediaFile>> mediaFiles;
+    QList<QSharedPointer<Chart>> chartFiles;
     QList<XlsxDefineNameData> definedNamesList;
 
     bool strings_to_numbers_enabled;
@@ -63,7 +68,7 @@ public:
     int firstsheet;
     int table_count;
 
-    //Used to generate new sheet name and id
+    // Used to generate new sheet name and id
     int last_worksheet_index;
     int last_chartsheet_index;
     int last_sheet_id;

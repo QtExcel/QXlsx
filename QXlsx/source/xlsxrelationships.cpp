@@ -1,23 +1,23 @@
 // xlsxrelationships.cpp
 
-#include <QtGlobal>
-#include <QXmlStreamWriter>
-#include <QXmlStreamReader>
+#include "xlsxrelationships_p.h"
+
+#include <QBuffer>
 #include <QDir>
 #include <QFile>
-#include <QBuffer>
-
-#include "xlsxrelationships_p.h"
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
+#include <QtGlobal>
 
 QT_BEGIN_NAMESPACE_XLSX
 
-const QLatin1String schema_doc("http://schemas.openxmlformats.org/officeDocument/2006/relationships");
+const QLatin1String
+    schema_doc("http://schemas.openxmlformats.org/officeDocument/2006/relationships");
 const QLatin1String schema_msPackage("http://schemas.microsoft.com/office/2006/relationships");
 const QLatin1String schema_package("http://schemas.openxmlformats.org/package/2006/relationships");
-//const QString schema_worksheet = QStringLiteral("http://schemas.openxmlformats.org/officeDocument/2006/relationships");
-Relationships::Relationships()
-{
-}
+// const QString schema_worksheet =
+// QStringLiteral("http://schemas.openxmlformats.org/officeDocument/2006/relationships");
+Relationships::Relationships() {}
 
 QList<XlsxRelationship> Relationships::documentRelationships(const QString &relativeType) const
 {
@@ -54,7 +54,9 @@ QList<XlsxRelationship> Relationships::worksheetRelationships(const QString &rel
     return relationships(schema_doc + relativeType);
 }
 
-void Relationships::addWorksheetRelationship(const QString &relativeType, const QString &target, const QString &targetMode)
+void Relationships::addWorksheetRelationship(const QString &relativeType,
+                                             const QString &target,
+                                             const QString &targetMode)
 {
     addRelationship(schema_doc + relativeType, target, targetMode);
 }
@@ -69,12 +71,14 @@ QList<XlsxRelationship> Relationships::relationships(const QString &type) const
     return res;
 }
 
-void Relationships::addRelationship(const QString &type, const QString &target, const QString &targetMode)
+void Relationships::addRelationship(const QString &type,
+                                    const QString &target,
+                                    const QString &targetMode)
 {
     XlsxRelationship relation;
-    relation.id = QStringLiteral("rId%1").arg(m_relationships.size()+1);
-    relation.type = type;
-    relation.target = target;
+    relation.id         = QStringLiteral("rId%1").arg(m_relationships.size() + 1);
+    relation.type       = type;
+    relation.target     = target;
     relation.targetMode = targetMode;
 
     m_relationships.append(relation);
@@ -86,7 +90,9 @@ void Relationships::saveToXmlFile(QIODevice *device) const
 
     writer.writeStartDocument(QStringLiteral("1.0"), true);
     writer.writeStartElement(QStringLiteral("Relationships"));
-    writer.writeAttribute(QStringLiteral("xmlns"), QStringLiteral("http://schemas.openxmlformats.org/package/2006/relationships"));
+    writer.writeAttribute(
+        QStringLiteral("xmlns"),
+        QStringLiteral("http://schemas.openxmlformats.org/package/2006/relationships"));
     for (const XlsxRelationship &relation : m_relationships) {
         writer.writeStartElement(QStringLiteral("Relationship"));
         writer.writeAttribute(QStringLiteral("Id"), relation.id);
@@ -96,7 +102,7 @@ void Relationships::saveToXmlFile(QIODevice *device) const
             writer.writeAttribute(QStringLiteral("TargetMode"), relation.targetMode);
         writer.writeEndElement();
     }
-    writer.writeEndElement();//Relationships
+    writer.writeEndElement(); // Relationships
     writer.writeEndDocument();
 }
 
@@ -115,20 +121,20 @@ bool Relationships::loadFromXmlFile(QIODevice *device)
     clear();
     QXmlStreamReader reader(device);
     while (!reader.atEnd()) {
-         QXmlStreamReader::TokenType token = reader.readNext();
-         if (token == QXmlStreamReader::StartElement) {
-             if (reader.name() == QStringLiteral("Relationship")) {
-                 QXmlStreamAttributes attributes = reader.attributes();
-                 XlsxRelationship relationship;
-                 relationship.id = attributes.value(QLatin1String("Id")).toString();
-                 relationship.type = attributes.value(QLatin1String("Type")).toString();
-                 relationship.target = attributes.value(QLatin1String("Target")).toString();
-                 relationship.targetMode = attributes.value(QLatin1String("TargetMode")).toString();
-                 m_relationships.append(relationship);
-             }
-         }
+        QXmlStreamReader::TokenType token = reader.readNext();
+        if (token == QXmlStreamReader::StartElement) {
+            if (reader.name() == QStringLiteral("Relationship")) {
+                QXmlStreamAttributes attributes = reader.attributes();
+                XlsxRelationship relationship;
+                relationship.id         = attributes.value(QLatin1String("Id")).toString();
+                relationship.type       = attributes.value(QLatin1String("Type")).toString();
+                relationship.target     = attributes.value(QLatin1String("Target")).toString();
+                relationship.targetMode = attributes.value(QLatin1String("TargetMode")).toString();
+                m_relationships.append(relationship);
+            }
+        }
 
-         if (reader.hasError())
+        if (reader.hasError())
             return false;
     }
     return true;

@@ -3,18 +3,22 @@
 #ifndef XLSXDATAVALIDATION_P_H
 #define XLSXDATAVALIDATION_P_H
 
-#include <QtGlobal>
-#include <QSharedData>
-
 #include "xlsxdatavalidation.h"
+
+#include <QSharedData>
+#include <QtGlobal>
 
 QT_BEGIN_NAMESPACE_XLSX
 
-class    DataValidationPrivate : public QSharedData
+class DataValidationPrivate : public QSharedData
 {
 public:
     DataValidationPrivate();
-    DataValidationPrivate(DataValidation::ValidationType type, DataValidation::ValidationOperator op, const QString &formula1, const QString &formula2, bool allowBlank);
+    DataValidationPrivate(DataValidation::ValidationType type,
+                          DataValidation::ValidationOperator op,
+                          const QString &formula1,
+                          const QString &formula2,
+                          bool allowBlank);
     DataValidationPrivate(const DataValidationPrivate &other);
     ~DataValidationPrivate();
 

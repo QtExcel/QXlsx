@@ -1,16 +1,15 @@
 // xlsxdatetype.cpp
 
-#include <QtGlobal>
+#include "xlsxdatetype.h"
 
 #include "xlsxglobal.h"
 #include "xlsxutility_p.h"
-#include "xlsxdatetype.h"
+
+#include <QtGlobal>
 
 QT_BEGIN_NAMESPACE_XLSX
 
-DateType::DateType()
-{
-}
+DateType::DateType() {}
 
 /*
 DateType::DateType(bool is1904)

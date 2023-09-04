@@ -3,11 +3,11 @@
 #ifndef QXLSX_ZIPWRITER_H
 #define QXLSX_ZIPWRITER_H
 
-#include <QtGlobal>
-#include <QString>
-#include <QIODevice>
-
 #include "xlsxglobal.h"
+
+#include <QIODevice>
+#include <QString>
+#include <QtGlobal>
 
 class QZipWriter;
 

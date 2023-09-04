@@ -3,11 +3,11 @@
 #ifndef QXLSX_XLSXCELLRANGE_H
 #define QXLSX_XLSXCELLRANGE_H
 
-#include <QtGlobal>
-#include <QObject>
-
-#include "xlsxglobal.h"
 #include "xlsxcellreference.h"
+#include "xlsxglobal.h"
+
+#include <QObject>
+#include <QtGlobal>
 
 QT_BEGIN_NAMESPACE_XLSX
 
@@ -23,7 +23,7 @@ public:
     CellRange(const CellRange &other);
     ~CellRange();
 
-    QString toString(bool row_abs=false, bool col_abs=false) const;
+    QString toString(bool row_abs = false, bool col_abs = false) const;
     bool isValid() const;
     inline void setFirstRow(int row) { top = row; }
     inline void setLastRow(int row) { bottom = row; }
@@ -40,23 +40,24 @@ public:
     inline CellReference bottomLeft() const { return CellReference(bottom, left); }
     inline CellReference bottomRight() const { return CellReference(bottom, right); }
 
-    inline void operator =(const CellRange &other)
+    inline void operator=(const CellRange &other)
     {
-        top = other.top;
+        top    = other.top;
         bottom = other.bottom;
-        left = other.left;
-        right = other.right;
+        left   = other.left;
+        right  = other.right;
     }
-    inline bool operator ==(const CellRange &other) const
+    inline bool operator==(const CellRange &other) const
     {
-        return top==other.top && bottom==other.bottom
-                && left == other.left && right == other.right;
+        return top == other.top && bottom == other.bottom && left == other.left &&
+               right == other.right;
     }
-    inline bool operator !=(const CellRange &other) const
+    inline bool operator!=(const CellRange &other) const
     {
-        return top!=other.top || bottom!=other.bottom
-                || left != other.left || right != other.right;
+        return top != other.top || bottom != other.bottom || left != other.left ||
+               right != other.right;
     }
+
 private:
     void init(const QString &range);
 
