@@ -1,23 +1,22 @@
 // xlsxabstractsheet.cpp
 
-#include <QtGlobal>
-
 #include "xlsxabstractsheet.h"
+
 #include "xlsxabstractsheet_p.h"
 #include "xlsxworkbook.h"
+
+#include <QtGlobal>
 
 QT_BEGIN_NAMESPACE_XLSX
 
 AbstractSheetPrivate::AbstractSheetPrivate(AbstractSheet *p, AbstractSheet::CreateFlag flag)
     : AbstractOOXmlFilePrivate(p, flag)
 {
-    type = AbstractSheet::ST_WorkSheet;
+    type       = AbstractSheet::ST_WorkSheet;
     sheetState = AbstractSheet::SS_Visible;
 }
 
-AbstractSheetPrivate::~AbstractSheetPrivate()
-{
-}
+AbstractSheetPrivate::~AbstractSheetPrivate() {}
 
 /*!
   \class AbstractSheet
@@ -52,14 +51,16 @@ AbstractSheetPrivate::~AbstractSheetPrivate()
 /*!
  * \internal
  */
-AbstractSheet::AbstractSheet(const QString &name, int id, Workbook *workbook, AbstractSheetPrivate *d) :
-    AbstractOOXmlFile(d)
+AbstractSheet::AbstractSheet(const QString &name,
+                             int id,
+                             Workbook *workbook,
+                             AbstractSheetPrivate *d)
+    : AbstractOOXmlFile(d)
 {
-    d_func()->name = name;
-    d_func()->id = id;
+    d_func()->name     = name;
+    d_func()->id       = id;
     d_func()->workbook = workbook;
 }
-
 
 /*!
  * Returns the name of the sheet.

@@ -1,12 +1,12 @@
 // richtext.cpp
 
-#include <QtGlobal>
-#include <QtCore>
-
 #include "xlsxdocument.h"
+#include "xlsxformat.h"
 #include "xlsxrichstring.h"
 #include "xlsxworkbook.h"
-#include "xlsxformat.h"
+
+#include <QtCore>
+#include <QtGlobal>
 
 int richtext()
 {

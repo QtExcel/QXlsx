@@ -3,10 +3,10 @@
 #ifndef XLSXCHARTSHEET_H
 #define XLSXCHARTSHEET_H
 
-#include <QtGlobal>
-#include <QStringList>
-
 #include "xlsxabstractsheet.h"
+
+#include <QStringList>
+#include <QtGlobal>
 
 QT_BEGIN_NAMESPACE_XLSX
 

@@ -3,22 +3,22 @@
 #ifndef XLSXDOCPROPSAPP_H
 #define XLSXDOCPROPSAPP_H
 
-#include <QList>
-#include <QStringList>
-#include <QMap>
-
-#include "xlsxglobal.h"
 #include "xlsxabstractooxmlfile.h"
+#include "xlsxglobal.h"
+
+#include <QList>
+#include <QMap>
+#include <QStringList>
 
 class QIODevice;
 
 QT_BEGIN_NAMESPACE_XLSX
 
-class  DocPropsApp : public AbstractOOXmlFile
+class DocPropsApp : public AbstractOOXmlFile
 {
 public:
     DocPropsApp(CreateFlag flag);
-    
+
     void addPartTitle(const QString &title);
     void addHeadingPair(const QString &name, int value);
 
@@ -31,7 +31,7 @@ public:
 
 private:
     QStringList m_titlesOfPartsList;
-    QList<std::pair<QString, int> > m_headingPairsList;
+    QList<std::pair<QString, int>> m_headingPairsList;
     QMap<QString, QString> m_properties;
 };
 

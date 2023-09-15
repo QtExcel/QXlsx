@@ -3,19 +3,18 @@
 #ifndef QXLSX_XLSXZIPREADER_P_H
 #define QXLSX_XLSXZIPREADER_P_H
 
-#include <QScopedPointer>
-#include <QStringList>
-#include <QIODevice>
-
 #include "xlsxglobal.h"
 
+#include <QIODevice>
+#include <QScopedPointer>
+#include <QStringList>
 #include <QVector>
 
 class QZipReader;
 
 QT_BEGIN_NAMESPACE_XLSX
 
-class  ZipReader
+class ZipReader
 {
 public:
     explicit ZipReader(const QString &fileName);

@@ -1,13 +1,13 @@
 // formulas.cpp
 
-#include <QtGlobal>
-#include <QtCore>
-#include <QDebug>
-
+#include "xlsxcellformula.h"
 #include "xlsxdocument.h"
 #include "xlsxformat.h"
 #include "xlsxworksheet.h"
-#include "xlsxcellformula.h"
+
+#include <QDebug>
+#include <QtCore>
+#include <QtGlobal>
 
 QXLSX_USE_NAMESPACE
 
@@ -59,36 +59,42 @@ int formula()
     xlsx.addSheet("ArrayFormula");
     Worksheet *sheet = xlsx.currentWorksheet();
 
-    for (int row=2; row<20; ++row) {
-        sheet->write(row, 2, row*2); //B2:B19
-        sheet->write(row, 3, row*3); //C2:C19
+    for (int row = 2; row < 20; ++row) {
+        sheet->write(row, 2, row * 2); // B2:B19
+        sheet->write(row, 3, row * 3); // C2:C19
     }
     sheet->writeFormula("D2", CellFormula("B2:B19+C2:C19", "D2:D19", CellFormula::ArrayType));
-    sheet->writeFormula("E2", CellFormula("=CONCATENATE(\"The total is \",D2:D19,\" units\")", "E2:E19", CellFormula::ArrayType));
+    sheet->writeFormula("E2",
+                        CellFormula("=CONCATENATE(\"The total is \",D2:D19,\" units\")",
+                                    "E2:E19",
+                                    CellFormula::ArrayType));
     //![2]
 
     //![21]
     xlsx.addSheet("SharedFormula");
     sheet = xlsx.currentWorksheet();
 
-    for (int row=2; row<20; ++row) {
-        sheet->write(row, 2, row*2); //B2:B19
-        sheet->write(row, 3, row*3); //C2:C19
+    for (int row = 2; row < 20; ++row) {
+        sheet->write(row, 2, row * 2); // B2:B19
+        sheet->write(row, 3, row * 3); // C2:C19
     }
     sheet->writeFormula("D2", CellFormula("=B2+C2", "D2:D19", CellFormula::SharedType));
-    sheet->writeFormula("E2", CellFormula("=CONCATENATE(\"The total is \",D2,\" units\")", "E2:E19", CellFormula::SharedType));
+    sheet->writeFormula("E2",
+                        CellFormula("=CONCATENATE(\"The total is \",D2,\" units\")",
+                                    "E2:E19",
+                                    CellFormula::SharedType));
 
     //![21]
 
     //![3]
-	xlsx.saveAs("formula1.xlsx");
+    xlsx.saveAs("formula1.xlsx");
     //![3]
 
-    //Make sure that read/write works well.
+    // Make sure that read/write works well.
     Document xlsx2("formula1.xlsx");
-    Worksheet *sharedFormulaSheet = dynamic_cast<Worksheet*>(xlsx2.sheet("SharedFormula"));
-    for (int row=2; row<20; ++row) {
-        qDebug()<<sharedFormulaSheet->read(row, 4);
+    Worksheet *sharedFormulaSheet = dynamic_cast<Worksheet *>(xlsx2.sheet("SharedFormula"));
+    for (int row = 2; row < 20; ++row) {
+        qDebug() << sharedFormulaSheet->read(row, 4);
     }
 
     xlsx2.saveAs("formula2.xlsx");

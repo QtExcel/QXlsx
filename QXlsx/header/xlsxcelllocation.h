@@ -3,16 +3,16 @@
 #ifndef CELL_LOCATION_H
 #define CELL_LOCATION_H
 
-#include <QtGlobal>
-#include <QObject>
-#include <QString>
-#include <QVector>
-#include <QList>
-#include <QMetaType>
+#include "xlsxglobal.h"
 
 #include <memory>
 
-#include "xlsxglobal.h"
+#include <QList>
+#include <QMetaType>
+#include <QObject>
+#include <QString>
+#include <QVector>
+#include <QtGlobal>
 
 QT_BEGIN_NAMESPACE_XLSX
 

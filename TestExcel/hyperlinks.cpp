@@ -1,10 +1,10 @@
 // hyperlink.cpp
 
-#include <QtGlobal>
-#include <QtCore>
-#include <QDebug>
-
 #include "xlsxdocument.h"
+
+#include <QDebug>
+#include <QtCore>
+#include <QtGlobal>
 
 int hyperlink()
 {

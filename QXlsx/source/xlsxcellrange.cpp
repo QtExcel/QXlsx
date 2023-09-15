@@ -1,12 +1,13 @@
 // xlsxcellrange.cpp
 
-#include <QtGlobal>
-#include <QString>
-#include <QPoint>
-#include <QStringList>
-
 #include "xlsxcellrange.h"
+
 #include "xlsxcellreference.h"
+
+#include <QPoint>
+#include <QString>
+#include <QStringList>
+#include <QtGlobal>
 
 QT_BEGIN_NAMESPACE_XLSX
 
@@ -24,7 +25,10 @@ QT_BEGIN_NAMESPACE_XLSX
     whose rowCount() and columnCount() are 0.
 */
 CellRange::CellRange()
-    : top(-1), left(-1), bottom(-2), right(-2)
+    : top(-1)
+    , left(-1)
+    , bottom(-2)
+    , right(-2)
 {
 }
 
@@ -35,13 +39,18 @@ CellRange::CellRange()
     \sa topRow(), leftColumn(), bottomRow(), rightColumn()
 */
 CellRange::CellRange(int top, int left, int bottom, int right)
-    : top(top), left(left), bottom(bottom), right(right)
+    : top(top)
+    , left(left)
+    , bottom(bottom)
+    , right(right)
 {
 }
 
 CellRange::CellRange(const CellReference &topLeft, const CellReference &bottomRight)
-    : top(topLeft.row()), left(topLeft.column())
-    , bottom(bottomRight.row()), right(bottomRight.column())
+    : top(topLeft.row())
+    , left(topLeft.column())
+    , bottom(bottomRight.row())
+    , right(bottomRight.column())
 {
 }
 
@@ -69,16 +78,16 @@ void CellRange::init(const QString &range)
     if (rs.size() == 2) {
         CellReference start(rs[0]);
         CellReference end(rs[1]);
-        top = start.row();
-        left = start.column();
+        top    = start.row();
+        left   = start.column();
         bottom = end.row();
-        right = end.column();
+        right  = end.column();
     } else {
         CellReference p(rs[0]);
-        top = p.row();
-        left = p.column();
+        top    = p.row();
+        left   = p.column();
         bottom = p.row();
-        right = p.column();
+        right  = p.column();
     }
 }
 
@@ -87,16 +96,17 @@ void CellRange::init(const QString &range)
     other range.
 */
 CellRange::CellRange(const CellRange &other)
-    : top(other.top), left(other.left), bottom(other.bottom), right(other.right)
+    : top(other.top)
+    , left(other.left)
+    , bottom(other.bottom)
+    , right(other.right)
 {
 }
 
 /*!
     Destroys the range.
 */
-CellRange::~CellRange()
-{
-}
+CellRange::~CellRange() {}
 
 /*!
      Convert the range to string notation, such as "A1:B5".
@@ -107,7 +117,7 @@ QString CellRange::toString(bool row_abs, bool col_abs) const
         return QString();
 
     if (left == right && top == bottom) {
-        //Single cell
+        // Single cell
         return CellReference(top, left).toString(row_abs, col_abs);
     }
 

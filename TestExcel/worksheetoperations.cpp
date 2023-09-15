@@ -1,10 +1,10 @@
 // worksheetoperations.cpp
 
-#include <QtGlobal>
-#include <QtCore>
-
-#include "xlsxdocument.h"
 #include "xlsxabstractsheet.h"
+#include "xlsxdocument.h"
+
+#include <QtCore>
+#include <QtGlobal>
 
 QXLSX_USE_NAMESPACE
 
@@ -13,8 +13,8 @@ int worksheetoperations()
     //![Create a xlsx file]
     Document xlsx;
 
-    for (int i=1; i<20; ++i) {
-        for (int j=1; j<15; ++j)
+    for (int i = 1; i < 20; ++i) {
+        for (int j = 1; j < 15; ++j)
             xlsx.write(i, j, QString("R %1 C %2").arg(i).arg(j));
     }
     xlsx.addSheet();

@@ -3,21 +3,19 @@
 #include <iostream>
 #include <vector>
 
-#include <QtGlobal>
 #include <QCoreApplication>
-#include <QtCore>
-#include <QVariant>
-#include <QDir>
 #include <QDebug>
-
-#include <iostream>
+#include <QDir>
+#include <QVariant>
+#include <QtCore>
+#include <QtGlobal>
 using namespace std;
 
 // [0] include QXlsx headers
-#include "xlsxdocument.h"
-#include "xlsxchartsheet.h"
 #include "xlsxcellrange.h"
 #include "xlsxchart.h"
+#include "xlsxchartsheet.h"
+#include "xlsxdocument.h"
 #include "xlsxrichstring.h"
 #include "xlsxworkbook.h"
 using namespace QXlsx;
@@ -28,8 +26,7 @@ int main(int argc, char *argv[])
 {
     QCoreApplication app(argc, argv);
 
-    if ( argc != 2 )
-    {
+    if (argc != 2) {
         std::cout << "[Usage] ShowConsole *.xlsx" << std::endl;
         return 0;
     }
@@ -39,54 +36,47 @@ int main(int argc, char *argv[])
     qDebug() << xlsxFileName;
 
     // tried to load xlsx using temporary document
-    QXlsx::Document xlsxTmp( xlsxFileName );
-    if ( !xlsxTmp.isLoadPackage() )
-    {
+    QXlsx::Document xlsxTmp(xlsxFileName);
+    if (!xlsxTmp.isLoadPackage()) {
         qCritical() << "Failed to load" << xlsxFileName;
         return (-1); // failed to load
     }
 
     // load new xlsx using new document
-    QXlsx::Document xlsxDoc( xlsxFileName );
+    QXlsx::Document xlsxDoc(xlsxFileName);
     xlsxDoc.isLoadPackage();
 
     int sheetIndexNumber = 0;
-    foreach( QString curretnSheetName, xlsxDoc.sheetNames() )
-    {
-        QXlsx::AbstractSheet* currentSheet = xlsxDoc.sheet( curretnSheetName );
-        if ( NULL == currentSheet )
+    foreach (QString curretnSheetName, xlsxDoc.sheetNames()) {
+        QXlsx::AbstractSheet *currentSheet = xlsxDoc.sheet(curretnSheetName);
+        if (NULL == currentSheet)
             continue;
 
         // get full cells of sheet
         int maxRow = -1;
         int maxCol = -1;
-        currentSheet->workbook()->setActiveSheet( sheetIndexNumber );
-        Worksheet* wsheet = (Worksheet*) currentSheet->workbook()->activeSheet();
-        if ( NULL == wsheet )
+        currentSheet->workbook()->setActiveSheet(sheetIndexNumber);
+        Worksheet *wsheet = (Worksheet *) currentSheet->workbook()->activeSheet();
+        if (NULL == wsheet)
             continue;
 
         QString strSheetName = wsheet->sheetName(); // sheet name
 
         // display sheet name
-        std::cout
-                << std::string( strSheetName.toLocal8Bit() )
-                << std::endl;
+        std::cout << std::string(strSheetName.toLocal8Bit()) << std::endl;
 
-        QVector<CellLocation> clList = wsheet->getFullCells( &maxRow, &maxCol );
+        QVector<CellLocation> clList = wsheet->getFullCells(&maxRow, &maxCol);
 
-        QVector< QVector<QString> > cellValues;
-        for (int rc = 0; rc < maxRow; rc++)
-        {
+        QVector<QVector<QString>> cellValues;
+        for (int rc = 0; rc < maxRow; rc++) {
             QVector<QString> tempValue;
-            for (int cc = 0; cc < maxCol; cc++)
-            {
+            for (int cc = 0; cc < maxCol; cc++) {
                 tempValue.push_back(QString(""));
             }
             cellValues.push_back(tempValue);
         }
 
-        for ( int ic = 0; ic < clList.size(); ++ic )
-         {
+        for (int ic = 0; ic < clList.size(); ++ic) {
             // cell location
             CellLocation cl = clList.at(ic);
 
@@ -109,12 +99,10 @@ int main(int argc, char *argv[])
         }
 
         fort::table fortTable;
-        for (int rc = 0; rc < maxRow; rc++)
-        {
-            for (int cc = 0; cc < maxCol; cc++)
-            {
+        for (int rc = 0; rc < maxRow; rc++) {
+            for (int cc = 0; cc < maxCol; cc++) {
                 QString strTemp = cellValues[rc][cc];
-                fortTable << std::string( strTemp.toLocal8Bit() ); // display value
+                fortTable << std::string(strTemp.toLocal8Bit()); // display value
             }
             fortTable << fort::endr; // change to new row
         }
@@ -123,7 +111,6 @@ int main(int argc, char *argv[])
 
         sheetIndexNumber++;
     }
-
 
     return 0;
 }

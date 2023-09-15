@@ -37,8 +37,8 @@
 //
 #include "xlsxabstractooxmlfile.h"
 
-#include <QString>
 #include <QIODevice>
+#include <QString>
 
 QT_BEGIN_NAMESPACE_XLSX
 
