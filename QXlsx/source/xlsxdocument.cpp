@@ -1010,15 +1010,9 @@ bool Document::addConditionalFormatting(const ConditionalFormatting &cf)
  */
 Cell *Document::cellAt(const CellReference &pos) const
 {
-<<<<<<< HEAD
     if (Worksheet *sheet = currentWorksheet())
         return sheet->cellAt(pos);
     return nullptr;
-=======
-    if (Worksheet *sheet = currentWorksheet())
-        return sheet->cellAt(pos);
-    return 0;
->>>>>>> upstream/master
 }
 
 /*!
@@ -1029,15 +1023,9 @@ Cell *Document::cellAt(const CellReference &pos) const
  */
 Cell *Document::cellAt(int row, int col) const
 {
-<<<<<<< HEAD
     if (Worksheet *sheet = currentWorksheet())
         return sheet->cellAt(row, col);
     return nullptr;
-=======
-    if (Worksheet *sheet = currentWorksheet())
-        return sheet->cellAt(row, col);
-    return 0;
->>>>>>> upstream/master
 }
 
 /*!
@@ -1217,19 +1205,11 @@ AbstractSheet *Document::currentSheet() const
  */
 Worksheet *Document::currentWorksheet() const
 {
-<<<<<<< HEAD
     AbstractSheet *st = currentSheet();
     if (st && st->sheetType() == AbstractSheet::ST_WorkSheet)
         return static_cast<Worksheet *>(st);
     else
         return nullptr;
-=======
-    AbstractSheet *st = currentSheet();
-    if (st && st->sheetType() == AbstractSheet::ST_WorkSheet)
-        return static_cast<Worksheet *>(st);
-    else
-        return 0;
->>>>>>> upstream/master
 }
 
 /*!
