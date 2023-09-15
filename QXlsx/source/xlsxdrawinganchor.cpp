@@ -898,9 +898,11 @@ void DrawingAnchor::saveXmlObjectShape(QXmlStreamWriter &writer) const
         writer.writeStartElement(QStringLiteral("a:blip"));
         writer.writeAttribute(
             QStringLiteral("r:embed"),
-            QStringLiteral("rId%1").arg(m_drawing->relationships()->count())); // sp_blip_rembed
-                                                                               // QStringLiteral("rId%1").arg(m_drawing->relationships()->count())
-                                                                               // can't made new pic
+            QStringLiteral("rId%1").arg(
+                m_drawing->relationships()
+                    ->count())); // sp_blip_rembed
+                                 // QStringLiteral("rId%1").arg(m_drawing->relationships()->count())
+                                 // can't made new pic
         writer.writeAttribute(
             QStringLiteral("xmlns:r"),
             QStringLiteral("http://schemas.openxmlformats.org/officeDocument/2006/relationships"));
