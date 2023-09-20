@@ -57,7 +57,9 @@ DrawingAnchor::DrawingAnchor(Drawing *drawing, ObjectType objectType)
     m_id = m_drawing->anchors.size(); // must be unique in one drawing{x}.xml file.
 }
 
-DrawingAnchor::~DrawingAnchor() {}
+DrawingAnchor::~DrawingAnchor()
+{
+}
 
 void DrawingAnchor::setObjectPicture(const QImage &img)
 {

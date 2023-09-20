@@ -22,7 +22,9 @@ ChartsheetPrivate::ChartsheetPrivate(Chartsheet *p, Chartsheet::CreateFlag flag)
 {
 }
 
-ChartsheetPrivate::~ChartsheetPrivate() {}
+ChartsheetPrivate::~ChartsheetPrivate()
+{
+}
 
 /*!
   \class Chartsheet
@@ -72,7 +74,9 @@ Chartsheet *Chartsheet::copy(const QString &distName, int distId) const
 /*!
  * Destroys this workssheet.
  */
-Chartsheet::~Chartsheet() {}
+Chartsheet::~Chartsheet()
+{
+}
 
 /*!
  * Returns the chart object of the sheet.

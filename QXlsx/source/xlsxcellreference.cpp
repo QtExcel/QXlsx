@@ -127,7 +127,9 @@ CellReference::CellReference(const CellReference &other)
 /*!
     Destroys the Reference.
 */
-CellReference::~CellReference() {}
+CellReference::~CellReference()
+{
+}
 
 /*!
      Convert the Reference to string notation, such as "A1" or "$A$1".

@@ -20,7 +20,9 @@ ChartPrivate::ChartPrivate(Chart *q, Chart::CreateFlag flag)
 {
 }
 
-ChartPrivate::~ChartPrivate() {}
+ChartPrivate::~ChartPrivate()
+{
+}
 
 /*!
  * \internal
@@ -42,7 +44,9 @@ Chart::Chart(AbstractSheet *parent, CreateFlag flag)
 /*!
  * Destroys the chart.
  */
-Chart::~Chart() {}
+Chart::~Chart()
+{
+}
 
 /*!
  * Add the data series which is in the range \a range of the \a sheet.

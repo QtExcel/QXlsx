@@ -17,7 +17,9 @@ const QLatin1String schema_msPackage("http://schemas.microsoft.com/office/2006/r
 const QLatin1String schema_package("http://schemas.openxmlformats.org/package/2006/relationships");
 // const QString schema_worksheet =
 // QStringLiteral("http://schemas.openxmlformats.org/officeDocument/2006/relationships");
-Relationships::Relationships() {}
+Relationships::Relationships()
+{
+}
 
 QList<XlsxRelationship> Relationships::documentRelationships(const QString &relativeType) const
 {

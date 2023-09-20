@@ -58,7 +58,9 @@ FormatPrivate::FormatPrivate(const FormatPrivate &other)
 {
 }
 
-FormatPrivate::~FormatPrivate() {}
+FormatPrivate::~FormatPrivate()
+{
+}
 
 /*!
  * \class Format
@@ -202,7 +204,9 @@ Format &Format::operator=(const Format &other)
 /*!
  * Destroys this format.
  */
-Format::~Format() {}
+Format::~Format()
+{
+}
 
 /*!
  * Returns the number format identifier.

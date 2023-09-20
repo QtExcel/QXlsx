@@ -55,7 +55,9 @@ Workbook::Workbook(CreateFlag flag)
 {
 }
 
-Workbook::~Workbook() {}
+Workbook::~Workbook()
+{
+}
 
 bool Workbook::isDate1904() const
 {
