@@ -2261,6 +2261,9 @@ void WorksheetPrivate::loadXmlSheetData(QXmlStreamReader &reader)
 
     Q_ASSERT(reader.name() == QLatin1String("sheetData"));
 
+    int row_num = 0;
+    int col_num = 0;
+
     while (!reader.atEnd() && !(reader.name() == QLatin1String("sheetData") &&
                                 reader.tokenType() == QXmlStreamReader::EndElement)) {
         if (reader.readNextStartElement()) {
@@ -2305,6 +2308,12 @@ void WorksheetPrivate::loadXmlSheetData(QXmlStreamReader &reader)
                     }
                 }
 
+                if (attributes.hasAttribute(QLatin1String("r")))
+                    row_num = attributes.value(QLatin1String("r")).toInt();
+                else
+                    ++row_num;
+                col_num = 0;
+
             } else if (reader.name() == QLatin1String("c")) // Cell
             {
 
@@ -2312,6 +2321,11 @@ void WorksheetPrivate::loadXmlSheetData(QXmlStreamReader &reader)
                 QXmlStreamAttributes attributes = reader.attributes();
                 QString r                       = attributes.value(QLatin1String("r")).toString();
                 CellReference pos(r);
+                if (r.isEmpty())
+                {
+                    pos.setRow(row_num);
+                    pos.setColumn(++col_num);
+                }
 
                 // get format
                 Format format;
@@ -2433,6 +2447,12 @@ void WorksheetPrivate::loadXmlSheetData(QXmlStreamReader &reader)
             }
         }
     }
+
+    if (dimension.lastRow() < row_num)
+        dimension.setLastRow(row_num);
+
+    if (dimension.lastColumn() < col_num)
+        dimension.setLastColumn(col_num);
 }
 
 void WorksheetPrivate::loadXmlColumnsInfo(QXmlStreamReader &reader)
