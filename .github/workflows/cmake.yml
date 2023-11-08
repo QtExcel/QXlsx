@@ -13,6 +13,9 @@ on:
       - 'ToUpgrade.md'
       - 'Vision.md'
       - 'LICENSE'
+    branches:
+      - master
+
   pull_request:
     paths-ignore:
       - 'Example.md'
@@ -25,95 +28,57 @@ on:
       - 'ToUpgrade.md'
       - 'Vision.md'
       - 'LICENSE'
-
-env:
-  # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
-  BUILD_TYPE: Release
+    branches:
+      - master
 
 jobs:
   build:
-    runs-on: ubuntu-${{ matrix.ubuntu_version }}
-    name: Ubuntu-${{ matrix.ubuntu_version }}-Qt-${{ matrix.qt_version }}-shared-${{ matrix.shared }}
+    runs-on: ${{ matrix.os }}
     strategy:
-      fail-fast: false
+      fail-fast: true
       matrix:
-        ubuntu_version: [20.04, 22.04]
-        qt_version: [5.12.12, 5.15.2, 6.4.0]
-        shared: [ON, OFF]
+        os:
+          - ubuntu-latest
+          - windows-latest
+          - macos-latest
+
+        build_type:
+          - Debug
+          - Release
+
+        link_type:
+          - static
+          - shared
+
+        config:
+          - qt_version: "5.12"
+          - qt_version: "6.6.0"
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@v3
-
-    - name: Install Qt
-      uses: jurplel/install-qt-action@v3
-      with:
-          version: ${{ matrix.qt_version }}
-          cache: 'true'
-          cache-key-prefix: ${{ runner.os }}-Qt-Cache-${{ matrix.qt_version }}
-          dir: ${{ github.workspace }}/Qt
-
-    - name: Install packages
-      run: sudo apt-get install -y libxkbcommon-dev libxcb-xkb-dev
-
-    - name: Configure CMake
-      run: cmake -DCMAKE_BUILD_TYPE="${{env.BUILD_TYPE}}" -DBUILD_SHARED_LIBS=${{ matrix.shared }} -B "${{github.workspace}}/build" -S "QXlsx"
-
-    - name: Build
-      run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
-
-  MSVC:
-    name: windows-${{ matrix.win_version }}-Qt-${{ matrix.qt_version }}-shared-${{ matrix.shared }}
-    runs-on: windows-${{ matrix.win_version }}
-    strategy:
-      fail-fast: false
-      matrix:
-        win_version: [2019, 2022]
-        qt_version: [5.12.12, 5.15.2, 6.4.0]
-        shared: [ON, OFF]
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Install Qt
+      - name: Install Qt with options and default aqtversion
         uses: jurplel/install-qt-action@v3
         with:
-            version: ${{ matrix.qt_version }}
-            cache: 'true'
-            cache-key-prefix: ${{ runner.os }}-Qt-Cache-${{ matrix.qt_version }}
-            dir: ${{ github.workspace }}/Qt
+          aqtversion: null # use whatever the default is
+          modules: ${{ matrix.config.modules }}
+          version: ${{ matrix.config.qt_version }}
+          cache: true
 
-      - name: Configure CMake
-        run: cmake -DCMAKE_BUILD_TYPE="${{env.BUILD_TYPE}}" -DBUILD_SHARED_LIBS=${{ matrix.shared }} -B "${{github.workspace}}/build" -S "QXlsx"
+      - name: Checkout sources
+        uses: actions/checkout@v4
 
-      - name: Build
-        run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
+      - name: Install ninja-build tool (must be after Qt due PATH changes)
+        uses: turtlesec-no/get-ninja@main
 
-  macos:
-    runs-on: macos-${{ matrix.macos_version }}
-    name: macos-${{ matrix.macos_version }}-Qt-${{ matrix.qt_version }}-shared-${{ matrix.shared }}
-    strategy:
-      fail-fast: false
-      matrix:
-        macos_version: [11, 12]
-        qt_version: [5.15.2, 6.4.0]
-        shared: [ON, OFF]
+      - name: Make sure MSVC is found when Ninja generator is in use
+        uses: ilammy/msvc-dev-cmd@v1
 
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
+      - name: Configure project
+        run: >
+          cmake -S QXlsx -B ./build -G Ninja
+          -DCMAKE_BUILD_TYPE=${{ matrix.build_type }}
+          --warn-uninitialized
+          -Werror=dev
+          -DBUILD_SHARED_LIBS=${{ matrix.link_type == 'shared' }}
 
-      - name: Install Qt
-        uses: jurplel/install-qt-action@v3
-        with:
-            version: ${{ matrix.qt_version }}
-            cache: 'true'
-            cache-key-prefix: ${{ runner.os }}-Qt-Cache-${{ matrix.qt_version }}
-            dir: ${{ github.workspace }}/Qt
-
-      - name: Configure CMake
-        run: cmake -DCMAKE_BUILD_TYPE="${{env.BUILD_TYPE}}" -DBUILD_SHARED_LIBS=${{ matrix.shared }} -B "${{github.workspace}}/build" -S "QXlsx"
-
-      - name: Build
-        run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
+      - name: Build Project
+        run: cmake --build ./build

@@ -1,7 +1,6 @@
-# windows.yml 
-
 name: Windows
-on: 
+
+on:
   push:
     paths-ignore:
       - 'Example.md'
@@ -13,7 +12,10 @@ on:
       - 'ToTest.md'
       - 'ToUpgrade.md'
       - 'Vision.md'
-      - 'LICENSE'    
+      - 'LICENSE'
+    branches:
+      - master
+
   pull_request:
     paths-ignore:
       - 'Example.md'
@@ -25,15 +27,20 @@ on:
       - 'ToTest.md'
       - 'ToUpgrade.md'
       - 'Vision.md'
-      - 'LICENSE'    
+      - 'LICENSE'
+    branches:
+      - master
+
 jobs:
   build:
     runs-on: windows-2019
     steps:
     - name: Install Qt
-      uses: jurplel/install-qt-action@v2.13.2    
+      uses: jurplel/install-qt-action@v3
+
     - name: Checkout
-      uses: actions/checkout@v1
+      uses: actions/checkout@v4
+
     - name: Run Visual Studio
       shell: cmd
       run: |
@@ -41,4 +48,3 @@ jobs:
         cd TestExcel
         qmake
         nmake
-        
