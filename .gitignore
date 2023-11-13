@@ -405,3 +405,7 @@ ASALocalRun/
 
 # clangd cache
 .cache/
+
+# Cppcheck
+*.cppcheck
+*-cppcheck-build-dir
