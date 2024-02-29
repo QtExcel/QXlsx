@@ -160,7 +160,7 @@ ConditionalFormatting::~ConditionalFormatting()
 }
 
 /*!
- * Add a hightlight rule with the given \a type, \a formula1, \a formula2,
+ * Add a highlight rule with the given \a type, \a formula1, \a formula2,
  * \a format and \a stopIfTrue.
  * Return false if failed.
  */
@@ -301,7 +301,7 @@ bool ConditionalFormatting::addHighlightCellsRule(HighlightRuleType type,
 /*!
  * \overload
  *
- * Add a hightlight rule with the given \a type \a format and \a stopIfTrue.
+ * Add a highlight rule with the given \a type \a format and \a stopIfTrue.
  */
 bool ConditionalFormatting::addHighlightCellsRule(HighlightRuleType type,
                                                   const Format &format,
@@ -318,7 +318,7 @@ bool ConditionalFormatting::addHighlightCellsRule(HighlightRuleType type,
 /*!
  * \overload
  *
- * Add a hightlight rule with the given \a type, \a formula, \a format and \a stopIfTrue.
+ * Add a highlight rule with the given \a type, \a formula, \a format and \a stopIfTrue.
  * Return false if failed.
  */
 bool ConditionalFormatting::addHighlightCellsRule(HighlightRuleType type,

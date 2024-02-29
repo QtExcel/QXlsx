@@ -632,7 +632,7 @@ int Format::rotation() const
 }
 
 /*!
- * Set the text roation with the given \a rotation. Must be in the range [0, 180] or 255.
+ * Set the text rotation with the given \a rotation. Must be in the range [0, 180] or 255.
  */
 void Format::setRotation(int rotation)
 {
@@ -1272,7 +1272,7 @@ bool Format::dxfIndexValid() const
 }
 
 /*!
-        Returns ture if the \a format is equal to this format.
+        Returns true if the \a format is equal to this format.
 */
 bool Format::operator==(const Format &format) const
 {
@@ -1280,7 +1280,7 @@ bool Format::operator==(const Format &format) const
 }
 
 /*!
-        Returns ture if the \a format is not equal to this format.
+        Returns true if the \a format is not equal to this format.
 */
 bool Format::operator!=(const Format &format) const
 {

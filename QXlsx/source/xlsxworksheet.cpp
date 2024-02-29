@@ -172,7 +172,7 @@ int WorksheetPrivate::checkDimensions(int row, int col, bool ignore_row, bool ig
 Worksheet::Worksheet(const QString &name, int id, Workbook *workbook, CreateFlag flag)
     : AbstractSheet(name, id, workbook, new WorksheetPrivate(this, flag))
 {
-    if (!workbook) // For unit test propose only. Ignore the memery leak.
+    if (!workbook) // For unit test propose only. Ignore the memory leak.
         d_func()->workbook = new Workbook(flag);
 }
 
@@ -456,7 +456,7 @@ bool Worksheet::write(int row, int column, const QVariant &value, const Format &
     } else if (value.userType() == QMetaType::QDateTime) // dev67
     {
         // DateTime, Date
-        //   note that, QTime cann't convert to QDateTime
+        //   note that, QTime can't convert to QDateTime
         ret = writeDateTime(row, column, value.toDateTime(), format);
     } else if (value.userType() == QMetaType::QDate) // dev67
     {
@@ -2043,7 +2043,7 @@ bool Worksheet::setRowFormat(int rowFirst, int rowLast, const Format &format)
 }
 
 /*!
-  Sets the \a hidden proeprty of the rows including and between \a rowFirst and \a rowLast.
+  Sets the \a hidden property of the rows including and between \a rowFirst and \a rowLast.
   Rows are 1-indexed. If hidden is true rows will not be visible.
 
   Returns true if success.

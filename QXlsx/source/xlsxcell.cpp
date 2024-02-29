@@ -45,10 +45,10 @@ CellPrivate::CellPrivate(const CellPrivate *const cp)
 /*!
   \enum Cell::CellType
   \value BooleanType      Boolean type
-  \value NumberType       Number type, can be blank or used with forumula
+  \value NumberType       Number type, can be blank or used with formula
   \value ErrorType        Error type
   \value SharedStringType Shared string type
-  \value StringType       String type, can be used with forumula
+  \value StringType       String type, can be used with formula
   \value InlineStringType Inline string type
   */
 

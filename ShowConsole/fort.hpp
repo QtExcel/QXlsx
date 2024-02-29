@@ -371,7 +371,7 @@ public:
     }
 
     /**
-     * Copy contstructor.
+     * Copy constructor.
      */
     table(const table& tbl)
         :property_owner(FT_ANY_ROW, FT_ANY_COLUMN, this), table_(NULL)
@@ -390,7 +390,7 @@ public:
     }
 
     /**
-     * Move contstructor.
+     * Move constructor.
      */
     table(table&& tbl)
         :property_owner(FT_ANY_ROW, FT_ANY_COLUMN, this), table_(tbl.table_)
@@ -488,7 +488,7 @@ public:
      * std::ostream is used.
      *
      * @param arg
-     *   Obect that would be inserted in the current cell.
+     *   Object that would be inserted in the current cell.
      * @return
      *   - Reference to the current table.
      */

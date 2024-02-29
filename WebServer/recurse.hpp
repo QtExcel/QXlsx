@@ -151,7 +151,7 @@ namespace Recurse
 
     //!
     //! \brief The HttpServer class
-    //! Http (unsecure) server class
+    //! Http (insecure) server class
     //!
     class HttpServer : public QObject
     {

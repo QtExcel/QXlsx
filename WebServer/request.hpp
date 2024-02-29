@@ -52,7 +52,7 @@ public:
 
     //!
     //! \brief secure
-    //! Shorthand for protocol == "HTTPS" to check if a requet was issued via TLS
+    //! Shorthand for protocol == "HTTPS" to check if a request was issued via TLS
     //!
     bool secure = protocol == "HTTPS";
 

@@ -40,7 +40,7 @@ AbstractSheetPrivate::~AbstractSheetPrivate()
 
   \value SS_Visible
   \value SS_Hidden
-  \value SS_VeryHidden User cann't make a veryHidden sheet visible in normal way.
+  \value SS_VeryHidden User can't make a veryHidden sheet visible in normal way.
 */
 
 /*!
@@ -140,7 +140,7 @@ bool AbstractSheet::isVisible() const
 }
 
 /*!
- * Make the sheet hiden or visible based on \a hidden.
+ * Make the sheet hidden or visible based on \a hidden.
  */
 void AbstractSheet::setHidden(bool hidden)
 {

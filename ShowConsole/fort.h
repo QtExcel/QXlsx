@@ -121,7 +121,7 @@ typedef int fort_status_t;
 #define FT_STR_2_CAT(arg1, arg2) FT_STR_2_CAT_(arg1, arg2)
 
 /**
- * @interanl
+ * @internal
  */
 static FT_INLINE int ft_check_if_string_helper(const char *str)
 {
@@ -130,7 +130,7 @@ static FT_INLINE int ft_check_if_string_helper(const char *str)
 }
 
 /**
- * @interanl
+ * @internal
  */
 static FT_INLINE int ft_check_if_wstring_helper(const wchar_t *str)
 {
@@ -331,7 +331,7 @@ void ft_set_cur_cell(ft_table_t *table, size_t row, size_t col);
 #if defined(FT_CLANG_COMPILER) || defined(FT_GCC_COMPILER)
 
 /**
- * Write data formatted acording to the format string to a variety of table
+ * Write data formatted according to the format string to a variety of table
  * cells.
  *
  * @param table
@@ -341,7 +341,7 @@ void ft_set_cur_cell(ft_table_t *table, size_t row, size_t col);
  *   the data. The format string consists of ordinary characters (except % and |),
  *   which are copied unchanged into the output stream, and conversion
  *   specifications. Conversion specifications are the same as for standard
- *   printf function. Character '|' (wich can be changed with
+ *   printf function. Character '|' (which can be changed with
  *   {@link ft_set_default_printf_field_separator}) in the format string is treated as
  *   a cell separator.
  * @param ...
@@ -358,7 +358,7 @@ void ft_set_cur_cell(ft_table_t *table, size_t row, size_t col);
 int ft_printf(ft_table_t *table, const char *fmt, ...) FT_PRINTF_ATTRIBUTE_FORMAT(2, 3);
 
 /**
- * Write data formatted acording to the format string to a variety of table
+ * Write data formatted according to the format string to a variety of table
  * cells and move current position to the first cell of the next line(row).
  *
  * @param table
@@ -368,7 +368,7 @@ int ft_printf(ft_table_t *table, const char *fmt, ...) FT_PRINTF_ATTRIBUTE_FORMA
  *   the data. The format string consists of ordinary characters (except % and |),
  *   which are copied unchanged into the output stream, and conversion
  *   specifications. Conversion specifications are the same as for standard
- *   printf function. Character '|' (wich can be changed with
+ *   printf function. Character '|' (which can be changed with
  *   {@link ft_set_default_printf_field_separator}) in the format string is treated as
  *   a cell separator.
  * @param ...
