@@ -1131,7 +1131,7 @@ bool DrawingTwoCellAnchor::loadFromXml(QXmlStreamReader &reader)
 
     //{{ liufeijin
     QXmlStreamAttributes attrs =
-        reader.attributes(); // for absolute twocell aadd by liufeijin 20181024
+        reader.attributes(); // for absolute twocell added by liufeijin 20181024
     editASName = attrs.value(QLatin1String("editAs")).toString();
     //}}
 

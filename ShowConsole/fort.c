@@ -1756,7 +1756,7 @@ const char *ft_to_string(const ft_table_t *table)
     int (*snprint_n_strings_)(char *, size_t, size_t, const char *) = snprint_n_strings;
     assert(table);
 
-    /* Determing size of table string representation */
+    /* Determining size of table string representation */
     size_t height = 0;
     size_t width = 0;
     int status = table_geometry(table, &height, &width);
@@ -1858,7 +1858,7 @@ const wchar_t *ft_to_wstring(const ft_table_t *table)
 
     assert(table);
 
-    /* Determing size of table string representation */
+    /* Determining size of table string representation */
     size_t height = 0;
     size_t width = 0;
     int status = table_geometry(table, &height, &width);

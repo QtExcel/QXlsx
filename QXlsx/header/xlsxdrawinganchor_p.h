@@ -104,7 +104,7 @@ protected:
 
     // BELOW only for cxnSp shape
     QString cxnSp_filpV, cxnSp_macro;
-    // belwo for cxnsp and sp
+    // below for cxnsp and sp
     QString xsp_cNvPR_name, xsp_cNvPR_id;       // x measns shape and cxnSp together using
     QString xbwMode;                            // same as above
     QString xIn_algn, xIn_cmpd, xIn_cap, xIn_w; // cxnSp only need xIn_w

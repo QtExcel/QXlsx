@@ -141,7 +141,7 @@ void Workbook::setDefaultDateFormat(const QString &format)
  * \param name The defined name
  * \param formula The cell or range that the defined name refers to.
  * \param comment
- * \param scope The name of one worksheet, or empty which means golbal scope.
+ * \param scope The name of one worksheet, or empty which means global scope.
  * \return Return false if the name invalid.
  */
 bool Workbook::defineName(const QString &name,
