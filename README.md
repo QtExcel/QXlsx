@@ -1,6 +1,7 @@
 # QXlsx
 
 [![Conan Center](https://shields.io/conan/v/qxlsx)](https://conan.io/center/qxlsx)  
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/390466f4aeac4112a1c1f85518085ec1)][Codacy Badge]  
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=GAlexDark_QXlsx&metric=alert_status)][Quality Gate Status]
 [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=GAlexDark_QXlsx&metric=bugs)][Bugs]
 [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=GAlexDark_QXlsx&metric=vulnerabilities)][Vulnerabilities]
@@ -10,6 +11,7 @@
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=GAlexDark_QXlsx&metric=security_rating)][Security Rating]
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=GAlexDark_QXlsx&metric=sqale_rating)][Maintainability Rating]
 
+[Codacy Badge]: https://app.codacy.com/gh/GAlexDark/QXlsx/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade
 [Quality Gate Status]: https://sonarcloud.io/summary/new_code?id=GAlexDark_QXlsx
 [Bugs]: https://sonarcloud.io/summary/new_code?id=GAlexDark_QXlsx
 [Vulnerabilities]: https://sonarcloud.io/summary/new_code?id=GAlexDark_QXlsx
