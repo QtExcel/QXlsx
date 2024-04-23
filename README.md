@@ -1,6 +1,23 @@
 # QXlsx
 
-[![Conan Center](https://shields.io/conan/v/qxlsx)](https://conan.io/center/qxlsx)
+[![Conan Center](https://shields.io/conan/v/qxlsx)](https://conan.io/center/qxlsx)  
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=GAlexDark_QXlsx&metric=alert_status)][Quality Gate Status]
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=GAlexDark_QXlsx&metric=bugs)][Bugs]
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=GAlexDark_QXlsx&metric=vulnerabilities)][Vulnerabilities]
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=GAlexDark_QXlsx&metric=code_smells)][Code Smells]
+[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=GAlexDark_QXlsx&metric=duplicated_lines_density)][Duplicated Lines (%)]
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=GAlexDark_QXlsx&metric=reliability_rating)][Reliability Rating]
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=GAlexDark_QXlsx&metric=security_rating)][Security Rating]
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=GAlexDark_QXlsx&metric=sqale_rating)][Maintainability Rating]
+
+[Quality Gate Status]: https://sonarcloud.io/summary/new_code?id=GAlexDark_QXlsx
+[Bugs]: https://sonarcloud.io/summary/new_code?id=GAlexDark_QXlsx
+[Vulnerabilities]: https://sonarcloud.io/summary/new_code?id=GAlexDark_QXlsx
+[Code Smells]: https://sonarcloud.io/summary/new_code?id=GAlexDark_QXlsx
+[Duplicated Lines (%)]: https://sonarcloud.io/summary/new_code?id=GAlexDark_QXlsx
+[Reliability Rating]: https://sonarcloud.io/summary/new_code?id=GAlexDark_QXlsx
+[Security Rating]: https://sonarcloud.io/summary/new_code?id=GAlexDark_QXlsx
+[Maintainability Rating]: https://sonarcloud.io/summary/new_code?id=GAlexDark_QXlsx
 
 > *Read this in other languages: [English](README.md), :kr: [Korean](README.ko.md), :ru: [Russian](README.RU.md)*
 
