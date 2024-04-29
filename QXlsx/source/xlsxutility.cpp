@@ -109,7 +109,7 @@ QVariant datetimeFromNumber(double num, bool is1904)
         return QVariant(t);
     }
 
-    if (fractional == 0.0) {
+    if (qFuzzyIsNull(fractional)) {
         // only date
         QDate onlyDT = dtRet.date();
         return QVariant(onlyDT);

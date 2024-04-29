@@ -1,5 +1,26 @@
 # QXlsx
 
+[![Conan Center](https://shields.io/conan/v/qxlsx)](https://conan.io/center/qxlsx)  
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/390466f4aeac4112a1c1f85518085ec1)][Codacy Badge]  
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=GAlexDark_QXlsx&metric=alert_status)][Quality Gate Status]
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=GAlexDark_QXlsx&metric=bugs)][Bugs]
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=GAlexDark_QXlsx&metric=vulnerabilities)][Vulnerabilities]
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=GAlexDark_QXlsx&metric=code_smells)][Code Smells]
+[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=GAlexDark_QXlsx&metric=duplicated_lines_density)][Duplicated Lines (%)]
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=GAlexDark_QXlsx&metric=reliability_rating)][Reliability Rating]
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=GAlexDark_QXlsx&metric=security_rating)][Security Rating]
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=GAlexDark_QXlsx&metric=sqale_rating)][Maintainability Rating]
+
+[Codacy Badge]: https://app.codacy.com/gh/GAlexDark/QXlsx/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade
+[Quality Gate Status]: https://sonarcloud.io/summary/new_code?id=GAlexDark_QXlsx
+[Bugs]: https://sonarcloud.io/summary/new_code?id=GAlexDark_QXlsx
+[Vulnerabilities]: https://sonarcloud.io/summary/new_code?id=GAlexDark_QXlsx
+[Code Smells]: https://sonarcloud.io/summary/new_code?id=GAlexDark_QXlsx
+[Duplicated Lines (%)]: https://sonarcloud.io/summary/new_code?id=GAlexDark_QXlsx
+[Reliability Rating]: https://sonarcloud.io/summary/new_code?id=GAlexDark_QXlsx
+[Security Rating]: https://sonarcloud.io/summary/new_code?id=GAlexDark_QXlsx
+[Maintainability Rating]: https://sonarcloud.io/summary/new_code?id=GAlexDark_QXlsx
+
 > *Read this in other languages: [English](README.md), :kr: [Korean](README.ko.md), :ru: [Russian](README.RU.md)*
 
 <p align="center"><img src="https://raw.githubusercontent.com/QtExcel/QXlsx/master/markdown.data/QXlsx-Desktop.png"></p>

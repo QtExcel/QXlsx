@@ -87,7 +87,7 @@ std::string copyTag(const std::string &sFrom, const std::string &sTo, const std:
             }
             if (endPos != std::string::npos) {
                 sFromData += sFrom.substr(startPos, endPos - startPos) + tagEndTmp;
-                startIndex = endPos + strlen(tagEndTmp.c_str());
+                startIndex = endPos + tagEndTmp.length();
             } else {
                 break;
             }
@@ -115,8 +115,8 @@ std::string copyTag(const std::string &sFrom, const std::string &sTo, const std:
                     if (firstPosTag < 0)
                         firstPosTag = startPos;
                     std::string stringBefore = sOut.substr(0, startPos);
-                    endPos += strlen(tagEndTmp.c_str());
-                    std::string stringAfter = sOut.substr(endPos, strlen(sOut.c_str()) - endPos);
+                    endPos += tagEndTmp.length();
+                    std::string stringAfter = sOut.substr(endPos, sOut.length() - endPos);
                     sOut                    = stringBefore + stringAfter;
                 } else {
                     break;
@@ -143,7 +143,7 @@ std::string copyTag(const std::string &sFrom, const std::string &sTo, const std:
         // add in the position of the first tag found in 'sOut' ('firstPosTag')
         if (firstPosTag >= 0) {
             std::string stringBefore = sOut.substr(0, firstPosTag);
-            std::string stringAfter  = sOut.substr(firstPosTag, strlen(sOut.c_str()) - firstPosTag);
+            std::string stringAfter  = sOut.substr(firstPosTag, sOut.length() - firstPosTag);
             sOut                     = stringBefore + sFromData + stringAfter;
         }
     }
