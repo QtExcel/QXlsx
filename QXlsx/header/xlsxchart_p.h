@@ -140,7 +140,7 @@ public:
     bool majorGridlinesEnabled;
     bool minorGridlinesEnabled;
 
-    QString layout; // only for storing a readed file
+    QString layout; // only for storing a read file
 };
 
 QT_END_NAMESPACE_XLSX

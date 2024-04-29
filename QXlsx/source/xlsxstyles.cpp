@@ -503,8 +503,8 @@ void Styles::writeFill(QXmlStreamWriter &writer, const Format &fill, bool isDxf)
     writer.writeStartElement(QStringLiteral("fill"));
     writer.writeStartElement(QStringLiteral("patternFill"));
     Format::FillPattern pattern = fill.fillPattern();
-    // For normal fill formats, Excel prefer to outputing the default "none" attribute
-    // But for dxf, Excel prefer to omiting the default "none"
+    // For normal fill formats, Excel prefer to outputting the default "none" attribute
+    // But for dxf, Excel prefer to omitting the default "none"
     // Though not make any difference, but it make easier to compare origin files with generate
     // files during debug
     if (!(pattern == Format::PatternNone && isDxf))
@@ -585,7 +585,7 @@ void Styles::writeBorder(QXmlStreamWriter &writer, const Format &border, bool is
                        border.property(FormatPrivate::P_Border_DiagonalColor).value<XlsxColor>());
 
     if (isDxf) {
-        //        writeSubBorder(wirter, QStringLiteral("vertical"), );
+        //        writeSubBorder(writer, QStringLiteral("vertical"), );
         //        writeSubBorder(writer, QStringLiteral("horizontal"), );
     }
 
@@ -773,7 +773,7 @@ bool Styles::readNumFmts(QXmlStreamReader &reader)
     const auto hasCount    = attributes.hasAttribute(QLatin1String("count"));
     const auto count       = hasCount ? attributes.value(QLatin1String("count")).toInt() : -1;
 
-    // Read utill we find the numFmts end tag or ....
+    // Read until we find the numFmts end tag or ....
     while (!reader.atEnd() && !(reader.tokenType() == QXmlStreamReader::EndElement &&
                                 reader.name() == QLatin1String("numFmts"))) {
         reader.readNextStartElement();

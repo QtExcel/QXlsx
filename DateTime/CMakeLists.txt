@@ -1,6 +1,6 @@
 # CMakeLists.txt for Console Application
 
-# TODO: Set minumum cmake version 
+# TODO: Set minimum cmake version 
 cmake_minimum_required(VERSION 3.14)
 
 # TODO: Set project name 

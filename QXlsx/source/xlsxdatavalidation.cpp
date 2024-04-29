@@ -318,7 +318,7 @@ void DataValidation::setPromptMessage(const QString &prompt, const QString &titl
 }
 
 /*!
-    Enable/disabe blank allow based on \a enable.
+    Enable/disable blank allow based on \a enable.
  */
 void DataValidation::setAllowBlank(bool enable)
 {
@@ -326,7 +326,7 @@ void DataValidation::setAllowBlank(bool enable)
 }
 
 /*!
-    Enable/disabe prompt message visible based on \a visible.
+    Enable/disable prompt message visible based on \a visible.
  */
 void DataValidation::setPromptMessageVisible(bool visible)
 {
@@ -334,7 +334,7 @@ void DataValidation::setPromptMessageVisible(bool visible)
 }
 
 /*!
-    Enable/disabe error message visible based on \a visible.
+    Enable/disable error message visible based on \a visible.
  */
 void DataValidation::setErrorMessageVisible(bool visible)
 {

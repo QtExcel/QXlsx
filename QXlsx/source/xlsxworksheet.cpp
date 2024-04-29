@@ -172,7 +172,7 @@ int WorksheetPrivate::checkDimensions(int row, int col, bool ignore_row, bool ig
 Worksheet::Worksheet(const QString &name, int id, Workbook *workbook, CreateFlag flag)
     : AbstractSheet(name, id, workbook, new WorksheetPrivate(this, flag))
 {
-    if (!workbook) // For unit test propose only. Ignore the memery leak.
+    if (!workbook) // For unit test propose only. Ignore the memory leak.
         d_func()->workbook = new Workbook(flag);
 }
 
@@ -456,7 +456,7 @@ bool Worksheet::write(int row, int column, const QVariant &value, const Format &
     } else if (value.userType() == QMetaType::QDateTime) // dev67
     {
         // DateTime, Date
-        //   note that, QTime cann't convert to QDateTime
+        //   note that, QTime can't convert to QDateTime
         ret = writeDateTime(row, column, value.toDateTime(), format);
     } else if (value.userType() == QMetaType::QDate) // dev67
     {
@@ -2043,7 +2043,7 @@ bool Worksheet::setRowFormat(int rowFirst, int rowLast, const Format &format)
 }
 
 /*!
-  Sets the \a hidden proeprty of the rows including and between \a rowFirst and \a rowLast.
+  Sets the \a hidden property of the rows including and between \a rowFirst and \a rowLast.
   Rows are 1-indexed. If hidden is true rows will not be visible.
 
   Returns true if success.
@@ -2261,6 +2261,9 @@ void WorksheetPrivate::loadXmlSheetData(QXmlStreamReader &reader)
 
     Q_ASSERT(reader.name() == QLatin1String("sheetData"));
 
+    int row_num = 0;
+    int col_num = 0;
+
     while (!reader.atEnd() && !(reader.name() == QLatin1String("sheetData") &&
                                 reader.tokenType() == QXmlStreamReader::EndElement)) {
         if (reader.readNextStartElement()) {
@@ -2305,6 +2308,12 @@ void WorksheetPrivate::loadXmlSheetData(QXmlStreamReader &reader)
                     }
                 }
 
+                if (attributes.hasAttribute(QLatin1String("r")))
+                    row_num = attributes.value(QLatin1String("r")).toInt();
+                else
+                    ++row_num;
+                col_num = 0;
+
             } else if (reader.name() == QLatin1String("c")) // Cell
             {
 
@@ -2312,6 +2321,11 @@ void WorksheetPrivate::loadXmlSheetData(QXmlStreamReader &reader)
                 QXmlStreamAttributes attributes = reader.attributes();
                 QString r                       = attributes.value(QLatin1String("r")).toString();
                 CellReference pos(r);
+                if (r.isEmpty())
+                {
+                    pos.setRow(row_num);
+                    pos.setColumn(++col_num);
+                }
 
                 // get format
                 Format format;
@@ -2433,6 +2447,12 @@ void WorksheetPrivate::loadXmlSheetData(QXmlStreamReader &reader)
             }
         }
     }
+
+    if (dimension.lastRow() < row_num)
+        dimension.setLastRow(row_num);
+
+    if (dimension.lastColumn() < col_num)
+        dimension.setLastColumn(col_num);
 }
 
 void WorksheetPrivate::loadXmlColumnsInfo(QXmlStreamReader &reader)
