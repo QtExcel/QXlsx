@@ -80,7 +80,7 @@ int readGoogleSpreadsheet()
         }
     }
 
-    /* Deug Output
+    /* Debug Output
     1   QVariant(double, 1)  , style: 1 ""
     2   QVariant(QString, "2")  , style: 2 ""
     3   QVariant(double, 3)  , style: 3 ""
@@ -96,7 +96,7 @@ int readGoogleSpreadsheet()
     am/pm h:mm:ss" 13   QVariant(QString, "312:0:0")  , style: 13 ""
     */
 
-    /* Testing fo read google spreadsheet file (made by google docs)
+    /* Testing of read google spreadsheet file (made by google docs)
      https://github.com/j2doll/QXlsx/blob/master/image/LibreOffice-Google-XLSX.png
 
     1   QVariant(double, 1) OK:it's auto style (1)

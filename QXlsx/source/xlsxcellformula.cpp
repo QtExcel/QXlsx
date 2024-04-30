@@ -157,7 +157,7 @@ int CellFormula::sharedIndex() const
     return d && d->type == SharedType ? d->si : (-1);
 }
 
-/* aca (Always Calculate Array) // not-implmented attribute
+/* aca (Always Calculate Array) // not-implemented attribute
  *
  * Only applies to array formulas.
  *
@@ -175,7 +175,7 @@ int CellFormula::sharedIndex() const
  *  boolean datatype.
  */
 
-/* bx (Assigns Value to Name) // not-implmented attribute
+/* bx (Assigns Value to Name) // not-implemented attribute
  *
  * Specifies that this formula assigns a value to a name.
  *
@@ -183,7 +183,7 @@ int CellFormula::sharedIndex() const
  * Schema boolean datatype.
  */
 
-/* del1 (Input 1 Deleted) // not-implmented attribute
+/* del1 (Input 1 Deleted) // not-implemented attribute
  *
  * Whether the first input cell for data table has been deleted.
  * Applies to data table formula only. Written on master cell of data table
@@ -193,7 +193,7 @@ int CellFormula::sharedIndex() const
  * boolean datatype.
  */
 
-/* del2 (Input 2 Deleted) // not-impplmented attribute
+/* del2 (Input 2 Deleted) // not-implemented attribute
  *
  * Whether the second input cell for data table has been deleted.
  * Applies to data table formula only. Written on master cell of data
@@ -203,18 +203,18 @@ int CellFormula::sharedIndex() const
  * boolean datatype.
  */
 
-/* dt2D (Data Table 2-D) // not-implmented attribute
+/* dt2D (Data Table 2-D) // not-implemented attribute
  *
- * Data table is two-dimentional. Only applies to the data tables function.
+ * Data table is two-dimensional. Only applies to the data tables function.
  * Written on master cell of data table formula only.
  *
  * The possible values for this attribute are defined by the W3C XML Schema
  * boolean datatype.
  */
 
-/* dtr (Data Table Row) // not-implmented attribute
+/* dtr (Data Table Row) // not-implemented attribute
  *
- * true if one-dimentional data table is a row, otherwise it's a column.
+ * true if one-dimensional data table is a row, otherwise it's a column.
  * Only applies to the data tables function. Written on master cell of data
  * table formula only.
  *
@@ -222,7 +222,7 @@ int CellFormula::sharedIndex() const
  *  boolean datatype.
  */
 
-/* r1 (Data Table Cell 1) // not-implmented attribute
+/* r1 (Data Table Cell 1) // not-implemented attribute
  *
  * First input cell for data table. Only applies to the data tables array
  * function "TABLE()". Written on master cell of data table formula only.
@@ -231,7 +231,7 @@ int CellFormula::sharedIndex() const
  * simple type (§18.18.7).
  */
 
-/* r2 (Input Cell 2) // not-implmented attribute
+/* r2 (Input Cell 2) // not-implemented attribute
  *
  * Second input cell for data table when dt2D is '1'. Only applies to the
  * data tables array function "TABLE()".Written on master cell of data table

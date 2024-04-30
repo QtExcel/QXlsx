@@ -89,7 +89,7 @@ include(./QXlsx.pri)
 
 <br /><br />
 
-:one::one: Set heaer files and namespace for sample. Then append hello world code.
+:one::one: Set header files and namespace for sample. Then append hello world code.
 
 ![](markdown.data/11.jpg)
 

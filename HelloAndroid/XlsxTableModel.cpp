@@ -91,7 +91,7 @@ QVariant XlsxTableModel::data(const QModelIndex &index, int role) const
     int col = index.column();
     int row = index.row();
 
-    // check boudaries
+    // check boundaries
     if (col < 0 || columnCount() <= col || row < 0 || rowCount() <= row) {
         qDebug() << "[Warning]"
                  << " col=" << col << ", row=" << row;

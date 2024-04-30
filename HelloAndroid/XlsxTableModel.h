@@ -32,7 +32,7 @@ class XlsxTableModel : public QAbstractTableModel
 public:
     QStringList customRoleNames();
 
-public: // constrcutor
+public: // constructor
     XlsxTableModel(const QList<QString> &colTitle, QList<VLIST> data, QObject *parent = NULL);
 
 public: // virtual function of parent object

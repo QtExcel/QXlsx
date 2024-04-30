@@ -656,7 +656,7 @@ QVariant Document::read(int row, int col) const
 
 /*!
  * Insert an \a image to current active worksheet at the position \a row, \a column
- * Returns ture if success.
+ * Returns true if success.
  */
 int Document::insertImage(int row, int column, const QImage &image)
 {
@@ -739,7 +739,7 @@ bool Document::setColumnWidth(const CellRange &range, double width)
 }
 
 /*!
-  Sets format property of columns with the gien \a range and \a format.
+  Sets format property of columns with the given \a range and \a format.
   Returns true on success.
  */
 bool Document::setColumnFormat(const CellRange &range, const Format &format)
@@ -1034,7 +1034,7 @@ Cell *Document::cellAt(int row, int col) const
  *
  * \param name The defined name.
  * \param formula The cell or range that the defined name refers to.
- * \param scope The name of one worksheet, or empty which means golbal scope.
+ * \param scope The name of one worksheet, or empty which means global scope.
  * \return Return false if the name invalid.
  */
 bool Document::defineName(const QString &name,

@@ -21,7 +21,7 @@ public:
     void addDefault(const QString &key, const QString &value);
     void addOverride(const QString &key, const QString &value);
 
-    // Convenient funcation for addOverride()
+    // Convenient function for addOverride()
     void addDocPropCore();
     void addDocPropApp();
     void addStyles();

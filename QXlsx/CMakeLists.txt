@@ -40,11 +40,6 @@ if(NOT DEFINED QXLSX_SOURCEPATH)
 	set(QXLSX_SOURCEPATH ${CMAKE_CURRENT_SOURCE_DIR}/../QXlsx/source/)
 endif()
 
-message("Current Path of QXlsx")
-message(${QXLSX_PARENTPATH})
-message(${QXLSX_HEADERPATH})
-message(${QXLSX_SOURCEPATH})
-
 # Due historical reasons this value is kept off
 option(BUILD_SHARED_LIBS "Build in shared lib mode" OFF)
 
