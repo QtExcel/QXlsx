@@ -26,8 +26,7 @@ int intPow(int x, int p)
 
 QString col_to_name(int col_num)
 {
-    static QMap<int, QString> col_cache;
-    // ref: https://github.com/QtExcel/QXlsx/issues/156
+    static thread_local QMap<int, QString> col_cache;
 
     auto it = col_cache.find(col_num);
     if (it == col_cache.end()) {
