@@ -100,19 +100,37 @@ protected:
     QSize extTA;        // for shape liufeij 20181024
     int rotWithShapeTA; //// for shape liufeij 20181024
     int dpiTA;          //// for shape liufeij 20181024
-    QString sp_textlink, sp_macro, sp_blip_cstate, sp_blip_rembed;
+    QString sp_textlink;
+    QString sp_macro;
+    QString sp_blip_cstate;
+    QString sp_blip_rembed;
 
     // BELOW only for cxnSp shape
-    QString cxnSp_filpV, cxnSp_macro;
+    QString cxnSp_filpV;
+    QString cxnSp_macro;
     // below for cxnsp and sp
-    QString xsp_cNvPR_name, xsp_cNvPR_id;       // x measns shape and cxnSp together using
+    QString xsp_cNvPR_name;
+    QString xsp_cNvPR_id;       // x measns shape and cxnSp together using
     QString xbwMode;                            // same as above
-    QString xIn_algn, xIn_cmpd, xIn_cap, xIn_w; // cxnSp only need xIn_w
+    QString xIn_algn;
+    QString xIn_cmpd;
+    QString xIn_cap;
+    QString xIn_w; // cxnSp only need xIn_w
     QString xprstGeom_prst;
-    QString x_headEnd_w, x_headEnd_len, x_headEnd_tyep;
-    QString x_tailEnd_w, x_tailEnd_len, x_tailEnd_tyep;
-    QString Style_inref_idx, style_fillref_idx, style_effectref_idx, style_forntref_idx;
-    QString Style_inref_val, style_fillref_val, style_effectref_val, style_forntref_val;
+    QString x_headEnd_w;
+    QString x_headEnd_len;
+    QString x_headEnd_tyep;
+    QString x_tailEnd_w;
+    QString x_tailEnd_len;
+    QString x_tailEnd_tyep;
+    QString Style_inref_idx;
+    QString style_fillref_idx;
+    QString style_effectref_idx;
+    QString style_forntref_idx;
+    QString Style_inref_val;
+    QString style_fillref_val;
+    QString style_effectref_val;
+    QString style_forntref_val;
     // liufeij }}
 };
 

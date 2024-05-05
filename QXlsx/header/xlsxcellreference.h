@@ -38,7 +38,8 @@ public:
 
 private:
     void init(const QString &cell);
-    int _row, _column;
+    int _row;
+    int _column;
 };
 
 QT_END_NAMESPACE_XLSX
