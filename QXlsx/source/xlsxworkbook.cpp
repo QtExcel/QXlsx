@@ -615,6 +615,11 @@ bool Workbook::loadFromXmlFile(QIODevice *device)
                 QString fullPath =
                     QDir::cleanPath(parts.first() + QLatin1String("/") + relationship.target);
 
+                // fix abs path  /xl/worksheets/sheet1.xml -> xl/worksheets/sheet1.xml
+                if (relationship.target.startsWith(u'/')) {
+                    fullPath = relationship.target.mid(1);
+                }
+
                 sheet->setFilePath(fullPath);
             } else if (reader.name() == QLatin1String("workbookPr")) {
                 QXmlStreamAttributes attrs = reader.attributes();
