@@ -52,7 +52,9 @@ jobs:
 
         config:
           - qt_version: "5.12"
+            macos_architectures: "x86_64"
           - qt_version: "6.6.0"
+            macos_architectures: "x86_64;arm64"
 
     steps:
       - name: Install Qt with options and default aqtversion
@@ -70,6 +72,7 @@ jobs:
         uses: turtlesec-no/get-ninja@main
 
       - name: Make sure MSVC is found when Ninja generator is in use
+        if: ${{ runner.os == 'Windows' }}
         uses: ilammy/msvc-dev-cmd@v1
 
       - name: Configure project
@@ -79,6 +82,7 @@ jobs:
           --warn-uninitialized
           -Werror=dev
           -DBUILD_SHARED_LIBS=${{ matrix.link_type == 'shared' }}
+          -DCMAKE_OSX_ARCHITECTURES="${{ matrix.config.macos_architectures }}"
 
       - name: Build Project
         run: cmake --build ./build
