@@ -22,7 +22,7 @@
 
 ## Github Actions
 
-[![Android](https://github.com/QtExcel/QXlsx/actions/workflows/android.yml/badge.svg)](https://github.com/QtExcel/QXlsx/actions/workflows/android.yml) [![IOS](https://github.com/QtExcel/QXlsx/actions/workflows/ios.yml/badge.svg)](https://github.com/QtExcel/QXlsx/actions/workflows/ios.yml) [![MacOS](https://github.com/QtExcel/QXlsx/actions/workflows/macos.yml/badge.svg)](https://github.com/QtExcel/QXlsx/actions/workflows/macos.yml) [![Ubuntu](https://github.com/QtExcel/QXlsx/actions/workflows/ubuntu.yml/badge.svg)](https://github.com/QtExcel/QXlsx/actions/workflows/ubuntu.yml) [![Windows](https://github.com/QtExcel/QXlsx/actions/workflows/windows.yml/badge.svg)](https://github.com/QtExcel/QXlsx/actions/workflows/windows.yml) [![CMake](https://github.com/QtExcel/QXlsx/actions/workflows/cmake.yml/badge.svg)](https://github.com/QtExcel/QXlsx/actions/workflows/cmake.yml) [![cmake-ubuntu](https://github.com/QtExcel/QXlsx/actions/workflows/cmake-ubuntu.yml/badge.svg)](https://github.com/QtExcel/QXlsx/actions/workflows/cmake-ubuntu.yml)
+[![qmake](https://github.com/QtExcel/QXlsx/actions/workflows/windows.yml/badge.svg)](https://github.com/QtExcel/QXlsx/actions/workflows/windows.yml) [![CMake](https://github.com/QtExcel/QXlsx/actions/workflows/cmake.yml/badge.svg)](https://github.com/QtExcel/QXlsx/actions/workflows/cmake.yml)
 
 - See [tested environments](TestEnv.md) for more information.
 
