@@ -478,14 +478,12 @@ bool DocumentPrivate::saveCsv(QString mainCSVFileName) const
 {
     Q_Q(const Document);
 
-    int sheetIndexNumber = 0;
-    foreach (QString curretnSheetName, q->sheetNames())
-    {
+    int sheetIndexNumber  = 0;
+    const auto sheetNames = q->sheetNames();
+    for (const auto &curretnSheetName : sheetNames) {
 
         QXlsx::AbstractSheet *currentSheet = q->sheet(curretnSheetName);
-
-        if (NULL == currentSheet)
-        {
+        if (currentSheet == nullptr) {
             continue;
         }
 
@@ -495,39 +493,32 @@ bool DocumentPrivate::saveCsv(QString mainCSVFileName) const
 
         currentSheet->workbook()->setActiveSheet(sheetIndexNumber);
 
-        Worksheet *wsheet = (Worksheet *) currentSheet->workbook()->activeSheet();
-        if (NULL == wsheet)
-        {
+        Worksheet *wsheet = static_cast<Worksheet *>(currentSheet->workbook()->activeSheet());
+        if (wsheet == nullptr) {
             continue;
         }
 
-        QString strSheetName = wsheet->sheetName();                                // sheet name
-
-        QVector<CellLocation> clList = wsheet->getFullCells(&maxRow, &maxCol);
+        QString strSheetName = wsheet->sheetName(); // sheet name
 
         QVector<QVector<QString>> cellValues;
-        for (int rc = 0; rc < maxRow; rc++)
-        {
+        for (int rc = 0; rc < maxRow; rc++) {
             QVector<QString> tempValue;
 
-            for (int cc = 0; cc < maxCol; cc++)
-            {
-                tempValue.push_back(QString(""));
+            for (int cc = 0; cc < maxCol; cc++) {
+                tempValue.push_back(QString{});
             }
 
             cellValues.push_back(tempValue);
         }
 
-        for (int ic = 0; ic < clList.size(); ++ic)
-        {
-            CellLocation cl = clList.at(ic);
-
+        const QVector<CellLocation> clList = wsheet->getFullCells(&maxRow, &maxCol);
+        for (const auto &cl : clList) {
             int row = cl.row - 1;
             int col = cl.col - 1;
 
             std::shared_ptr<Cell> ptrCell = cl.cell; // cell pointer
-            QVariant var = ptrCell->value();
-            QString str = var.toString();
+            QVariant var                  = ptrCell->value();
+            QString str                   = var.toString();
 
             cellValues[row][col] = str;
         }
@@ -535,32 +526,28 @@ bool DocumentPrivate::saveCsv(QString mainCSVFileName) const
         // TODO:
         //  (1) save as csv file name (using { mainCSVFileName + strSheetName })
 
-        QString csvFileName = mainCSVFileName + QString("_") + strSheetName + QString(".csv");
+        QString csvFileName = mainCSVFileName + u'_' + strSheetName + QLatin1String(".csv");
         QFile csvFile(csvFileName);
-        if ( ! csvFile.open( QIODevice::WriteOnly ) )
-        {
+        if (!csvFile.open(QIODevice::WriteOnly)) {
             continue;
         }
 
         //  (2) save sheet values
         //     such as  A,,B,,,,C,,,D,,
 
-        for (int rc = 0; rc < maxRow; rc++)
-        {
-            for (int cc = 0; cc < maxCol; cc++)
-            {
+        for (int rc = 0; rc < maxRow; rc++) {
+            for (int cc = 0; cc < maxCol; cc++) {
 
                 QString cellData = cellValues[rc][cc];
 
-                if ( cellData.size() >= 0  )
-                {
-                    csvFile.write( cellData.toUtf8() ); // cell data
+                if (cellData.size() >= 0) {
+                    csvFile.write(cellData.toUtf8()); // cell data
                 }
 
-                csvFile.write( QString(",").toLatin1() ); // delimeter
+                csvFile.write(","); // delimeter
             }
 
-            csvFile.write( QString("\n").toLatin1() ); // CR
+            csvFile.write("\n"); // CR
 
             csvFile.flush();
         }
@@ -570,7 +557,6 @@ bool DocumentPrivate::saveCsv(QString mainCSVFileName) const
         csvFile.close();
 
     } // foreach (QString curretnSheetName, q->sheetNames()) ...
-
 
     return true;
 }
@@ -1383,15 +1369,12 @@ bool Document::saveAs(QIODevice *device) const
     return d->savePackage(device);
 }
 
-
 bool Document::saveAsCsv(const QString mainCSVFileName) const
 {
     Q_D(const Document);
 
-    return d->saveCsv( mainCSVFileName );
+    return d->saveCsv(mainCSVFileName);
 }
-
-
 
 bool Document::isLoadPackage() const
 {
