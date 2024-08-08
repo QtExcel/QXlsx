@@ -23,6 +23,8 @@ public:
     bool loadPackage(QIODevice *device);
     bool savePackage(QIODevice *device) const;
 
+    bool saveCsv(const QString mainCSVFileName) const;
+
     // copy style from one xlsx file to other
     static bool copyStyle(const QString &from, const QString &to);
 
