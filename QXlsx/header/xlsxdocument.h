@@ -118,6 +118,8 @@ public:
     bool saveAs(const QString &xlsXname) const;
     bool saveAs(QIODevice *device) const;
 
+    bool saveAsCsv(const QString mainCSVFileName) const;
+
     // copy style from one xlsx file to other
     static bool copyStyle(const QString &from, const QString &to);
 

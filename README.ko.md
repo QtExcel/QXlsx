@@ -13,17 +13,11 @@
 ## 사용하는 방법
 - [예제](Example.md) 를 참조하세요. 
 - [위키](https://github.com/QtExcel/QXlsx/wiki) 를 참조하세요.
-- [FAQ](https://github.com/QtExcel/QXlsx/wiki/FAQ) 를 참조하세요.
+-[FAQ](https://github.com/QtExcel/QXlsx/wiki/FAQ) 를 참조하세요.
 
 ## 설정하는 방법 (설치)
-
 - :권장: [QXlsx 프로젝트 설정하는 방법 (qmake)](HowToSetProject.ko.md) 참조
 - [QXlsx 프로젝트 설정하는 방법 (cmake)](HowToSetProject-cmake.ko.md) 참조
-
-## Github Actions
-
-[![Android](https://github.com/QtExcel/QXlsx/actions/workflows/android.yml/badge.svg)](https://github.com/QtExcel/QXlsx/actions/workflows/android.yml) [![IOS](https://github.com/QtExcel/QXlsx/actions/workflows/ios.yml/badge.svg)](https://github.com/QtExcel/QXlsx/actions/workflows/ios.yml) [![MacOS](https://github.com/QtExcel/QXlsx/actions/workflows/macos.yml/badge.svg)](https://github.com/QtExcel/QXlsx/actions/workflows/macos.yml) [![Ubuntu](https://github.com/QtExcel/QXlsx/actions/workflows/ubuntu.yml/badge.svg)](https://github.com/QtExcel/QXlsx/actions/workflows/ubuntu.yml) [![Windows](https://github.com/QtExcel/QXlsx/actions/workflows/windows.yml/badge.svg)](https://github.com/QtExcel/QXlsx/actions/workflows/windows.yml) [![CMake](https://github.com/QtExcel/QXlsx/actions/workflows/cmake.yml/badge.svg)](https://github.com/QtExcel/QXlsx/actions/workflows/cmake.yml) [![cmake-ubuntu](https://github.com/QtExcel/QXlsx/actions/workflows/cmake-ubuntu.yml/badge.svg)](https://github.com/QtExcel/QXlsx/actions/workflows/cmake-ubuntu.yml)
-
 - [테스트된 환경](TestEnv.md) 참조
 
 ## 컨트리뷰터
@@ -67,3 +61,4 @@
 
 - SimpleXlsxWriter를 Qt에서 사용하세요.
 - SimpleXlsxWriter는 MS 엑셀 2007 이상 버전에서 사용 가능한 XLSX 파일을 생성할 수 있는 C++ 라이브러리입니다.
+
