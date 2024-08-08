@@ -607,15 +607,21 @@ bool Workbook::loadFromXmlFile(QIODevice *device)
 
                 AbstractSheet *sheet = addSheet(name, sheetId, type);
                 sheet->setSheetState(state);
-                QString strFilePath = filePath();
+                if (relationship.target.startsWith("/")) {
+                    QString fullPath = QDir::cleanPath(relationship.target.mid(1));
 
-                // const QString fullPath = QDir::cleanPath(splitPath(strFilePath).constFirst() +
-                // QLatin1String("/") + relationship.target);
-                const auto parts = splitPath(strFilePath);
-                QString fullPath =
-                    QDir::cleanPath(parts.first() + QLatin1String("/") + relationship.target);
-
-                sheet->setFilePath(fullPath);
+                    sheet->setFilePath(fullPath);
+                }else{                    
+                    QString strFilePath = filePath();
+    
+                    // const QString fullPath = QDir::cleanPath(splitPath(strFilePath).constFirst() +
+                    // QLatin1String("/") + relationship.target);
+                    const auto parts = splitPath(strFilePath);
+                    QString fullPath =
+                        QDir::cleanPath(parts.first() + QLatin1String("/") + relationship.target);
+    
+                    sheet->setFilePath(fullPath);
+                }
             } else if (reader.name() == QLatin1String("workbookPr")) {
                 QXmlStreamAttributes attrs = reader.attributes();
                 if (attrs.hasAttribute(QLatin1String("date1904")))
