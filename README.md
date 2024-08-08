@@ -27,7 +27,10 @@
 - See [tested environments](TestEnv.md) for more information.
 
 ## Contributions
-- See [contributors](https://github.com/QtExcel/QXlsx/graphs/contributors).
+
+<a href="https://github.com/QtExcel/QXlsx/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=QtExcel/QXlsx" />
+</a>
 
 ## License and links
 - QXlsx is under MIT license. [https://github.com/QtExcel/QXlsx](https://github.com/QtExcel/QXlsx)
