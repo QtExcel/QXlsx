@@ -2285,7 +2285,11 @@ void WorksheetPrivate::loadXmlSheetData(QXmlStreamReader &reader)
 
                     if (attributes.hasAttribute(QLatin1String("customHeight"))) {
                         info->customHeight =
-                            attributes.value(QLatin1String("customHeight")) == QLatin1String("1");
+                            // attributes.value(QLatin1String("customHeight")) == QLatin1String("1");
+                             ( attributes.value(QLatin1String("customHeight")) == QLatin1String("1") ||
+                               attributes.value(QLatin1String("customHeight")) == QLatin1String("true") );
+                            // issue 204 Gorazd
+
                         // Row height is only specified when customHeight is set
                         if (attributes.hasAttribute(QLatin1String("ht"))) {
                             info->height = attributes.value(QLatin1String("ht")).toDouble();
