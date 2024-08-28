@@ -46,7 +46,7 @@ QXlsx/debug/*
 QXlsx/release/*
 *.-1
 *.pro.user
-build-*/
+build*/
 /build-*/*
 
 # visual studio
