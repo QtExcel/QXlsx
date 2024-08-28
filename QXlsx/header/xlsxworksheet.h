@@ -186,6 +186,8 @@ public:
     bool isWhiteSpaceVisible() const;
     void setWhiteSpaceVisible(bool visible);
     bool setStartPage(int spagen); // add by liufeijin20181028
+    void setFrozenRows(int rows);
+    void setFrozenColumns(int cols);
 
     QVector<CellLocation> getFullCells(int *maxRow, int *maxCol);
 
