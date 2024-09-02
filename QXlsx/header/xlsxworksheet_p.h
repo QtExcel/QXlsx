@@ -16,16 +16,12 @@
 #include <QSharedPointer>
 #include <QString>
 #include <QVector>
-#include <QtGlobal>
+#include <QHash>
 
 class QXmlStreamWriter;
 class QXmlStreamReader;
 
 QT_BEGIN_NAMESPACE_XLSX
-
-const int XLSX_ROW_MAX    = 1048576;
-const int XLSX_COLUMN_MAX = 16384;
-const int XLSX_STRING_MAX = 32767;
 
 class SharedStrings;
 
@@ -137,6 +133,53 @@ struct XlsxColumnInfo {
     bool collapsed;
 };
 
+class CellTable
+{
+public:
+    static QList<int> sorteIntList(QList<int> &&keys) {
+        std::sort(keys.begin(), keys.end());
+        return keys;
+    }
+
+    inline QList<int> sortedRows() const {
+        QList<int> keys = cells.keys();
+        std::sort(keys.begin(), keys.end());
+        return keys;
+    }
+
+    void setValue(int row, int column, const std::shared_ptr<Cell> &cell) {
+        cells[row].insert(column, cell);
+        firstRow = qMin(firstRow, row);
+        firstColumn = qMin(firstColumn, column);
+        lastRow = qMin(lastRow, row);
+        lastColumn = qMin(lastColumn, column);
+    }
+
+    std::shared_ptr<Cell> cellAt(int row, int column) const{
+        return cells.value(row).value(column);
+    }
+
+    bool contains(int row, int column) const{
+        auto it = cells.find(row);
+        if (it != cells.end()) {
+            return it->contains(column);
+        }
+        return false;
+    }
+
+    bool isEmpty() const {
+        return cells.isEmpty();
+    }
+
+    // It's faster with a single QHash, but in Qt5 it's capacity limits
+    // how much cells we can hold
+    QHash<int, QHash<int, std::shared_ptr<Cell>>> cells;
+    int firstRow = -1;
+    int firstColumn = -1;
+    int lastRow = -1;
+    int lastColumn = -1;
+};
+
 class WorksheetPrivate : public AbstractSheetPrivate
 {
     Q_DECLARE_PUBLIC(Worksheet)
@@ -182,7 +225,7 @@ public:
     SharedStrings *sharedStrings() const;
 
 public:
-    QMap<int, QMap<int, std::shared_ptr<Cell>>> cellTable;
+    CellTable cellTable;
 
     QMap<int, QMap<int, QString>> comments;
     QMap<int, QMap<int, QSharedPointer<XlsxHyperlinkData>>> urlTable;

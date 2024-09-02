@@ -76,23 +76,21 @@ void WorksheetPrivate::calculateSpans() const
     int span_max = -1;
 
     for (int row_num = dimension.firstRow(); row_num <= dimension.lastRow(); row_num++) {
-        auto it = cellTable.constFind(row_num);
-        if (it != cellTable.constEnd()) {
-            for (int col_num = dimension.firstColumn(); col_num <= dimension.lastColumn();
-                 col_num++) {
-                if (it->contains(col_num)) {
-                    if (span_max == -1) {
+        for (int col_num = dimension.firstColumn(); col_num <= dimension.lastColumn();
+             col_num++) {
+            if (cellTable.contains(row_num, col_num)) {
+                if (span_max == -1) {
+                    span_min = col_num;
+                    span_max = col_num;
+                } else {
+                    if (col_num < span_min)
                         span_min = col_num;
+                    else if (col_num > span_max)
                         span_max = col_num;
-                    } else {
-                        if (col_num < span_min)
-                            span_min = col_num;
-                        else if (col_num > span_max)
-                            span_max = col_num;
-                    }
                 }
             }
         }
+
         auto cIt = comments.constFind(row_num);
         if (cIt != comments.constEnd()) {
             for (int col_num = dimension.firstColumn(); col_num <= dimension.lastColumn();
@@ -190,13 +188,9 @@ Worksheet *Worksheet::copy(const QString &distName, int distId) const
 
     sheet_d->dimension = d->dimension;
 
-    QMapIterator<int, QMap<int, std::shared_ptr<Cell>>> it(d->cellTable);
-    while (it.hasNext()) {
-        it.next();
+    for (auto it = d->cellTable.cells.begin(); it != d->cellTable.cells.end(); ++it) {
         int row = it.key();
-        QMapIterator<int, std::shared_ptr<Cell>> it2(it.value());
-        while (it2.hasNext()) {
-            it2.next();
+        for (auto it2 = it.value().begin(); it2 != it.value().end(); ++it2) {
             int col = it2.key();
 
             auto cell           = std::make_shared<Cell>(it2.value().get());
@@ -205,9 +199,19 @@ Worksheet *Worksheet::copy(const QString &distName, int distId) const
             if (cell->cellType() == Cell::SharedStringType)
                 d->workbook->sharedStrings()->addSharedString(cell->d_ptr->richString);
 
-            sheet_d->cellTable[row][col] = cell;
+            sheet_d->cellTable.setValue(row, col, cell);
         }
     }
+
+    // for (auto it = d->cellTable.cells.begin(); it != d->cellTable.cells.end(); ++it) {
+    //     auto cell           = std::make_shared<Cell>(it.value().get());
+    //     cell->d_ptr->parent = sheet;
+
+    //     if (cell->cellType() == Cell::SharedStringType)
+    //         d->workbook->sharedStrings()->addSharedString(cell->d_ptr->richString);
+
+    //     sheet_d->cellTable.setValue(CellTable::row(it.key()), CellTable::column(it.key()), cell);
+    // }
 
     sheet_d->merges = d->merges;
     //    sheet_d->rowsInfo = d->rowsInfo;
@@ -557,23 +561,17 @@ Cell *Worksheet::cellAt(const CellReference &row_column) const
 Cell *Worksheet::cellAt(int row, int col) const
 {
     Q_D(const Worksheet);
-    auto it = d->cellTable.constFind(row);
-    if (it == d->cellTable.constEnd())
-        return nullptr;
-    if (!it->contains(col))
-        return nullptr;
-
-    return (*it)[col].get();
+    return d->cellTable.cellAt(row, col).get();
 }
 
 Format WorksheetPrivate::cellFormat(int row, int col) const
 {
-    auto it = cellTable.constFind(row);
-    if (it == cellTable.constEnd())
-        return Format();
-    if (!it->contains(col))
-        return Format();
-    return (*it)[col]->format();
+    auto cell = cellTable.cellAt(row, col);
+    if (cell) {
+        return cell->format();
+    }
+
+    return {};
 }
 
 /*!
@@ -615,7 +613,7 @@ bool Worksheet::writeString(int row, int column, const RichString &value, const 
     d->workbook->styles()->addXfFormat(fmt);
     auto cell = std::make_shared<Cell>(value.toPlainString(), Cell::SharedStringType, fmt, this);
     cell->d_ptr->richString   = value;
-    d->cellTable[row][column] = cell;
+    d->cellTable.setValue(row, column, cell);
     return true;
 }
 
@@ -687,7 +685,9 @@ bool Worksheet::writeInlineString(int row, int column, const QString &value, con
 
     Format fmt = format.isValid() ? format : d->cellFormat(row, column);
     d->workbook->styles()->addXfFormat(fmt);
-    d->cellTable[row][column] = std::make_shared<Cell>(value, Cell::InlineStringType, fmt, this);
+    auto cell = std::make_shared<Cell>(value, Cell::InlineStringType, fmt, this);
+    d->cellTable.setValue(row, column, cell);
+
     return true;
 }
 
@@ -716,7 +716,9 @@ bool Worksheet::writeNumeric(int row, int column, double value, const Format &fo
 
     Format fmt = format.isValid() ? format : d->cellFormat(row, column);
     d->workbook->styles()->addXfFormat(fmt);
-    d->cellTable[row][column] = std::make_shared<Cell>(value, Cell::NumberType, fmt, this);
+    auto cell = std::make_shared<Cell>(value, Cell::NumberType, fmt, this);
+    d->cellTable.setValue(row, column, cell);
+
     return true;
 }
 
@@ -768,7 +770,7 @@ bool Worksheet::writeFormula(int row,
 
     auto data                 = std::make_shared<Cell>(result, Cell::NumberType, fmt, this);
     data->d_ptr->formula      = formula;
-    d->cellTable[row][column] = data;
+    d->cellTable.setValue(row, column, data);
 
     CellRange range = formula.reference();
     if (formula.formulaType() == CellFormula::SharedType) {
@@ -782,7 +784,7 @@ bool Worksheet::writeFormula(int row,
                     } else {
                         auto newCell = std::make_shared<Cell>(result, Cell::NumberType, fmt, this);
                         newCell->d_ptr->formula = sf;
-                        d->cellTable[r][c]      = newCell;
+                        d->cellTable.setValue(row, column, newCell);
                     }
                 }
             }
@@ -819,7 +821,8 @@ bool Worksheet::writeBlank(int row, int column, const Format &format)
     d->workbook->styles()->addXfFormat(fmt);
 
     // Note: NumberType with an invalid QVariant value means blank.
-    d->cellTable[row][column] = std::make_shared<Cell>(QVariant{}, Cell::NumberType, fmt, this);
+    auto cell = std::make_shared<Cell>(QVariant{}, Cell::NumberType, fmt, this);
+    d->cellTable.setValue(row, column, cell);
 
     return true;
 }
@@ -848,7 +851,8 @@ bool Worksheet::writeBool(int row, int column, bool value, const Format &format)
 
     Format fmt = format.isValid() ? format : d->cellFormat(row, column);
     d->workbook->styles()->addXfFormat(fmt);
-    d->cellTable[row][column] = std::make_shared<Cell>(value, Cell::BooleanType, fmt, this);
+    auto cell = std::make_shared<Cell>(value, Cell::BooleanType, fmt, this);
+    d->cellTable.setValue(row, column, cell);
 
     return true;
 }
@@ -884,7 +888,8 @@ bool Worksheet::writeDateTime(int row, int column, const QDateTime &dt, const Fo
 
     double value = datetimeToNumber(dt, d->workbook->isDate1904());
 
-    d->cellTable[row][column] = std::make_shared<Cell>(value, Cell::NumberType, fmt, this);
+    auto cell = std::make_shared<Cell>(value, Cell::NumberType, fmt, this);
+    d->cellTable.setValue(row, column, cell);
 
     return true;
 }
@@ -914,7 +919,8 @@ bool Worksheet::writeDate(int row, int column, const QDate &dt, const Format &fo
 
     double value = datetimeToNumber(QDateTime(dt, QTime(0, 0, 0)), d->workbook->isDate1904());
 
-    d->cellTable[row][column] = std::make_shared<Cell>(value, Cell::NumberType, fmt, this);
+    auto cell = std::make_shared<Cell>(value, Cell::NumberType, fmt, this);
+    d->cellTable.setValue(row, column, cell);
 
     return true;
 }
@@ -947,8 +953,8 @@ bool Worksheet::writeTime(int row, int column, const QTime &t, const Format &for
         fmt.setNumberFormat(QStringLiteral("hh:mm:ss"));
     d->workbook->styles()->addXfFormat(fmt);
 
-    d->cellTable[row][column] =
-        std::make_shared<Cell>(timeToNumber(t), Cell::NumberType, fmt, this);
+    auto cell = std::make_shared<Cell>(timeToNumber(t), Cell::NumberType, fmt, this);
+    d->cellTable.setValue(row, column, cell);
 
     return true;
 }
@@ -1023,8 +1029,8 @@ bool Worksheet::writeHyperlink(int row,
 
     // Write the hyperlink string as normal string.
     d->sharedStrings()->addSharedString(displayString);
-    d->cellTable[row][column] =
-        std::make_shared<Cell>(displayString, Cell::SharedStringType, fmt, this);
+    auto cell = std::make_shared<Cell>(displayString, Cell::SharedStringType, fmt, this);
+    d->cellTable.setValue(row, column, cell);
 
     // Store the hyperlink data in a separate table
     d->urlTable[row][column] = QSharedPointer<XlsxHyperlinkData>(new XlsxHyperlinkData(
@@ -1477,10 +1483,11 @@ bool Worksheet::setStartPage(int spagen)
 void WorksheetPrivate::saveXmlSheetData(QXmlStreamWriter &writer) const
 {
     calculateSpans();
+
     for (int row_num = dimension.firstRow(); row_num <= dimension.lastRow(); row_num++) {
-        auto ctIt = cellTable.constFind(row_num);
+        auto ctIt = cellTable.cells.constFind(row_num);
         auto riIt = rowsInfo.constFind(row_num);
-        if (ctIt == cellTable.constEnd() && riIt == rowsInfo.constEnd() &&
+        if (ctIt == cellTable.cells.constEnd() && riIt == rowsInfo.constEnd() &&
             !comments.contains(row_num)) {
             // Only process rows with cell data / comments / formatting
             continue;
@@ -1525,11 +1532,12 @@ void WorksheetPrivate::saveXmlSheetData(QXmlStreamWriter &writer) const
         }
 
         // Write cell data if row contains filled cells
-        if (ctIt != cellTable.constEnd()) {
+        if (ctIt != cellTable.cells.constEnd()) {
             for (int col_num = dimension.firstColumn(); col_num <= dimension.lastColumn();
                  col_num++) {
-                if (ctIt->contains(col_num)) {
-                    saveXmlCellData(writer, row_num, col_num, (*ctIt)[col_num]);
+                auto cellIt = ctIt->find(col_num);
+                if (cellIt != ctIt->end()) {
+                    saveXmlCellData(writer, row_num, col_num, *cellIt);
                 }
             }
         }
@@ -2443,7 +2451,7 @@ void WorksheetPrivate::loadXmlSheetData(QXmlStreamReader &reader)
                     }
                 }
 
-                cellTable[pos.row()][pos.column()] = cell;
+                cellTable.setValue(pos.row(), pos.column(), cell);
             }
         }
     }
@@ -2820,25 +2828,7 @@ void WorksheetPrivate::validateDimension()
     if (dimension.isValid() || cellTable.isEmpty())
         return;
 
-    const auto firstRow = cellTable.constBegin().key();
-
-    const auto lastRow = (--cellTable.constEnd()).key();
-
-    int firstColumn = -1;
-    int lastColumn  = -1;
-
-    for (auto &&it = cellTable.constBegin(); it != cellTable.constEnd(); ++it) {
-        Q_ASSERT(!it.value().isEmpty());
-
-        if (firstColumn == -1 || it.value().constBegin().key() < firstColumn)
-            firstColumn = it.value().constBegin().key();
-
-        if (lastColumn == -1 || (--it.value().constEnd()).key() > lastColumn) {
-            lastColumn = (--it.value().constEnd()).key();
-        }
-    }
-
-    CellRange cr(firstRow, firstColumn, lastRow, lastColumn);
+    CellRange cr(cellTable.firstRow, cellTable.firstColumn, cellTable.lastRow, cellTable.lastColumn);
 
     if (cr.isValid())
         dimension = cr;
@@ -2875,33 +2865,27 @@ QVector<CellLocation> Worksheet::getFullCells(int *maxRow, int *maxCol)
         return ret;
     }
 
-    QMapIterator<int, QMap<int, std::shared_ptr<Cell>>> _it(d->cellTable);
-
-    while (_it.hasNext()) {
-        _it.next();
-
-        int keyI = _it.key();                                       // key (cell row)
-        QMapIterator<int, std::shared_ptr<Cell>> _iit(_it.value()); // value
-
-        while (_iit.hasNext()) {
-            _iit.next();
-
-            int keyII                     = _iit.key();   // key (cell column)
-            std::shared_ptr<Cell> ptrCell = _iit.value(); // value
+    for (const auto row : d->cellTable.sortedRows()) {
+        auto &columns = d->cellTable.cells[row];
+        auto columnsSorted = CellTable::sorteIntList(columns.keys());
+        for (const auto col : columnsSorted) {
+                   // It's faster to iterate but cellTable is unordered which might not
+                   // be what callers want?
+            auto cell = std::make_shared<Cell>(columns.value(col).get());
 
             CellLocation cl;
 
-            cl.row = keyI;
-            if (keyI > (*maxRow)) {
-                (*maxRow) = keyI;
+            cl.row = row;
+            if (row > (*maxRow)) {
+                (*maxRow) = row;
             }
 
-            cl.col = keyII;
-            if (keyII > (*maxCol)) {
-                (*maxCol) = keyII;
+            cl.col = col;
+            if (col > (*maxCol)) {
+                (*maxCol) = col;
             }
 
-            cl.cell = ptrCell;
+            cl.cell = cell;
 
             ret.push_back(cl);
         }

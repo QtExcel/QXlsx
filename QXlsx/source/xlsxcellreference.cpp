@@ -1,6 +1,7 @@
 // xlsxcellreference.cpp
 
 #include "xlsxcellreference.h"
+#include "xlsxworksheet_p.h"
 
 #include <QMap>
 #include <QRegularExpression>
@@ -69,20 +70,7 @@ int col_from_name(const QString &col_str)
 /*!
     Constructs an invalid Cell Reference
 */
-CellReference::CellReference()
-    : _row(-1)
-    , _column(-1)
-{
-}
-
-/*!
-    Constructs the Reference from the given \a row, and \a column.
-*/
-CellReference::CellReference(int row, int column)
-    : _row(row)
-    , _column(column)
-{
-}
+CellReference::CellReference() = default;
 
 /*!
     \overload
