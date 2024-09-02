@@ -26,9 +26,9 @@ QT_BEGIN_NAMESPACE_XLSX
 WorkbookPrivate::WorkbookPrivate(Workbook *q, Workbook::CreateFlag flag)
     : AbstractOOXmlFilePrivate(q, flag)
 {
-    sharedStrings = QSharedPointer<SharedStrings>(new SharedStrings(flag));
-    styles        = QSharedPointer<Styles>(new Styles(flag));
-    theme         = QSharedPointer<Theme>(new Theme(flag));
+    sharedStrings = std::make_shared<SharedStrings>(flag);
+    styles        = std::make_shared<Styles>(flag);
+    theme         = std::make_shared<Theme>(flag);
 
     x_window      = 240;
     y_window      = 15;
@@ -206,7 +206,7 @@ AbstractSheet *Workbook::addSheet(const QString &name, int sheetId, AbstractShee
         Q_ASSERT(false);
     }
 
-    d->sheets.append(QSharedPointer<AbstractSheet>(sheet));
+    d->sheets.append(std::shared_ptr<AbstractSheet>(sheet));
     d->sheetNames.append(name);
 
     return sheet;
@@ -253,7 +253,7 @@ AbstractSheet *Workbook::insertSheet(int index, const QString &name, AbstractShe
         Q_ASSERT(false);
     }
 
-    d->sheets.insert(index, QSharedPointer<AbstractSheet>(sheet));
+    d->sheets.insert(index, std::shared_ptr<AbstractSheet>(sheet));
     d->sheetNames.insert(index, sheetName);
     d->activesheetIndex = index;
 
@@ -268,7 +268,7 @@ AbstractSheet *Workbook::activeSheet() const
     Q_D(const Workbook);
     if (d->sheets.isEmpty())
         const_cast<Workbook *>(this)->addSheet();
-    return d->sheets[d->activesheetIndex].data();
+    return d->sheets[d->activesheetIndex].get();
 }
 
 bool Workbook::setActiveSheet(int index)
@@ -330,7 +330,7 @@ bool Workbook::moveSheet(int srcIndex, int distIndex)
     if (srcIndex < 0 || srcIndex >= d->sheets.size())
         return false;
 
-    QSharedPointer<AbstractSheet> sheet = d->sheets.takeAt(srcIndex);
+    std::shared_ptr<AbstractSheet> sheet = d->sheets.takeAt(srcIndex);
     d->sheetNames.takeAt(srcIndex);
     if (distIndex >= 0 || distIndex <= d->sheets.size()) {
         d->sheets.insert(distIndex, sheet);
@@ -364,7 +364,7 @@ bool Workbook::copySheet(int index, const QString &newName)
 
     ++d->last_sheet_id;
     AbstractSheet *sheet = d->sheets[index]->copy(worksheetName, d->last_sheet_id);
-    d->sheets.append(QSharedPointer<AbstractSheet>(sheet));
+    d->sheets.append(std::shared_ptr<AbstractSheet>(sheet));
     d->sheetNames.append(sheet->sheetName());
 
     return true; // #162
@@ -387,25 +387,25 @@ AbstractSheet *Workbook::sheet(int index) const
     Q_D(const Workbook);
     if (index < 0 || index >= d->sheets.size())
         return nullptr;
-    return d->sheets.at(index).data();
+    return d->sheets.at(index).get();
 }
 
 SharedStrings *Workbook::sharedStrings() const
 {
     Q_D(const Workbook);
-    return d->sharedStrings.data();
+    return d->sharedStrings.get();
 }
 
 Styles *Workbook::styles()
 {
     Q_D(Workbook);
-    return d->styles.data();
+    return d->styles.get();
 }
 
 Theme *Workbook::theme()
 {
     Q_D(Workbook);
-    return d->theme.data();
+    return d->theme.get();
 }
 
 /*!
@@ -418,7 +418,7 @@ QList<Drawing *> Workbook::drawings()
     Q_D(Workbook);
     QList<Drawing *> ds;
     for (int i = 0; i < d->sheets.size(); ++i) {
-        QSharedPointer<AbstractSheet> sheet = d->sheets[i];
+        std::shared_ptr<AbstractSheet> sheet = d->sheets[i];
         if (sheet->drawing())
             ds.append(sheet->drawing());
     }
@@ -429,10 +429,11 @@ QList<Drawing *> Workbook::drawings()
 /*!
  * \internal
  */
-QList<QSharedPointer<AbstractSheet>> Workbook::getSheetsByTypes(AbstractSheet::SheetType type) const
+QList<std::shared_ptr<AbstractSheet>>
+    Workbook::getSheetsByTypes(AbstractSheet::SheetType type) const
 {
     Q_D(const Workbook);
-    QList<QSharedPointer<AbstractSheet>> list;
+    QList<std::shared_ptr<AbstractSheet>> list;
     for (int i = 0; i < d->sheets.size(); ++i) {
         if (d->sheets[i]->sheetType() == type)
             list.append(d->sheets[i]);
@@ -490,7 +491,7 @@ void Workbook::saveToXmlFile(QIODevice *device) const
     int worksheetIndex  = 0;
     int chartsheetIndex = 0;
     for (int i = 0; i < d->sheets.size(); ++i) {
-        QSharedPointer<AbstractSheet> sheet = d->sheets[i];
+        std::shared_ptr<AbstractSheet> sheet = d->sheets[i];
         writer.writeEmptyElement(QStringLiteral("sheet"));
         writer.writeAttribute(QStringLiteral("name"), sheet->sheetName());
         writer.writeAttribute(QStringLiteral("sheetId"), QString::number(sheet->sheetId()));
@@ -653,7 +654,7 @@ bool Workbook::loadFromXmlFile(QIODevice *device)
                 const QString rId             = attributes.value(QLatin1String("r:id")).toString();
                 XlsxRelationship relationship = d->relationships->getRelationshipById(rId);
 
-                QSharedPointer<SimpleOOXmlFile> link(new SimpleOOXmlFile(F_LoadFromExists));
+                std::shared_ptr<SimpleOOXmlFile> link(new SimpleOOXmlFile(F_LoadFromExists));
 
                 const auto parts = splitPath(filePath());
                 QString fullPath =
@@ -714,7 +715,7 @@ void Workbook::addMediaFile(std::shared_ptr<MediaFile> media, bool force)
 /*!
  * \internal
  */
-QList<QSharedPointer<Chart>> Workbook::chartFiles() const
+QList<std::shared_ptr<Chart>> Workbook::chartFiles() const
 {
     Q_D(const Workbook);
 
@@ -724,7 +725,7 @@ QList<QSharedPointer<Chart>> Workbook::chartFiles() const
 /*!
  * \internal
  */
-void Workbook::addChartFile(QSharedPointer<Chart> chart)
+void Workbook::addChartFile(std::shared_ptr<Chart> chart)
 {
     Q_D(Workbook);
 

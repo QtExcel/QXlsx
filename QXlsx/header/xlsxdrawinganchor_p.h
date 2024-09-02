@@ -8,7 +8,6 @@
 #include <memory>
 
 #include <QPoint>
-#include <QSharedPointer>
 #include <QSize>
 #include <QString>
 #include <QXmlStreamReader>
@@ -49,7 +48,7 @@ public:
     void setObjectPicture(const QImage &img);
     bool getObjectPicture(QImage &img);
 
-    void setObjectGraphicFrame(QSharedPointer<Chart> chart);
+    void setObjectGraphicFrame(std::shared_ptr<QXlsx::Chart> chart);
 
     virtual bool loadFromXml(QXmlStreamReader &reader)     = 0;
     virtual void saveToXml(QXmlStreamWriter &writer) const = 0;
@@ -83,7 +82,7 @@ protected:
     Drawing *m_drawing;
     ObjectType m_objectType;
     std::shared_ptr<MediaFile> m_pictureFile;
-    QSharedPointer<Chart> m_chartFile;
+    std::shared_ptr<Chart> m_chartFile;
 
     int m_id;
 

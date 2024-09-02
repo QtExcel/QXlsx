@@ -48,11 +48,11 @@ Chartsheet::Chartsheet(const QString &name, int id, Workbook *workbook, CreateFl
         anchor->pos = QPoint(0, 0);
         anchor->ext = QSize(9293679, 6068786);
 
-        QSharedPointer<Chart> chart = QSharedPointer<Chart>(new Chart(this, flag));
+        auto chart = std::shared_ptr<Chart>(new Chart(this, flag));
         chart->setChartType(Chart::CT_BarChart);
         anchor->setObjectGraphicFrame(chart);
 
-        d_func()->chart = chart.data();
+        d_func()->chart = chart.get();
     }
 }
 

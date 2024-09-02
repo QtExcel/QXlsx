@@ -36,11 +36,12 @@
 // We mean it.
 //
 
+#include <memory>
+
 #include <QHash>
 #include <QIODevice>
 #include <QList>
 #include <QMap>
-#include <QSharedPointer>
 #include <QStringList>
 #include <QVector>
 #include <QXmlStreamReader>
@@ -124,8 +125,8 @@ private:
     bool readCellStyleXfs(QXmlStreamReader &reader);
 
     QHash<QString, int> m_builtinNumFmtsHash;
-    QMap<int, QSharedPointer<XlsxFormatNumberData>> m_customNumFmtIdMap;
-    QHash<QString, QSharedPointer<XlsxFormatNumberData>> m_customNumFmtsHash;
+    QMap<int, std::shared_ptr<XlsxFormatNumberData>> m_customNumFmtIdMap;
+    QHash<QString, std::shared_ptr<XlsxFormatNumberData>> m_customNumFmtsHash;
     int m_nextCustomNumFmtId;
     QList<Format> m_fontsList;
     QList<Format> m_fillsList;

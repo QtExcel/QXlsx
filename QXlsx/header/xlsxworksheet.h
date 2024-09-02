@@ -126,8 +126,8 @@ public:
     bool addDataValidation(const DataValidation &validation);
     bool addConditionalFormatting(const ConditionalFormatting &cf);
 
-    Cell *cellAt(const CellReference &row_column) const;
-    Cell *cellAt(int row, int column) const;
+    std::shared_ptr<Cell> cellAt(const CellReference &row_column) const;
+    std::shared_ptr<Cell> cellAt(int row, int column) const;
 
     int insertImage(int row, int column, const QImage &image);
     bool getImage(int imageIndex, QImage &img);

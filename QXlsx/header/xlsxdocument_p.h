@@ -32,7 +32,7 @@ public:
     QString packageName;              // name of the .xlsx file
 
     QMap<QString, QString> documentProperties; // core, app and custom properties
-    QSharedPointer<Workbook> workbook;
+    std::shared_ptr<Workbook> workbook;
     std::shared_ptr<ContentTypes> contentTypes;
     bool isLoad;
 };

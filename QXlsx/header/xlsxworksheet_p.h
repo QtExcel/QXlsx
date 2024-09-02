@@ -10,13 +10,12 @@
 #include "xlsxdatavalidation.h"
 #include "xlsxworksheet.h"
 
+#include <QHash>
 #include <QImage>
 #include <QObject>
 #include <QRegularExpression>
-#include <QSharedPointer>
 #include <QString>
 #include <QVector>
-#include <QHash>
 
 class QXmlStreamWriter;
 class QXmlStreamReader;
@@ -136,30 +135,35 @@ struct XlsxColumnInfo {
 class CellTable
 {
 public:
-    static QList<int> sorteIntList(QList<int> &&keys) {
+    static QList<int> sorteIntList(QList<int> &&keys)
+    {
         std::sort(keys.begin(), keys.end());
         return keys;
     }
 
-    inline QList<int> sortedRows() const {
+    inline QList<int> sortedRows() const
+    {
         QList<int> keys = cells.keys();
         std::sort(keys.begin(), keys.end());
         return keys;
     }
 
-    void setValue(int row, int column, const std::shared_ptr<Cell> &cell) {
+    void setValue(int row, int column, const std::shared_ptr<Cell> &cell)
+    {
         cells[row].insert(column, cell);
-        firstRow = qMin(firstRow, row);
+        firstRow    = qMin(firstRow, row);
         firstColumn = qMin(firstColumn, column);
-        lastRow = qMin(lastRow, row);
-        lastColumn = qMin(lastColumn, column);
+        lastRow     = qMin(lastRow, row);
+        lastColumn  = qMin(lastColumn, column);
     }
 
-    std::shared_ptr<Cell> cellAt(int row, int column) const{
+    std::shared_ptr<Cell> cellAt(int row, int column) const
+    {
         return cells.value(row).value(column);
     }
 
-    bool contains(int row, int column) const{
+    bool contains(int row, int column) const
+    {
         auto it = cells.find(row);
         if (it != cells.end()) {
             return it->contains(column);
@@ -167,17 +171,15 @@ public:
         return false;
     }
 
-    bool isEmpty() const {
-        return cells.isEmpty();
-    }
+    bool isEmpty() const { return cells.isEmpty(); }
 
     // It's faster with a single QHash, but in Qt5 it's capacity limits
     // how much cells we can hold
     QHash<int, QHash<int, std::shared_ptr<Cell>>> cells;
-    int firstRow = -1;
+    int firstRow    = -1;
     int firstColumn = -1;
-    int lastRow = -1;
-    int lastColumn = -1;
+    int lastRow     = -1;
+    int lastColumn  = -1;
 };
 
 class WorksheetPrivate : public AbstractSheetPrivate
@@ -217,8 +219,8 @@ public:
     void loadXmlSheetViews(QXmlStreamReader &reader);
     void loadXmlHyperlinks(QXmlStreamReader &reader);
 
-    QList<QSharedPointer<XlsxRowInfo>> getRowInfoList(int rowFirst, int rowLast);
-    QList<QSharedPointer<XlsxColumnInfo>> getColumnInfoList(int colFirst, int colLast);
+    QList<std::shared_ptr<XlsxRowInfo>> getRowInfoList(int rowFirst, int rowLast);
+    QList<std::shared_ptr<XlsxColumnInfo>> getColumnInfoList(int colFirst, int colLast);
     QList<int> getColumnIndexes(int colFirst, int colLast);
     bool isColumnRangeValid(int colFirst, int colLast);
 
@@ -228,11 +230,11 @@ public:
     CellTable cellTable;
 
     QHash<int, QHash<int, QString>> comments;
-    QHash<int, QHash<int, QSharedPointer<XlsxHyperlinkData>>> urlTable;
+    QHash<int, QHash<int, std::shared_ptr<XlsxHyperlinkData>>> urlTable;
     QList<CellRange> merges;
-    QHash<int, QSharedPointer<XlsxRowInfo>> rowsInfo;
-    QHash<int, QSharedPointer<XlsxColumnInfo>> colsInfo;
-    QHash<int, QSharedPointer<XlsxColumnInfo>> colsInfoHelper;
+    QHash<int, std::shared_ptr<XlsxRowInfo>> rowsInfo;
+    QHash<int, std::shared_ptr<XlsxColumnInfo>> colsInfo;
+    QHash<int, std::shared_ptr<XlsxColumnInfo>> colsInfoHelper;
 
     QList<DataValidation> dataValidationsList;
     QList<ConditionalFormatting> conditionalFormattingList;

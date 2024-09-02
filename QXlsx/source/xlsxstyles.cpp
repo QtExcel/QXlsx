@@ -148,7 +148,7 @@ void Styles::fixNumFmt(const Format &format)
 
     const auto &str = format.numberFormat();
     if (!str.isEmpty()) {
-        QHash<QString, QSharedPointer<XlsxFormatNumberData>>::ConstIterator cIt;
+        QHash<QString, std::shared_ptr<XlsxFormatNumberData>>::ConstIterator cIt;
         // Assign proper number format index
         const auto &it = m_builtinNumFmtsHash.constFind(str);
         if (it != m_builtinNumFmtsHash.constEnd()) {
@@ -159,7 +159,7 @@ void Styles::fixNumFmt(const Format &format)
             // Assign a new fmt Id.
             const_cast<Format *>(&format)->fixNumberFormat(m_nextCustomNumFmtId, str);
 
-            QSharedPointer<XlsxFormatNumberData> fmt(new XlsxFormatNumberData);
+            auto fmt          = std::make_shared<XlsxFormatNumberData>();
             fmt->formatIndex  = m_nextCustomNumFmtId;
             fmt->formatString = str;
             m_customNumFmtIdMap.insert(m_nextCustomNumFmtId, fmt);
@@ -356,7 +356,7 @@ void Styles::writeNumFmts(QXmlStreamWriter &writer) const
     writer.writeStartElement(QStringLiteral("numFmts"));
     writer.writeAttribute(QStringLiteral("count"), QString::number(m_customNumFmtIdMap.count()));
 
-    QMapIterator<int, QSharedPointer<XlsxFormatNumberData>> it(m_customNumFmtIdMap);
+    QMapIterator<int, std::shared_ptr<XlsxFormatNumberData>> it(m_customNumFmtIdMap);
     while (it.hasNext()) {
         it.next();
         writer.writeEmptyElement(QStringLiteral("numFmt"));
@@ -779,9 +779,9 @@ bool Styles::readNumFmts(QXmlStreamReader &reader)
         if (reader.tokenType() == QXmlStreamReader::StartElement) {
             if (reader.name() == QLatin1String("numFmt")) {
                 const auto &attributes = reader.attributes();
-                QSharedPointer<XlsxFormatNumberData> fmt(new XlsxFormatNumberData);
-                fmt->formatIndex  = attributes.value(QLatin1String("numFmtId")).toInt();
-                fmt->formatString = attributes.value(QLatin1String("formatCode")).toString();
+                auto fmt               = std::make_shared<XlsxFormatNumberData>();
+                fmt->formatIndex       = attributes.value(QLatin1String("numFmtId")).toInt();
+                fmt->formatString      = attributes.value(QLatin1String("formatCode")).toString();
                 if (fmt->formatIndex >= m_nextCustomNumFmtId)
                     m_nextCustomNumFmtId = fmt->formatIndex + 1;
                 m_customNumFmtIdMap.insert(fmt->formatIndex, fmt);
