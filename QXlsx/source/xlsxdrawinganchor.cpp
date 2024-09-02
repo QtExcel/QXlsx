@@ -99,7 +99,7 @@ void DrawingAnchor::setObjectShape(const QImage &img)
 }
 //}}
 
-void DrawingAnchor::setObjectGraphicFrame(QSharedPointer<Chart> chart)
+void DrawingAnchor::setObjectGraphicFrame(std::shared_ptr<Chart> chart)
 {
     m_chartFile = chart;
     m_drawing->workbook->addChartFile(chart);
@@ -341,8 +341,8 @@ void DrawingAnchor::loadXmlObjectGraphicFrame(QXmlStreamReader &reader)
                 const auto parts = splitPath(m_drawing->filePath());
                 QString path     = QDir::cleanPath(parts.first() + QLatin1String("/") + name);
 
-                bool exist                       = false;
-                QList<QSharedPointer<Chart>> cfs = m_drawing->workbook->chartFiles();
+                bool exist                        = false;
+                QList<std::shared_ptr<Chart>> cfs = m_drawing->workbook->chartFiles();
                 for (int i = 0; i < cfs.size(); ++i) {
                     if (cfs[i]->filePath() == path) {
                         // already exist
@@ -351,8 +351,8 @@ void DrawingAnchor::loadXmlObjectGraphicFrame(QXmlStreamReader &reader)
                     }
                 }
                 if (!exist) {
-                    m_chartFile =
-                        QSharedPointer<Chart>(new Chart(m_drawing->sheet, Chart::F_LoadFromExists));
+                    m_chartFile = std::shared_ptr<Chart>(
+                        new Chart(m_drawing->sheet, Chart::F_LoadFromExists));
                     m_chartFile->setFilePath(path);
                     m_drawing->workbook->addChartFile(m_chartFile);
                 }
@@ -475,7 +475,7 @@ void DrawingAnchor::loadXmlObjectShape(QXmlStreamReader &reader)
                 rId=sp_blip_rembed;
                 QString name = m_drawing->relationships()->getRelationshipById(rId).target;
                 QString path = QDir::cleanPath(splitPath(m_drawing->filePath())[0] +
-    QLatin1String("/") + name); bool exist = false; QList<QSharedPointer<MediaFile> > mfs =
+    QLatin1String("/") + name); bool exist = false; QList<std::shared_ptr<MediaFile> > mfs =
     m_drawing->workbook->mediaFiles(); for (int i=0; i<mfs.size(); ++i)
                    {
                        if (mfs[i]->fileName() == path)
@@ -486,7 +486,7 @@ void DrawingAnchor::loadXmlObjectShape(QXmlStreamReader &reader)
                        }
                    }
                    if (!exist) {
-                       m_pictureFile = QSharedPointer<MediaFile> (new MediaFile(path));
+                       m_pictureFile = std::shared_ptr<MediaFile> (new MediaFile(path));
                        m_drawing->workbook->addMediaFile(m_pictureFile, true);
                    }
             }

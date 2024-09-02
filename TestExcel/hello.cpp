@@ -126,7 +126,7 @@ int ReadExcel(bool isTest)
     //![2]
     qDebug() << " QXlsx::Cell.cellAt()";
     for (int row = 1; row < 20; ++row) {
-        Cell *cell = xlsx.cellAt(row, 1);
+        auto cell = xlsx.cellAt(row, 1);
         if (cell == NULL)
             continue;
         QVariant var   = cell->readValue();

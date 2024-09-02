@@ -39,7 +39,7 @@ int extractdata()
     //![2]
     qDebug() << "extractdata.xlsx - QXlsx::Cell.value()";
     for (int row = 1; row < 10; ++row) {
-        if (QXlsx::Cell *cell = xlsx.cellAt(row, 1)) {
+        if (auto cell = xlsx.cellAt(row, 1)) {
             qDebug() << cell->value();
         }
     }

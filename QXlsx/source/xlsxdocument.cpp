@@ -25,7 +25,6 @@
 #include <QDir>
 #include <QFile>
 #include <QPointF>
-#include <QSharedPointer>
 #include <QTemporaryFile>
 
 /*
@@ -163,8 +162,8 @@ void DocumentPrivate::init()
     if (!contentTypes)
         contentTypes = std::make_shared<ContentTypes>(ContentTypes::F_NewFromScratch);
 
-    if (workbook.isNull())
-        workbook = QSharedPointer<Workbook>(new Workbook(Workbook::F_NewFromScratch));
+    if (!workbook)
+        workbook = std::shared_ptr<Workbook>(new Workbook(Workbook::F_NewFromScratch));
 }
 
 bool DocumentPrivate::loadPackage(QIODevice *device)
@@ -217,7 +216,7 @@ bool DocumentPrivate::loadPackage(QIODevice *device)
 
     // load workbook now, Get the workbook file path from the root rels file
     // In normal case, this should be "xl/workbook.xml"
-    workbook = QSharedPointer<Workbook>(new Workbook(Workbook::F_LoadFromExists));
+    workbook = std::shared_ptr<Workbook>(new Workbook(Workbook::F_LoadFromExists));
     QList<XlsxRelationship> rels_xl =
         rootRels.documentRelationships(QStringLiteral("/officeDocument"));
     if (rels_xl.isEmpty())
@@ -247,7 +246,7 @@ bool DocumentPrivate::loadPackage(QIODevice *device)
             path = xlworkbook_Dir + QLatin1String("/") + name;
         }
 
-        QSharedPointer<Styles> styles(new Styles(Styles::F_LoadFromExists));
+        std::shared_ptr<Styles> styles(new Styles(Styles::F_LoadFromExists));
         styles->loadFromXmlData(zipReader.fileData(path));
         workbook->d_func()->styles = styles;
     }
@@ -285,7 +284,7 @@ bool DocumentPrivate::loadPackage(QIODevice *device)
 
     // load external links
     for (int i = 0; i < workbook->d_func()->externalLinks.count(); ++i) {
-        SimpleOOXmlFile *link = workbook->d_func()->externalLinks[i].data();
+        SimpleOOXmlFile *link = workbook->d_func()->externalLinks[i].get();
         QString rel_path      = getRelFilePath(link->filePath());
         // If the .rel file exists, load it.
         if (zipReader.filePaths().contains(rel_path))
@@ -303,9 +302,9 @@ bool DocumentPrivate::loadPackage(QIODevice *device)
     }
 
     // load charts
-    QList<QSharedPointer<Chart>> chartFileToLoad = workbook->chartFiles();
+    QList<std::shared_ptr<Chart>> chartFileToLoad = workbook->chartFiles();
     for (int i = 0; i < chartFileToLoad.size(); ++i) {
-        QSharedPointer<Chart> cf = chartFileToLoad[i];
+        std::shared_ptr<Chart> cf = chartFileToLoad[i];
         cf->loadFromXmlData(zipReader.fileData(cf->filePath()));
     }
 
@@ -335,13 +334,13 @@ bool DocumentPrivate::savePackage(QIODevice *device) const
     DocPropsCore docPropsCore(DocPropsCore::F_NewFromScratch);
 
     // save worksheet xml files
-    QList<QSharedPointer<AbstractSheet>> worksheets =
+    QList<std::shared_ptr<AbstractSheet>> worksheets =
         workbook->getSheetsByTypes(AbstractSheet::ST_WorkSheet);
     if (!worksheets.isEmpty())
         docPropsApp.addHeadingPair(QStringLiteral("Worksheets"), worksheets.size());
 
     for (int i = 0; i < worksheets.size(); ++i) {
-        QSharedPointer<AbstractSheet> sheet = worksheets[i];
+        std::shared_ptr<AbstractSheet> sheet = worksheets[i];
         contentTypes->addWorksheetName(QStringLiteral("sheet%1").arg(i + 1));
         docPropsApp.addPartTitle(sheet->sheetName());
 
@@ -355,12 +354,12 @@ bool DocumentPrivate::savePackage(QIODevice *device) const
     }
 
     // save chartsheet xml files
-    QList<QSharedPointer<AbstractSheet>> chartsheets =
+    QList<std::shared_ptr<AbstractSheet>> chartsheets =
         workbook->getSheetsByTypes(AbstractSheet::ST_ChartSheet);
     if (!chartsheets.isEmpty())
         docPropsApp.addHeadingPair(QStringLiteral("Chartsheets"), chartsheets.size());
     for (int i = 0; i < chartsheets.size(); ++i) {
-        QSharedPointer<AbstractSheet> sheet = chartsheets[i];
+        std::shared_ptr<AbstractSheet> sheet = chartsheets[i];
         contentTypes->addWorksheetName(QStringLiteral("sheet%1").arg(i + 1));
         docPropsApp.addPartTitle(sheet->sheetName());
 
@@ -374,7 +373,7 @@ bool DocumentPrivate::savePackage(QIODevice *device) const
 
     // save external links xml files
     for (int i = 0; i < workbook->d_func()->externalLinks.count(); ++i) {
-        SimpleOOXmlFile *link = workbook->d_func()->externalLinks[i].data();
+        SimpleOOXmlFile *link = workbook->d_func()->externalLinks[i].get();
         contentTypes->addExternalLinkName(QStringLiteral("externalLink%1").arg(i + 1));
 
         zipWriter.addFile(QStringLiteral("xl/externalLinks/externalLink%1.xml").arg(i + 1),
@@ -437,7 +436,7 @@ bool DocumentPrivate::savePackage(QIODevice *device) const
     // save chart xml files
     for (int i = 0; i < workbook->chartFiles().size(); ++i) {
         contentTypes->addChartName(QStringLiteral("chart%1").arg(i + 1));
-        QSharedPointer<Chart> cf = workbook->chartFiles()[i];
+        std::shared_ptr<Chart> cf = workbook->chartFiles()[i];
         zipWriter.addFile(QStringLiteral("xl/charts/chart%1.xml").arg(i + 1), cf->saveToXmlData());
     }
 
@@ -573,7 +572,7 @@ bool DocumentPrivate::copyStyle(const QString &from, const QString &to)
     ZipReader zipReader(from);
     QStringList filePaths = zipReader.filePaths();
 
-    QSharedPointer<ZipReader> toReader = QSharedPointer<ZipReader>(new ZipReader(to));
+    std::shared_ptr<ZipReader> toReader = std::shared_ptr<ZipReader>(new ZipReader(to));
 
     QStringList toFilePaths = toReader->filePaths();
 
@@ -628,7 +627,7 @@ bool DocumentPrivate::copyStyle(const QString &from, const QString &to)
 
     temporalZip.close();
 
-    toReader.clear();
+    toReader.reset();
 
     tempFile.close();
 
@@ -1098,7 +1097,7 @@ bool Document::addConditionalFormatting(const ConditionalFormatting &cf)
  *
  * \sa read()
  */
-Cell *Document::cellAt(const CellReference &pos) const
+std::shared_ptr<Cell> Document::cellAt(const CellReference &pos) const
 {
     if (Worksheet *sheet = currentWorksheet())
         return sheet->cellAt(pos);
@@ -1111,11 +1110,11 @@ Cell *Document::cellAt(const CellReference &pos) const
  *
  * \sa read()
  */
-Cell *Document::cellAt(int row, int col) const
+std::shared_ptr<Cell> Document::cellAt(int row, int col) const
 {
     if (Worksheet *sheet = currentWorksheet())
         return sheet->cellAt(row, col);
-    return nullptr;
+    return {};
 }
 
 /*!
@@ -1203,7 +1202,7 @@ QStringList Document::documentPropertyNames() const
 Workbook *Document::workbook() const
 {
     Q_D(const Document);
-    return d->workbook.data();
+    return d->workbook.get();
 }
 
 /*!

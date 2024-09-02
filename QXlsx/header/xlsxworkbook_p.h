@@ -9,7 +9,6 @@
 #include "xlsxtheme_p.h"
 #include "xlsxworkbook.h"
 
-#include <QSharedPointer>
 #include <QStringList>
 
 QT_BEGIN_NAMESPACE_XLSX
@@ -42,14 +41,14 @@ class WorkbookPrivate : public AbstractOOXmlFilePrivate
 public:
     WorkbookPrivate(Workbook *q, Workbook::CreateFlag flag);
 
-    QSharedPointer<SharedStrings> sharedStrings;
-    QList<QSharedPointer<AbstractSheet>> sheets;
-    QList<QSharedPointer<SimpleOOXmlFile>> externalLinks;
+    std::shared_ptr<SharedStrings> sharedStrings;
+    QList<std::shared_ptr<AbstractSheet>> sheets;
+    QList<std::shared_ptr<SimpleOOXmlFile>> externalLinks;
     QStringList sheetNames;
-    QSharedPointer<Styles> styles;
-    QSharedPointer<Theme> theme;
+    std::shared_ptr<Styles> styles;
+    std::shared_ptr<Theme> theme;
     QList<std::shared_ptr<MediaFile>> mediaFiles;
-    QList<QSharedPointer<Chart>> chartFiles;
+    QList<std::shared_ptr<Chart>> chartFiles;
     QList<XlsxDefineNameData> definedNamesList;
 
     bool strings_to_numbers_enabled;

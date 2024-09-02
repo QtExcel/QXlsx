@@ -41,7 +41,7 @@ int readGoogleSpreadsheet()
     // current sheet is default sheet. (Sheet1)
 
     for (int row = 1; row < 20; ++row) {
-        Cell *cell = xlsx.cellAt(row, 1);
+        auto cell = xlsx.cellAt(row, 1);
         if (cell == NULL)
             continue;
         QVariant var   = cell->readValue();
@@ -145,7 +145,7 @@ int readMSExcel201xNumber(QXlsx::Document *pXlsx)
         return (-1);
 
     for (int row = 1; row < 10; ++row) {
-        Cell *cell = pXlsx->cellAt(row, 1);
+        auto cell = pXlsx->cellAt(row, 1);
         if (cell == NULL)
             continue;
 

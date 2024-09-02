@@ -81,8 +81,8 @@ public:
     bool addDataValidation(const DataValidation &validation);
     bool addConditionalFormatting(const ConditionalFormatting &cf);
 
-    Cell *cellAt(const CellReference &cell) const;
-    Cell *cellAt(int row, int col) const;
+    std::shared_ptr<Cell> cellAt(const CellReference &cell) const;
+    std::shared_ptr<Cell> cellAt(int row, int col) const;
 
     bool defineName(const QString &name,
                     const QString &formula,

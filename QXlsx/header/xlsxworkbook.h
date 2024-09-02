@@ -12,7 +12,6 @@
 #include <QIODevice>
 #include <QImage>
 #include <QList>
-#include <QSharedPointer>
 
 QT_BEGIN_NAMESPACE_XLSX
 
@@ -70,8 +69,8 @@ public:
     // internal used member
     void addMediaFile(std::shared_ptr<MediaFile> media, bool force = false);
     QList<std::shared_ptr<MediaFile>> mediaFiles() const;
-    void addChartFile(QSharedPointer<Chart> chartFile);
-    QList<QSharedPointer<Chart>> chartFiles() const;
+    void addChartFile(std::shared_ptr<Chart> chartFile);
+    QList<std::shared_ptr<Chart>> chartFiles() const;
 
 private:
     friend class Worksheet;
@@ -90,7 +89,7 @@ private:
     Theme *theme();
     QList<QImage> images();
     QList<Drawing *> drawings();
-    QList<QSharedPointer<AbstractSheet>> getSheetsByTypes(AbstractSheet::SheetType type) const;
+    QList<std::shared_ptr<AbstractSheet>> getSheetsByTypes(AbstractSheet::SheetType type) const;
     QStringList worksheetNames() const;
     AbstractSheet *addSheet(const QString &name,
                             int sheetId,

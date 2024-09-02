@@ -75,8 +75,7 @@ void WorksheetPrivate::calculateSpans() const
     int span_max = -1;
 
     for (int row_num = dimension.firstRow(); row_num <= dimension.lastRow(); row_num++) {
-        for (int col_num = dimension.firstColumn(); col_num <= dimension.lastColumn();
-             col_num++) {
+        for (int col_num = dimension.firstColumn(); col_num <= dimension.lastColumn(); col_num++) {
             if (cellTable.contains(row_num, col_num)) {
                 if (span_max == -1) {
                     span_min = col_num;
@@ -511,7 +510,7 @@ QVariant Worksheet::read(int row, int column) const
 {
     Q_D(const Worksheet);
 
-    Cell *cell = cellAt(row, column);
+    auto cell = cellAt(row, column);
     if (!cell)
         return QVariant();
 
@@ -545,10 +544,10 @@ QVariant Worksheet::read(int row, int column) const
  * Returns the cell at the given \a row_column. If there
  * is no cell at the specified position, the function returns 0.
  */
-Cell *Worksheet::cellAt(const CellReference &row_column) const
+std::shared_ptr<Cell> Worksheet::cellAt(const CellReference &row_column) const
 {
     if (!row_column.isValid())
-        return nullptr;
+        return {};
 
     return cellAt(row_column.row(), row_column.column());
 }
@@ -557,10 +556,10 @@ Cell *Worksheet::cellAt(const CellReference &row_column) const
  * Returns the cell at the given \a row and \a column. If there
  * is no cell at the specified position, the function returns 0.
  */
-Cell *Worksheet::cellAt(int row, int col) const
+std::shared_ptr<Cell> Worksheet::cellAt(int row, int col) const
 {
     Q_D(const Worksheet);
-    return d->cellTable.cellAt(row, col).get();
+    return d->cellTable.cellAt(row, col);
 }
 
 Format WorksheetPrivate::cellFormat(int row, int col) const
@@ -611,7 +610,7 @@ bool Worksheet::writeString(int row, int column, const RichString &value, const 
         fmt.mergeFormat(value.fragmentFormat(0));
     d->workbook->styles()->addXfFormat(fmt);
     auto cell = std::make_shared<Cell>(value.toPlainString(), Cell::SharedStringType, fmt, this);
-    cell->d_ptr->richString   = value;
+    cell->d_ptr->richString = value;
     d->cellTable.setValue(row, column, cell);
     return true;
 }
@@ -767,8 +766,8 @@ bool Worksheet::writeFormula(int row,
         d->sharedFormulaMap[si] = formula;
     }
 
-    auto data                 = std::make_shared<Cell>(result, Cell::NumberType, fmt, this);
-    data->d_ptr->formula      = formula;
+    auto data            = std::make_shared<Cell>(result, Cell::NumberType, fmt, this);
+    data->d_ptr->formula = formula;
     d->cellTable.setValue(row, column, data);
 
     CellRange range = formula.reference();
@@ -778,7 +777,7 @@ bool Worksheet::writeFormula(int row,
         for (int r = range.firstRow(); r <= range.lastRow(); ++r) {
             for (int c = range.firstColumn(); c <= range.lastColumn(); ++c) {
                 if (!(r == row && c == column)) {
-                    if (Cell *cell = cellAt(r, c)) {
+                    if (auto cell = cellAt(r, c)) {
                         cell->d_ptr->formula = sf;
                     } else {
                         auto newCell = std::make_shared<Cell>(result, Cell::NumberType, fmt, this);
@@ -1032,7 +1031,7 @@ bool Worksheet::writeHyperlink(int row,
     d->cellTable.setValue(row, column, cell);
 
     // Store the hyperlink data in a separate table
-    d->urlTable[row][column] = QSharedPointer<XlsxHyperlinkData>(new XlsxHyperlinkData(
+    d->urlTable[row][column] = std::shared_ptr<XlsxHyperlinkData>(new XlsxHyperlinkData(
         XlsxHyperlinkData::External, urlString, locationString, QString(), tip));
 
     return true;
@@ -1123,7 +1122,7 @@ bool Worksheet::getImage(int imageIndex, QImage &img)
     int realImageIndex = imageIndex - 1; // minus one
 
     DrawingAnchor *danchor = d->drawing->anchors.at(realImageIndex);
-    // QSharedPointer<Drawing> // for multithread
+    // std::shared_ptr<Drawing> // for multithread
     if (danchor == nullptr) {
         return false;
     }
@@ -1190,10 +1189,10 @@ Chart *Worksheet::insertChart(int row, int column, const QSize &size)
     anchor->from = XlsxMarker(row, column, 0, 0);
     anchor->ext  = size * 9525;
 
-    QSharedPointer<Chart> chart = QSharedPointer<Chart>(new Chart(this, F_NewFromScratch));
+    auto chart = std::shared_ptr<Chart>(new Chart(this, F_NewFromScratch));
     anchor->setObjectGraphicFrame(chart);
 
-    return chart.data();
+    return chart.get();
 }
 
 /*!
@@ -1219,7 +1218,7 @@ bool Worksheet::mergeCells(const CellRange &range, const Format &format)
     for (int row = range.firstRow(); row <= range.lastRow(); ++row) {
         for (int col = range.firstColumn(); col <= range.lastColumn(); ++col) {
             if (row == range.firstRow() && col == range.firstColumn()) {
-                Cell *cell = cellAt(row, col);
+                auto cell = cellAt(row, col);
                 if (cell) {
                     if (format.isValid())
                         cell->d_ptr->format = format;
@@ -1342,7 +1341,7 @@ void Worksheet::saveToXmlFile(QIODevice *device) const
         writer.writeStartElement(QStringLiteral("cols"));
 
         for (auto it = d->colsInfo.begin(); it != d->colsInfo.end(); ++it) {
-            QSharedPointer<XlsxColumnInfo> col_info = it.value();
+            std::shared_ptr<XlsxColumnInfo> col_info = it.value();
             writer.writeStartElement(QStringLiteral("col"));
             writer.writeAttribute(QStringLiteral("min"), QString::number(col_info->firstColumn));
             writer.writeAttribute(QStringLiteral("max"), QString::number(col_info->lastColumn));
@@ -1504,7 +1503,7 @@ void WorksheetPrivate::saveXmlSheetData(QXmlStreamWriter &writer) const
             writer.writeAttribute(QStringLiteral("spans"), span);
 
         if (riIt != rowsInfo.constEnd()) {
-            QSharedPointer<XlsxRowInfo> rowInfo = riIt.value();
+            std::shared_ptr<XlsxRowInfo> rowInfo = riIt.value();
             if (!rowInfo->format.isEmpty()) {
                 writer.writeAttribute(QStringLiteral("s"),
                                       QString::number(rowInfo->format.xfIndex()));
@@ -1566,7 +1565,8 @@ void WorksheetPrivate::saveXmlCellData(QXmlStreamWriter &writer,
         } else {
             auto cIt = colsInfoHelper.constFind(col);
             if (cIt != colsInfoHelper.constEnd() && !(*cIt)->format.isEmpty()) {
-                writer.writeAttribute(QStringLiteral("s"), QString::number((*cIt)->format.xfIndex()));
+                writer.writeAttribute(QStringLiteral("s"),
+                                      QString::number((*cIt)->format.xfIndex()));
             }
         }
     }
@@ -1724,9 +1724,9 @@ void WorksheetPrivate::saveXmlHyperlinks(QXmlStreamWriter &writer) const
         int row = it.key();
 
         for (auto it2 = it.value().begin(); it2 != it.value().end(); ++it2) {
-            int col                                = it2.key();
-            QSharedPointer<XlsxHyperlinkData> data = it2.value();
-            QString ref                            = CellReference(row, col).toString();
+            int col                                 = it2.key();
+            std::shared_ptr<XlsxHyperlinkData> data = it2.value();
+            QString ref                             = CellReference(row, col).toString();
 
             // dev57
             // writer.writeEmptyElement(QStringLiteral("hyperlink"));
@@ -1784,10 +1784,10 @@ void WorksheetPrivate::splitColsInfo(int colFirst, int colLast)
     // This will be more complex if we try to set "C:F" after "B:D".
     {
         for (auto it = colsInfo.begin(); it != colsInfo.end(); ++it) {
-            QSharedPointer<XlsxColumnInfo> info = it.value();
+            std::shared_ptr<XlsxColumnInfo> info = it.value();
             if (colFirst > info->firstColumn && colFirst <= info->lastColumn) {
                 // split the range,
-                QSharedPointer<XlsxColumnInfo> info2(new XlsxColumnInfo(*info));
+                std::shared_ptr<XlsxColumnInfo> info2(new XlsxColumnInfo(*info));
                 info->lastColumn   = colFirst - 1;
                 info2->firstColumn = colFirst;
                 colsInfo.insert(colFirst, info2);
@@ -1800,9 +1800,9 @@ void WorksheetPrivate::splitColsInfo(int colFirst, int colLast)
     }
     {
         for (auto it = colsInfo.begin(); it != colsInfo.end(); ++it) {
-            QSharedPointer<XlsxColumnInfo> info = it.value();
+            std::shared_ptr<XlsxColumnInfo> info = it.value();
             if (colLast >= info->firstColumn && colLast < info->lastColumn) {
-                QSharedPointer<XlsxColumnInfo> info2(new XlsxColumnInfo(*info));
+                std::shared_ptr<XlsxColumnInfo> info2(new XlsxColumnInfo(*info));
                 info->lastColumn   = colLast;
                 info2->firstColumn = colLast + 1;
                 colsInfo.insert(colLast + 1, info2);
@@ -1898,9 +1898,9 @@ bool Worksheet::setColumnWidth(int colFirst, int colLast, double width)
 {
     Q_D(Worksheet);
 
-    const QList<QSharedPointer<XlsxColumnInfo>> columnInfoList =
+    const QList<std::shared_ptr<XlsxColumnInfo>> columnInfoList =
         d->getColumnInfoList(colFirst, colLast);
-    for (const QSharedPointer<XlsxColumnInfo> &columnInfo : columnInfoList) {
+    for (const std::shared_ptr<XlsxColumnInfo> &columnInfo : columnInfoList) {
         columnInfo->width = width;
     }
 
@@ -1916,9 +1916,9 @@ bool Worksheet::setColumnFormat(int colFirst, int colLast, const Format &format)
 {
     Q_D(Worksheet);
 
-    const QList<QSharedPointer<XlsxColumnInfo>> columnInfoList =
+    const QList<std::shared_ptr<XlsxColumnInfo>> columnInfoList =
         d->getColumnInfoList(colFirst, colLast);
-    for (const QSharedPointer<XlsxColumnInfo> &columnInfo : columnInfoList)
+    for (const std::shared_ptr<XlsxColumnInfo> &columnInfo : columnInfoList)
         columnInfo->format = format;
 
     if (columnInfoList.count() > 0) {
@@ -1937,9 +1937,9 @@ bool Worksheet::setColumnHidden(int colFirst, int colLast, bool hidden)
 {
     Q_D(Worksheet);
 
-    const QList<QSharedPointer<XlsxColumnInfo>> columnInfoList =
+    const QList<std::shared_ptr<XlsxColumnInfo>> columnInfoList =
         d->getColumnInfoList(colFirst, colLast);
-    for (const QSharedPointer<XlsxColumnInfo> &columnInfo : columnInfoList)
+    for (const std::shared_ptr<XlsxColumnInfo> &columnInfo : columnInfoList)
         columnInfo->hidden = hidden;
 
     return (columnInfoList.count() > 0);
@@ -1952,7 +1952,7 @@ double Worksheet::columnWidth(int column)
 {
     Q_D(Worksheet);
 
-    QList<QSharedPointer<XlsxColumnInfo>> columnInfoList = d->getColumnInfoList(column, column);
+    QList<std::shared_ptr<XlsxColumnInfo>> columnInfoList = d->getColumnInfoList(column, column);
 
     // [dev54]
     if (columnInfoList.size() == 0) {
@@ -1983,7 +1983,7 @@ Format Worksheet::columnFormat(int column)
 {
     Q_D(Worksheet);
 
-    QList<QSharedPointer<XlsxColumnInfo>> columnInfoList = d->getColumnInfoList(column, column);
+    QList<std::shared_ptr<XlsxColumnInfo>> columnInfoList = d->getColumnInfoList(column, column);
     if (columnInfoList.count() == 1)
         return columnInfoList.at(0)->format;
 
@@ -1997,7 +1997,7 @@ bool Worksheet::isColumnHidden(int column)
 {
     Q_D(Worksheet);
 
-    QList<QSharedPointer<XlsxColumnInfo>> columnInfoList = d->getColumnInfoList(column, column);
+    QList<std::shared_ptr<XlsxColumnInfo>> columnInfoList = d->getColumnInfoList(column, column);
     if (columnInfoList.count() == 1)
         return columnInfoList.at(0)->hidden;
 
@@ -2015,8 +2015,8 @@ bool Worksheet::setRowHeight(int rowFirst, int rowLast, double height)
 {
     Q_D(Worksheet);
 
-    const QList<QSharedPointer<XlsxRowInfo>> rowInfoList = d->getRowInfoList(rowFirst, rowLast);
-    for (const QSharedPointer<XlsxRowInfo> &rowInfo : rowInfoList) {
+    const QList<std::shared_ptr<XlsxRowInfo>> rowInfoList = d->getRowInfoList(rowFirst, rowLast);
+    for (const std::shared_ptr<XlsxRowInfo> &rowInfo : rowInfoList) {
         rowInfo->height       = height;
         rowInfo->customHeight = true;
     }
@@ -2034,8 +2034,8 @@ bool Worksheet::setRowFormat(int rowFirst, int rowLast, const Format &format)
 {
     Q_D(Worksheet);
 
-    const QList<QSharedPointer<XlsxRowInfo>> rowInfoList = d->getRowInfoList(rowFirst, rowLast);
-    for (const QSharedPointer<XlsxRowInfo> &rowInfo : rowInfoList)
+    const QList<std::shared_ptr<XlsxRowInfo>> rowInfoList = d->getRowInfoList(rowFirst, rowLast);
+    for (const std::shared_ptr<XlsxRowInfo> &rowInfo : rowInfoList)
         rowInfo->format = format;
 
     d->workbook->styles()->addXfFormat(format);
@@ -2052,8 +2052,8 @@ bool Worksheet::setRowHidden(int rowFirst, int rowLast, bool hidden)
 {
     Q_D(Worksheet);
 
-    const QList<QSharedPointer<XlsxRowInfo>> rowInfoList = d->getRowInfoList(rowFirst, rowLast);
-    for (const QSharedPointer<XlsxRowInfo> &rowInfo : rowInfoList)
+    const QList<std::shared_ptr<XlsxRowInfo>> rowInfoList = d->getRowInfoList(rowFirst, rowLast);
+    for (const std::shared_ptr<XlsxRowInfo> &rowInfo : rowInfoList)
         rowInfo->hidden = hidden;
 
     return rowInfoList.count() > 0;
@@ -2117,7 +2117,7 @@ bool Worksheet::groupRows(int rowFirst, int rowLast, bool collapsed)
         if (it != d->rowsInfo.end()) {
             (*it)->outlineLevel += 1;
         } else {
-            QSharedPointer<XlsxRowInfo> info(new XlsxRowInfo);
+            std::shared_ptr<XlsxRowInfo> info(new XlsxRowInfo);
             info->outlineLevel += 1;
             it = d->rowsInfo.insert(row, info);
         }
@@ -2127,7 +2127,7 @@ bool Worksheet::groupRows(int rowFirst, int rowLast, bool collapsed)
     if (collapsed) {
         auto it = d->rowsInfo.find(rowLast + 1);
         if (it == d->rowsInfo.end())
-            it = d->rowsInfo.insert(rowLast + 1, QSharedPointer<XlsxRowInfo>(new XlsxRowInfo));
+            it = d->rowsInfo.insert(rowLast + 1, std::shared_ptr<XlsxRowInfo>(new XlsxRowInfo));
         (*it)->collapsed = true;
     }
     return true;
@@ -2178,7 +2178,7 @@ bool Worksheet::groupColumns(int colFirst, int colLast, bool collapsed)
                 (*it)->hidden = true;
         } else {
             int colEnd = (idx == nodes.size() - 1) ? colLast : nodes[idx + 1] - 1;
-            QSharedPointer<XlsxColumnInfo> info(new XlsxColumnInfo(colStart, colEnd, false));
+            std::shared_ptr<XlsxColumnInfo> info(new XlsxColumnInfo(colStart, colEnd, false));
             info->outlineLevel += 1;
             d->colsInfo.insert(colFirst, info);
             if (collapsed)
@@ -2195,7 +2195,7 @@ bool Worksheet::groupColumns(int colFirst, int colLast, bool collapsed)
         if (it != d->colsInfo.constEnd())
             (*it)->collapsed = true;
         else {
-            QSharedPointer<XlsxColumnInfo> info(new XlsxColumnInfo(col, col, false));
+            std::shared_ptr<XlsxColumnInfo> info(new XlsxColumnInfo(col, col, false));
             info->collapsed = true;
             d->colsInfo.insert(col, info);
             d->colsInfoHelper[col] = info;
@@ -2276,7 +2276,7 @@ void WorksheetPrivate::loadXmlSheetData(QXmlStreamReader &reader)
                     attributes.hasAttribute(QLatin1String("outlineLevel")) ||
                     attributes.hasAttribute(QLatin1String("collapsed"))) {
 
-                    QSharedPointer<XlsxRowInfo> info(new XlsxRowInfo);
+                    std::shared_ptr<XlsxRowInfo> info(new XlsxRowInfo);
                     if (attributes.hasAttribute(QLatin1String("customFormat")) &&
                         attributes.hasAttribute(QLatin1String("s"))) {
                         int idx      = attributes.value(QLatin1String("s")).toInt();
@@ -2321,8 +2321,7 @@ void WorksheetPrivate::loadXmlSheetData(QXmlStreamReader &reader)
                 QXmlStreamAttributes attributes = reader.attributes();
                 QString r                       = attributes.value(QLatin1String("r")).toString();
                 CellReference pos(r);
-                if (r.isEmpty())
-                {
+                if (r.isEmpty()) {
                     pos.setRow(row_num);
                     pos.setColumn(++col_num);
                 }
@@ -2464,7 +2463,7 @@ void WorksheetPrivate::loadXmlColumnsInfo(QXmlStreamReader &reader)
         reader.readNextStartElement();
         if (reader.tokenType() == QXmlStreamReader::StartElement) {
             if (reader.name() == QLatin1String("col")) {
-                QSharedPointer<XlsxColumnInfo> info(new XlsxColumnInfo(0, 1, false));
+                std::shared_ptr<XlsxColumnInfo> info(new XlsxColumnInfo(0, 1, false));
 
                 QXmlStreamAttributes colAttrs = reader.attributes();
                 int min                       = colAttrs.value(QLatin1String("min")).toInt();
@@ -2658,7 +2657,7 @@ void WorksheetPrivate::loadXmlHyperlinks(QXmlStreamReader &reader)
             QXmlStreamAttributes attrs = reader.attributes();
             CellReference pos(attrs.value(QLatin1String("ref")).toString());
             if (pos.isValid()) { // Valid
-                QSharedPointer<XlsxHyperlinkData> link(new XlsxHyperlinkData);
+                std::shared_ptr<XlsxHyperlinkData> link(new XlsxHyperlinkData);
                 link->display  = attrs.value(QLatin1String("display")).toString();
                 link->tooltip  = attrs.value(QLatin1String("tooltip")).toString();
                 link->location = attrs.value(QLatin1String("location")).toString();
@@ -2678,9 +2677,10 @@ void WorksheetPrivate::loadXmlHyperlinks(QXmlStreamReader &reader)
     }
 }
 
-QList<QSharedPointer<XlsxColumnInfo>> WorksheetPrivate::getColumnInfoList(int colFirst, int colLast)
+QList<std::shared_ptr<XlsxColumnInfo>> WorksheetPrivate::getColumnInfoList(int colFirst,
+                                                                           int colLast)
 {
-    QList<QSharedPointer<XlsxColumnInfo>> columnsInfoList;
+    QList<std::shared_ptr<XlsxColumnInfo>> columnsInfoList;
     if (isColumnRangeValid(colFirst, colLast)) {
         QList<int> nodes = getColumnIndexes(colFirst, colLast);
 
@@ -2691,7 +2691,7 @@ QList<QSharedPointer<XlsxColumnInfo>> WorksheetPrivate::getColumnInfoList(int co
                 columnsInfoList.append(*it);
             } else {
                 int colEnd = (idx == nodes.size() - 1) ? colLast : nodes[idx + 1] - 1;
-                QSharedPointer<XlsxColumnInfo> info(new XlsxColumnInfo(colStart, colEnd, false));
+                std::shared_ptr<XlsxColumnInfo> info(new XlsxColumnInfo(colStart, colEnd, false));
                 colsInfo.insert(colFirst, info);
                 columnsInfoList.append(info);
                 for (int c = colStart; c <= colEnd; ++c) {
@@ -2704,9 +2704,9 @@ QList<QSharedPointer<XlsxColumnInfo>> WorksheetPrivate::getColumnInfoList(int co
     return columnsInfoList;
 }
 
-QList<QSharedPointer<XlsxRowInfo>> WorksheetPrivate::getRowInfoList(int rowFirst, int rowLast)
+QList<std::shared_ptr<XlsxRowInfo>> WorksheetPrivate::getRowInfoList(int rowFirst, int rowLast)
 {
-    QList<QSharedPointer<XlsxRowInfo>> rowInfoList;
+    QList<std::shared_ptr<XlsxRowInfo>> rowInfoList;
 
     int min_col = dimension.firstColumn() < 1 ? 1 : dimension.firstColumn();
 
@@ -2714,9 +2714,9 @@ QList<QSharedPointer<XlsxRowInfo>> WorksheetPrivate::getRowInfoList(int rowFirst
         if (checkDimensions(row, min_col, false, true))
             continue;
 
-        QSharedPointer<XlsxRowInfo> rowInfo;
-        if ((rowsInfo[row]).isNull()) {
-            rowsInfo[row] = QSharedPointer<XlsxRowInfo>(new XlsxRowInfo());
+        std::shared_ptr<XlsxRowInfo> rowInfo;
+        if (!(rowsInfo[row])) {
+            rowsInfo[row] = std::make_shared<XlsxRowInfo>();
         }
         rowInfoList.append(rowsInfo[row]);
     }
@@ -2820,7 +2820,8 @@ void WorksheetPrivate::validateDimension()
     if (dimension.isValid() || cellTable.isEmpty())
         return;
 
-    CellRange cr(cellTable.firstRow, cellTable.firstColumn, cellTable.lastRow, cellTable.lastColumn);
+    CellRange cr(
+        cellTable.firstRow, cellTable.firstColumn, cellTable.lastRow, cellTable.lastColumn);
 
     if (cr.isValid())
         dimension = cr;
@@ -2858,11 +2859,11 @@ QVector<CellLocation> Worksheet::getFullCells(int *maxRow, int *maxCol)
     }
 
     for (const auto row : d->cellTable.sortedRows()) {
-        auto &columns = d->cellTable.cells[row];
+        auto &columns      = d->cellTable.cells[row];
         auto columnsSorted = CellTable::sorteIntList(columns.keys());
         for (const auto col : columnsSorted) {
-                   // It's faster to iterate but cellTable is unordered which might not
-                   // be what callers want?
+            // It's faster to iterate but cellTable is unordered which might not
+            // be what callers want?
             auto cell = std::make_shared<Cell>(columns.value(col).get());
 
             CellLocation cl;
