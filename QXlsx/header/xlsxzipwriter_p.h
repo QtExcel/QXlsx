@@ -7,7 +7,6 @@
 
 #include <QIODevice>
 #include <QString>
-#include <QtGlobal>
 
 class QZipWriter;
 

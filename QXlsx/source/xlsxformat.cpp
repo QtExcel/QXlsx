@@ -8,7 +8,6 @@
 
 #include <QDataStream>
 #include <QDebug>
-#include <QtGlobal>
 
 QT_BEGIN_NAMESPACE_XLSX
 

@@ -7,7 +7,6 @@
 
 #include <QIODevice>
 #include <QString>
-#include <QtGlobal>
 
 QT_BEGIN_NAMESPACE_XLSX
 

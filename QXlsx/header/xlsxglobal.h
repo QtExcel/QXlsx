@@ -13,7 +13,6 @@
 #include <QString>
 #include <QStringList>
 #include <QVariant>
-#include <QtGlobal>
 
 #if defined(QXlsx_SHAREDLIB)
 #    if defined(QXlsx_EXPORTS)

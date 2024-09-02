@@ -13,7 +13,6 @@
 #include <QImage>
 #include <QList>
 #include <QSharedPointer>
-#include <QtGlobal>
 
 QT_BEGIN_NAMESPACE_XLSX
 

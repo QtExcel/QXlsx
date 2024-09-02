@@ -5,8 +5,6 @@
 
 #include "xlsxglobal.h"
 
-#include <QtGlobal>
-
 QT_BEGIN_NAMESPACE_XLSX
 
 const int XLSX_ROW_MAX    = 1048576;

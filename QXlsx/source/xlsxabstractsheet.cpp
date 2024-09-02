@@ -5,8 +5,6 @@
 #include "xlsxabstractsheet_p.h"
 #include "xlsxworkbook.h"
 
-#include <QtGlobal>
-
 QT_BEGIN_NAMESPACE_XLSX
 
 AbstractSheetPrivate::AbstractSheetPrivate(AbstractSheet *p, AbstractSheet::CreateFlag flag)

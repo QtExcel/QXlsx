@@ -39,7 +39,6 @@
 #include <QVariant>
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
-#include <QtGlobal>
 
 QT_BEGIN_NAMESPACE_XLSX
 
@@ -1341,9 +1340,8 @@ void Worksheet::saveToXmlFile(QIODevice *device) const
 
     if (!d->colsInfo.isEmpty()) {
         writer.writeStartElement(QStringLiteral("cols"));
-        QMapIterator<int, QSharedPointer<XlsxColumnInfo>> it(d->colsInfo);
-        while (it.hasNext()) {
-            it.next();
+
+        for (auto it = d->colsInfo.begin(); it != d->colsInfo.end(); ++it) {
             QSharedPointer<XlsxColumnInfo> col_info = it.value();
             writer.writeStartElement(QStringLiteral("col"));
             writer.writeAttribute(QStringLiteral("min"), QString::number(col_info->firstColumn));
@@ -1558,17 +1556,20 @@ void WorksheetPrivate::saveXmlCellData(QXmlStreamWriter &writer,
     writer.writeStartElement(QStringLiteral("c"));
     writer.writeAttribute(QStringLiteral("r"), cell_pos);
 
-    QMap<int, QSharedPointer<XlsxRowInfo>>::ConstIterator rIt;
-    QMap<int, QSharedPointer<XlsxColumnInfo>>::ConstIterator cIt;
-
     // Style used by the cell, row or col
-    if (!cell->format().isEmpty())
+    if (!cell->format().isEmpty()) {
         writer.writeAttribute(QStringLiteral("s"), QString::number(cell->format().xfIndex()));
-    else if ((rIt = rowsInfo.constFind(row)) != rowsInfo.constEnd() && !(*rIt)->format.isEmpty())
-        writer.writeAttribute(QStringLiteral("s"), QString::number((*rIt)->format.xfIndex()));
-    else if ((cIt = colsInfoHelper.constFind(col)) != colsInfoHelper.constEnd() &&
-             !(*cIt)->format.isEmpty())
-        writer.writeAttribute(QStringLiteral("s"), QString::number((*cIt)->format.xfIndex()));
+    } else {
+        auto rIt = rowsInfo.constFind(row);
+        if (rIt != rowsInfo.constEnd() && !(*rIt)->format.isEmpty()) {
+            writer.writeAttribute(QStringLiteral("s"), QString::number((*rIt)->format.xfIndex()));
+        } else {
+            auto cIt = colsInfoHelper.constFind(col);
+            if (cIt != colsInfoHelper.constEnd() && !(*cIt)->format.isEmpty()) {
+                writer.writeAttribute(QStringLiteral("s"), QString::number((*cIt)->format.xfIndex()));
+            }
+        }
+    }
 
     if (cell->cellType() == Cell::SharedStringType) // 's'
     {
@@ -1719,15 +1720,10 @@ void WorksheetPrivate::saveXmlHyperlinks(QXmlStreamWriter &writer) const
         return;
 
     writer.writeStartElement(QStringLiteral("hyperlinks"));
-    QMapIterator<int, QMap<int, QSharedPointer<XlsxHyperlinkData>>> it(urlTable);
-
-    while (it.hasNext()) {
-        it.next();
+    for (auto it = urlTable.begin(); it != urlTable.end(); ++it) {
         int row = it.key();
-        QMapIterator<int, QSharedPointer<XlsxHyperlinkData>> it2(it.value());
 
-        while (it2.hasNext()) {
-            it2.next();
+        for (auto it2 = it.value().begin(); it2 != it.value().end(); ++it2) {
             int col                                = it2.key();
             QSharedPointer<XlsxHyperlinkData> data = it2.value();
             QString ref                            = CellReference(row, col).toString();
@@ -1787,9 +1783,7 @@ void WorksheetPrivate::splitColsInfo(int colFirst, int colLast)
     // we are trying to set "B:D", there should be "A", "B:D", "E:H".
     // This will be more complex if we try to set "C:F" after "B:D".
     {
-        QMapIterator<int, QSharedPointer<XlsxColumnInfo>> it(colsInfo);
-        while (it.hasNext()) {
-            it.next();
+        for (auto it = colsInfo.begin(); it != colsInfo.end(); ++it) {
             QSharedPointer<XlsxColumnInfo> info = it.value();
             if (colFirst > info->firstColumn && colFirst <= info->lastColumn) {
                 // split the range,
@@ -1805,9 +1799,7 @@ void WorksheetPrivate::splitColsInfo(int colFirst, int colLast)
         }
     }
     {
-        QMapIterator<int, QSharedPointer<XlsxColumnInfo>> it(colsInfo);
-        while (it.hasNext()) {
-            it.next();
+        for (auto it = colsInfo.begin(); it != colsInfo.end(); ++it) {
             QSharedPointer<XlsxColumnInfo> info = it.value();
             if (colLast >= info->firstColumn && colLast < info->lastColumn) {
                 QSharedPointer<XlsxColumnInfo> info2(new XlsxColumnInfo(*info));

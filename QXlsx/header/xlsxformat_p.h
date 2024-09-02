@@ -7,7 +7,6 @@
 #include <QMap>
 #include <QSet>
 #include <QSharedData>
-#include <QtGlobal>
 
 QT_BEGIN_NAMESPACE_XLSX
 

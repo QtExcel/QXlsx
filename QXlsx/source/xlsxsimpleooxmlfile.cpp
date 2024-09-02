@@ -3,7 +3,6 @@
 #include "xlsxsimpleooxmlfile_p.h"
 
 #include <QIODevice>
-#include <QtGlobal>
 
 QT_BEGIN_NAMESPACE_XLSX
 

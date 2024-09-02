@@ -20,7 +20,6 @@
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
 #include <QtDebug>
-#include <QtGlobal>
 
 QT_BEGIN_NAMESPACE_XLSX
 

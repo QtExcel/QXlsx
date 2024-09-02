@@ -11,7 +11,6 @@
 #include <QImage>
 #include <QObject>
 #include <QVariant>
-#include <QtGlobal>
 
 QT_BEGIN_NAMESPACE_XLSX
 

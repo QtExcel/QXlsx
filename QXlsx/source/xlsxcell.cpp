@@ -15,7 +15,6 @@
 #include <QDateTime>
 #include <QDebug>
 #include <QTime>
-#include <QtGlobal>
 
 QT_BEGIN_NAMESPACE_XLSX
 

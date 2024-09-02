@@ -18,7 +18,6 @@
 #include <QStringList>
 #include <QUrl>
 #include <QVariant>
-#include <QtGlobal>
 
 class WorksheetTest;
 
