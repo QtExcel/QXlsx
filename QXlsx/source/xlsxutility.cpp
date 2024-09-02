@@ -80,13 +80,11 @@ double timeToNumber(const QTime &time)
     return QTime(0, 0).msecsTo(time) / (1000 * 60 * 60 * 24.0);
 }
 
-#if QT_VERSION >= QT_VERSION_CHECK(6,5,0)
-static qint64 msecs1904 = QDateTime(QDate(1904, 1, 1), QTime(0, 0)).toMSecsSinceEpoch();
-static qint64 msecs1899 = QDateTime(QDate(1899, 12, 31), QTime(0, 0)).toMSecsSinceEpoch();
-#endif
-
 QVariant datetimeFromNumber(double num, bool is1904)
 {
+    static qint64 msecs1904 = QDateTime(QDate(1904, 1, 1), QTime(0, 0)).toMSecsSinceEpoch();
+    static qint64 msecs1899 = QDateTime(QDate(1899, 12, 31), QTime(0, 0)).toMSecsSinceEpoch();
+
     if (!is1904 && num > 60) // for mac os excel
     {
         num = num - 1;
@@ -94,19 +92,13 @@ QVariant datetimeFromNumber(double num, bool is1904)
 
     qint64 msecs = static_cast<qint64>(num * 1000 * 60 * 60 * 24.0 + 0.5);
 
-#if QT_VERSION >= QT_VERSION_CHECK(6,5,0)
     if (is1904)
         msecs += msecs1904;
     else
         msecs += msecs1899;
 
     QDateTime dtRet = QDateTime::fromMSecsSinceEpoch(msecs);
-#else
-    QDateTime dtRet; // return value
-    QDateTime epoch(is1904 ? QDate(1904, 1, 1) : QDate(1899, 12, 31), QTime(0, 0));
-    QDateTime dtOld = epoch.addMSecs(msecs);
-    dtRet           = dtOld;
-#endif
+
     // Remove one hour to see whether the date is Daylight
     QDateTime dtNew = dtRet.addMSecs(-3600000); // issue102
     if (dtNew.isDaylightTime()) {
