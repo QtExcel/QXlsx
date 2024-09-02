@@ -3,7 +3,6 @@
 #include "xlsxnumformatparser_p.h"
 
 #include <QString>
-#include <QtGlobal>
 
 QT_BEGIN_NAMESPACE_XLSX
 

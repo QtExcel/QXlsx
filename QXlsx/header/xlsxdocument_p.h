@@ -9,7 +9,6 @@
 #include "xlsxworkbook.h"
 
 #include <QMap>
-#include <QtGlobal>
 
 QT_BEGIN_NAMESPACE_XLSX
 

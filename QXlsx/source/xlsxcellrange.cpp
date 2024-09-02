@@ -7,7 +7,6 @@
 #include <QPoint>
 #include <QString>
 #include <QStringList>
-#include <QtGlobal>
 
 QT_BEGIN_NAMESPACE_XLSX
 

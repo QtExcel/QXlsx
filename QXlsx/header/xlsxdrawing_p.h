@@ -8,7 +8,6 @@
 
 #include <QList>
 #include <QString>
-#include <QtGlobal>
 
 class QIODevice;
 class QXmlStreamWriter;

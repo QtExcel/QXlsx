@@ -7,8 +7,6 @@
 #include "xlsxchartsheet.h"
 #include "xlsxglobal.h"
 
-#include <QtGlobal>
-
 QT_BEGIN_NAMESPACE_XLSX
 
 class ChartsheetPrivate : public AbstractSheetPrivate

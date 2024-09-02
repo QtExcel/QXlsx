@@ -10,7 +10,6 @@
 #include <QString>
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
-#include <QtGlobal>
 
 class QXmlStreamReader;
 class QXmlStreamWriter;

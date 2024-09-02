@@ -27,7 +27,6 @@
 #include <QPointF>
 #include <QSharedPointer>
 #include <QTemporaryFile>
-#include <QtGlobal>
 
 /*
         From Wikipedia: The Open Packaging Conventions (OPC) is a

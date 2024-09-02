@@ -6,7 +6,6 @@
 
 #include <QBuffer>
 #include <QByteArray>
-#include <QtGlobal>
 
 QT_BEGIN_NAMESPACE_XLSX
 

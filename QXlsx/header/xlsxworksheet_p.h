@@ -227,23 +227,23 @@ public:
 public:
     CellTable cellTable;
 
-    QMap<int, QMap<int, QString>> comments;
-    QMap<int, QMap<int, QSharedPointer<XlsxHyperlinkData>>> urlTable;
+    QHash<int, QHash<int, QString>> comments;
+    QHash<int, QHash<int, QSharedPointer<XlsxHyperlinkData>>> urlTable;
     QList<CellRange> merges;
-    QMap<int, QSharedPointer<XlsxRowInfo>> rowsInfo;
-    QMap<int, QSharedPointer<XlsxColumnInfo>> colsInfo;
-    QMap<int, QSharedPointer<XlsxColumnInfo>> colsInfoHelper;
+    QHash<int, QSharedPointer<XlsxRowInfo>> rowsInfo;
+    QHash<int, QSharedPointer<XlsxColumnInfo>> colsInfo;
+    QHash<int, QSharedPointer<XlsxColumnInfo>> colsInfoHelper;
 
     QList<DataValidation> dataValidationsList;
     QList<ConditionalFormatting> conditionalFormattingList;
 
-    QMap<int, CellFormula> sharedFormulaMap; // shared formula map
+    QHash<int, CellFormula> sharedFormulaMap; // shared formula map
 
     CellRange dimension;
 
-    mutable QMap<int, QString> row_spans;
-    QMap<int, double> row_sizes;
-    QMap<int, double> col_sizes;
+    mutable QHash<int, QString> row_spans;
+    QHash<int, double> row_sizes;
+    QHash<int, double> col_sizes;
 
     // pagesetup and print settings add by liufeijin 20181028, liufeijin
     QString PpaperSize;

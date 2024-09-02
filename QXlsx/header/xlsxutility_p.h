@@ -14,7 +14,6 @@
 #include <QStringList>
 #include <QTime>
 #include <QVariant>
-#include <QtGlobal>
 
 QT_BEGIN_NAMESPACE_XLSX
 
