@@ -9,11 +9,22 @@
 
 QT_BEGIN_NAMESPACE_XLSX
 
+const int XLSX_ROW_MAX    = 1048576;
+const int XLSX_COLUMN_MAX = 16384;
+const int XLSX_STRING_MAX = 32767;
+
 class QXLSX_EXPORT CellReference
 {
 public:
     CellReference();
-    CellReference(int row, int column);
+    /*!
+        Constructs the Reference from the given \a row, and \a column.
+    */
+    constexpr CellReference(int row, int column)
+        : _row(row)
+        , _column(column)
+    {
+    }
     CellReference(const QString &cell);
     CellReference(const char *cell);
     CellReference(const CellReference &other);
@@ -36,9 +47,15 @@ public:
         return _row != other._row || _column != other._column;
     }
 
+    inline bool operator>(const CellReference &other) const
+    {
+        return _row > other._row ||  _column != other._column;
+    }
+
 private:
     void init(const QString &cell);
-    int _row, _column;
+    int _row{-1};
+    int _column{-1};
 };
 
 QT_END_NAMESPACE_XLSX
