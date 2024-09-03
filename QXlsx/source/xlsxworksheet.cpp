@@ -42,6 +42,12 @@
 
 QT_BEGIN_NAMESPACE_XLSX
 
+namespace {
+const int XLSX_ROW_MAX    = 1048576;
+const int XLSX_COLUMN_MAX = 16384;
+const int XLSX_STRING_MAX = 32767;
+} // namespace
+
 WorksheetPrivate::WorksheetPrivate(Worksheet *p, Worksheet::CreateFlag flag)
     : AbstractSheetPrivate(p, flag)
     , windowProtection(false)

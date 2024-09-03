@@ -7,10 +7,6 @@
 
 QT_BEGIN_NAMESPACE_XLSX
 
-const int XLSX_ROW_MAX    = 1048576;
-const int XLSX_COLUMN_MAX = 16384;
-const int XLSX_STRING_MAX = 32767;
-
 class QXLSX_EXPORT CellReference
 {
 public:
@@ -29,7 +25,6 @@ public:
     ~CellReference();
 
     QString toString(bool row_abs = false, bool col_abs = false) const;
-    static CellReference fromString(const QString &cell);
     bool isValid() const;
     inline void setRow(int row) { _row = row; }
     inline void setColumn(int col) { _column = col; }
@@ -47,7 +42,7 @@ public:
 
     inline bool operator>(const CellReference &other) const
     {
-        return _row > other._row ||  _column != other._column;
+        return _row > other._row || _column != other._column;
     }
 
 private:
