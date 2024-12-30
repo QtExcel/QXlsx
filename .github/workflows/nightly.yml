@@ -1,0 +1,46 @@
+name: CI Nightly
+
+on:
+  workflow_dispatch:
+
+  schedule:
+    - cron: '0 3 * * *'
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - ubuntu-latest
+
+        config:
+          - name: clang-tidy
+            cmake_arg: '-DCMAKE_CXX_CLANG_TIDY=clang-tidy'
+            qt_version: "6.7.3"
+
+          - name: clazy
+            cmake_arg: '-DCMAKE_CXX_COMPILER=clazy'
+            qt_version: "6.7.3"
+
+    steps:
+      - name: Install Qt ${{ matrix.config.qt_version }} with options and default aqtversion
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: ${{ matrix.config.qt_version }}
+          cache: true
+
+      - name: Install ninja-build tool (must be after Qt due PATH changes)
+        uses: turtlesec-no/get-ninja@main
+
+      - uses: actions/checkout@v4
+
+      - name: Configure project
+        run: >
+          cmake -S . -B ./build -G Ninja ${{ matrix.config.cmake_arg }}
+          -DCMAKE_BUILD_TYPE=Debug
+          --warn-uninitialized -Werror=dev
+
+      - name: Build Project
+        run: cmake --build ./build
