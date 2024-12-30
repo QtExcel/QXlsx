@@ -147,7 +147,10 @@ ConditionalFormatting::ConditionalFormatting(const ConditionalFormatting &other)
  */
 ConditionalFormatting &ConditionalFormatting::operator=(const ConditionalFormatting &other)
 {
-    this->d = other.d;
+    if (this != &other) // Self-assignment check [cert-oop54-cpp]
+    {
+        this->d = other.d;
+    }
     return *this;
 }
 
@@ -786,9 +789,11 @@ bool ConditionalFormatting::saveToXml(QXmlStreamWriter &writer) const
                 writer.writeTextElement(QStringLiteral("formula"),
                                         it.value().toString().arg(startCell));
             }
-        } else if ((it = rule->attrs.constFind(XlsxCfRuleData::A_formula1)) !=
-                   rule->attrs.constEnd()) {
-            writer.writeTextElement(QStringLiteral("formula"), it.value().toString());
+        } else {
+            it = rule->attrs.constFind(XlsxCfRuleData::A_formula1);
+            if (it != rule->attrs.constEnd()) {
+                writer.writeTextElement(QStringLiteral("formula"), it.value().toString());
+            }
         }
 
         it = rule->attrs.constFind(XlsxCfRuleData::A_formula2);
