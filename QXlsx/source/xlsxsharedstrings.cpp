@@ -169,7 +169,7 @@ void SharedStrings::writeRichStringPart_rPr(QXmlStreamWriter &writer, const Form
     }
 
     if (format.hasProperty(FormatPrivate::P_Font_Color)) {
-        XlsxColor color = format.property(FormatPrivate::P_Font_Color).value<XlsxColor>();
+        auto color = format.property(FormatPrivate::P_Font_Color).value<XlsxColor>();
         color.saveToXml(writer);
     }
 
@@ -369,7 +369,8 @@ bool SharedStrings::loadFromXmlFile(QIODevice *device)
         if (token == QXmlStreamReader::StartElement) {
             if (reader.name() == QLatin1String("sst")) {
                 QXmlStreamAttributes attributes = reader.attributes();
-                if ((hasUniqueCountAttr = attributes.hasAttribute(QLatin1String("uniqueCount"))))
+                hasUniqueCountAttr = attributes.hasAttribute(QLatin1String("uniqueCount"));
+                if (hasUniqueCountAttr)
                     count = attributes.value(QLatin1String("uniqueCount")).toInt();
             } else if (reader.name() == QLatin1String("si")) {
                 readString(reader);

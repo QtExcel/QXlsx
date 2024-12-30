@@ -323,8 +323,6 @@ void DrawingAnchor::loadXmlObjectConnectionShape(QXmlStreamReader &reader)
             break;
         }
     }
-
-    return;
 }
 
 void DrawingAnchor::loadXmlObjectGraphicFrame(QXmlStreamReader &reader)
@@ -362,8 +360,6 @@ void DrawingAnchor::loadXmlObjectGraphicFrame(QXmlStreamReader &reader)
             break;
         }
     }
-
-    return;
 }
 
 void DrawingAnchor::loadXmlObjectGroupShape(QXmlStreamReader &reader)
@@ -404,8 +400,6 @@ void DrawingAnchor::loadXmlObjectPicture(QXmlStreamReader &reader)
             break;
         }
     }
-
-    return;
 }
 
 void DrawingAnchor::loadXmlObjectShape(QXmlStreamReader &reader)
@@ -600,8 +594,6 @@ void DrawingAnchor::loadXmlObjectShape(QXmlStreamReader &reader)
     }
 
     //*/
-
-    return;
 }
 
 void DrawingAnchor::saveXmlPos(QXmlStreamWriter &writer, const QPoint &pos) const

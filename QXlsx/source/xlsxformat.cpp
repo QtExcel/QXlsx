@@ -196,7 +196,10 @@ Format::Format(const Format &other)
  */
 Format &Format::operator=(const Format &other)
 {
-    d = other.d;
+    if (this != &other) // Self-assignment check [cert-oop54-cpp]
+    {
+        this->d = other.d;
+    }
     return *this;
 }
 

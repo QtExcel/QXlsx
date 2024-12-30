@@ -1076,8 +1076,7 @@ void ChartPrivate::saveXmlScatterChart(QXmlStreamWriter &writer) const
             XlsxAxis::T_Val, XlsxAxis::Left, 1, 0, axisNames[XlsxAxis::Left]));
     }
 
-    int axisListSize = axisList.size();
-    Q_ASSERT(axisListSize == 2);
+    Q_ASSERT(axisList.size() == 2);
 
     for (int i = 0; i < axisList.size(); ++i) {
         writer.writeEmptyElement(QStringLiteral("c:axId"));
