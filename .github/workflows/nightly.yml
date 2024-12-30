@@ -25,6 +25,12 @@ jobs:
             qt_version: "6.7.3"
 
     steps:
+      - name: Install dependencies on Ubuntu
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt update -qq
+          sudo apt install -y clazy
+
       - name: Install Qt ${{ matrix.config.qt_version }} with options and default aqtversion
         uses: jurplel/install-qt-action@v4
         with:
@@ -38,7 +44,7 @@ jobs:
 
       - name: Configure project
         run: >
-          cmake -S . -B ./build -G Ninja ${{ matrix.config.cmake_arg }}
+          cmake -S QXlsx -B ./build -G Ninja ${{ matrix.config.cmake_arg }}
           -DCMAKE_BUILD_TYPE=Debug
           --warn-uninitialized -Werror=dev
 
