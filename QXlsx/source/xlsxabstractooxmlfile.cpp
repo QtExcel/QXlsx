@@ -20,9 +20,7 @@ AbstractOOXmlFilePrivate::AbstractOOXmlFilePrivate(
 
 AbstractOOXmlFilePrivate::~AbstractOOXmlFilePrivate()
 {
-    if (relationships) {
-        delete relationships;
-    }
+    delete relationships;
 }
 
 /*!

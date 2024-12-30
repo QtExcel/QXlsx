@@ -514,7 +514,7 @@ void Workbook::saveToXmlFile(QIODevice *device) const
     }
     writer.writeEndElement(); // sheets
 
-    if (d->externalLinks.size() > 0) {
+    if (!d->externalLinks.isEmpty()) {
         writer.writeStartElement(QStringLiteral("externalReferences"));
         for (int i = 0; i < d->externalLinks.size(); ++i) {
             writer.writeEmptyElement(QStringLiteral("externalReference"));

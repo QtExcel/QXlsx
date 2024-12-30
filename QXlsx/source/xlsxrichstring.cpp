@@ -72,7 +72,10 @@ RichString::~RichString()
  */
 RichString &RichString::operator=(const RichString &other)
 {
-    this->d = other.d;
+    if (this != &other) // Self-assignment check [cert-oop54-cpp]
+    {
+        this->d = other.d;
+    }
     return *this;
 }
 
@@ -105,7 +108,7 @@ bool RichString::isRichString() const
  */
 bool RichString::isNull() const
 {
-    return d->fragmentTexts.size() == 0;
+    return d->fragmentTexts.isEmpty();
 }
 
 /*!
@@ -113,12 +116,8 @@ bool RichString::isNull() const
  */
 bool RichString::isEmtpy() const
 {
-    for (const auto &str : d->fragmentTexts) {
-        if (!str.isEmpty())
-            return false;
-    }
-
-    return true;
+    return std::all_of(d->fragmentTexts.begin(), d->fragmentTexts.end(),
+                       [](const QString &str) { return str.isEmpty(); });
 }
 
 /*!
@@ -210,7 +209,7 @@ Format RichString::fragmentFormat(int index) const
 QByteArray RichStringPrivate::idKey() const
 {
     if (_dirty) {
-        RichStringPrivate *rs = const_cast<RichStringPrivate *>(this);
+        auto rs = const_cast<RichStringPrivate *>(this);
         QByteArray bytes;
         if (fragmentTexts.size() == 1) {
             bytes = fragmentTexts[0].toUtf8();

@@ -1654,15 +1654,6 @@ void WorksheetPrivate::saveXmlCellData(QXmlStreamWriter &writer,
                                 cell->value().toBool() ? QStringLiteral("1") : QStringLiteral("0"));
     } else if (cell->cellType() == Cell::DateType) // 'd'
     {
-        // dev67
-
-        double num  = cell->value().toDouble();
-        bool is1904 = q->workbook()->isDate1904();
-        if (!is1904 && num > 60) // for mac os excel
-        {
-            num = num - 1;
-        }
-
         // number type. see for 18.18.11 ST_CellType (Cell Type) more information.
         writer.writeAttribute(QStringLiteral("t"), QStringLiteral("n"));
         writer.writeTextElement(QStringLiteral("v"), cell->value().toString());
