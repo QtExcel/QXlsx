@@ -35,7 +35,7 @@ jobs:
   build:
     runs-on: ${{ matrix.os }}
     strategy:
-      fail-fast: true
+      fail-fast: false
       matrix:
         os:
           - ubuntu-latest
@@ -58,7 +58,7 @@ jobs:
 
     steps:
       - name: Install Qt with options and default aqtversion
-        uses: jurplel/install-qt-action@v3
+        uses: jurplel/install-qt-action@v4
         with:
           aqtversion: null # use whatever the default is
           modules: ${{ matrix.config.modules }}
