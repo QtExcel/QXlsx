@@ -72,8 +72,8 @@ std::string copyTag(const std::string &sFrom, const std::string &sTo, const std:
     const std::string tagEnd         = "</" + tag + ">";
 
     // search all occurrences of tag in 'sFrom'
-    std::string sFromData = "";
-    size_t startIndex     = 0;
+    std::string sFromData;
+    size_t startIndex = 0;
     while (true) {
         std::size_t startPos = sFrom.find(tagToFindStart, startIndex);
         if (startPos != std::string::npos) {
@@ -491,7 +491,7 @@ bool DocumentPrivate::saveCsv(QString mainCSVFileName) const
 
         currentSheet->workbook()->setActiveSheet(sheetIndexNumber);
 
-        Worksheet *wsheet = static_cast<Worksheet *>(currentSheet->workbook()->activeSheet());
+        auto wsheet = static_cast<Worksheet *>(currentSheet->workbook()->activeSheet());
         if (wsheet == nullptr) {
             continue;
         }
@@ -572,7 +572,7 @@ bool DocumentPrivate::copyStyle(const QString &from, const QString &to)
     ZipReader zipReader(from);
     QStringList filePaths = zipReader.filePaths();
 
-    std::shared_ptr<ZipReader> toReader = std::shared_ptr<ZipReader>(new ZipReader(to));
+    auto toReader = std::make_shared<ZipReader>(to);
 
     QStringList toFilePaths = toReader->filePaths();
 
@@ -1539,7 +1539,7 @@ bool Document::autosizeColumnWidth(int colFirst, int colLast)
   Auto sets width in characters for all columns.
   Returns true on success.
  */
-bool Document::autosizeColumnWidth(void)
+bool Document::autosizeColumnWidth()
 {
     bool erg = false;
 

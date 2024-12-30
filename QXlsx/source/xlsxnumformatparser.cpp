@@ -29,8 +29,12 @@ bool NumFormatParser::isDateTime(const QString &formatCode)
 
         // quoted plain text block: don't care, ignore
         case '"':
-            while (i < formatCode.length() - 1 && formatCode[++i] != QLatin1Char('"'))
-                ;
+            while (i < formatCode.length() - 1) {
+                ++i;
+                if (formatCode[i] == QLatin1Char('"')) {
+                    break;
+                }
+            }
             break;
 
         // escaped char: don't care, ignore

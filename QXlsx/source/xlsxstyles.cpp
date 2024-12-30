@@ -148,24 +148,26 @@ void Styles::fixNumFmt(const Format &format)
 
     const auto &str = format.numberFormat();
     if (!str.isEmpty()) {
-        QHash<QString, std::shared_ptr<XlsxFormatNumberData>>::ConstIterator cIt;
         // Assign proper number format index
         const auto &it = m_builtinNumFmtsHash.constFind(str);
         if (it != m_builtinNumFmtsHash.constEnd()) {
             const_cast<Format *>(&format)->fixNumberFormat(it.value(), str);
-        } else if ((cIt = m_customNumFmtsHash.constFind(str)) != m_customNumFmtsHash.constEnd()) {
-            const_cast<Format *>(&format)->fixNumberFormat(cIt.value()->formatIndex, str);
         } else {
-            // Assign a new fmt Id.
-            const_cast<Format *>(&format)->fixNumberFormat(m_nextCustomNumFmtId, str);
+            auto cIt = m_customNumFmtsHash.constFind(str);
+            if (cIt != m_customNumFmtsHash.constEnd()) {
+                const_cast<Format *>(&format)->fixNumberFormat(cIt.value()->formatIndex, str);
+            } else {
+                // Assign a new fmt Id.
+                const_cast<Format *>(&format)->fixNumberFormat(m_nextCustomNumFmtId, str);
 
-            auto fmt          = std::make_shared<XlsxFormatNumberData>();
-            fmt->formatIndex  = m_nextCustomNumFmtId;
-            fmt->formatString = str;
-            m_customNumFmtIdMap.insert(m_nextCustomNumFmtId, fmt);
-            m_customNumFmtsHash.insert(str, fmt);
+                auto fmt          = std::make_shared<XlsxFormatNumberData>();
+                fmt->formatIndex  = m_nextCustomNumFmtId;
+                fmt->formatString = str;
+                m_customNumFmtIdMap.insert(m_nextCustomNumFmtId, fmt);
+                m_customNumFmtsHash.insert(str, fmt);
 
-            m_nextCustomNumFmtId += 1;
+                m_nextCustomNumFmtId += 1;
+            }
         }
     } else {
         const auto id = format.numberFormatIndex();
@@ -350,7 +352,7 @@ void Styles::saveToXmlFile(QIODevice *device) const
 
 void Styles::writeNumFmts(QXmlStreamWriter &writer) const
 {
-    if (m_customNumFmtIdMap.size() == 0)
+    if (m_customNumFmtIdMap.isEmpty())
         return;
 
     writer.writeStartElement(QStringLiteral("numFmts"));
@@ -433,7 +435,7 @@ void Styles::writeFont(QXmlStreamWriter &writer, const Format &format, bool isDx
     }
 
     if (format.hasProperty(FormatPrivate::P_Font_Color)) {
-        XlsxColor color = format.property(FormatPrivate::P_Font_Color).value<XlsxColor>();
+        auto color = format.property(FormatPrivate::P_Font_Color).value<XlsxColor>();
         color.saveToXml(writer);
     }
 

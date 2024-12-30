@@ -104,7 +104,10 @@ CellFormula::CellFormula(const CellFormula &other)
  */
 CellFormula &CellFormula::operator=(const CellFormula &other)
 {
-    d = other.d;
+    if (this != &other) // Self-assignment check [cert-oop54-cpp]
+    {
+        this->d = other.d;
+    }
     return *this;
 }
 

@@ -186,7 +186,7 @@ public:
     void setWhiteSpaceVisible(bool visible);
     bool setStartPage(int spagen); // add by liufeijin20181028
 
-    QVector<CellLocation> getFullCells(int *maxRow, int *maxCol);
+    QVector<CellLocation> getFullCells(int *maxRow, int *maxCol) const;
 
 private:
     void saveToXmlFile(QIODevice *device) const override;

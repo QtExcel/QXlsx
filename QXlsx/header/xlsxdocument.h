@@ -130,7 +130,7 @@ public:
     bool autosizeColumnWidth(const CellRange &range);
     bool autosizeColumnWidth(int column);
     bool autosizeColumnWidth(int colFirst, int colLast);
-    bool autosizeColumnWidth(void);
+    bool autosizeColumnWidth();
 
 private:
     QMap<int, int> getMaximalColumnWidth(int firstRow = 1, int lastRow = INT_MAX);

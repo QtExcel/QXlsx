@@ -1,0 +1,105 @@
+# I want all checks by  default. That way I'll have to black list new checks rather than whitelist them
+*
+
+-abseil* # Try
+-altera-*
+-android-*
+-boost-*
+-cppcoreguidelines-* # Try
+-darwin-*
+-fuchsia-*
+-hicpp-* # Tryu
+-llvmlibc-*
+-linuxkernel-*
+-mpi-*
+-objc-*
+-openmp-*
+-zircon-*
+
+-bugprone-unchecked-optional-access                   # https://github.com/llvm/llvm-project/issues/55530
+-bugprone-narrowing-conversions
+-bugprone-easily-swappable-parameters
+-bugprone-branch-clone
+-bugprone-implicit-widening-of-multiplication-result
+-bugprone-suspicious-include                          # This one doesn't like us importing moc_XXX.cpp files
+-bugprone-integer-division
+-bugprone-suspicious-enum-usage                       # in Qt5 this complains about Qt::CTRL | Qt::Key_a which is the right way to do it in Qt6
+
+-cert-err58-cpp
+-cert-dcl21-cpp
+
+# I only use this when I ignore the parameters altogether (See ContactsPage.cpp e.g)
+-cert-dcl50-cpp
+
+-clang-analyzer-alpha*
+-clang-analyzer-osx.*
+-clang-analyzer-webkit.*
+-clang-analyzer-cplusplus.NewDeleteLeaks
+-clang-analyzer-core.CallAndMessage
+-clang-analyzer-alpha.core.CastToStruct
+-clang-analyzer-alpha.deadcode.UnreachableCode
+-clang-analyzer-core.NonNullParamChecker
+
+-concurrency-*
+
+# This gives false possitive in all header files.
+-clang-diagnostic-pragma-once-outside-header
+
+-google-* # Try
+google-explicit-constructor
+google-readability-namespace-comments
+
+-llvm-include-order
+-llvm-namespace-comment
+-llvm-qualified-auto
+-llvm-else-after-return
+-llvm-header-guard                               # complains even though we have #pragma once
+
+-misc-no-recursion
+-misc-non-private-member-variables-in-classes    # I agree instance variables should be private, but often I do this by design - too noisy.
+-misc-const-correctness # Lots of hits, lets ignore it for now.
+-misc-include-cleaner   # Completely broken as of Oct 2023
+
+-modernize-use-override
+-modernize-use-bool-literals
+-modernize-pass-by-value
+-modernize-raw-string-literal
+-modernize-use-using
+-modernize-loop-convert
+-modernize-return-braced-init-list
+-modernize-use-equals-default
+-modernize-use-trailing-return-type
+-modernize-use-nodiscard
+-modernize-avoid-bind
+-modernize-avoid-c-arrays
+-modernize-type-traits # Lots of errors from QTestLib
+
+-performance-unnecessary-copy-initialization
+-performance-no-automatic-move                  # often doesn't do much of a difference in Qt apps, due to their ref counting.
+-performance-no-int-to-ptr
+-performance-enum-size                          # int is faster than int8_t
+
+-readability-else-after-return
+-readability-named-parameter
+-readability-implicit-bool-conversion           # Lots of warnings about if (myPointer) -> if (myPointer != nullptr)
+-readability-namespace-comments
+-readability-qualified-auto
+-readability-magic-numbers
+-readability-braces-around-statements
+-readability-function-cognitive-complexity
+-readability-const-return-type
+-readability-inconsistent-declaration-parameter-name
+-readability-simplify-boolean-expr
+-readability-redundant-access-specifiers
+-readability-identifier-length
+-readability-misleading-indentation
+-readability-make-member-function-const                   # complains about functions updating pointers too
+-readability-suspicious-call-argument
+-readability-avoid-nested-conditional-operator  # I simply do not agree that this is hard to read, esp with clang-format formatting it nicely
+
+-clang-analyzer-security.insecureAPI.*
+
+# Try all the rest in this file
+-performance-unnecessary-value-param
+-readability-convert-member-functions-to-static
+-bugprone-misplaced-widening-cast

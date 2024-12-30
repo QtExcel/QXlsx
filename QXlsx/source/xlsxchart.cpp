@@ -1168,25 +1168,6 @@ void ChartPrivate::saveXmlSer(QXmlStreamWriter &writer, XlsxSeries *ser, int id)
         writer.writeEndElement();
     }
 
-#if 0
-    if (!ser->axDataSource_numRef.isEmpty())
-    {
-        if (chartType == Chart::CT_ScatterChart || chartType == Chart::CT_BubbleChart)
-        {
-            writer.writeStartElement(QStringLiteral("c:xVal"));
-        }
-        else
-        {
-            writer.writeStartElement(QStringLiteral("c:cat"));
-        }
-
-        writer.writeStartElement(QStringLiteral("c:numRef"));
-        writer.writeTextElement(QStringLiteral("c:f"), ser->axDataSource_numRef);
-        writer.writeEndElement();//c:numRef
-        writer.writeEndElement();//c:cat or c:xVal
-    }
-#endif
-
     if (!ser->numberDataSource_numRef.isEmpty()) {
         if (chartType == Chart::CT_ScatterChart || chartType == Chart::CT_BubbleChart)
             writer.writeStartElement(QStringLiteral("c:yVal"));
