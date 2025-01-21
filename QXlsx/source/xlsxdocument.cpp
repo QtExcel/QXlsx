@@ -498,6 +498,9 @@ bool DocumentPrivate::saveCsv(QString mainCSVFileName) const
 
         QString strSheetName = wsheet->sheetName(); // sheet name
 
+        // Fix bug: Invalid function call order. I am sorry. 
+        const QVector<CellLocation> clList = wsheet->getFullCells(&maxRow, &maxCol);
+
         QVector<QVector<QString>> cellValues;
         for (int rc = 0; rc < maxRow; rc++) {
             QVector<QString> tempValue;
@@ -509,7 +512,7 @@ bool DocumentPrivate::saveCsv(QString mainCSVFileName) const
             cellValues.push_back(tempValue);
         }
 
-        const QVector<CellLocation> clList = wsheet->getFullCells(&maxRow, &maxCol);
+        // const QVector<CellLocation> clList = wsheet->getFullCells(&maxRow, &maxCol);
         for (const auto &cl : clList) {
             int row = cl.row - 1;
             int col = cl.col - 1;
