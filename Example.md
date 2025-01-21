@@ -114,3 +114,21 @@ int main(int argc, char *argv[])
 
 ![](markdown.data/copycat.png)
 ![](markdown.data/copycat2.jpg)
+
+## [csv](https://github.com/QtExcel/QXlsx/tree/master/csv)
+- Save the `xlsx` file as a `csv` file.
+```cpp
+        QString xlsxFileName = ":/test.xlsx";
+        QXlsx::Document xlsxDoc(xlsxFileName);
+        if (!xlsxDoc.isLoadPackage()) {
+            return 0; // failed to load
+        }
+
+        QString csvFileName = "hello.csv";
+        if ( xlsxDoc.saveAsCsv(csvFileName) ){
+            qDebug() << "save as csv file";
+        }
+```
+
+
+
