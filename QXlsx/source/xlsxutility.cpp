@@ -90,7 +90,7 @@ QVariant datetimeFromNumber(double num, bool is1904)
         num = num - 1;
     }
 
-    auto msecs = static_cast<qint64>(std::lround(num * 1000 * 60 * 60 * 24.0));
+    auto msecs = static_cast<qint64>(num * 1000 * 60 * 60 * 24.0 + 0.5);
 
     if (is1904)
         msecs += msecs1904;
