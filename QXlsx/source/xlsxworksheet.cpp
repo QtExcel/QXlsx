@@ -520,7 +520,7 @@ QVariant Worksheet::read(int row, int column) const
     if (!cell)
         return QVariant();
 
-    if (cell->hasFormula()) {
+    if (cell->hasFormula() && d->showFormulas) {
         if (cell->formula().formulaType() == CellFormula::NormalType) {
             return QVariant(QLatin1String("=") + cell->formula().formulaText());
         } else if (cell->formula().formulaType() == CellFormula::SharedType) {
