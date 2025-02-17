@@ -1524,6 +1524,8 @@ void Worksheet::setSqref(const QList<CellRange>& sqref)
 {
     Q_D(Worksheet);
     d->sqref = sqref;
+    if(d->sqref.empty())
+        d->sqref.emplace_back(1, 1, 1, 1);
 }
 
 void WorksheetPrivate::saveXmlSheetData(QXmlStreamWriter &writer) const
