@@ -61,6 +61,8 @@ WorksheetPrivate::WorksheetPrivate(Worksheet *p, Worksheet::CreateFlag flag)
     , showOutlineSymbols(true)
     , showWhiteSpace(true)
     , urlPattern(QStringLiteral("^([fh]tt?ps?://)|(mailto:)|(file://)"))
+    , activeCell(1, 1)
+    , sqref(1, 1, 1, 1)
 {
 }
 
@@ -1324,6 +1326,10 @@ void Worksheet::saveToXmlFile(QIODevice *device) const
     if (!d->showWhiteSpace)
         writer.writeAttribute(QStringLiteral("showWhiteSpace"), QStringLiteral("0"));
     writer.writeAttribute(QStringLiteral("workbookViewId"), QStringLiteral("0"));
+    writer.writeStartElement(QStringLiteral("selection"));
+    writer.writeAttribute(QStringLiteral("activeCell"), d->activeCell.toString());
+    writer.writeAttribute(QStringLiteral("sqref"), d->sqref.toString());
+    writer.writeEndElement(); // selection
     writer.writeEndElement(); // sheetView
     writer.writeEndElement(); // sheetViews
 
@@ -1480,6 +1486,46 @@ bool Worksheet::setStartPage(int spagen)
     return true;
 }
 //}}
+
+CellReference Worksheet::getActiveCell()
+{
+    Q_D(Worksheet);
+    return d->activeCell;
+}
+
+void Worksheet::setActiveCell(CellReference cell)
+{
+    Q_D(Worksheet);
+    d->activeCell = cell;
+}
+
+void Worksheet::setActiveCell(int row, int col)
+{
+    Q_D(Worksheet);
+    d->activeCell.setRow(row);
+    d->activeCell.setColumn(col);
+}
+
+CellRange Worksheet::getSqref()
+{
+    Q_D(Worksheet);
+    return d->sqref;
+}
+
+void Worksheet::setSqref(CellRange sqref)
+{
+    Q_D(Worksheet);
+    d->sqref = sqref;
+}
+
+void Worksheet::setSqref(int top, int left, int bottom, int right)
+{
+    Q_D(Worksheet);
+    d->sqref.setFirstRow(top);
+    d->sqref.setFirstColumn(left);
+    d->sqref.setLastRow(bottom);
+    d->sqref.setLastColumn(right);
+}
 
 void WorksheetPrivate::saveXmlSheetData(QXmlStreamWriter &writer) const
 {

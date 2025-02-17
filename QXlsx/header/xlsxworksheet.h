@@ -186,6 +186,13 @@ public:
     void setWhiteSpaceVisible(bool visible);
     bool setStartPage(int spagen); // add by liufeijin20181028
 
+    CellReference getActiveCell();
+    void setActiveCell(CellReference cell);
+    void setActiveCell(int row, int col);
+    CellRange getSqref();
+    void setSqref(CellRange sqref);
+    void setSqref(int top, int left, int bottom, int right);
+
     QVector<CellLocation> getFullCells(int *maxRow, int *maxCol) const;
 
 private:
