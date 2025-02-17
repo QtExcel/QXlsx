@@ -62,7 +62,7 @@ WorksheetPrivate::WorksheetPrivate(Worksheet *p, Worksheet::CreateFlag flag)
     , showWhiteSpace(true)
     , urlPattern(QStringLiteral("^([fh]tt?ps?://)|(mailto:)|(file://)"))
     , activeCell(1, 1)
-    , sqref(1, 1, 1, 1)
+    , sqref({CellRange(1, 1, 1, 1)})
 {
 }
 
@@ -1328,7 +1328,15 @@ void Worksheet::saveToXmlFile(QIODevice *device) const
     writer.writeAttribute(QStringLiteral("workbookViewId"), QStringLiteral("0"));
     writer.writeStartElement(QStringLiteral("selection"));
     writer.writeAttribute(QStringLiteral("activeCell"), d->activeCell.toString());
-    writer.writeAttribute(QStringLiteral("sqref"), d->sqref.toString());
+    QString sqrefString;
+    for (auto it = d->sqref.begin(); it != d->sqref.end(); ++it) {
+        if(it != d->sqref.begin())
+        {
+            sqrefString.push_back(u' ');
+        }
+        sqrefString.append(it->toString());
+    }
+    writer.writeAttribute(QStringLiteral("sqref"), sqrefString);
     writer.writeEndElement(); // selection
     writer.writeEndElement(); // sheetView
     writer.writeEndElement(); // sheetViews
@@ -1506,25 +1514,16 @@ void Worksheet::setActiveCell(int row, int col)
     d->activeCell.setColumn(col);
 }
 
-CellRange Worksheet::getSqref()
+QList<CellRange> Worksheet::getSqref()
 {
     Q_D(Worksheet);
     return d->sqref;
 }
 
-void Worksheet::setSqref(CellRange sqref)
+void Worksheet::setSqref(const QList<CellRange>& sqref)
 {
     Q_D(Worksheet);
     d->sqref = sqref;
-}
-
-void Worksheet::setSqref(int top, int left, int bottom, int right)
-{
-    Q_D(Worksheet);
-    d->sqref.setFirstRow(top);
-    d->sqref.setFirstColumn(left);
-    d->sqref.setLastRow(bottom);
-    d->sqref.setLastColumn(right);
 }
 
 void WorksheetPrivate::saveXmlSheetData(QXmlStreamWriter &writer) const
