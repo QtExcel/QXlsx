@@ -498,7 +498,7 @@ bool DocumentPrivate::saveCsv(QString mainCSVFileName) const
 
         QString strSheetName = wsheet->sheetName(); // sheet name
 
-        // Fix bug: Invalid function call order. I am sorry. 
+        // Fix bug: Invalid function call order. I am sorry.
         const QVector<CellLocation> clList = wsheet->getFullCells(&maxRow, &maxCol);
 
         QVector<QVector<QString>> cellValues;
@@ -566,71 +566,72 @@ bool DocumentPrivate::copyStyle(const QString &from, const QString &to)
 {
     // create a temp file because the zip writer cannot modify already existing zips
     QTemporaryFile tempFile;
-    tempFile.open();
-    tempFile.close();
-    QString temFilePath = QFileInfo(tempFile).absoluteFilePath();
+    if (!tempFile.open()) {
+        return false;
+    }
+    tempFile.setAutoRemove(false);
 
-    ZipWriter temporalZip(temFilePath);
+    ZipWriter temporalZip(&tempFile);
 
     ZipReader zipReader(from);
-    QStringList filePaths = zipReader.filePaths();
+    const QStringList filePaths = zipReader.filePaths();
 
-    auto toReader = std::make_shared<ZipReader>(to);
+    {
+        ZipReader toReader(to);
 
-    QStringList toFilePaths = toReader->filePaths();
+        const QStringList toFilePaths = toReader.filePaths();
 
-    // copy all files from "to" zip except those related to style
-    for (int i = 0; i < toFilePaths.size(); i++) {
-        if (toFilePaths[i].contains(QLatin1String("xl/styles"))) {
-            if (filePaths.contains(toFilePaths[i])) { // style file exist in 'from' as well
+        // copy all files from "to" zip except those related to style
+        for (const QString &toFilePath : toFilePaths) {
+            if (toFilePath.contains(QLatin1String("xl/styles"))) {
+                if (filePaths.contains(toFilePath)) { // style file exist in 'from' as well
                                                       // modify style file
-                std::string fromData =
-                    QString::fromUtf8(zipReader.fileData(toFilePaths[i])).toStdString();
-                std::string toData =
-                    QString::fromUtf8(toReader->fileData(toFilePaths[i])).toStdString();
-                // copy default theme style from 'from' to 'to'
-                toData = xlsxDocumentCpp::copyTag(fromData, toData, "dxfs");
-                temporalZip.addFile(toFilePaths.at(i), QString::fromUtf8(toData.c_str()).toUtf8());
+                    std::string fromData =
+                        QString::fromUtf8(zipReader.fileData(toFilePath)).toStdString();
+                    std::string toData =
+                        QString::fromUtf8(toReader.fileData(toFilePath)).toStdString();
+                    // copy default theme style from 'from' to 'to'
+                    toData = xlsxDocumentCpp::copyTag(fromData, toData, "dxfs");
+                    temporalZip.addFile(toFilePath, QString::fromUtf8(toData.c_str()).toUtf8());
 
-                continue;
+                    continue;
+                }
             }
-        }
 
-        if (toFilePaths[i].contains(QLatin1String("xl/workbook"))) {
-            if (filePaths.contains(toFilePaths[i])) { // workbook file exist in 'from' as well
+            if (toFilePath.contains(QLatin1String("xl/workbook"))) {
+                if (filePaths.contains(toFilePath)) { // workbook file exist in 'from' as well
                                                       // modify workbook file
-                std::string fromData =
-                    QString::fromUtf8(zipReader.fileData(toFilePaths[i])).toStdString();
-                std::string toData =
-                    QString::fromUtf8(toReader->fileData(toFilePaths[i])).toStdString();
-                // copy default theme style from 'from' to 'to'
-                toData = xlsxDocumentCpp::copyTag(fromData, toData, "workbookPr");
-                temporalZip.addFile(toFilePaths.at(i), QString::fromUtf8(toData.c_str()).toUtf8());
-                continue;
+                    std::string fromData =
+                        QString::fromUtf8(zipReader.fileData(toFilePath)).toStdString();
+                    std::string toData =
+                        QString::fromUtf8(toReader.fileData(toFilePath)).toStdString();
+                    // copy default theme style from 'from' to 'to'
+                    toData = xlsxDocumentCpp::copyTag(fromData, toData, "workbookPr");
+                    temporalZip.addFile(toFilePath, QString::fromUtf8(toData.c_str()).toUtf8());
+                    continue;
+                }
             }
-        }
 
-        if (toFilePaths[i].contains(QLatin1String("xl/worksheets/sheet"))) {
-            if (filePaths.contains(toFilePaths[i])) { // sheet file exist in 'from' as well
+            if (toFilePath.contains(QLatin1String("xl/worksheets/sheet"))) {
+                if (filePaths.contains(toFilePath)) { // sheet file exist in 'from' as well
                                                       // modify sheet file
-                std::string fromData =
-                    QString::fromUtf8(zipReader.fileData(toFilePaths[i])).toStdString();
-                std::string toData =
-                    QString::fromUtf8(toReader->fileData(toFilePaths[i])).toStdString();
-                // copy "conditionalFormatting" from 'from' to 'to'
-                toData = xlsxDocumentCpp::copyTag(fromData, toData, "conditionalFormatting");
-                temporalZip.addFile(toFilePaths.at(i), QString::fromUtf8(toData.c_str()).toUtf8());
-                continue;
+                    std::string fromData =
+                        QString::fromUtf8(zipReader.fileData(toFilePath)).toStdString();
+                    std::string toData =
+                        QString::fromUtf8(toReader.fileData(toFilePath)).toStdString();
+                    // copy "conditionalFormatting" from 'from' to 'to'
+                    toData = xlsxDocumentCpp::copyTag(fromData, toData, "conditionalFormatting");
+                    temporalZip.addFile(toFilePath, QString::fromUtf8(toData.c_str()).toUtf8());
+                    continue;
+                }
             }
-        }
 
-        QByteArray data = toReader->fileData(toFilePaths.at(i));
-        temporalZip.addFile(toFilePaths.at(i), data);
+            QByteArray data = toReader.fileData(toFilePath);
+            temporalZip.addFile(toFilePath, data);
+        }
     }
 
     temporalZip.close();
-
-    toReader.reset();
 
     tempFile.close();
 
