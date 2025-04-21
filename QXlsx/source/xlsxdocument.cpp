@@ -98,7 +98,7 @@ std::string copyTag(const std::string &sFrom, const std::string &sTo, const std:
 
     if (!sFromData.empty()) { // tag found in 'from'?
                               // search all occurrences of tag in 'sOut' and delete them
-        int firstPosTag = -1;
+        size_t firstPosTag = -1;
         while (true) {
             std::size_t startPos = sOut.find(tagToFindStart);
             if (startPos != std::string::npos) {
