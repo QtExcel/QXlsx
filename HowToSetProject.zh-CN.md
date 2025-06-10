@@ -1,17 +1,17 @@
 
-## How to setup QXlsx project
+## 如何设置 QXlsx 项目
 
-> *Read this in other languages: [English](HowToSetProject.md), :kr: [한국어](HowToSetProject.ko.md), :zh-CN: [简体中文](HowToSetProject.zh-CN.md)*
+> *以其他语言阅读: [English](HowToSetProject.md), [한국어](HowToSetProject.ko.md), [简体中文](HowToSetProject.zh-CN.md)*
 
-- Here's an easy way to apply QXlsx.
-- This works only with qmake, for cmake look at [the other doc](HowToSetProject-cmake.md).
-- Describes when to apply to Windows.
-- The method of applying it on Linux or Mac is similar, and I will write help if there is an additional request.
+- 以下是应用 QXlsx 的简单方法。
+- 本文适用于使用 qmake 构建项目。若使用 CMake，请参考 [English文档](HowToSetProject-cmake.md) 或 [中文文档](HowToSetProject-cmake.zh-CN.md).
+- 以下步骤基于 Windows 系统，Linux 或 macOS 的流程类似。
+- 在 Linux 或 Mac 上应用它的方法是类似的，- 如有特殊需求，我会补充说明或提供帮助。
 - * Hi! I'm j2doll. My native language is not English and my English is not fluent. Please understand. :-)
 
-## Steps to set
+## 设置步骤
 
-:one: Clone source code from github
+:one: 从 github 克隆源代码
 
 ```sh
 git clone https://github.com/j2doll/QXlsx.git
@@ -21,61 +21,63 @@ git clone https://github.com/j2doll/QXlsx.git
 
 <br /><br />
 
-:two: Execute QtCreator
+:two: 启动 Qt Creator
 
 ![](markdown.data/02.jpg)
 
-* If you don't know use QtCreator, see Qt Company site. [https://www.qt.io/qt-features-libraries-apis-tools-and-ide/](https://www.qt.io/qt-features-libraries-apis-tools-and-ide/)
+* Qt Creator 使用指南。 [官方文档](https://www.qt.io/qt-features-libraries-apis-tools-and-ide/)
 
 <br /><br />
 
-:three: Create your own Qt Project.
+:three: 创建一个新的 Qt 项目。
 
 ![](markdown.data/03.jpg)
 
 <br /><br />
 
-:four: Sample is console application.
+:four: 本示例为控制台应用程序。
 
 ![](markdown.data/04.jpg)
 
 <br /><br />
 
-:five: Set project name. Current project name is HelloQXlsx.  
+:five: 设置项目名称（示例：HelloQXlsx）。 
 
 ![](markdown.data/05.jpg)
 
 <br /><br />
 
-:six: HelloQXlsx project has been created.
+:six: HelloQXlsx 项目创建完成。
 
 ![](markdown.data/06.jpg)
 
 <br /><br />
 
-:seven: Current directory for project
+:seven: 查看项目目录结构
 
 ![](markdown.data/07.jpg)
 
 <br /><br />
 
-:eight: Copy QXlsx code to your app project  
+:eight: 复制 QXlsx 到项目目录 
 
 ![](markdown.data/08.jpg)
 
 ```cmd
 xcopy c:\workspace\github\QXlsx\QXlsx c:\workspace\HelloQXlsx /s /e
+
+> 将 QXlsx 源码复制到你的 Qt 项目中（请根据你本机路径修改）
 ```
 
 <br /><br />
 
-:nine: Current directories and files for project
+:nine: 项目的当前目录和文件
 
 ![](markdown.data/09.jpg)
 
 <br /><br />
 
-:keycap_ten: Append code for QXlxs library on your Qt project(*.pro)
+:keycap_ten: 在Qt项目文件(`*.pro`)中添加 QXlxs 库的代码
 
 ![](markdown.data/10.jpg)
 
@@ -89,7 +91,7 @@ include(./QXlsx.pri)
 
 <br /><br />
 
-:one::one: Set header files and namespace for sample. Then append hello world code.
+:one::one: 设置示例的头文件和命名空间。然后附加 hello world 代码。
 
 ![](markdown.data/11.jpg)
 
@@ -121,13 +123,13 @@ int main(int argc, char *argv[])
 
 <br /><br />
 
-:one::two: Build and Run a project
+:one::two: 构建并运行项目
 
 ![](markdown.data/12.jpg)
 
 <br /><br />
 
-:one::three: A execute file(*.exe) and a excel file(xlsx) is created.
+:one::three: 生成可执行文件(`*.exe`)和Excel文件(`.xlsx`)。
 
 ![](markdown.data/13.jpg)
 

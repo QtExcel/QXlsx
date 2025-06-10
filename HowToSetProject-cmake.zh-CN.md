@@ -1,10 +1,10 @@
-## Using cmake 
+## 使用 cmake
 
-> *Read this in other languages: [English](HowToSetProject-cmake.md), :kr: [한국어](HowToSetProject-cmake.ko.md), :zh-CN: [简体中文](HowToSetProject-cmake.zh-CN.md)*
+> *以其他语言阅读: [English](HowToSetProject-cmake.md), [한국어](HowToSetProject-cmake.ko.md), [简体中文](HowToSetProject.zh-CN.md)*
 
-### To install QXlsx
+### 安装 QXlsx
 
-Enter the command as shown below.
+执行以下命令:
 
 ```sh
 mkdir build
@@ -14,29 +14,27 @@ cmake --build .
 cmake --install .
 ```
 
-### To use in your application
+### 项目中使用已安装的 QXlsx
 
-In your CMakeLists.txt:
+在 CMakeLists.txt 中:
 
 ```cmake
 find_package(QXlsxQt5 REQUIRED) # or QXlsxQt6
 target_link_libraries(myapp PRIVATE QXlsx::QXlsx)
 ```
 
-### To use in your application without installation
+### 免安装的情况下使用 QXlsx
 
-There are 2 possible ways:
+有两种方法可以在项目中直接集成 QXlsx:
 
-1) Use cmake subdirectory
-In your CMakeLists.txt:
+1) 使用子目录方式:
 
 ```cmake
 add_subdirectory(QXlsx)
 target_link_libraries(myapp PRIVATE QXlsx::QXlsx)
 ```
 
-2) Use cmake FetchContent
-In your CMakeLists.txt:
+2) 使用 FetchContent 拉取源码:
 
 ```cmake
 FetchContent_Declare(
@@ -49,4 +47,5 @@ FetchContent_MakeAvailable(QXlsx)
 target_link_libraries(myapp PRIVATE QXlsx::QXlsx)
 ```
 
-if `QT_VERSION_MAJOR` is not set, QXlsx's CMakeLists.txt will try to find a Qt version (5 or 6) itself.
+如果未设置 `QT_VERSION_MAJOR`，QXlsx 的 CMakeLists.txt 会自动尝试查找 Qt 版本（5 或 6）。
+
