@@ -286,6 +286,9 @@ public:
 
     QRegularExpression urlPattern;
 
+    CellReference activeCell;
+    QList<CellRange> sqref;
+
 private:
     static double calculateColWidth(int characters);
 };
