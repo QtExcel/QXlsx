@@ -4,11 +4,17 @@
 # - Config information for QXlsx
 # This file defines:
 #
-#  QXlsx_INCLUDE_DIR - the QXlsx include directory
-#  QXlsx_LIBRARY - Link these to use QXlsx
+#  @EXPORT_NAME@_INCLUDE_DIR - the QXlsx include directory
+#  @EXPORT_NAME@_LIBRARY_DIR - the QXlsx library directory
+#  @EXPORT_NAME@_LIBRARIES   - Link these to use QXlsx
 
-SET(prefix "@CMAKE_INSTALL_PREFIX@")
-SET(exec_prefix "@CMAKE_INSTALL_PREFIX@")
-SET(QXlsx_FOUND "TRUE")
+@PACKAGE_INIT@
+
+set_and_check(@EXPORT_NAME@_INCLUDE_DIR "@PACKAGE_CMAKE_INSTALL_INCLUDEDIR@")
+set_and_check(@EXPORT_NAME@_LIBRARY_DIR "@PACKAGE_CMAKE_INSTALL_LIBDIR@")
 
 include("${CMAKE_CURRENT_LIST_DIR}/@EXPORT_NAME@Targets.cmake")
+
+set(@EXPORT_NAME@_LIBRARIES "@EXPORT_NAME@")
+
+check_required_components(@EXPORT_NAME@)
