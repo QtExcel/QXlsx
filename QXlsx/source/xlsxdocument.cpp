@@ -98,7 +98,7 @@ std::string copyTag(const std::string &sFrom, const std::string &sTo, const std:
 
     if (!sFromData.empty()) { // tag found in 'from'?
                               // search all occurrences of tag in 'sOut' and delete them
-        int firstPosTag = -1;
+        std::size_t firstPosTag = std::string::npos;
         while (true) {
             std::size_t startPos = sOut.find(tagToFindStart);
             if (startPos != std::string::npos) {
@@ -110,7 +110,7 @@ std::string copyTag(const std::string &sFrom, const std::string &sTo, const std:
                     tagEndTmp = "/>";
                 }
                 if (endPos != std::string::npos) {
-                    if (firstPosTag < 0)
+                    if (firstPosTag == std::string::npos)
                         firstPosTag = startPos;
                     std::string stringBefore = sOut.substr(0, startPos);
                     endPos += strlen(tagEndTmp.c_str());
@@ -124,7 +124,7 @@ std::string copyTag(const std::string &sFrom, const std::string &sTo, const std:
             }
         }
 
-        if (firstPosTag == -1) {
+        if (firstPosTag == std::string::npos) {
             // tag not found in 'sTo' file
             // try to find a default pos using standard tags
             std::vector<std::string> defaultPos{"</styleSheet>", "<pageMargins", "</workbook>"};
@@ -139,7 +139,7 @@ std::string copyTag(const std::string &sFrom, const std::string &sTo, const std:
 
         // add the tag extracted from 'sFrom' in 'sOut'
         // add in the position of the first tag found in 'sOut' ('firstPosTag')
-        if (firstPosTag >= 0) {
+        if (firstPosTag != std::string::npos) {
             std::string stringBefore = sOut.substr(0, firstPosTag);
             std::string stringAfter  = sOut.substr(firstPosTag, strlen(sOut.c_str()) - firstPosTag);
             sOut                     = stringBefore + sFromData + stringAfter;
