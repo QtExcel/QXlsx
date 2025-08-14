@@ -1551,8 +1551,6 @@ void WorksheetPrivate::saveXmlCellData(QXmlStreamWriter &writer,
                                        int col,
                                        std::shared_ptr<Cell> cell) const
 {
-    Q_Q(const Worksheet);
-
     // This is the innermost loop so efficiency is important.
     QString cell_pos = CellReference(row, col).toString();
 
