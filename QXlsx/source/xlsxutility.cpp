@@ -48,7 +48,7 @@ QString getRelFilePath(const QString &filePath)
         // return QString();
 
         // dev34
-        ret = QLatin1String("_rels/") + QStringLiteral("%0.rels").arg(filePath);
+        ret = QLatin1String("_rels/") + QStringLiteral("%1.rels").arg(filePath);
         return ret;
     }
 
