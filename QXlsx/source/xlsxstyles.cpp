@@ -294,7 +294,7 @@ void Styles::addDxfFormat(const Format &format, bool force)
         }
     }
 
-    if (formatIt == m_xf_formatsHash.constEnd() || force) {
+    if (formatIt == m_dxf_formatsHash.constEnd() || force) {
         m_dxf_formatsList.append(format);
         m_dxf_formatsHash[format.formatKey()] = format;
     }
