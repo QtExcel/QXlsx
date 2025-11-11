@@ -1652,10 +1652,42 @@ void WorksheetPrivate::saveXmlCellData(QXmlStreamWriter &writer,
     {
         // number type. see for 18.18.11 ST_CellType (Cell Type) more information.
         writer.writeAttribute(QStringLiteral("t"), QStringLiteral("n"));
-        if (cell->value().isValid()) {
-            const double serial = cell->value().toDouble();
-            writer.writeTextElement("v",
-                QString::number(serial, 'g', 15));
+
+        // Legacy mode: write date as text (old behavior)
+        if (workbook && workbook->writeDatesAsText())
+        {
+            writer.writeTextElement(QStringLiteral("v"), cell->value().toString());
+        }
+        else
+        {
+            if (cell->value().isValid())
+            {
+                double serial = 0.0;
+
+                if (cell->value().typeId() == QMetaType::QDateTime)
+                {
+                    const QDateTime dt = cell->value().toDateTime();
+                    serial = datetimeToNumber(dt, workbook ? workbook->isDate1904() : false);
+                }
+                else if (cell->value().typeId() == QMetaType::QDate)
+                {
+                    const QDate d = cell->value().toDate();
+                    const QDateTime dt(d, QTime(0, 0));
+                    serial = datetimeToNumber(dt, workbook ? workbook->isDate1904() : false);
+                }
+                else if (cell->value().typeId() == QMetaType::QTime)
+                {
+                    serial = timeToNumber(cell->value().toTime());
+                }
+                else
+                {
+                    // Already a serial (e.g., from earlier pipeline stage).
+                    serial = cell->value().toDouble();
+                }
+
+                // Fixed-point to avoid scientific notation and ensure stable round-trips.
+                writer.writeTextElement(QStringLiteral("v"), QString::number(serial, 'f', 14));
+            }
         }
     } else if (cell->cellType() == Cell::ErrorType) // 'e'
     {
