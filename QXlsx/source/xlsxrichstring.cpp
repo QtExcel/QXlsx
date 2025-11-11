@@ -116,8 +116,9 @@ bool RichString::isNull() const
  */
 bool RichString::isEmtpy() const
 {
-    return std::all_of(d->fragmentTexts.begin(), d->fragmentTexts.end(),
-                       [](const QString &str) { return str.isEmpty(); });
+    return std::all_of(d->fragmentTexts.begin(), d->fragmentTexts.end(), [](const QString &str) {
+        return str.isEmpty();
+    });
 }
 
 /*!
