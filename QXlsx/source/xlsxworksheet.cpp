@@ -40,6 +40,12 @@
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
 
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+#    define SAME_METATYPE_ID(V, META) ((V).typeId() == (META))
+#else
+#    define SAME_METATYPE_ID(V, META) ((V).userType() == (META))
+#endif
+
 QT_BEGIN_NAMESPACE_XLSX
 
 namespace {
@@ -1654,33 +1660,22 @@ void WorksheetPrivate::saveXmlCellData(QXmlStreamWriter &writer,
         writer.writeAttribute(QStringLiteral("t"), QStringLiteral("n"));
 
         // Legacy mode: write date as text (old behavior)
-        if (workbook && workbook->writeDatesAsText())
-        {
+        if (workbook && workbook->writeDatesAsText()) {
             writer.writeTextElement(QStringLiteral("v"), cell->value().toString());
-        }
-        else
-        {
-            if (cell->value().isValid())
-            {
+        } else {
+            if (cell->value().isValid()) {
                 double serial = 0.0;
 
-                if (cell->value().typeId() == QMetaType::QDateTime)
-                {
+                if (SAME_METATYPE_ID(cell->value(), QMetaType::QDateTime)) {
                     const QDateTime dt = cell->value().toDateTime();
                     serial = datetimeToNumber(dt, workbook ? workbook->isDate1904() : false);
-                }
-                else if (cell->value().typeId() == QMetaType::QDate)
-                {
+                } else if (SAME_METATYPE_ID(cell->value(), QMetaType::QDate)) {
                     const QDate d = cell->value().toDate();
                     const QDateTime dt(d, QTime(0, 0));
                     serial = datetimeToNumber(dt, workbook ? workbook->isDate1904() : false);
-                }
-                else if (cell->value().typeId() == QMetaType::QTime)
-                {
+                } else if (SAME_METATYPE_ID(cell->value(), QMetaType::QTime)) {
                     serial = timeToNumber(cell->value().toTime());
-                }
-                else
-                {
+                } else {
                     // Already a serial (e.g., from earlier pipeline stage).
                     serial = cell->value().toDouble();
                 }
@@ -1929,7 +1924,7 @@ bool Worksheet::setColumnWidth(int colFirst, int colLast, double width)
     const QList<std::shared_ptr<XlsxColumnInfo>> columnInfoList =
         d->getColumnInfoList(colFirst, colLast);
     for (const std::shared_ptr<XlsxColumnInfo> &columnInfo : columnInfoList) {
-        columnInfo->width = width;
+        columnInfo->width      = width;
         columnInfo->isSetWidth = true;
     }
 

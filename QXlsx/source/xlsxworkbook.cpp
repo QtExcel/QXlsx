@@ -623,12 +623,13 @@ bool Workbook::loadFromXmlFile(QIODevice *device)
                 }
             } else if (reader.name() == QLatin1String("workbookPr")) {
                 QXmlStreamAttributes attrs = reader.attributes();
-                if (attrs.hasAttribute("date1904")) {
-                    const QString v = attrs.value("date1904").toString().trimmed().toLower();
+                if (attrs.hasAttribute(QLatin1String("date1904"))) {
+                    const QString v =
+                        attrs.value(QLatin1String("date1904")).toString().trimmed().toLower();
                     d->date1904 = (v == "1" || v == "true");
-                    } else {
+                } else {
                     d->date1904 = false;
-                    }
+                }
             } else if (reader.name() == QLatin1String("bookViews")) {
                 while (!(reader.name() == QLatin1String("bookViews") &&
                          reader.tokenType() == QXmlStreamReader::EndElement)) {
