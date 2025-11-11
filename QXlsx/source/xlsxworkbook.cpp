@@ -737,4 +737,16 @@ void Workbook::addChartFile(std::shared_ptr<Chart> chart)
         d->chartFiles.append(chart);
 }
 
+void Workbook::setWriteDatesAsText(bool enable)
+{
+    Q_D(Workbook);
+    d->writeDatesAsText = enable;
+}
+
+bool Workbook::writeDatesAsText() const
+{
+    Q_D(const Workbook);
+    return d->writeDatesAsText;
+}
+
 QT_END_NAMESPACE_XLSX
