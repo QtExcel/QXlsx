@@ -1680,8 +1680,7 @@ void WorksheetPrivate::saveXmlCellData(QXmlStreamWriter &writer,
                     serial = cell->value().toDouble();
                 }
 
-                // Fixed-point to avoid scientific notation and ensure stable round-trips.
-                writer.writeTextElement(QStringLiteral("v"), QString::number(serial, 'f', 14));
+                writer.writeTextElement(QStringLiteral("v"), QString::number(serial, 'g', 15));
             }
         }
     } else if (cell->cellType() == Cell::ErrorType) // 'e'
