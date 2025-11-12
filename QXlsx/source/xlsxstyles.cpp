@@ -1150,15 +1150,34 @@ bool Styles::readCellXfs(QXmlStreamReader &reader)
                 //            qDebug()<<"... "<<i<<" "<<xfAttrs[i].name()<<xfAttrs[i].value();
 
                 if (xfAttrs.hasAttribute(QLatin1String("numFmtId"))) {
-                    const auto numFmtIndex = xfAttrs.value(QLatin1String("numFmtId")).toInt();
-                    const auto apply       = parseXsdBoolean(
-                        xfAttrs.value(QLatin1String("applyNumberFormat")).toString());
-                    if (apply) {
-                        const auto &it = m_customNumFmtIdMap.constFind(numFmtIndex);
-                        if (it == m_customNumFmtIdMap.constEnd())
-                            format.setNumberFormatIndex(numFmtIndex);
-                        else
-                            format.setNumberFormat(numFmtIndex, it.value()->formatString);
+                    bool ok                = false;
+                    const auto numFmtIndex = xfAttrs.value(QLatin1String("numFmtId")).toInt(&ok);
+
+                    if (ok && numFmtIndex >= 0) {
+                        // Determine if format should be applied
+                        // Per OOXML spec: default for cellXfs is false, but we have a special case:
+                        // LibreOffice omits applyNumberFormat even for custom formats (>= 164)
+                        // If a custom format is referenced, we assume it should be applied
+                        bool apply = false;
+                        if (xfAttrs.hasAttribute(QLatin1String("applyNumberFormat"))) {
+                            apply = parseXsdBoolean(
+                                xfAttrs.value(QLatin1String("applyNumberFormat")).toString());
+                        } else {
+                            // Heuristic: If numFmtId references a custom format (>= 164), apply it
+                            // This handles LibreOffice files that omit applyNumberFormat
+                            const auto &it = m_customNumFmtIdMap.constFind(numFmtIndex);
+                            if (it != m_customNumFmtIdMap.constEnd()) {
+                                apply = true; // Custom format found, apply it
+                            }
+                        }
+
+                        if (apply) {
+                            const auto &it = m_customNumFmtIdMap.constFind(numFmtIndex);
+                            if (it == m_customNumFmtIdMap.constEnd())
+                                format.setNumberFormatIndex(numFmtIndex);
+                            else
+                                format.setNumberFormat(numFmtIndex, it.value()->formatString);
+                        }
                     }
                 }
 
