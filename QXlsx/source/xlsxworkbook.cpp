@@ -626,7 +626,7 @@ bool Workbook::loadFromXmlFile(QIODevice *device)
                 if (attrs.hasAttribute(QLatin1String("date1904"))) {
                     const QString v =
                         attrs.value(QLatin1String("date1904")).toString().trimmed().toLower();
-                    d->date1904 = (v == "1" || v == "true");
+                    d->date1904 = (v == QStringLiteral("1") || v == QStringLiteral("true"));
                 } else {
                     d->date1904 = false;
                 }
