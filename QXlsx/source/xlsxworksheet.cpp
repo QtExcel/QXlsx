@@ -61,8 +61,6 @@ WorksheetPrivate::WorksheetPrivate(Worksheet *p, Worksheet::CreateFlag flag)
     , showOutlineSymbols(true)
     , showWhiteSpace(true)
     , urlPattern(QStringLiteral("^([fh]tt?ps?://)|(mailto:)|(file://)"))
-    , activeCell(1, 1)
-    , sqref({CellRange(1, 1, 1, 1)})
 {
 }
 
@@ -1326,18 +1324,27 @@ void Worksheet::saveToXmlFile(QIODevice *device) const
     if (!d->showWhiteSpace)
         writer.writeAttribute(QStringLiteral("showWhiteSpace"), QStringLiteral("0"));
     writer.writeAttribute(QStringLiteral("workbookViewId"), QStringLiteral("0"));
-    writer.writeStartElement(QStringLiteral("selection"));
-    writer.writeAttribute(QStringLiteral("activeCell"), d->activeCell.toString());
-    QString sqrefString;
-    for (auto it = d->sqref.begin(); it != d->sqref.end(); ++it) {
-        if(it != d->sqref.begin())
-        {
-            sqrefString.push_back(u' ');
+    if (d->selectionProps.activeCell.isValid() || !d->selectionProps.sqref.isEmpty()) {
+        writer.writeStartElement(QStringLiteral("selection"));
+        if (d->selectionProps.activeCell.isValid()) {
+            writer.writeAttribute(QStringLiteral("activeCell"),
+                                  d->selectionProps.activeCell.toString());
         }
-        sqrefString.append(it->toString());
+        if (!d->selectionProps.sqref.isEmpty()) {
+            QString sqrefString;
+            for (const auto range : d->selectionProps.sqref) {
+                sqrefString.append(range.toString());
+                sqrefString.push_back(QLatin1Char(' '));
+            }
+            sqrefString.truncate(sqrefString.size() - 1);
+            writer.writeAttribute(QStringLiteral("sqref"), sqrefString);
+            if (d->selectionProps.sqref.size() > 1) {
+                writer.writeAttribute(QStringLiteral("activeCellId"),
+                                      QString::number(d->selectionProps.activeCellId));
+            }
+        }
+        writer.writeEndElement(); // selection
     }
-    writer.writeAttribute(QStringLiteral("sqref"), sqrefString);
-    writer.writeEndElement(); // selection
     writer.writeEndElement(); // sheetView
     writer.writeEndElement(); // sheetViews
 
@@ -1495,37 +1502,52 @@ bool Worksheet::setStartPage(int spagen)
 }
 //}}
 
-CellReference Worksheet::getActiveCell()
+CellReference Worksheet::selectionActiveCell() const
 {
-    Q_D(Worksheet);
-    return d->activeCell;
+    Q_D(const Worksheet);
+    return d->selectionProps.activeCell;
 }
 
-void Worksheet::setActiveCell(CellReference cell)
+void Worksheet::setSelectionActiveCell(CellReference activeCell)
 {
     Q_D(Worksheet);
-    d->activeCell = cell;
+    d->selectionProps.activeCell = activeCell;
 }
 
-void Worksheet::setActiveCell(int row, int col)
+quint32 Worksheet::selectionActiveCellId() const
 {
-    Q_D(Worksheet);
-    d->activeCell.setRow(row);
-    d->activeCell.setColumn(col);
+    Q_D(const Worksheet);
+    return d->selectionProps.activeCellId;
 }
 
-QList<CellRange> Worksheet::getSqref()
+bool Worksheet::selectionActiveCellId(quint32 activeCellId)
 {
     Q_D(Worksheet);
-    return d->sqref;
+    if (activeCellId < d->selectionProps.sqref.size()) {
+        d->selectionProps.activeCellId = activeCellId;
+        return true;
+    }
+    return false;
 }
 
-void Worksheet::setSqref(const QList<CellRange>& sqref)
+QList<CellRange> Worksheet::selectionSqref() const
+{
+    Q_D(const Worksheet);
+    return d->selectionProps.sqref;
+}
+
+void Worksheet::setSelectionSqref(const QList<CellRange> &selectionSqref)
 {
     Q_D(Worksheet);
-    d->sqref = sqref;
-    if(d->sqref.empty())
-        d->sqref.append(CellRange(1, 1, 1, 1));
+    d->selectionProps.sqref        = selectionSqref;
+    d->selectionProps.activeCellId = 0;
+}
+
+void Worksheet::setSelectionSqref(QList<CellRange> &&selectionSqref)
+{
+    Q_D(Worksheet);
+    d->selectionProps.sqref        = std::move(selectionSqref);
+    d->selectionProps.activeCellId = 0;
 }
 
 void WorksheetPrivate::saveXmlSheetData(QXmlStreamWriter &writer) const
@@ -2623,6 +2645,31 @@ void WorksheetPrivate::loadXmlSheetViews(QXmlStreamReader &reader)
             showOutlineSymbols =
                 attrs.value(QLatin1String("showOutlineSymbols")) != QLatin1String("0");
             showWhiteSpace = attrs.value(QLatin1String("showWhiteSpace")) != QLatin1String("0");
+            reader.readNextStartElement();
+            if (reader.tokenType() == QXmlStreamReader::StartElement &&
+                reader.name() == QLatin1String("selection")) {
+                QXmlStreamAttributes selectionAttr = reader.attributes();
+                selectionProps.activeCell =
+                    CellReference(selectionAttr.value(QLatin1String("activeCell")).toString());
+                selectionProps.activeCellId =
+                    selectionAttr.value(QLatin1String("activeCellId")).toUInt();
+                QStringView sqrefStr      = selectionAttr.value(QLatin1String("sqref"));
+                QList<QStringView> ranges = sqrefStr.split(QLatin1Char(' '));
+                for (const auto &range : ranges) {
+                    selectionProps.sqref.append(CellRange(range.toString()));
+                }
+                if (selectionProps.activeCellId >= selectionProps.sqref.count()) {
+                    for (auto it = selectionProps.sqref.begin(); it != selectionProps.sqref.end();
+                         ++it) {
+                        const auto &range = *it;
+                        if (!(range.topLeft() > selectionProps.activeCell) &&
+                            !(selectionProps.activeCell > range.bottomRight())) {
+                            selectionProps.activeCellId = it - selectionProps.sqref.begin();
+                            break;
+                        }
+                    }
+                }
+            }
         }
     }
 }

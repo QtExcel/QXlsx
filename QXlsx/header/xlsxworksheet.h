@@ -185,12 +185,13 @@ public:
     bool isWhiteSpaceVisible() const;
     void setWhiteSpaceVisible(bool visible);
     bool setStartPage(int spagen); // add by liufeijin20181028
-
-    CellReference getActiveCell();
-    void setActiveCell(CellReference cell);
-    void setActiveCell(int row, int col);
-    QList<CellRange> getSqref();
-    void setSqref(const QList<CellRange>& sqref);
+    CellReference selectionActiveCell() const;
+    void setSelectionActiveCell(CellReference activeCell);
+    quint32 selectionActiveCellId() const;
+    bool selectionActiveCellId(quint32 activeCellId);
+    QList<CellRange> selectionSqref() const;
+    void setSelectionSqref(const QList<CellRange> &selectionSqref);
+    void setSelectionSqref(QList<CellRange> &&selectionSqref);
 
     QVector<CellLocation> getFullCells(int *maxRow, int *maxCol) const;
 
