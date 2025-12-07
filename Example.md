@@ -106,15 +106,6 @@ int main(int argc, char *argv[])
 
 ![](markdown.data/read-color.jpg)
 
-## XlsxFactory 
-- Load xlsx file and display on Qt widgets. 
-- Moved to personal repository for advanced app.
-	- https://j2doll.tistory.com/654
-	- The source code of this program cannot be released because it contains a commercial license.
-
-![](markdown.data/copycat.png)
-![](markdown.data/copycat2.jpg)
-
 ## [csv](https://github.com/QtExcel/QXlsx/tree/master/csv)
 - Save the `xlsx` file as a `csv` file.
 ```cpp
@@ -130,5 +121,18 @@ int main(int argc, char *argv[])
         }
 ```
 
+## [ExcelViewer](https://github.com/QtExcel/QXlsx/tree/master/ExcelViewer)
+- Load xlsx file and display on Qt widgets. 
+
+![](markdown.data/excel-viewer.jpg)
+
+## XlsxFactory 
+- Load xlsx file and display on Qt widgets. 
+- Moved to personal repository for advanced app.
+	- https://j2doll.tistory.com/654
+	- The source code of this program cannot be released because it contains a commercial license.
+
+![](markdown.data/copycat.png)
+![](markdown.data/copycat2.jpg)
 
 
