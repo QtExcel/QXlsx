@@ -2307,6 +2307,10 @@ void WorksheetPrivate::loadXmlSheetData(QXmlStreamReader &reader)
                         if (attributes.hasAttribute(QLatin1String("ht"))) {
                             info->height = attributes.value(QLatin1String("ht")).toDouble();
                         }
+						else
+                        {
+                            info->customHeight = false;
+                        }
                     }
 
                     // both "hidden" and "collapsed" default are false
