@@ -130,5 +130,45 @@ int main(int argc, char *argv[])
         }
 ```
 
+## [LargeData](https://github.com/QtExcel/QXlsx/tree/master/LargeData)
+- `LargeData` example demonstrates how to efficiently generate, write, and read large Excel `.xlsx` files using `QXlsx`.
+- It showcases:
+   - Writing a large dataset (hundreds of thousands of rows)
+   - Optional cell formatting
+   - Splitting data across multiple sheets
+   - Time-stamped progress reporting (0.1% increments)
+   - Verification of selected sample cells after writing
+   - Command-line configurability (rows, columns, sheet size, etc.)
+- This example is useful for testing performance, benchmarking, and validating QXlsx behavior with big data workloads.
+
+- Command-Line Usage
+   - The program accepts several optional parameters:
+
+| Option                      | Description                           | Default    |
+| --------------------------- | ------------------------------------- | ---------- |
+| `--rows <n>` `-r <n>`       | Number of rows to generate            | `100000`   |
+| `--cols <n>` `-c <n>`       | Number of columns to generate         | `10`       |
+| `--use-style` `-s`          | Apply simple cell formatting          | *Disabled* |
+| `--sheet-rows <n>` `-S <n>` | Max rows per sheet (0 = single sheet) | `0`        |
+
+- Examples
+
+```
+LargeData --rows 200000 --cols 20
+   Generate 200,000 rows × 20 columns
+   
+LargeData -r 100000 -c 10 --use-style
+   Apply cell formatting   
+
+LargeData -r 200000 -c 10 -S 50000
+   Split into multiple sheets (50,000 rows per sheet)
+
+LargeData -r 300000 -c 15 -S 60000 --use-style
+   All options combined   
+```
+
+
+
+
 
 
