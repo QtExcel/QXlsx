@@ -106,15 +106,6 @@ int main(int argc, char *argv[])
 
 ![](markdown.data/read-color.jpg)
 
-## XlsxFactory 
-- Load xlsx file and display on Qt widgets. 
-- Moved to personal repository for advanced app.
-	- https://j2doll.tistory.com/654
-	- The source code of this program cannot be released because it contains a commercial license.
-
-![](markdown.data/copycat.png)
-![](markdown.data/copycat2.jpg)
-
 ## [csv](https://github.com/QtExcel/QXlsx/tree/master/csv)
 - Save the `xlsx` file as a `csv` file.
 ```cpp
@@ -129,6 +120,20 @@ int main(int argc, char *argv[])
             qDebug() << "save as csv file";
         }
 ```
+
+## [ExcelViewer](https://github.com/QtExcel/QXlsx/tree/master/ExcelViewer)
+- Load xlsx file and display on Qt widgets. 
+
+![](markdown.data/excel-viewer.jpg)
+
+## XlsxFactory 
+- Load xlsx file and display on Qt widgets. 
+- Moved to personal repository for advanced app.
+	- https://j2doll.tistory.com/654
+	- The source code of this program cannot be released because it contains a commercial license.
+
+![](markdown.data/copycat.png)
+![](markdown.data/copycat2.jpg)
 
 ## [LargeData](https://github.com/QtExcel/QXlsx/tree/master/LargeData)
 - `LargeData` example demonstrates how to efficiently generate, write, and read large Excel `.xlsx` files using `QXlsx`.
@@ -166,9 +171,5 @@ LargeData -r 200000 -c 10 -S 50000
 LargeData -r 300000 -c 15 -S 60000 --use-style
    All options combined   
 ```
-
-
-
-
 
 
