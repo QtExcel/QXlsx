@@ -1,10 +1,10 @@
 # QXlsx
 
-> *Read this in other languages: [English](README.md), :kr: [Korean](README.ko.md), :ru: [Russian](README.RU.md), :zh-CN: [Simplified Chinese](README.zh-CN.md)*
+> *Read this in other languages: [English](README.md), :kr: [Korean](README.ko.md), :ru: [Russian](README.RU.md), :cn: [Simplified Chinese](README.zh-CN.md)*
 
 <p align="center"><img src="https://raw.githubusercontent.com/QtExcel/QXlsx/master/markdown.data/QXlsx-Desktop.png"></p>
 
-- QXlsx is excel file(`*.xlsx`) reader/writer library.
+- `QXlsx` is excel file(`*.xlsx`) reader/writer library.
   - Because QtXlsxWriter is no longer supported, I created a new project that is based on QtXlsx. (2017-)
 - Development language of QXlsx is C++. (with Qt)
 - You don't need to use static library or dynamic shared object using QXlsx.
