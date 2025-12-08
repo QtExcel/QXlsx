@@ -1,7 +1,7 @@
 
 ## How to setup QXlsx project
 
-> *Read this in other languages: [English](HowToSetProject.md), :kr: [한국어](HowToSetProject.ko.md), :zh-CN: [简体中文](HowToSetProject.zh-CN.md)*
+> *Read this in other languages: [English](HowToSetProject.md), :kr: [한국어](HowToSetProject.ko.md), :cn: [简体中文](HowToSetProject.zh-CN.md)*
 
 - Here's an easy way to apply QXlsx.
 - This works only with qmake, for cmake look at [the other doc](HowToSetProject-cmake.md).

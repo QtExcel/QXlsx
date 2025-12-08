@@ -1,5 +1,7 @@
 # QXlsx Examples
 
+---
+
 ## [HelloWorld](https://github.com/QtExcel/QXlsx/tree/master/HelloWorld)
 
 - Hello world example
@@ -53,6 +55,10 @@ int main(int argc, char *argv[])
 }
 ```
 
+<br />
+
+---
+
 ## [TestExcel](https://github.com/QtExcel/QXlsx/tree/master/TestExcel)
 
 - :zap: Basic examples (based on QtXlsx examples)
@@ -77,6 +83,11 @@ int main(int argc, char *argv[])
 
 ![](markdown.data/testexcel.png)
 
+
+<br />
+
+---
+
 ## [HelloAndroid](https://github.com/QtExcel/QXlsx/tree/master/HelloAndroid)
 
 - See 'HelloAndroid' example using QML and native C++.
@@ -87,12 +98,22 @@ int main(int argc, char *argv[])
 
 ![](markdown.data/android.jpg)
 
+
+<br />
+
+---
+
 ## [WebServer](https://github.com/QtExcel/QXlsx/tree/master/WebServer)
 - Load xlsx file and display on Web.
 	- Connect to `http://127.0.0.1:3001` 
 - C++ 14(17) is required. Old compilers is not supported.
 
 ![](markdown.data/webserver.png)
+
+
+<br />
+
+---
 
 ## [ShowConsole](https://github.com/QtExcel/QXlsx/tree/master/ShowConsole)
 - Load xlsx file and display in console.
@@ -101,10 +122,20 @@ int main(int argc, char *argv[])
 
 ![](markdown.data/show-console.jpg)
 
+
+<br />
+
+---
+
 ## [ReadColor](https://github.com/QtExcel/QXlsx/tree/master/ReadColor) 
 - Read cell color
 
 ![](markdown.data/read-color.jpg)
+
+
+<br />
+
+---
 
 ## [csv](https://github.com/QtExcel/QXlsx/tree/master/csv)
 - Save the `xlsx` file as a `csv` file.
@@ -121,10 +152,18 @@ int main(int argc, char *argv[])
         }
 ```
 
+<br />
+
+---
+
 ## [ExcelViewer](https://github.com/QtExcel/QXlsx/tree/master/ExcelViewer)
 - Load xlsx file and display on Qt widgets. 
 
 ![](markdown.data/excel-viewer.jpg)
+
+<br />
+
+---
 
 ## XlsxFactory 
 - Load xlsx file and display on Qt widgets. 
@@ -134,6 +173,10 @@ int main(int argc, char *argv[])
 
 ![](markdown.data/copycat.png)
 ![](markdown.data/copycat2.jpg)
+
+<br />
+
+---
 
 ## [LargeData](https://github.com/QtExcel/QXlsx/tree/master/LargeData)
 - `LargeData` example demonstrates how to efficiently generate, write, and read large Excel `.xlsx` files using `QXlsx`.
@@ -171,5 +214,25 @@ LargeData -r 200000 -c 10 -S 50000
 LargeData -r 300000 -c 15 -S 60000 --use-style
    All options combined   
 ```
+
+<br />
+
+---
+
+## [ExcelTableEditor](https://github.com/QtExcel/QXlsx/tree/master/ExcelTableEditor)
+
+![](markdown.data/excel-table-editor.jpg)
+
+- Load Excel files with `multiple sheets`
+- Display sheet contents in a `QTableView`
+- Edit all cells (including row 1)
+- Boolean values displayed as checkboxes
+- Read & preserve basic cell formatting (font, alignment, colors)
+- Sheet operations:
+  - Rename sheet
+  - Add new sheet
+  - Delete sheet
+  - Reorder sheets (move left/right)
+- Save or Save As to produce a modified workbook
 
 
