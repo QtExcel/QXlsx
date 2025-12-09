@@ -44,6 +44,10 @@ private slots:
 
     void on_action_about_triggered();
 
+           // row / column insertion slots
+    void on_add_row_button_clicked();
+    void on_add_column_button_clicked();
+
 private:
     void setup_ui();
     void setup_menu();
@@ -69,7 +73,7 @@ private:
     QPointer<QTableView> table_view_;
     QPointer<ExcelItemDelegate> delegate_;
 
-    // UI for sheet selection / operations
+           // widgets for selecting and editing sheets
     QPointer<QComboBox> sheet_combo_;
     QPointer<QLineEdit> sheet_name_edit_;
     QPointer<QPushButton> sheet_rename_button_;
@@ -78,15 +82,19 @@ private:
     QPointer<QPushButton> sheet_move_left_button_;
     QPointer<QPushButton> sheet_move_right_button_;
 
-    // Current sheet model
+           // row / column insertion buttons
+    QPointer<QPushButton> add_row_button_;
+    QPointer<QPushButton> add_column_button_;
+
+           // current sheet model
     QPointer<QStandardItemModel> current_model_;
     QString current_sheet_name_;
 
-    // Document state
+           // document state
     QString current_file_path_;
     bool is_modified_ = false;
 
-    // Sheet list and per-sheet models / formats
+           // sheet list and per-sheet models / formats
     QStringList sheet_names_;
     QHash<QString, QPointer<QStandardItemModel>> sheet_models_;
     QHash<QString, QHash<QPair<int, int>, QXlsx::Format>> sheet_formats_;
@@ -97,7 +105,7 @@ private:
     QPointer<QAction> action_exit_;
 };
 
-// Allow QPair<int,int> to be used as key in QHash
+// qHash for using QPair<int,int> as QHash key
 inline uint qHash(const QPair<int, int> &key, uint seed = 0) noexcept
 {
     return qHash((quint64(key.first) << 32) ^ quint64(key.second), seed);

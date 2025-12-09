@@ -14,6 +14,7 @@
 #include <QComboBox>
 #include <QLineEdit>
 #include <QPushButton>
+#include <QItemSelectionModel>
 
 #include "excelitemdelegate.h"
 
@@ -36,13 +37,13 @@ MainWindow::~MainWindow() = default;
 
 void MainWindow::setup_ui()
 {
-    // Central widget: top bar (sheet controls) + table view
+    // central widget: top sheet bar + table view
     QWidget *central = new QWidget(this);
     QVBoxLayout *v_layout = new QVBoxLayout(central);
     v_layout->setContentsMargins(4, 4, 4, 4);
     v_layout->setSpacing(4);
 
-    // Top bar: sheet selection + rename + new/delete/move
+           // top sheet bar: sheet selection + rename + new/delete/move + row/column insertion
     QWidget *sheet_bar = new QWidget(central);
     QHBoxLayout *h_layout = new QHBoxLayout(sheet_bar);
     h_layout->setContentsMargins(0, 0, 0, 0);
@@ -61,6 +62,10 @@ void MainWindow::setup_ui()
     sheet_move_left_button_ = new QPushButton(tr("◀"), sheet_bar);
     sheet_move_right_button_ = new QPushButton(tr("▶"), sheet_bar);
 
+           // row / column insertion buttons
+    add_row_button_ = new QPushButton(tr("+Row"), sheet_bar);
+    add_column_button_ = new QPushButton(tr("+Col"), sheet_bar);
+
     h_layout->addWidget(sheet_label);
     h_layout->addWidget(sheet_combo_, 0);
     h_layout->addSpacing(8);
@@ -73,9 +78,14 @@ void MainWindow::setup_ui()
     h_layout->addWidget(sheet_move_left_button_);
     h_layout->addWidget(sheet_move_right_button_);
 
+    h_layout->addSpacing(12);
+    h_layout->addWidget(new QLabel(tr("Insert:"), sheet_bar));
+    h_layout->addWidget(add_row_button_);
+    h_layout->addWidget(add_column_button_);
+
     v_layout->addWidget(sheet_bar);
 
-    // Table view
+           // table view
     table_view_ = new QTableView(central);
     table_view_->setAlternatingRowColors(true);
     table_view_->setSelectionBehavior(QAbstractItemView::SelectItems);
@@ -87,13 +97,13 @@ void MainWindow::setup_ui()
 
     setCentralWidget(central);
 
-    // Delegate
+           // delegate
     delegate_ = new ExcelItemDelegate(this);
     table_view_->setItemDelegate(delegate_);
 
     statusBar()->showMessage(tr("Ready"));
 
-    // Connections
+           // connections
     connect(sheet_combo_, QOverload<int>::of(&QComboBox::currentIndexChanged),
             this, &MainWindow::on_current_sheet_changed);
     connect(sheet_rename_button_, &QPushButton::clicked,
@@ -106,6 +116,12 @@ void MainWindow::setup_ui()
             this, &MainWindow::on_sheet_move_left_button_clicked);
     connect(sheet_move_right_button_, &QPushButton::clicked,
             this, &MainWindow::on_sheet_move_right_button_clicked);
+
+           // row / column insertion buttons
+    connect(add_row_button_, &QPushButton::clicked,
+            this, &MainWindow::on_add_row_button_clicked);
+    connect(add_column_button_, &QPushButton::clicked,
+            this, &MainWindow::on_add_column_button_clicked);
 }
 
 void MainWindow::setup_menu()
@@ -127,9 +143,7 @@ void MainWindow::setup_menu()
     file_menu->addSeparator();
     file_menu->addAction(action_exit_);
 
-    // ---------------------------------------------------------
-    // ★ Help 메뉴 추가
-    // ---------------------------------------------------------
+           // Help menu
     QMenu *help_menu = menuBar()->addMenu(tr("&Help"));
     QAction *action_about = new QAction(tr("&About ExcelTableEditor"), this);
     help_menu->addAction(action_about);
@@ -270,7 +284,7 @@ void MainWindow::on_model_data_changed()
     is_modified_ = true;
 }
 
-// Sheet combo box changed
+// sheet combobox change handler
 void MainWindow::on_current_sheet_changed(int index)
 {
     if (index < 0 || index >= sheet_names_.size()) {
@@ -281,7 +295,7 @@ void MainWindow::on_current_sheet_changed(int index)
     set_current_sheet(sheet_name);
 }
 
-// Rename current sheet
+// rename current sheet
 void MainWindow::on_sheet_rename_button_clicked()
 {
     if (current_sheet_name_.isEmpty()) {
@@ -305,10 +319,10 @@ void MainWindow::on_sheet_rename_button_clicked()
         return;
     }
 
-    // Update sheet name list
+           // update sheet name list
     sheet_names_[idx] = new_name;
 
-    // Update keys in maps
+           // change map key
     auto model = sheet_models_.take(current_sheet_name_);
     auto formats = sheet_formats_.take(current_sheet_name_);
     sheet_models_.insert(new_name, model);
@@ -322,13 +336,12 @@ void MainWindow::on_sheet_rename_button_clicked()
     statusBar()->showMessage(tr("Sheet renamed to: %1").arg(new_name), 3000);
 }
 
-// Create new sheet
+// create new sheet
 void MainWindow::on_sheet_new_button_clicked()
 {
     const QString new_name = generate_unique_sheet_name();
 
     auto *model = new QStandardItemModel(this);
-    // Small default grid
     const int default_rows = 10;
     const int default_cols = 5;
     model->setRowCount(default_rows);
@@ -352,7 +365,7 @@ void MainWindow::on_sheet_new_button_clicked()
     statusBar()->showMessage(tr("New sheet created: %1").arg(new_name), 3000);
 }
 
-// Delete current sheet
+// delete current sheet
 void MainWindow::on_sheet_delete_button_clicked()
 {
     if (current_sheet_name_.isEmpty()) {
@@ -390,7 +403,6 @@ void MainWindow::on_sheet_delete_button_clicked()
     sheet_formats_.remove(removed_name);
     sheet_names_.removeAt(idx);
 
-    // Determine new current sheet index
     int new_idx = idx;
     if (new_idx >= sheet_names_.size()) {
         new_idx = sheet_names_.size() - 1;
@@ -415,7 +427,7 @@ void MainWindow::on_sheet_delete_button_clicked()
     statusBar()->showMessage(tr("Sheet deleted: %1").arg(removed_name), 3000);
 }
 
-// Move current sheet one step left
+// move current sheet to the left
 void MainWindow::on_sheet_move_left_button_clicked()
 {
     if (current_sheet_name_.isEmpty()) {
@@ -424,7 +436,7 @@ void MainWindow::on_sheet_move_left_button_clicked()
 
     const int idx = sheet_names_.indexOf(current_sheet_name_);
     if (idx <= 0) {
-        return; // already first
+        return;
     }
 
     sheet_names_.swapItemsAt(idx, idx - 1);
@@ -434,7 +446,7 @@ void MainWindow::on_sheet_move_left_button_clicked()
     statusBar()->showMessage(tr("Sheet moved left"), 2000);
 }
 
-// Move current sheet one step right
+// move current sheet to the right
 void MainWindow::on_sheet_move_right_button_clicked()
 {
     if (current_sheet_name_.isEmpty()) {
@@ -443,7 +455,7 @@ void MainWindow::on_sheet_move_right_button_clicked()
 
     const int idx = sheet_names_.indexOf(current_sheet_name_);
     if (idx < 0 || idx >= sheet_names_.size() - 1) {
-        return; // already last
+        return;
     }
 
     sheet_names_.swapItemsAt(idx, idx + 1);
@@ -453,7 +465,7 @@ void MainWindow::on_sheet_move_right_button_clicked()
     statusBar()->showMessage(tr("Sheet moved right"), 2000);
 }
 
-// Update current sheet (table view, name edit, dataChanged connection)
+// set current sheet model / view
 void MainWindow::set_current_sheet(const QString &sheet_name)
 {
     if (!sheet_models_.contains(sheet_name)) {
@@ -479,7 +491,7 @@ void MainWindow::set_current_sheet(const QString &sheet_name)
     }
 }
 
-// Apply QXlsx::Format to Qt item
+// apply QXlsx::Format to a Qt item
 void MainWindow::apply_format_to_item(QStandardItemModel *model,
                                       int row,
                                       int col,
@@ -535,7 +547,7 @@ void MainWindow::apply_format_to_item(QStandardItemModel *model,
     }
 }
 
-// Lookup format for a cell
+// look up cell format
 Format MainWindow::format_for_cell(const QString &sheet_name,
                                    int row,
                                    int col) const
@@ -554,7 +566,7 @@ Format MainWindow::format_for_cell(const QString &sheet_name,
     return Format();
 }
 
-// Generate a unique sheet name like "Sheet1", "Sheet2", ...
+// generate a unique sheet name like "Sheet1", "Sheet2", ...
 QString MainWindow::generate_unique_sheet_name() const
 {
     QString base = QStringLiteral("Sheet");
@@ -568,7 +580,7 @@ QString MainWindow::generate_unique_sheet_name() const
     }
 }
 
-// Rebuild the sheet combo box and keep the current sheet selected
+// rebuild sheet combobox and keep current sheet selection
 void MainWindow::rebuild_sheet_combo(const QString &current_name)
 {
     if (!sheet_combo_) {
@@ -587,8 +599,8 @@ void MainWindow::rebuild_sheet_combo(const QString &current_name)
     sheet_combo_->blockSignals(false);
 }
 
-// Load all sheets from an Excel file
-// All rows (including row 1) are loaded as data, so row 1 is editable.
+// load all sheets from an Excel file
+// all rows including the first row are loaded as data, so row 1 is editable.
 bool MainWindow::load_excel_file(const QString &file_path)
 {
     Document xlsx(file_path);
@@ -646,7 +658,7 @@ bool MainWindow::load_excel_file(const QString &file_path)
 
         for (int r = first_row; r <= last_row; ++r) {
             for (int c = first_col; c <= last_col; ++c) {
-                auto cell = sheet->cellAt(r, c);   // shared_ptr<Cell>
+                auto cell = sheet->cellAt(r, c);
                 if (!cell) {
                     continue;
                 }
@@ -695,7 +707,7 @@ bool MainWindow::load_excel_file(const QString &file_path)
     return true;
 }
 
-// Save all sheets in memory to an Excel file
+// save all sheets in memory into an Excel file
 bool MainWindow::save_excel_file(const QString &file_path)
 {
     if (sheet_names_.isEmpty()) {
@@ -773,6 +785,7 @@ void MainWindow::on_action_about_triggered()
             "<li>Editable sheet data</li>"
             "<li>Sheet rename / add / delete / reorder</li>"
             "<li>Basic cell formatting</li>"
+            "<li>Insert rows / columns</li>"
             "</ul>";
     text += "<br>Project: <a href=\"https://github.com/QtExcel/QXlsx\">QXlsx GitHub</a><br>";
     text += "First Author: Jay Two<br>";
@@ -780,3 +793,90 @@ void MainWindow::on_action_about_triggered()
     QMessageBox::about(this, tr("About ExcelTableEditor"), text);
 }
 
+// ----------------------------
+// row / column insertion logic
+// ----------------------------
+
+// row insertion button: insert a new row above the selected row,
+// or append to the bottom if nothing is selected
+void MainWindow::on_add_row_button_clicked()
+{
+    if (!current_model_) {
+        return;
+    }
+
+    int insert_row = current_model_->rowCount();
+
+    if (table_view_ && table_view_->selectionModel()) {
+        const QModelIndexList indexes =
+            table_view_->selectionModel()->selectedIndexes();
+        if (!indexes.isEmpty()) {
+            insert_row = indexes.first().row();
+            // find the topmost row among selected cells
+            for (const QModelIndex &idx : indexes) {
+                if (idx.row() < insert_row) {
+                    insert_row = idx.row();
+                }
+            }
+        }
+    }
+
+    current_model_->insertRow(insert_row);
+
+           // update vertical header numbers (1,2,3,...)
+    const int row_count = current_model_->rowCount();
+    for (int r = 0; r < row_count; ++r) {
+        current_model_->setHeaderData(r, Qt::Vertical, QString::number(r + 1));
+    }
+
+           // for simplicity, clear the format map after row insertion
+           // (format indices would be shifted otherwise)
+    if (!current_sheet_name_.isEmpty()) {
+        sheet_formats_[current_sheet_name_].clear();
+    }
+
+    is_modified_ = true;
+    statusBar()->showMessage(tr("Row inserted"), 2000);
+}
+
+// column insertion button: insert a new column to the left of the selected column,
+// or append to the right if nothing is selected
+void MainWindow::on_add_column_button_clicked()
+{
+    if (!current_model_) {
+        return;
+    }
+
+    int insert_col = current_model_->columnCount();
+
+    if (table_view_ && table_view_->selectionModel()) {
+        const QModelIndexList indexes =
+            table_view_->selectionModel()->selectedIndexes();
+        if (!indexes.isEmpty()) {
+            insert_col = indexes.first().column();
+            // find the leftmost column among selected cells
+            for (const QModelIndex &idx : indexes) {
+                if (idx.column() < insert_col) {
+                    insert_col = idx.column();
+                }
+            }
+        }
+    }
+
+    current_model_->insertColumn(insert_col);
+
+           // update horizontal header numbers (1,2,3,...)
+    const int col_count = current_model_->columnCount();
+    for (int c = 0; c < col_count; ++c) {
+        current_model_->setHeaderData(c, Qt::Horizontal, QString::number(c + 1));
+    }
+
+           // for simplicity, clear the format map after column insertion
+           // (format indices would be shifted otherwise)
+    if (!current_sheet_name_.isEmpty()) {
+        sheet_formats_[current_sheet_name_].clear();
+    }
+
+    is_modified_ = true;
+    statusBar()->showMessage(tr("Column inserted"), 2000);
+}
