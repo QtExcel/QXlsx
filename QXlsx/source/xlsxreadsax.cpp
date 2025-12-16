@@ -1,6 +1,6 @@
 #include "xlsxdocument.h"
 #include "xlsxworkbook.h"
-#include "xlsxzipreader_p.h"    // QXlsx 내부 zip reader (프로젝트 구조에 맞게 include 조정)
+#include "xlsxzipreader_p.h"    // QXlsx internal zip reader (adjust include as per project structure)
 
 #include "xlsxreadsax.h"
 
@@ -28,7 +28,7 @@ int parse_col_letters(const QStringView& s, int* letters_len)
 
 bool parse_cell_ref(const QString& r, int* out_row, int* out_col)
 {
-    // 예: "C12"
+    // Example: "C12"
     int letters_len = 0;
     int col = parse_col_letters(QStringView(r), &letters_len);
     if (col <= 0 || letters_len <= 0)

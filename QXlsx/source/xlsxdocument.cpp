@@ -1568,7 +1568,7 @@ bool Document::read_sheet_sax(int sheet_index,
     if (!d_ptr || !d_ptr->workbook)
         return false;
 
-           // zip 열기 (파일 경로 또는 QIODevice 기반 모두 지원)
+           // Open zip (supports both file path and QIODevice based)
     std::unique_ptr<QIODevice> owned_device;
 
     if (!d_ptr->packageName.isEmpty()) {
@@ -1587,13 +1587,13 @@ bool Document::read_sheet_sax(int sheet_index,
 
     ZipReader zip(owned_device.get());
 
-           // shared strings(옵션)
+           // shared strings (optional)
     QStringList shared_strings;
     if (opt.resolve_shared_strings) {
         shared_strings = QXlsx::load_shared_strings_all(zip);
     }
 
-           // sheet XML 경로: workbook에 이미 filePath가 있음(관계(rels)로 결정된 실제 경로)
+           // sheet XML path: workbook already has filePath (actual path determined by relationship (rels))
     AbstractSheet *abs_sheet = d_ptr->workbook->sheet(sheet_index);
     if (!abs_sheet)
         return false;

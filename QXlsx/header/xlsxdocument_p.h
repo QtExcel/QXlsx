@@ -38,7 +38,7 @@ public:
     std::shared_ptr<ContentTypes> contentTypes;
     bool isLoad;
 
-    // QIODevice로 열었을 때도 SAX에서 다시 zip을 열 수 있게, 전체 xlsx(zip) 바이트를 보관
+    // Store the entire xlsx (zip) bytes so that even when opened with QIODevice, the zip can be reopened in SAX
     std::shared_ptr<QByteArray> package_bytes;
 };
 

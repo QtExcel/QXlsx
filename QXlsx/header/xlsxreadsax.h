@@ -20,16 +20,16 @@ struct sax_cell
     QString sheet_name;
     int row = 0;         // 1-based
     int col = 0;         // 1-based
-    QVariant value;      // bool/double/QString 등 (필요 최소)
+    QVariant value;      // bool/double/QString etc. (minimum required)
 };
 
 using sax_cell_callback = std::function<bool(const sax_cell&)>;
 
-// sharedStrings.xml 전체 로드(옵션) - 간단 구현
+// Load all of sharedStrings.xml (optional) - simple implementation
 class ZipReader;
 QStringList load_shared_strings_all(ZipReader& zip);
 
-// sheet.xml을 SAX로 파싱
+// Parse sheet.xml with SAX
 bool read_sheet_xml_sax(const QByteArray& sheet_xml,
                         const sax_options& opt,
                         const QStringList* shared_strings, // nullptr 가능

@@ -39,7 +39,7 @@ extern int worksheetoperations();
 extern int readStyle();
 extern int pages();
 
-extern int testReadSax();
+extern int testReadSax(); // new feature
 
 int main(int argc, char *argv[])
 {
@@ -52,9 +52,6 @@ int main(int argc, char *argv[])
             return 0;
         }
     }
-
-    testReadSax();
-    return 0;
 
     ///////////////////////
 
@@ -79,6 +76,8 @@ int main(int argc, char *argv[])
     style();
     worksheetoperations();
     pages();
+
+    testReadSax(); // testing new feature
 
     qDebug() << "**** end of main() ****";
 

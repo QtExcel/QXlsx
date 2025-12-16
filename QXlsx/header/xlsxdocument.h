@@ -135,7 +135,7 @@ public:
 
 
     /////////////////////////////////
-    // 새 기능: 시트의 셀을 “저장하지 않고” 스트리밍으로 콜백 처리
+    // New feature: Stream sheet cells with callback "without saving"
     bool read_sheet_sax(const QString& sheet_name,
                         const sax_options& opt,
                         const sax_cell_callback& on_cell);
