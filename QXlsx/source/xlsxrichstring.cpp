@@ -159,6 +159,12 @@ void RichString::setHtml(const QString &text)
             Format fmt;
             fmt.setFont(textFragment.charFormat().font());
             fmt.setFontColor(textFragment.charFormat().foreground().color());
+            if( textFragment.charFormat().verticalAlignment() == QTextCharFormat::AlignSuperScript ) {
+                fmt.setFontScript( Format::FontScriptSuper);
+            }
+            if( textFragment.charFormat().verticalAlignment() == QTextCharFormat::AlignSubScript ) {
+                fmt.setFontScript( Format::FontScriptSub);
+            }
             addFragment(textFragment.text(), fmt);
         }
     }
