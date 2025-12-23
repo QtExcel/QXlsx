@@ -20,6 +20,8 @@
 #include "xlsxzipreader_p.h"
 #include "xlsxzipwriter_p.h"
 
+#include "xlsxreadsax.h"
+
 #include <QBuffer>
 #include <QDebug>
 #include <QDir>
@@ -1556,5 +1558,68 @@ bool Document::autosizeColumnWidth()
 
     return erg;
 }
+
+/////////////////////////////////////////////////////////////////////
+// ======================= SAX streaming API =========================
+bool Document::read_sheet_sax(int sheet_index,
+                              const sax_options& opt,
+                              const sax_cell_callback& on_cell)
+{
+    if (!d_ptr || !d_ptr->workbook)
+        return false;
+
+           // Open zip (supports both file path and QIODevice based)
+    std::unique_ptr<QIODevice> owned_device;
+
+    if (!d_ptr->packageName.isEmpty()) {
+        auto f = std::make_unique<QFile>(d_ptr->packageName);
+        if (!f->open(QIODevice::ReadOnly))
+            return false;
+        owned_device = std::move(f);
+    } else if (d_ptr->package_bytes && !d_ptr->package_bytes->isEmpty()) {
+        auto b = std::make_unique<QBuffer>(d_ptr->package_bytes.get());
+        if (!b->open(QIODevice::ReadOnly))
+            return false;
+        owned_device = std::move(b);
+    } else {
+        return false;
+    }
+
+    ZipReader zip(owned_device.get());
+
+           // shared strings (optional)
+    QStringList shared_strings;
+    if (opt.resolve_shared_strings) {
+        shared_strings = QXlsx::load_shared_strings_all(zip);
+    }
+
+           // sheet XML path: workbook already has filePath (actual path determined by relationship (rels))
+    AbstractSheet *abs_sheet = d_ptr->workbook->sheet(sheet_index);
+    if (!abs_sheet)
+        return false;
+
+    const QString sheet_path = abs_sheet->filePath();
+    const QByteArray sheet_xml = zip.fileData(sheet_path);
+
+    if (sheet_xml.isEmpty())
+        return false;
+
+    return QXlsx::read_sheet_xml_sax(sheet_xml, opt,
+                                     opt.resolve_shared_strings ? &shared_strings : nullptr,
+                                     on_cell);
+}
+
+bool Document::read_sheet_sax(const QString& sheet_name,
+                              const sax_options& opt,
+                              const sax_cell_callback& on_cell)
+{
+    const QStringList names = d_ptr->workbook->worksheetNames();
+    const int idx = names.indexOf(sheet_name);
+    if (idx < 0)
+        return false;
+    return read_sheet_sax(idx, opt, on_cell);
+}
+//////////////////////////////////////////////////////////////////////
+
 
 QT_END_NAMESPACE_XLSX
