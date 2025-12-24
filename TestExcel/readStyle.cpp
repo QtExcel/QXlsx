@@ -20,7 +20,7 @@ int readWPSOffice();
 
 int readStyle()
 {
-    int ret;
+    int ret = 0;
 
     // ret = readGoogleSpreadsheet();
 
