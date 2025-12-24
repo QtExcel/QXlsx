@@ -24,7 +24,7 @@
 
 [![qmake](https://github.com/QtExcel/QXlsx/actions/workflows/windows.yml/badge.svg)](https://github.com/QtExcel/QXlsx/actions/workflows/windows.yml) [![CMake](https://github.com/QtExcel/QXlsx/actions/workflows/cmake.yml/badge.svg)](https://github.com/QtExcel/QXlsx/actions/workflows/cmake.yml)
 
-- See [tested environments](TestEnv.md) for more information.
+- See [tested environments](https://github.com/QtExcel/QXlsx/actions) for more information.
 
 ## Contributions
 

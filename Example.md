@@ -235,4 +235,42 @@ LargeData -r 300000 -c 15 -S 60000 --use-style
   - Reorder sheets (move left/right)
 - Save or Save As to produce a modified workbook
 
+<br />
+
+---
+
+## [sax reader](https://github.com/QtExcel/QXlsx/blob/j2doll/sax_reader/TestExcel/extractdata_sax.cpp)
+
+```cpp
+void dump_all_sheets_sax(QXlsx::Document& doc)
+{
+    QXlsx::sax_options opt;
+    opt.resolve_shared_strings = true;     // If there are many strings, set to false to save more RAM (but sharedString index may be output instead)
+    opt.read_formulas_as_text  = true;     // Output formula as string instead of result value (set false if not needed)
+    opt.stop_on_empty_sheetdata = false;   // Continue even if sheetData is empty
+
+    const QStringList sheets = doc.sheetNames();
+    qInfo() << "sheet count:" << sheets.size();
+
+    for (const QString& sheet_name : sheets) {
+        qInfo().noquote() << "\n=== SHEET:" << sheet_name << "===";
+
+        const bool ok = doc.read_sheet_sax(
+            sheet_name,
+            opt,
+            [&](const QXlsx::sax_cell& cell) -> bool {
+                qDebug().noquote()
+                << QString("%1!R%2C%3 = %4")
+                        .arg(cell.sheet_name)
+                        .arg(cell.row)
+                        .arg(cell.col)
+                        .arg(cell.value.toString());
+                return true; // continue
+            });
+
+        qInfo() << "sheet done:" << sheet_name << "ok=" << ok;
+    }
+}
+```
+
 
