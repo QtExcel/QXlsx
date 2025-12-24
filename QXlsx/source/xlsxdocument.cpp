@@ -1572,12 +1572,12 @@ bool Document::read_sheet_sax(int sheet_index,
     std::unique_ptr<QIODevice> owned_device;
 
     if (!d_ptr->packageName.isEmpty()) {
-        auto f = std::make_unique<QFile>(d_ptr->packageName);
+        std::unique_ptr<QFile> f(new QFile(d_ptr->packageName));
         if (!f->open(QIODevice::ReadOnly))
             return false;
         owned_device = std::move(f);
     } else if (d_ptr->package_bytes && !d_ptr->package_bytes->isEmpty()) {
-        auto b = std::make_unique<QBuffer>(d_ptr->package_bytes.get());
+        std::unique_ptr<QBuffer> b(new QBuffer(d_ptr->package_bytes.get()));
         if (!b->open(QIODevice::ReadOnly))
             return false;
         owned_device = std::move(b);
