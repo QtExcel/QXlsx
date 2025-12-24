@@ -1,6 +1,6 @@
 # QXlsx
 
-> *以其他语言阅读: [English](README.md), :kr: [Korean](README.ko.md), :ru: [Russian](README.RU.md),:zh-CN:[简体中文](README.zh-CN.md)*
+> *以其他语言阅读: [English](README.md), :cn: [简体中文](README.zh-CN.md)*
 
 <p align="center"><img src="https://raw.githubusercontent.com/QtExcel/QXlsx/master/markdown.data/QXlsx-Desktop.png"></p>
 
@@ -24,7 +24,7 @@
 
 [![qmake](https://github.com/QtExcel/QXlsx/actions/workflows/windows.yml/badge.svg)](https://github.com/QtExcel/QXlsx/actions/workflows/windows.yml) [![CMake](https://github.com/QtExcel/QXlsx/actions/workflows/cmake.yml/badge.svg)](https://github.com/QtExcel/QXlsx/actions/workflows/cmake.yml)
 
-- 请参阅 [测试环境](TestEnv.md) 以了解更多信息。
+- 请参阅 [测试环境](https://github.com/QtExcel/QXlsx/actions) 以了解更多信息。
 
 ## 贡献
 
