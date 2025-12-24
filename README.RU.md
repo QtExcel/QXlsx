@@ -1,6 +1,6 @@
 # QXlsx
 
-> *Read this in other languages: [English](README.md), :kr: [Korean](README.ko.md), :ru: [Русский](README.RU.md)* 
+> *Read this in other languages: [English](README.md), :ru: [Русский](README.RU.md)* 
 
 <p align="center"><img src="https://raw.githubusercontent.com/QtExcel/QXlsx/master/markdown.data/QXlsx-Desktop.png"></p>
 
@@ -19,7 +19,7 @@
 -: Рекомендуется: 
 - См. [Как настроить проект QXlsx (qmake)](HowToSetProject.md)
 - См. [Как настроить проект QXlsx (cmake)](HowToSetProject-cmake.md)	
-- См. [Протестированные среды](TestEnv.md)
+- См. [Протестированные среды](https://github.com/QtExcel/QXlsx/actions)
 
 ## Вклады
 - См. [Участники](https://github.com/QtExcel/QXlsx/graphs/contributors).

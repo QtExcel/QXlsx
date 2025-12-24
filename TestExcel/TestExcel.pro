@@ -36,13 +36,14 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
 calendar.cpp \
 chart.cpp \
-    chartextended.cpp \
+chartextended.cpp \
 chartsheet.cpp \
 datavalidation.cpp \
 definename.cpp \
 demo.cpp \
 documentproperty.cpp \
 extractdata.cpp \
+extractdata_sax.cpp \
 formulas.cpp \
 hello.cpp \
 hyperlinks.cpp \
@@ -56,4 +57,12 @@ style.cpp \
 worksheetoperations.cpp \
 readStyle.cpp \
 pageMargins.cpp
+
+
+
+
+
+
+
+
 

@@ -83,6 +83,7 @@ set(SRC_FILES
     source/xlsxdocument.cpp
     source/xlsxrelationships.cpp
     source/xlsxutility.cpp
+    source/xlsxreadsax.cpp
     header/xlsxabstractooxmlfile_p.h
     header/xlsxchartsheet_p.h
     header/xlsxdocpropsapp_p.h
@@ -112,6 +113,7 @@ set(SRC_FILES
     header/xlsxdrawing_p.h
     header/xlsxrichstring_p.h
     header/xlsxutility_p.h
+    header/xlsxreadsax.h
 )
 
 set(QXLSX_PUBLIC_HEADERS

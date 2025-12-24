@@ -11,6 +11,10 @@
 #include <QtCore>
 #include <QtGlobal>
 
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+    #include <QTimeZone>
+#endif
+
 QXLSX_USE_NAMESPACE
 
 #include <cstdio>
@@ -57,7 +61,13 @@ int WriteExcel(bool isTest)
     xlsx.write("A5", "http://qt-project.org");
     xlsx.write("A6", QDate(2013, 12, 27));
     xlsx.write("A7", QTime(6, 30));
-    xlsx.write("A8", QDateTime(QDate(2049, 7, 23), QTime(23, 5, 32), Qt::LocalTime));
+    xlsx.write("A8",
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+    QDateTime(QDate(2049, 7, 23), QTime(23, 5, 32), QTimeZone::systemTimeZone()) // Qt 6
+#else
+    QDateTime(QDate(2049, 7, 23), QTime(23, 5, 32), Qt::LocalTime) // Qt 5
+#endif
+               );
 
     if (!xlsx.saveAs("WriteExcel1.xlsx")) {
         qDebug() << "[WriteExcel1] failed to save excel file";
@@ -83,7 +93,13 @@ int ReadExcel(bool isTest)
         xlsx.write("A5", "http://qt-project.org");
         xlsx.write("A6", QDate(2013, 12, 27));
         xlsx.write("A7", QTime(6, 30));
-        xlsx.write("A8", QDateTime(QDate(2049, 7, 23), QTime(23, 5, 32), Qt::LocalTime));
+        xlsx.write("A8",
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+                   QDateTime(QDate(2049, 7, 23), QTime(23, 5, 32), QTimeZone::systemTimeZone()) // Qt 6
+#else
+                   QDateTime(QDate(2049, 7, 23), QTime(23, 5, 32), Qt::LocalTime) // Qt 5
+#endif
+                   );
 
         if (!xlsx.saveAs("ReadExcel.xlsx")) {
             qDebug() << "[ReadExcel] failed to save excel file.";
