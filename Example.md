@@ -241,6 +241,8 @@ LargeData -r 300000 -c 15 -S 60000 --use-style
 
 ## [sax reader](https://github.com/QtExcel/QXlsx/blob/j2doll/sax_reader/TestExcel/extractdata_sax.cpp)
 
+- How to use sax parser that uses less RAM memory.
+
 ```cpp
 void dump_all_sheets_sax(QXlsx::Document& doc)
 {
@@ -273,4 +275,27 @@ void dump_all_sheets_sax(QXlsx::Document& doc)
 }
 ```
 
+<br />
+
+---
+
+## [FormulaDump](https://github.com/QtExcel/QXlsx/tree/master/FormulaDump)
+
+- Run
+   - The main executable allows you to dump formulas and values from an XLSX file. Example usage:
+   ```sh
+   ./FormulaDump <xlsx-file> [options]
+   ```
+
+- Options
+   - `--sheet <name>`: Dump only the specified sheet
+   - `--all`: Dump all sheets
+   - `--only-formula`: Output only formula cells
+   - `--show-value`: Output cell values
+   - `--eval-formula`: Evaluate formulas if no cached value
+   - `--max-rows <n>`: Limit the number of rows
+   - `--max-cols <n>`: Limit the number of columns
+   - `--print-empty`: Print cells even if the value is empty
+
+---
 
