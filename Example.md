@@ -297,5 +297,10 @@ void dump_all_sheets_sax(QXlsx::Document& doc)
    - `--max-cols <n>`: Limit the number of columns
    - `--print-empty`: Print cells even if the value is empty
 
+- Formula
+   - Only some formulas are supported. 
+      - `+`, `-`, `SUM`, `AVERAGE`, `MIN`, `MAX`
+   - For more information, see [`mini_formula_evaluator.cpp`](https://github.com/QtExcel/QXlsx/blob/master/FormulaDump/mini_formula_evaluator.cpp).
+
 ---
 
