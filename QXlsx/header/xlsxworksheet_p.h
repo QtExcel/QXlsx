@@ -132,6 +132,14 @@ struct XlsxColumnInfo {
     bool collapsed;
 };
 
+// ECMA-376 Part1 18.3.1.78
+struct XlsxSheetViewSelectionProps {
+    CellReference activeCell;
+    quint32 activeCellId;
+    // TODO: Add pane while adding multiple-`sheetView` support
+    QList<CellRange> sqref;
+};
+
 class CellTable
 {
 public:
@@ -285,6 +293,8 @@ public:
     bool showWhiteSpace;
 
     QRegularExpression urlPattern;
+
+    XlsxSheetViewSelectionProps selectionProps;
 
 private:
     static double calculateColWidth(int characters);
