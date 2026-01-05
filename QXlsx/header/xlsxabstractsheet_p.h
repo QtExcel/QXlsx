@@ -28,6 +28,9 @@ public:
     int id;
     AbstractSheet::SheetState sheetState;
     AbstractSheet::SheetType type;
+
+    int frozen_rows{};
+    int frozen_cols{};
 };
 
 QT_END_NAMESPACE_XLSX
