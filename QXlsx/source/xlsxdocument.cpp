@@ -20,6 +20,8 @@
 #include "xlsxzipreader_p.h"
 #include "xlsxzipwriter_p.h"
 
+#include "xlsxreadsax.h"
+
 #include <QBuffer>
 #include <QDebug>
 #include <QDir>
@@ -98,7 +100,7 @@ std::string copyTag(const std::string &sFrom, const std::string &sTo, const std:
 
     if (!sFromData.empty()) { // tag found in 'from'?
                               // search all occurrences of tag in 'sOut' and delete them
-        size_t firstPosTag = -1;
+        std::size_t firstPosTag = std::string::npos;
         while (true) {
             std::size_t startPos = sOut.find(tagToFindStart);
             if (startPos != std::string::npos) {
@@ -110,7 +112,7 @@ std::string copyTag(const std::string &sFrom, const std::string &sTo, const std:
                     tagEndTmp = "/>";
                 }
                 if (endPos != std::string::npos) {
-                    if (firstPosTag < 0)
+                    if (firstPosTag == std::string::npos)
                         firstPosTag = startPos;
                     std::string stringBefore = sOut.substr(0, startPos);
                     endPos += strlen(tagEndTmp.c_str());
@@ -124,7 +126,7 @@ std::string copyTag(const std::string &sFrom, const std::string &sTo, const std:
             }
         }
 
-        if (firstPosTag == -1) {
+        if (firstPosTag == std::string::npos) {
             // tag not found in 'sTo' file
             // try to find a default pos using standard tags
             std::vector<std::string> defaultPos{"</styleSheet>", "<pageMargins", "</workbook>"};
@@ -139,7 +141,7 @@ std::string copyTag(const std::string &sFrom, const std::string &sTo, const std:
 
         // add the tag extracted from 'sFrom' in 'sOut'
         // add in the position of the first tag found in 'sOut' ('firstPosTag')
-        if (firstPosTag >= 0) {
+        if (firstPosTag != std::string::npos) {
             std::string stringBefore = sOut.substr(0, firstPosTag);
             std::string stringAfter  = sOut.substr(firstPosTag, strlen(sOut.c_str()) - firstPosTag);
             sOut                     = stringBefore + sFromData + stringAfter;
@@ -850,7 +852,7 @@ bool Document::setColumnFormat(const CellRange &range, const Format &format)
 bool Document::setColumnHidden(const CellRange &range, bool hidden)
 {
     if (Worksheet *sheet = currentWorksheet())
-        return sheet->setColumnWidth(range, hidden);
+        return sheet->setColumnHidden(range, hidden);
     return false;
 }
 
@@ -1556,5 +1558,68 @@ bool Document::autosizeColumnWidth()
 
     return erg;
 }
+
+/////////////////////////////////////////////////////////////////////
+// ======================= SAX streaming API =========================
+bool Document::read_sheet_sax(int sheet_index,
+                              const sax_options& opt,
+                              const sax_cell_callback& on_cell)
+{
+    if (!d_ptr || !d_ptr->workbook)
+        return false;
+
+           // Open zip (supports both file path and QIODevice based)
+    std::unique_ptr<QIODevice> owned_device;
+
+    if (!d_ptr->packageName.isEmpty()) {
+        std::unique_ptr<QFile> f(new QFile(d_ptr->packageName));
+        if (!f->open(QIODevice::ReadOnly))
+            return false;
+        owned_device = std::move(f);
+    } else if (d_ptr->package_bytes && !d_ptr->package_bytes->isEmpty()) {
+        std::unique_ptr<QBuffer> b(new QBuffer(d_ptr->package_bytes.get()));
+        if (!b->open(QIODevice::ReadOnly))
+            return false;
+        owned_device = std::move(b);
+    } else {
+        return false;
+    }
+
+    ZipReader zip(owned_device.get());
+
+           // shared strings (optional)
+    QStringList shared_strings;
+    if (opt.resolve_shared_strings) {
+        shared_strings = QXlsx::load_shared_strings_all(zip);
+    }
+
+           // sheet XML path: workbook already has filePath (actual path determined by relationship (rels))
+    AbstractSheet *abs_sheet = d_ptr->workbook->sheet(sheet_index);
+    if (!abs_sheet)
+        return false;
+
+    const QString sheet_path = abs_sheet->filePath();
+    const QByteArray sheet_xml = zip.fileData(sheet_path);
+
+    if (sheet_xml.isEmpty())
+        return false;
+
+    return QXlsx::read_sheet_xml_sax(sheet_xml, opt,
+                                     opt.resolve_shared_strings ? &shared_strings : nullptr,
+                                     on_cell);
+}
+
+bool Document::read_sheet_sax(const QString& sheet_name,
+                              const sax_options& opt,
+                              const sax_cell_callback& on_cell)
+{
+    const QStringList names = d_ptr->workbook->worksheetNames();
+    const int idx = names.indexOf(sheet_name);
+    if (idx < 0)
+        return false;
+    return read_sheet_sax(idx, opt, on_cell);
+}
+//////////////////////////////////////////////////////////////////////
+
 
 QT_END_NAMESPACE_XLSX

@@ -216,7 +216,7 @@ AbstractSheet *Workbook::insertSheet(int index, const QString &name, AbstractShe
 {
     Q_D(Workbook);
     QString sheetName = createSafeSheetName(name);
-    if (index > d->last_sheet_id) {
+    if (index < 0 || index > d->sheets.size()) {
         // User tries to insert, where no sheet has gone before.
         return nullptr;
     }
@@ -332,7 +332,7 @@ bool Workbook::moveSheet(int srcIndex, int distIndex)
 
     std::shared_ptr<AbstractSheet> sheet = d->sheets.takeAt(srcIndex);
     d->sheetNames.takeAt(srcIndex);
-    if (distIndex >= 0 || distIndex <= d->sheets.size()) {
+    if (distIndex >= 0 && distIndex <= d->sheets.size()) {
         d->sheets.insert(distIndex, sheet);
         d->sheetNames.insert(distIndex, sheet->sheetName());
     } else {
@@ -349,9 +349,9 @@ bool Workbook::copySheet(int index, const QString &newName)
         return false;
 
     QString worksheetName = createSafeSheetName(newName);
-    if (!newName.isEmpty()) {
+    if (!worksheetName.isEmpty()) {
         // If user given an already in-used name, we should not continue any more!
-        if (d->sheetNames.contains(newName))
+        if (d->sheetNames.contains(worksheetName))
             return false;
     } else {
         int copy_index = 1;
@@ -623,10 +623,15 @@ bool Workbook::loadFromXmlFile(QIODevice *device)
                 }
             } else if (reader.name() == QLatin1String("workbookPr")) {
                 QXmlStreamAttributes attrs = reader.attributes();
-                if (attrs.hasAttribute(QLatin1String("date1904")))
-                    d->date1904 = true;
-            } else if (reader.name() == QLatin1String("bookviews")) {
-                while (!(reader.name() == QLatin1String("bookviews") &&
+                if (attrs.hasAttribute(QLatin1String("date1904"))) {
+                    const QString v =
+                        attrs.value(QLatin1String("date1904")).toString().trimmed().toLower();
+                    d->date1904 = (v == QStringLiteral("1") || v == QStringLiteral("true"));
+                } else {
+                    d->date1904 = false;
+                }
+            } else if (reader.name() == QLatin1String("bookViews")) {
+                while (!(reader.name() == QLatin1String("bookViews") &&
                          reader.tokenType() == QXmlStreamReader::EndElement)) {
                     reader.readNextStartElement();
                     if (reader.tokenType() == QXmlStreamReader::StartElement) {
@@ -731,6 +736,18 @@ void Workbook::addChartFile(std::shared_ptr<Chart> chart)
 
     if (!d->chartFiles.contains(chart))
         d->chartFiles.append(chart);
+}
+
+void Workbook::setWriteDatesAsText(bool enable)
+{
+    Q_D(Workbook);
+    d->writeDatesAsText = enable;
+}
+
+bool Workbook::writeDatesAsText() const
+{
+    Q_D(const Workbook);
+    return d->writeDatesAsText;
 }
 
 QT_END_NAMESPACE_XLSX

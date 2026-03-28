@@ -6,6 +6,7 @@
 #include "xlsxformat.h"
 #include "xlsxglobal.h"
 #include "xlsxworksheet.h"
+#include "xlsxreadsax.h"
 
 #include <QIODevice>
 #include <QImage>
@@ -131,6 +132,17 @@ public:
     bool autosizeColumnWidth(int column);
     bool autosizeColumnWidth(int colFirst, int colLast);
     bool autosizeColumnWidth();
+
+
+    /////////////////////////////////
+    // New feature: Stream sheet cells with callback "without saving"
+    bool read_sheet_sax(const QString& sheet_name,
+                        const sax_options& opt,
+                        const sax_cell_callback& on_cell);
+
+    bool read_sheet_sax(int sheet_index,
+                        const sax_options& opt,
+                        const sax_cell_callback& on_cell);
 
 private:
     QMap<int, int> getMaximalColumnWidth(int firstRow = 1, int lastRow = INT_MAX);

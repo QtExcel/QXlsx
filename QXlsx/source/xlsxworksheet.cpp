@@ -40,6 +40,12 @@
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
 
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+#    define SAME_METATYPE_ID(V, META) ((V).typeId() == (META))
+#else
+#    define SAME_METATYPE_ID(V, META) ((V).userType() == (META))
+#endif
+
 QT_BEGIN_NAMESPACE_XLSX
 
 namespace {
@@ -689,7 +695,7 @@ bool Worksheet::writeInlineString(int row, int column, const QString &value, con
 
     Format fmt = format.isValid() ? format : d->cellFormat(row, column);
     d->workbook->styles()->addXfFormat(fmt);
-    auto cell = std::make_shared<Cell>(value, Cell::InlineStringType, fmt, this);
+    auto cell = std::make_shared<Cell>(content, Cell::InlineStringType, fmt, this);
     d->cellTable.setValue(row, column, cell);
 
     return true;
@@ -788,7 +794,7 @@ bool Worksheet::writeFormula(int row,
                     } else {
                         auto newCell = std::make_shared<Cell>(result, Cell::NumberType, fmt, this);
                         newCell->d_ptr->formula = sf;
-                        d->cellTable.setValue(row, column, newCell);
+                        d->cellTable.setValue(r, c, newCell);
                     }
                 }
             }
@@ -1164,7 +1170,7 @@ uint Worksheet::getImageCount()
     Q_D(Worksheet);
 
     if (d->drawing == nullptr) {
-        return false;
+        return 0;
     }
 
     int size = d->drawing->anchors.size();
@@ -1551,8 +1557,6 @@ void WorksheetPrivate::saveXmlCellData(QXmlStreamWriter &writer,
                                        int col,
                                        std::shared_ptr<Cell> cell) const
 {
-    Q_Q(const Worksheet);
-
     // This is the innermost loop so efficiency is important.
     QString cell_pos = CellReference(row, col).toString();
 
@@ -1654,8 +1658,31 @@ void WorksheetPrivate::saveXmlCellData(QXmlStreamWriter &writer,
     {
         // number type. see for 18.18.11 ST_CellType (Cell Type) more information.
         writer.writeAttribute(QStringLiteral("t"), QStringLiteral("n"));
-        writer.writeTextElement(QStringLiteral("v"), cell->value().toString());
 
+        // Legacy mode: write date as text (old behavior)
+        if (workbook && workbook->writeDatesAsText()) {
+            writer.writeTextElement(QStringLiteral("v"), cell->value().toString());
+        } else {
+            if (cell->value().isValid()) {
+                double serial = 0.0;
+
+                if (SAME_METATYPE_ID(cell->value(), QMetaType::QDateTime)) {
+                    const QDateTime dt = cell->value().toDateTime();
+                    serial = datetimeToNumber(dt, workbook ? workbook->isDate1904() : false);
+                } else if (SAME_METATYPE_ID(cell->value(), QMetaType::QDate)) {
+                    const QDate d = cell->value().toDate();
+                    const QDateTime dt(d, QTime(0, 0));
+                    serial = datetimeToNumber(dt, workbook ? workbook->isDate1904() : false);
+                } else if (SAME_METATYPE_ID(cell->value(), QMetaType::QTime)) {
+                    serial = timeToNumber(cell->value().toTime());
+                } else {
+                    // Already a serial (e.g., from earlier pipeline stage).
+                    serial = cell->value().toDouble();
+                }
+
+                writer.writeTextElement(QStringLiteral("v"), QString::number(serial, 'g', 15));
+            }
+        }
     } else if (cell->cellType() == Cell::ErrorType) // 'e'
     {
         writer.writeAttribute(QStringLiteral("t"), QStringLiteral("e"));
@@ -1896,7 +1923,8 @@ bool Worksheet::setColumnWidth(int colFirst, int colLast, double width)
     const QList<std::shared_ptr<XlsxColumnInfo>> columnInfoList =
         d->getColumnInfoList(colFirst, colLast);
     for (const std::shared_ptr<XlsxColumnInfo> &columnInfo : columnInfoList) {
-        columnInfo->width = width;
+        columnInfo->width      = width;
+        columnInfo->isSetWidth = true;
     }
 
     return (columnInfoList.count() > 0);
@@ -2278,6 +2306,10 @@ void WorksheetPrivate::loadXmlSheetData(QXmlStreamReader &reader)
                         // Row height is only specified when customHeight is set
                         if (attributes.hasAttribute(QLatin1String("ht"))) {
                             info->height = attributes.value(QLatin1String("ht")).toDouble();
+                        }
+						else
+                        {
+                            info->customHeight = false;
                         }
                     }
 

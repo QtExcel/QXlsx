@@ -33,7 +33,7 @@ on:
 
 jobs:
   build:
-    runs-on: windows-2019
+    runs-on: windows-2022
     steps:
     - name: Install Qt
       uses: jurplel/install-qt-action@v3
@@ -44,7 +44,7 @@ jobs:
     - name: Run Visual Studio
       shell: cmd
       run: |
-        call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
+        call "%ProgramFiles%\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
         cd TestExcel
         qmake
         nmake

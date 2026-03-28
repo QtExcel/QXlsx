@@ -1,6 +1,6 @@
 ## Using cmake 
 
-> *Read this in other languages: [English](HowToSetProject-cmake.md), :kr: [한국어](HowToSetProject-cmake.ko.md)*
+> *Read this in other languages: [English](HowToSetProject-cmake.md), :cn: [简体中文](HowToSetProject-cmake.zh-CN.md)*
 
 ### To install QXlsx
 

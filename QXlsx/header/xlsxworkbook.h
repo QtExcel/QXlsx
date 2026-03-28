@@ -65,6 +65,8 @@ public:
     void setHtmlToRichStringEnabled(bool enable = true);
     QString defaultDateFormat() const;
     void setDefaultDateFormat(const QString &format);
+    void setWriteDatesAsText(bool enable);
+    bool writeDatesAsText() const;
 
     // internal used member
     void addMediaFile(std::shared_ptr<MediaFile> media, bool force = false);

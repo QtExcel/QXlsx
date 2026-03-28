@@ -220,7 +220,7 @@ bool ConditionalFormatting::addHighlightCellsRule(HighlightRuleType type,
             cfRule->attrs[XlsxCfRuleData::A_type]     = QStringLiteral("notContainsText");
             cfRule->attrs[XlsxCfRuleData::A_operator] = QStringLiteral("notContains");
             cfRule->attrs[XlsxCfRuleData::A_formula1_temp] =
-                QStringLiteral("ISERROR(SEARCH(\"%2\",%1))").arg(formula1);
+                QStringLiteral("ISERROR(SEARCH(\"%1\",%2))").arg(formula1);
         } else if (type == Highlight_BeginsWith) {
             cfRule->attrs[XlsxCfRuleData::A_type]     = QStringLiteral("beginsWith");
             cfRule->attrs[XlsxCfRuleData::A_operator] = QStringLiteral("beginsWith");

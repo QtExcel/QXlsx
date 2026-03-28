@@ -18,6 +18,11 @@ if(NOT DEFINED QT_VERSION_MAJOR)
     find_package(QT NAMES Qt6 Qt5 COMPONENTS Core Gui REQUIRED)
 endif()
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core Gui REQUIRED)
+
+if(Qt6Gui_VERSION VERSION_GREATER_EQUAL "6.10.0")
+    find_package(Qt6 REQUIRED COMPONENTS GuiPrivate)
+endif()
+
 set(EXPORT_NAME QXlsxQt${QT_VERSION_MAJOR})
 
 if (QT_VERSION_MAJOR EQUAL 6)
@@ -79,6 +84,7 @@ set(SRC_FILES
     source/xlsxdocument.cpp
     source/xlsxrelationships.cpp
     source/xlsxutility.cpp
+    source/xlsxreadsax.cpp
     header/xlsxabstractooxmlfile_p.h
     header/xlsxchartsheet_p.h
     header/xlsxdocpropsapp_p.h
@@ -108,6 +114,7 @@ set(SRC_FILES
     header/xlsxdrawing_p.h
     header/xlsxrichstring_p.h
     header/xlsxutility_p.h
+    header/xlsxreadsax.h
 )
 
 set(QXLSX_PUBLIC_HEADERS

@@ -1,6 +1,6 @@
 # QXlsx
 
-> *Read this in other languages: [English](README.md), :kr: [한국어](README.ko.md), :ru: [Русский](README.RU.md)*
+> *Read this in other languages: [English](README.md), :kr: [한국어](README.ko.md)*
 
 <p align="center"><img src="https://raw.githubusercontent.com/QtExcel/QXlsx/master/markdown.data/QXlsx-Desktop.png"></p>
 
@@ -16,9 +16,9 @@
 -[FAQ](https://github.com/QtExcel/QXlsx/wiki/FAQ) 를 참조하세요.
 
 ## 설정하는 방법 (설치)
-- :권장: [QXlsx 프로젝트 설정하는 방법 (qmake)](HowToSetProject.ko.md) 참조
-- [QXlsx 프로젝트 설정하는 방법 (cmake)](HowToSetProject-cmake.ko.md) 참조
-- [테스트된 환경](TestEnv.md) 참조
+- [QXlsx 프로젝트 설정하는 방법 (qmake)](HowToSetProject.md) 참조
+- [QXlsx 프로젝트 설정하는 방법 (cmake)](HowToSetProject-cmake.md) 참조
+- [테스트된 환경](https://github.com/QtExcel/QXlsx/actions) 참조
 
 ## 컨트리뷰터
 - [컨트리뷰터](https://github.com/QtExcel/QXlsx/graphs/contributors) 참조.

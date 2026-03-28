@@ -70,6 +70,8 @@ public:
     int last_worksheet_index;
     int last_chartsheet_index;
     int last_sheet_id;
+    //
+    bool writeDatesAsText = true;
 };
 
 QT_END_NAMESPACE_XLSX

@@ -112,7 +112,7 @@ void ContentTypes::addSharedString()
 
 void ContentTypes::addVmlName()
 {
-    addOverride(QStringLiteral("vml"), m_document_prefix + QLatin1String("vmlDrawing"));
+    addDefault(QStringLiteral("vml"), m_document_prefix + QLatin1String("vmlDrawing"));
 }
 
 void ContentTypes::addCalcChain()
@@ -124,7 +124,8 @@ void ContentTypes::addCalcChain()
 void ContentTypes::addVbaProject()
 {
     //: TODO
-    addOverride(QStringLiteral("bin"), QStringLiteral("application/vnd.ms-office.vbaProject"));
+    addOverride(QStringLiteral("/xl/vbaProject.bin"),
+                QStringLiteral("application/vnd.ms-office.vbaProject"));
 }
 
 void ContentTypes::clearOverrides()
