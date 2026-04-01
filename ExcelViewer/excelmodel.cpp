@@ -228,8 +228,10 @@ bool ExcelModel::loadFromXlsx(const QString &filePath, const QString &sheetName)
 
     // 2) Build span info from merged cells (from current worksheet)
     QXlsx::Worksheet *ws = xlsx.currentWorksheet();
+
     if (ws)
     {
+        // 1) Handle merged cell (Span) information
         const QList<CellRange> merged = ws->mergedCells();
 
         for (const CellRange &cr : merged)
@@ -239,13 +241,13 @@ bool ExcelModel::loadFromXlsx(const QString &filePath, const QString &sheetName)
             int bottom = cr.lastRow();
             int right  = cr.lastColumn();
 
-            int modelRow = top - firstRow;     // convert to 0-based model index
+            int modelRow = top - firstRow;     // Convert to 0-based model index
             int modelCol = left - firstCol;
 
             int rowSpan = bottom - top + 1;
             int colSpan = right - left + 1;
 
-            // Skip invalid ranges outside dimension
+            // Check for valid range
             if (modelRow < 0 || modelRow >= m_rowCount ||
                 modelCol < 0 || modelCol >= m_columnCount)
             {
@@ -259,6 +261,38 @@ bool ExcelModel::loadFromXlsx(const QString &filePath, const QString &sheetName)
             si.columnSpan = colSpan;
             m_spans.push_back(si);
         }
+
+        // 2) Load row height information
+        m_rowHeights.clear();
+        m_rowHeights.resize(m_rowCount);
+        for (int r = 0; r < m_rowCount; ++r) {
+            double h = ws->rowHeight(firstRow + r);
+            // If no height is set in Excel, usually returns -1 or 0, so apply default 15.0
+            m_rowHeights[r] = (h > 0) ? h : 15.0;
+        }
+
+        // 3) Load column width information
+        m_colWidths.clear();
+        m_colWidths.resize(m_columnCount);
+        for (int c = 0; c < m_columnCount; ++c) {
+            double w = ws->columnWidth(firstCol + c);
+            // Excel default column width is about 8.43
+            m_colWidths[c] = (w > 0) ? w : 8.43;
+        }
+    }
+
+    m_rowHeights.clear();
+    m_rowHeights.resize(m_rowCount);
+    for (int r = 0; r < m_rowCount; ++r) {
+        double h = ws->rowHeight(firstRow + r);
+        m_rowHeights[r] = (h > 0) ? h : 15.0;
+    }
+
+    m_colWidths.clear();
+    m_colWidths.resize(m_columnCount);
+    for (int c = 0; c < m_columnCount; ++c) {
+        double w = ws->columnWidth(firstCol + c);
+        m_colWidths[c] = (w > 0) ? w : 8.43;
     }
 
     endResetModel();

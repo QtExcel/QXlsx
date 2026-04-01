@@ -34,6 +34,10 @@ public:
 
     const QVector<SpanInfo> &spans() const { return m_spans; }
 
+    double rowHeight(int row) const { return m_rowHeights.value(row, 15.0); }
+    double columnWidth(int col) const { return m_colWidths.value(col, 8.43); }
+
+
 private:
     // Cell type enum
     enum class CellType
@@ -77,6 +81,9 @@ private:
 
     // Merged cell spans (model coordinates)
     QVector<SpanInfo> m_spans;
+
+    QVector<double> m_rowHeights; // row index -> height in points (default 15.0)
+    QVector<double> m_colWidths; // column index -> width in Excel units (default 8.43)
 
     // Helper: determine Excel cell type from QVariant
     static CellType detectCellType(const QVariant &v);
