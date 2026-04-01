@@ -148,8 +148,21 @@ void MainWindow::openExcelFile()
         QTableView *view = new QTableView(m_tabWidget);
         view->setModel(model);
 
-        view->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-        view->verticalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+
+        // Change the default Stretch mode to Interactive to allow manual resizing
+        view->horizontalHeader()->setSectionResizeMode(QHeaderView::Interactive);
+        view->verticalHeader()->setSectionResizeMode(QHeaderView::Interactive);
+
+        // Apply column width (Excel units -> pixel conversion needed, approx. 7.5x)
+        for (int c = 0; c < model->columnCount(); ++c) {
+            view->setColumnWidth(c, static_cast<int>(model->columnWidth(c) * 7.5));
+        }
+
+        // Apply row height (points -> pixel conversion needed, approx. 1.33x)
+        for (int r = 0; r < model->rowCount(); ++r) {
+            view->setRowHeight(r, static_cast<int>(model->rowHeight(r) * 1.33));
+        }
+
         view->setSelectionBehavior(QAbstractItemView::SelectItems);
         view->setSelectionMode(QAbstractItemView::SingleSelection);
         view->setEditTriggers(QAbstractItemView::NoEditTriggers);
