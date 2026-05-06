@@ -193,42 +193,10 @@ Worksheet::Worksheet(const QString &name, int id, Workbook *workbook, CreateFlag
 Worksheet *Worksheet::copy(const QString &distName, int distId) const
 {
     Q_D(const Worksheet);
+
+    auto srcSheetData = saveToXmlData();
     auto sheet                = new Worksheet(distName, distId, d->workbook, F_NewFromScratch);
-    WorksheetPrivate *sheet_d = sheet->d_func();
-
-    sheet_d->dimension = d->dimension;
-
-    for (auto it = d->cellTable.cells.begin(); it != d->cellTable.cells.end(); ++it) {
-        int row = it.key();
-        for (auto it2 = it.value().begin(); it2 != it.value().end(); ++it2) {
-            int col = it2.key();
-
-            auto cell           = std::make_shared<Cell>(it2.value().get());
-            cell->d_ptr->parent = sheet;
-
-            if (cell->cellType() == Cell::SharedStringType)
-                d->workbook->sharedStrings()->addSharedString(cell->d_ptr->richString);
-
-            sheet_d->cellTable.setValue(row, col, cell);
-        }
-    }
-
-    // for (auto it = d->cellTable.cells.begin(); it != d->cellTable.cells.end(); ++it) {
-    //     auto cell           = std::make_shared<Cell>(it.value().get());
-    //     cell->d_ptr->parent = sheet;
-
-    //     if (cell->cellType() == Cell::SharedStringType)
-    //         d->workbook->sharedStrings()->addSharedString(cell->d_ptr->richString);
-
-    //     sheet_d->cellTable.setValue(CellTable::row(it.key()), CellTable::column(it.key()), cell);
-    // }
-
-    sheet_d->merges = d->merges;
-    //    sheet_d->rowsInfo = d->rowsInfo;
-    //    sheet_d->colsInfo = d->colsInfo;
-    //    sheet_d->colsInfoHelper = d->colsInfoHelper;
-    //    sheet_d->dataValidationsList = d->dataValidationsList;
-    //    sheet_d->conditionalFormattingList = d->conditionalFormattingList;
+    sheet->loadFromXmlData(srcSheetData);
 
     return sheet;
 }
