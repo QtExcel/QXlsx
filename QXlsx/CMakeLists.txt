@@ -158,6 +158,12 @@ target_compile_definitions(QXlsx PRIVATE
     QT_DISABLE_DEPRECATED_BEFORE=0x060600
 )
 
+if(MSVC)
+    # Disable strict MSVC compliance mode to prevent build errors 
+    # caused by standard library ('stdext') changes in newer MSVC compilers with older Qt headers.
+    target_compile_options(QXlsx PRIVATE /permissive)
+endif()
+
 if (NOT WIN32)
     # Strict iterators can't be used on Windows, they lead to a link error
     # when application code iterates over a QVector<QPoint> for instance, unless
