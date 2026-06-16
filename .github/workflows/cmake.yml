@@ -53,7 +53,7 @@ jobs:
         config:
           - qt_version: "5.12"
             macos_architectures: "x86_64"
-          - qt_version: "6.6.0"
+          - qt_version: "6.8.3"
             macos_architectures: "x86_64;arm64"
 
     steps:
@@ -82,7 +82,7 @@ jobs:
           --warn-uninitialized
           -Werror=dev
           -DBUILD_SHARED_LIBS=${{ matrix.link_type == 'shared' }}
-          -DCMAKE_OSX_ARCHITECTURES="${{ matrix.config.macos_architectures }}"
+          ${{ runner.os == 'macOS' && format('-DCMAKE_OSX_ARCHITECTURES="{0}"', matrix.config.macos_architectures) || '' }}
 
       - name: Build Project
         run: cmake --build ./build
