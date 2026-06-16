@@ -3,6 +3,10 @@
 #ifndef XLSXGLOBAL_H
 #define XLSXGLOBAL_H
 
+#if defined(_MSC_VER) && !defined(stdext)
+#define stdext ::std
+#endif
+
 #include <cstdio>
 #include <iostream>
 #include <string>
