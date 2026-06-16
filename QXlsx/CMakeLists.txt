@@ -159,9 +159,8 @@ target_compile_definitions(QXlsx PRIVATE
 )
 
 if(MSVC)
-    # Disable strict MSVC compliance mode to prevent build errors 
-    # caused by standard library ('stdext') changes in newer MSVC compilers with older Qt headers.
-    target_compile_options(QXlsx PRIVATE /permissive)
+    # Fix 'stdext' errors by allowing mismatch between newer MSVC toolset and older Qt/STL headers
+    target_compile_definitions(QXlsx PRIVATE _ALLOW_COMPILER_AND_STL_VERSION_MISMATCH)
 endif()
 
 if (NOT WIN32)
