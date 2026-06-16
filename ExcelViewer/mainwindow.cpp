@@ -16,9 +16,6 @@
 
 using namespace QXlsx;
 
-// Hard-coded QXlsx version string (based on the library you are using)
-// static const char *QXLSX_VERSION = "1.5.0";
-
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
 {

@@ -29,10 +29,4 @@ QXLSX_HEADERPATH=$$PWD/header/
 QXLSX_SOURCEPATH=$$PWD/source/
 include($$PWD/QXlsx.pri)
 
-HEADERS += \
-    header/xlsxreadsax.h
-
-SOURCES += \
-    source/xlsxreadsax.cpp
-
 
