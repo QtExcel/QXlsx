@@ -158,10 +158,13 @@ target_compile_definitions(QXlsx PRIVATE
     QT_DISABLE_DEPRECATED_BEFORE=0x060600
 )
 
+
 if(MSVC)
-    # Fix 'stdext' errors by allowing mismatch between newer MSVC toolset and older Qt/STL headers
-    target_compile_definitions(QXlsx PRIVATE _ALLOW_COMPILER_AND_STL_VERSION_MISMATCH)
+    # SHELL: forces CMake to place /permissive at the very end of the argument list,
+    # overriding any automatically appended /permissive- flags.
+    target_compile_options(QXlsx PRIVATE "SHELL:/permissive")
 endif()
+
 
 if (NOT WIN32)
     # Strict iterators can't be used on Windows, they lead to a link error
