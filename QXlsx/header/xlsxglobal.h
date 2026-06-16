@@ -4,7 +4,10 @@
 #define XLSXGLOBAL_H
 
 #if defined(_MSC_VER)
-#include <iterator>
+#  ifndef stdext
+#    define stdext ::std
+#  endif
+#  include <iterator>
 namespace std {
     template<class _Iter>
     inline _Iter make_checked_array_iterator(_Iter _Array, size_t _Size, size_t _Start = 0) {
