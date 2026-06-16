@@ -3,6 +3,19 @@
 #ifndef XLSXGLOBAL_H
 #define XLSXGLOBAL_H
 
+#if defined(_MSC_VER)
+#  ifndef stdext
+#    define stdext ::std
+#  endif
+#  include <iterator>
+namespace std {
+    template<class _Iter>
+    inline _Iter make_checked_array_iterator(_Iter _Array, size_t _Size, size_t _Start = 0) {
+        return _Array + _Start;
+    }
+}
+#endif
+
 #include <cstdio>
 #include <iostream>
 #include <string>

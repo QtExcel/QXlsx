@@ -3,7 +3,7 @@
 cmake_minimum_required(VERSION 3.16)
 
 project(QXlsx
-    VERSION 1.5.0
+    VERSION 1.5.1
     LANGUAGES CXX
 )
 
@@ -157,6 +157,14 @@ target_compile_definitions(QXlsx PRIVATE
     QT_USE_FAST_OPERATOR_PLUS
     QT_DISABLE_DEPRECATED_BEFORE=0x060600
 )
+
+
+if(MSVC)
+    # SHELL: forces CMake to place /permissive at the very end of the argument list,
+    # overriding any automatically appended /permissive- flags.
+    target_compile_options(QXlsx PRIVATE "SHELL:/permissive")
+endif()
+
 
 if (NOT WIN32)
     # Strict iterators can't be used on Windows, they lead to a link error
