@@ -1330,6 +1330,17 @@ void Worksheet::saveToXmlFile(QIODevice *device) const
     if (!d->showWhiteSpace)
         writer.writeAttribute(QStringLiteral("showWhiteSpace"), QStringLiteral("0"));
     writer.writeAttribute(QStringLiteral("workbookViewId"), QStringLiteral("0"));
+    if ((d->frozen_cols > 0) || (d->frozen_rows > 0)) {
+        writer.writeStartElement(QStringLiteral("pane"));
+        if (d->frozen_cols > 0)
+            writer.writeAttribute(QStringLiteral("xSplit"), QString::number(d->frozen_cols)); // set count of fixed col
+        if (d->frozen_rows > 0)
+            writer.writeAttribute(QStringLiteral("ySplit"), QString::number(d->frozen_rows)); // set count of fixed row
+        writer.writeAttribute(QStringLiteral("topLeftCell"), CellReference(d->frozen_rows + 1, d->frozen_cols + 1).toString()); //set next after fixed area cell
+        writer.writeAttribute(QStringLiteral("activePane"), QStringLiteral("bottomRight"));
+        writer.writeAttribute(QStringLiteral("state"), QStringLiteral("frozenSplit"));
+        writer.writeEndElement(); // pane
+    }
     writer.writeEndElement(); // sheetView
     writer.writeEndElement(); // sheetViews
 
@@ -1486,6 +1497,20 @@ bool Worksheet::setStartPage(int spagen)
     return true;
 }
 //}}
+
+void Worksheet::setFrozenRows(int rows)
+{
+    Q_D(Worksheet);
+
+    d->frozen_rows=rows;
+}
+
+void Worksheet::setFrozenColumns(int cols)
+{
+    Q_D(Worksheet);
+
+    d->frozen_cols=cols;
+}
 
 void WorksheetPrivate::saveXmlSheetData(QXmlStreamWriter &writer) const
 {
