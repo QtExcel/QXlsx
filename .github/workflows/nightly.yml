@@ -9,6 +9,7 @@ on:
 jobs:
   build:
     runs-on: ${{ matrix.os }}
+    timeout-minutes: 10
     strategy:
       fail-fast: false
       matrix:
@@ -40,7 +41,7 @@ jobs:
       - name: Install ninja-build tool (must be after Qt due PATH changes)
         uses: turtlesec-no/get-ninja@main
 
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Configure project
         run: >
@@ -50,3 +51,4 @@ jobs:
 
       - name: Build Project
         run: cmake --build ./build
+

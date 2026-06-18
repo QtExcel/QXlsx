@@ -34,6 +34,7 @@ on:
 jobs:
   build:
     runs-on: ${{ matrix.os }}
+    timeout-minutes: 10
     strategy:
       fail-fast: false
       matrix:
@@ -60,13 +61,13 @@ jobs:
       - name: Install Qt with options and default aqtversion
         uses: jurplel/install-qt-action@v4
         with:
-          aqtversion: null # use whatever the default is
+          aqtversion: null
           modules: ${{ matrix.config.modules }}
           version: ${{ matrix.config.qt_version }}
           cache: true
 
       - name: Checkout sources
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Install ninja-build tool (must be after Qt due PATH changes)
         uses: turtlesec-no/get-ninja@main
@@ -85,4 +86,13 @@ jobs:
           -DCMAKE_OSX_ARCHITECTURES="${{ matrix.config.macos_architectures }}"
 
       - name: Build Project
+        env:
+          _MP_VCPDB_SRV_OPTS: "-S"
         run: cmake --build ./build
+
+      - name: Cleanup Stuck Processes (Windows Only)
+        if: always() && runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          Write-Host "Cleaning up lingering build processes..."
+          Get-Process -Name "ninja", "cl", "link", "mspdbsrv" -ErrorAction SilentlyContinue | Stop-Process -Force
