@@ -1330,6 +1330,27 @@ void Worksheet::saveToXmlFile(QIODevice *device) const
     if (!d->showWhiteSpace)
         writer.writeAttribute(QStringLiteral("showWhiteSpace"), QStringLiteral("0"));
     writer.writeAttribute(QStringLiteral("workbookViewId"), QStringLiteral("0"));
+    if (d->selectionProps.activeCell.isValid() || !d->selectionProps.sqref.isEmpty()) {
+        writer.writeStartElement(QStringLiteral("selection"));
+        if (d->selectionProps.activeCell.isValid()) {
+            writer.writeAttribute(QStringLiteral("activeCell"),
+                                  d->selectionProps.activeCell.toString());
+        }
+        if (!d->selectionProps.sqref.isEmpty()) {
+            QString sqrefString;
+            for (const auto range : d->selectionProps.sqref) {
+                sqrefString.append(range.toString());
+                sqrefString.push_back(QLatin1Char(' '));
+            }
+            sqrefString.truncate(sqrefString.size() - 1);
+            writer.writeAttribute(QStringLiteral("sqref"), sqrefString);
+            if (d->selectionProps.sqref.size() > 1) {
+                writer.writeAttribute(QStringLiteral("activeCellId"),
+                                      QString::number(d->selectionProps.activeCellId));
+            }
+        }
+        writer.writeEndElement(); // selection
+    }
     writer.writeEndElement(); // sheetView
     writer.writeEndElement(); // sheetViews
 
@@ -1486,6 +1507,54 @@ bool Worksheet::setStartPage(int spagen)
     return true;
 }
 //}}
+
+CellReference Worksheet::selectionActiveCell() const
+{
+    Q_D(const Worksheet);
+    return d->selectionProps.activeCell;
+}
+
+void Worksheet::setSelectionActiveCell(CellReference activeCell)
+{
+    Q_D(Worksheet);
+    d->selectionProps.activeCell = activeCell;
+}
+
+quint32 Worksheet::selectionActiveCellId() const
+{
+    Q_D(const Worksheet);
+    return d->selectionProps.activeCellId;
+}
+
+bool Worksheet::selectionActiveCellId(quint32 activeCellId)
+{
+    Q_D(Worksheet);
+    if (activeCellId < d->selectionProps.sqref.size()) {
+        d->selectionProps.activeCellId = activeCellId;
+        return true;
+    }
+    return false;
+}
+
+QList<CellRange> Worksheet::selectionSqref() const
+{
+    Q_D(const Worksheet);
+    return d->selectionProps.sqref;
+}
+
+void Worksheet::setSelectionSqref(const QList<CellRange> &selectionSqref)
+{
+    Q_D(Worksheet);
+    d->selectionProps.sqref        = selectionSqref;
+    d->selectionProps.activeCellId = 0;
+}
+
+void Worksheet::setSelectionSqref(QList<CellRange> &&selectionSqref)
+{
+    Q_D(Worksheet);
+    d->selectionProps.sqref        = std::move(selectionSqref);
+    d->selectionProps.activeCellId = 0;
+}
 
 void WorksheetPrivate::saveXmlSheetData(QXmlStreamWriter &writer) const
 {
@@ -2610,6 +2679,31 @@ void WorksheetPrivate::loadXmlSheetViews(QXmlStreamReader &reader)
             showOutlineSymbols =
                 attrs.value(QLatin1String("showOutlineSymbols")) != QLatin1String("0");
             showWhiteSpace = attrs.value(QLatin1String("showWhiteSpace")) != QLatin1String("0");
+            reader.readNextStartElement();
+            if (reader.tokenType() == QXmlStreamReader::StartElement &&
+                reader.name() == QLatin1String("selection")) {
+                QXmlStreamAttributes selectionAttr = reader.attributes();
+                selectionProps.activeCell =
+                    CellReference(selectionAttr.value(QLatin1String("activeCell")).toString());
+                selectionProps.activeCellId =
+                    selectionAttr.value(QLatin1String("activeCellId")).toUInt();
+                QStringView sqrefStr      = selectionAttr.value(QLatin1String("sqref"));
+                QList<QStringView> ranges = sqrefStr.split(QLatin1Char(' '));
+                for (const auto &range : ranges) {
+                    selectionProps.sqref.append(CellRange(range.toString()));
+                }
+                if (selectionProps.activeCellId >= selectionProps.sqref.count()) {
+                    for (auto it = selectionProps.sqref.begin(); it != selectionProps.sqref.end();
+                         ++it) {
+                        const auto &range = *it;
+                        if (!(range.topLeft() > selectionProps.activeCell) &&
+                            !(selectionProps.activeCell > range.bottomRight())) {
+                            selectionProps.activeCellId = it - selectionProps.sqref.begin();
+                            break;
+                        }
+                    }
+                }
+            }
         }
     }
 }
