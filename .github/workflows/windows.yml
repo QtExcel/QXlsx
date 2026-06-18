@@ -37,7 +37,7 @@ jobs:
     timeout-minutes: 10
     steps:
     - name: Install Qt
-      uses: jurplel/install-qt-action@v5
+      uses: jurplel/install-qt-action@v4
 
     - name: Checkout
       uses: actions/checkout@v4

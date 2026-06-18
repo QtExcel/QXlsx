@@ -33,7 +33,7 @@ jobs:
           sudo apt install -y clazy
 
       - name: Install Qt ${{ matrix.config.qt_version }} with options and default aqtversion
-        uses: jurplel/install-qt-action@v5
+        uses: jurplel/install-qt-action@v4
         with:
           version: ${{ matrix.config.qt_version }}
           cache: true

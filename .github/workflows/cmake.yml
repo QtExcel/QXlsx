@@ -59,7 +59,7 @@ jobs:
 
     steps:
       - name: Install Qt with options and default aqtversion
-        uses: jurplel/install-qt-action@v5
+        uses: jurplel/install-qt-action@v4
         with:
           aqtversion: null
           modules: ${{ matrix.config.modules }}
