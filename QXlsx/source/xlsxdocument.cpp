@@ -533,6 +533,10 @@ bool DocumentPrivate::saveCsv(QString mainCSVFileName) const
             continue;
         }
 
+	// Add BOM as fileheader
+	char BOM[] = { (char)0xEF, (char)0xBB, (char)0xBF };
+	csvFile.write( BOM, 3 );
+
         //  (2) save sheet values
         //     such as  A,,B,,,,C,,,D,,
 
