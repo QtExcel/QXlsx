@@ -25,6 +25,7 @@ public:
     void close();
 
 private:
+    QIODevice *m_deviceProxy;
     QZipWriter *m_writer;
 };
 
