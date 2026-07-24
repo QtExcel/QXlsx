@@ -30,7 +30,6 @@ public:
         return QIODevice::open(m_device->openMode());
     }
 
-    void close() override { QIODevice::close(); }
     bool isSequential() const override { return m_device->isSequential(); }
     qint64 pos() const override { return m_device->pos(); }
     qint64 size() const override { return m_device->size(); }
@@ -56,27 +55,24 @@ private:
 } // namespace
 
 ZipWriter::ZipWriter(const QString &filePath)
-    : m_deviceProxy(nullptr)
 {
     m_writer = new QZipWriter(filePath, QIODevice::WriteOnly);
     m_writer->setCompressionPolicy(QZipWriter::AutoCompress);
 }
 
 ZipWriter::ZipWriter(QIODevice *device)
-    : m_deviceProxy(nullptr)
 {
 #ifndef QT_NO_TEMPORARYFILE
     if (qobject_cast<QSaveFile *>(device))
-        m_deviceProxy = new NonClosingDevice(device);
+        m_deviceProxy.reset(new NonClosingDevice(device));
 #endif
-    m_writer = new QZipWriter(m_deviceProxy ? m_deviceProxy : device);
+    m_writer = new QZipWriter(m_deviceProxy ? m_deviceProxy.data() : device);
     m_writer->setCompressionPolicy(QZipWriter::AutoCompress);
 }
 
 ZipWriter::~ZipWriter()
 {
     delete m_writer;
-    delete m_deviceProxy;
 }
 
 bool ZipWriter::error() const

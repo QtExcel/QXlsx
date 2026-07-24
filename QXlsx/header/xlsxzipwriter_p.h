@@ -6,6 +6,7 @@
 #include "xlsxglobal.h"
 
 #include <QIODevice>
+#include <QScopedPointer>
 #include <QString>
 
 class QZipWriter;
@@ -25,7 +26,7 @@ public:
     void close();
 
 private:
-    QIODevice *m_deviceProxy;
+    QScopedPointer<QIODevice> m_deviceProxy;
     QZipWriter *m_writer;
 };
 
