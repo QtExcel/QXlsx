@@ -2345,7 +2345,12 @@ void WorksheetPrivate::loadXmlSheetData(QXmlStreamReader &reader)
                 if (r.isEmpty()) {
                     pos.setRow(row_num);
                     pos.setColumn(++col_num);
+                } else if (pos.isValid()) {
+                    row_num = pos.row();
+                    col_num = pos.column();
                 }
+                if (pos.isValid())
+                    checkDimensions(pos.row(), pos.column());
 
                 // get format
                 Format format;
