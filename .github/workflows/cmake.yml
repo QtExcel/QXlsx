@@ -54,7 +54,7 @@ jobs:
         config:
           - qt_version: "5.12"
             macos_architectures: "x86_64"
-          - qt_version: "6.6.0"
+          - qt_version: "6.9.3"
             macos_architectures: "x86_64;arm64"
 
     steps:
