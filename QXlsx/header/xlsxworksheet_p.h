@@ -192,6 +192,10 @@ public:
 
 public:
     int checkDimensions(int row, int col, bool ignore_row = false, bool ignore_col = false);
+    void resolveCellPosition(CellReference &position,
+                             bool hasExplicitReference,
+                             int &row,
+                             int &column);
     Format cellFormat(int row, int col) const;
     QString generateDimensionString() const;
     void calculateSpans() const;

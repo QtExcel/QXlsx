@@ -2342,10 +2342,7 @@ void WorksheetPrivate::loadXmlSheetData(QXmlStreamReader &reader)
                 QXmlStreamAttributes attributes = reader.attributes();
                 QString r                       = attributes.value(QLatin1String("r")).toString();
                 CellReference pos(r);
-                if (r.isEmpty()) {
-                    pos.setRow(row_num);
-                    pos.setColumn(++col_num);
-                }
+                resolveCellPosition(pos, !r.isEmpty(), row_num, col_num);
 
                 // get format
                 Format format;
@@ -2473,6 +2470,23 @@ void WorksheetPrivate::loadXmlSheetData(QXmlStreamReader &reader)
 
     if (dimension.lastColumn() < col_num)
         dimension.setLastColumn(col_num);
+}
+
+void WorksheetPrivate::resolveCellPosition(CellReference &position,
+                                           bool hasExplicitReference,
+                                           int &row,
+                                           int &column)
+{
+    if (!hasExplicitReference) {
+        position.setRow(row);
+        position.setColumn(++column);
+    } else if (position.isValid()) {
+        row    = position.row();
+        column = position.column();
+    }
+
+    if (position.isValid())
+        checkDimensions(position.row(), position.column());
 }
 
 void WorksheetPrivate::loadXmlColumnsInfo(QXmlStreamReader &reader)
