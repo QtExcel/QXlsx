@@ -491,7 +491,7 @@ bool DocumentPrivate::saveCsv(QString mainCSVFileName) const
         int maxRow = -1;
         int maxCol = -1;
 
-        currentSheet->workbook()->setActiveSheet(sheetIndexNumber);
+        currentSheet->workbook()->setActiveSheet(sheetIndexNumber++);
 
         auto wsheet = static_cast<Worksheet *>(currentSheet->workbook()->activeSheet());
         if (wsheet == nullptr) {
