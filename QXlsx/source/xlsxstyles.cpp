@@ -669,6 +669,8 @@ void Styles::writeCellXfs(QXmlStreamWriter &writer) const
             writer.writeAttribute(QStringLiteral("applyBorder"), QStringLiteral("1"));
         if (format.hasAlignmentData())
             writer.writeAttribute(QStringLiteral("applyAlignment"), QStringLiteral("1"));
+        if (format.hasProtectionData())
+            writer.writeAttribute(QStringLiteral("applyProtection"), QStringLiteral("1"));
 
         if (format.hasAlignmentData()) {
             writer.writeEmptyElement(QStringLiteral("alignment"));
@@ -730,6 +732,17 @@ void Styles::writeCellXfs(QXmlStreamWriter &writer) const
             if (format.hasProperty(FormatPrivate::P_Alignment_Rotation))
                 writer.writeAttribute(QStringLiteral("textRotation"),
                                       QString::number(format.rotation()));
+        }
+
+        // After <alignment>, as required by the schema
+        if (format.hasProtectionData()) {
+            writer.writeEmptyElement(QStringLiteral("protection"));
+            if (format.hasProperty(FormatPrivate::P_Protection_Locked))
+                writer.writeAttribute(QStringLiteral("locked"),
+                                      format.locked() ? QStringLiteral("1") : QStringLiteral("0"));
+            if (format.hasProperty(FormatPrivate::P_Protection_Hidden))
+                writer.writeAttribute(QStringLiteral("hidden"),
+                                      format.hidden() ? QStringLiteral("1") : QStringLiteral("0"));
         }
 
         writer.writeEndElement(); // xf
@@ -1209,19 +1222,16 @@ bool Styles::readCellXfs(QXmlStreamReader &reader)
                     if (ok && numFmtIndex >= 0) {
                         // Determine if format should be applied
                         // Per OOXML spec: default for cellXfs is false, but we have a special case:
-                        // LibreOffice omits applyNumberFormat even for custom formats (>= 164)
-                        // If a custom format is referenced, we assume it should be applied
+                        // LibreOffice omits applyNumberFormat for both built-in and custom formats
+                        // If a non-General format is referenced, we assume it should be applied
                         bool apply = false;
                         if (xfAttrs.hasAttribute(QLatin1String("applyNumberFormat"))) {
                             apply = parseXsdBoolean(
                                 xfAttrs.value(QLatin1String("applyNumberFormat")).toString());
                         } else {
-                            // Heuristic: If numFmtId references a custom format (>= 164), apply it
+                            // Heuristic: If numFmtId is not General (0), apply it
                             // This handles LibreOffice files that omit applyNumberFormat
-                            const auto &it = m_customNumFmtIdMap.constFind(numFmtIndex);
-                            if (it != m_customNumFmtIdMap.constEnd()) {
-                                apply = true; // Custom format found, apply it
-                            }
+                            apply = numFmtIndex != 0;
                         }
 
                         if (apply) {
@@ -1349,6 +1359,26 @@ bool Styles::readCellXfs(QXmlStreamReader &reader)
 
                         if (alignAttrs.hasAttribute(QLatin1String("shrinkToFit")))
                             format.setShrinkToFit(true);
+                    }
+                }
+
+                // <protection> follows <alignment>, if present
+                // (on an empty element such as <alignment/> readNextStartElement stops at
+                // its end tag: advance token by token without going past the end of the xf)
+                if (parseXsdBoolean(xfAttrs.value(QLatin1String("applyProtection")).toString())) {
+                    while (!reader.atEnd() &&
+                           !(reader.isStartElement() &&
+                             reader.name() == QLatin1String("protection")) &&
+                           !(reader.isEndElement() && reader.name() == QLatin1String("xf")))
+                        reader.readNext();
+                    if (reader.isStartElement() && reader.name() == QLatin1String("protection")) {
+                        const auto &protAttrs = reader.attributes();
+                        if (protAttrs.hasAttribute(QLatin1String("locked")))
+                            format.setLocked(parseXsdBoolean(
+                                protAttrs.value(QLatin1String("locked")).toString()));
+                        if (protAttrs.hasAttribute(QLatin1String("hidden")))
+                            format.setHidden(parseXsdBoolean(
+                                protAttrs.value(QLatin1String("hidden")).toString()));
                     }
                 }
 

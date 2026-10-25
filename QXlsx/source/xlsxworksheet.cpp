@@ -57,6 +57,7 @@ const int XLSX_STRING_MAX = 32767;
 WorksheetPrivate::WorksheetPrivate(Worksheet *p, Worksheet::CreateFlag flag)
     : AbstractSheetPrivate(p, flag)
     , windowProtection(false)
+    , sheetProtection(false)
     , showFormulas(false)
     , showGridLines(true)
     , showRowColHeaders(true)
@@ -66,6 +67,7 @@ WorksheetPrivate::WorksheetPrivate(Worksheet *p, Worksheet::CreateFlag flag)
     , showRuler(false)
     , showOutlineSymbols(true)
     , showWhiteSpace(true)
+    , freezeFirstRow(false)
     , urlPattern(QStringLiteral("^([fh]tt?ps?://)|(mailto:)|(file://)"))
 {
 }
@@ -250,12 +252,66 @@ bool Worksheet::isWindowProtected() const
 }
 
 /*!
+ * Returns whether the sheet content is protected (Excel: Review > Protect Sheet).
+ */
+bool Worksheet::isSheetProtected() const
+{
+    Q_D(const Worksheet);
+    return d->sheetProtection;
+}
+
+/*!
+ * Protects/unprotects the sheet content based on \a protect, without password.
+ * When protected, Excel only allows editing the cells whose format has
+ * Format::setLocked(false); all the other cells are locked by default.
+ */
+void Worksheet::setSheetProtected(bool protect)
+{
+    Q_D(Worksheet);
+    d->sheetProtection = protect;
+}
+
+/*!
  * Protects/unprotects the sheet based on \a protect.
  */
 void Worksheet::setWindowProtected(bool protect)
 {
     Q_D(Worksheet);
     d->windowProtection = protect;
+}
+
+void Worksheet::freezeFirstRow()
+{
+    Q_D(Worksheet);
+    d->freezeFirstRow = true;
+}
+
+/*!
+ * Returns whether the first row of the sheet is frozen.
+ */
+bool Worksheet::isFirstRowFrozen() const
+{
+    Q_D(const Worksheet);
+    return d->freezeFirstRow;
+}
+
+/*!
+ * Enables the autofilter buttons on the header row of \a range.
+ */
+void Worksheet::setAutoFilter(const CellRange &range)
+{
+    Q_D(Worksheet);
+    d->autoFilterRange = range;
+}
+
+/*!
+ * Returns the range the autofilter is applied to, or an invalid range
+ * if the sheet has no autofilter.
+ */
+CellRange Worksheet::autoFilter() const
+{
+    Q_D(const Worksheet);
+    return d->autoFilterRange;
 }
 
 /*!
@@ -1330,6 +1386,13 @@ void Worksheet::saveToXmlFile(QIODevice *device) const
     if (!d->showWhiteSpace)
         writer.writeAttribute(QStringLiteral("showWhiteSpace"), QStringLiteral("0"));
     writer.writeAttribute(QStringLiteral("workbookViewId"), QStringLiteral("0"));
+    if (d->freezeFirstRow) {
+        writer.writeEmptyElement(QStringLiteral("pane"));
+        writer.writeAttribute(QStringLiteral("ySplit"), QStringLiteral("1"));
+        writer.writeAttribute(QStringLiteral("topLeftCell"), QStringLiteral("A2"));
+        writer.writeAttribute(QStringLiteral("activePane"), QStringLiteral("bottomLeft"));
+        writer.writeAttribute(QStringLiteral("state"), QStringLiteral("frozen"));
+    }
     writer.writeEndElement(); // sheetView
     writer.writeEndElement(); // sheetViews
 
@@ -1379,6 +1442,18 @@ void Worksheet::saveToXmlFile(QIODevice *device) const
     if (d->dimension.isValid())
         d->saveXmlSheetData(writer);
     writer.writeEndElement(); // sheetData
+
+    if (d->sheetProtection) {
+        writer.writeEmptyElement(QStringLiteral("sheetProtection"));
+        writer.writeAttribute(QStringLiteral("sheet"), QStringLiteral("1"));
+        writer.writeAttribute(QStringLiteral("objects"), QStringLiteral("1"));
+        writer.writeAttribute(QStringLiteral("scenarios"), QStringLiteral("1"));
+    }
+
+    if (d->autoFilterRange.isValid()) {
+        writer.writeEmptyElement(QStringLiteral("autoFilter"));
+        writer.writeAttribute(QStringLiteral("ref"), d->autoFilterRange.toString());
+    }
 
     d->saveXmlMergeCells(writer);
     for (const ConditionalFormatting &cf : d->conditionalFormattingList)
@@ -2610,6 +2685,12 @@ void WorksheetPrivate::loadXmlSheetViews(QXmlStreamReader &reader)
             showOutlineSymbols =
                 attrs.value(QLatin1String("showOutlineSymbols")) != QLatin1String("0");
             showWhiteSpace = attrs.value(QLatin1String("showWhiteSpace")) != QLatin1String("0");
+        } else if (reader.tokenType() == QXmlStreamReader::StartElement &&
+                   reader.name() == QLatin1String("pane")) {
+            QXmlStreamAttributes attrs = reader.attributes();
+            freezeFirstRow = attrs.value(QLatin1String("state")) == QLatin1String("frozen") &&
+                             attrs.value(QLatin1String("ySplit")) == QLatin1String("1") &&
+                             attrs.value(QLatin1String("xSplit")).toInt() == 0;
         }
     }
 }
@@ -2765,6 +2846,12 @@ bool Worksheet::loadFromXmlFile(QIODevice *device)
                 d->loadXmlColumnsInfo(reader);
             } else if (reader.name() == QLatin1String("sheetData")) {
                 d->loadXmlSheetData(reader);
+            } else if (reader.name() == QLatin1String("sheetProtection")) {
+                const auto sheet = reader.attributes().value(QLatin1String("sheet")).toString();
+                d->sheetProtection = (sheet == QLatin1String("1") || sheet == QLatin1String("true"));
+            } else if (reader.name() == QLatin1String("autoFilter")) {
+                QXmlStreamAttributes attributes = reader.attributes();
+                d->autoFilterRange = CellRange(attributes.value(QLatin1String("ref")).toString());
             } else if (reader.name() == QLatin1String("mergeCells")) {
                 d->loadXmlMergeCells(reader);
             } else if (reader.name() == QLatin1String("dataValidations")) {
