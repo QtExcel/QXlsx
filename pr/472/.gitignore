@@ -1,0 +1,267 @@
+# =========================
+# GitHub C++ Default Template Additions
+# =========================
+# Prerequisites
+*.d
+
+# Object files
+*.o
+*.obj
+*.elf
+
+# Linker output
+*.ilk
+*.map
+*.exp
+
+# Precompiled headers
+*.gch
+*.pch
+
+# Libraries
+*.lib
+*.a
+*.la
+*.lo
+
+# Shared objects (DLLs, shared libraries)
+*.dll
+*.so
+*.so.*
+*.dylib
+
+# Executables
+*.exe
+*.out
+*.app
+
+# Debug files
+*.dSYM/
+*.su
+*.idb
+*.pdb
+
+# =========================
+# OS specific
+# =========================
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+*.dSYM/
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Linux / UNIX
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
+
+# =========================
+# C/C++ build artifacts
+# =========================
+# (Note: many patterns already covered above by GitHub default)
+*.lo
+*.al
+*.libs
+*.exp
+*.ilk
+*.gch
+*.pch
+*.prof
+*.profraw
+*.profdata
+*.dasm
+*.log
+*.log.*
+.cache/
+.ccache/
+.distcc/
+
+# =========================
+# Build systems
+# =========================
+# CMake
+[Cc]MakeCache.txt
+[Cc]MakeFiles/
+CMakeScripts/
+Testing/
+cmake_install.cmake
+install_manifest.txt
+compile_commands.json
+CTestTestfile.cmake
+CMakeUserPresets.json
+_deps/
+Makefile
+
+# Build directories (use out-of-source when possible)
+build/
+build-*/
+cmake-build-*/
+out/
+
+# Ninja
+.ninja_deps
+.ninja_log
+
+# Meson
+meson-logs/
+meson-private/
+builddir/
+
+# SCons
+.sconsign.dblite
+SConstruct.out
+
+# =========================
+# Package / dependency managers
+# =========================
+# Conan
+conanbuildinfo.*
+conaninfo.txt
+conan.lock
+.conan/
+
+# vcpkg
+vcpkg_installed/
+
+# Hunter
+_HUNTER/
+
+# CPM.cmake
+_cpm_cache/
+
+# =========================
+# LSP / code intelligence
+# =========================
+.clangd/
+.clangd-cache/
+.cache/clangd/
+.ccls-cache/
+tags
+TAGS
+GTAGS
+GRTAGS
+GPATH
+
+# =========================
+# IDE / Editor specific ignores
+# =========================
+# Visual Studio (2019/2022)
+.vs/
+*.vcxproj*
+*.sln
+*.suo
+*.user
+*.filters
+*.lastbuildstate
+*.tlog
+*.opendb
+
+# VSCode
+.vscode/
+.history/
+
+# CLion / JetBrains
+.idea/
+cmake-build-*/
+
+# Qt Creator
+*.pro.user*
+*.qbs.user*
+*.creator.user*
+*.creator
+*.autosave
+*.qmlproject.user*
+CMakeLists.txt.user
+.qmake.stash
+
+# Eclipse CDT
+.project
+.cproject
+.settings/
+.metadata/
+.externalToolBuilders/
+bin/
+tmp/
+
+# Xcode
+DerivedData/
+build/
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
+xcuserdata/
+*.xccheckout
+*.moved-aside
+*.xcuserstate
+*.xcscmblueprint
+
+# Neovim / Vim
+*~
+.*.swp
+.*.swo
+.*.swm
+Session.vim
+
+# Emacs
+\#*\#
+.#*
+.emacs.desktop
+.emacs.desktop.lock
+auto-save-list/
+tramp
+.dir-locals.el
+
+# Sublime Text
+*.sublime-workspace
+*.sublime-project
+sftp-config.json
+
+# Atom
+.atom/
+*.atom-build.yml
+
+# Code::Blocks
+*.cbp
+*.depend
+*.layout
+
+# CodeLite
+.codelite/
+*.project
+*.workspace
+
+# KDevelop
+.kdev4/
+*.kdev4
+
+# NetBeans (C/C++)
+nbproject/private/
+build/
+dist/
+
+# Geany
+*.geany
+
+# Dev-C++
+*.dev
+*.layout
+
+# JetBrains Fleet
+.fleet/
+
+# Kate
+*.kate-swp
+.kateproject.*
