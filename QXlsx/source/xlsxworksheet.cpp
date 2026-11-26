@@ -1459,6 +1459,8 @@ void Worksheet::saveToXmlFile(QIODevice *device) const
     for (const ConditionalFormatting &cf : d->conditionalFormattingList)
         cf.saveToXml(writer);
     d->saveXmlDataValidations(writer);
+    // CT_Worksheet requires hyperlinks before pageMargins/pageSetup/headerFooter
+    d->saveXmlHyperlinks(writer);
 
     //{{ liufeijin :  write  pagesettings  add by liufeijin 20181028
 
@@ -1482,10 +1484,15 @@ void Worksheet::saveToXmlFile(QIODevice *device) const
     }
 
     // dev57
-    if (!d->Prid.isEmpty()) {
+    // NOTE: The r:id attribute of pageSetup refers to a printerSettings part.
+    // That part (and its relationship) is not preserved when saving, so the
+    // original r:id must not be written: it would dangle or point to an
+    // unrelated relationship, which Excel reports as a corrupted worksheet.
+    if (!d->PverticalDpi.isEmpty() || !d->PhorizontalDpi.isEmpty() ||
+        !d->PuseFirstPageNumber.isEmpty() || !d->PfirstPageNumber.isEmpty() ||
+        !d->Pscale.isEmpty() || !d->PpaperSize.isEmpty() || !d->Porientation.isEmpty() ||
+        !d->Pcopies.isEmpty()) {
         writer.writeStartElement(QStringLiteral("pageSetup")); // pageSetup
-
-        writer.writeAttribute(QStringLiteral("r:id"), d->Prid);
 
         if (!d->PverticalDpi.isEmpty()) {
             writer.writeAttribute(QStringLiteral("verticalDpi"), d->PverticalDpi);
@@ -1521,7 +1528,7 @@ void Worksheet::saveToXmlFile(QIODevice *device) const
 
         writer.writeEndElement(); // pageSetup
 
-    } // if ( !d->Prid.isEmpty() )
+    } // pageSetup
 
     // headerFooter
     if (!(d->ModdHeader.isNull()) || !(d->MoodFooter.isNull())) {
@@ -1544,7 +1551,6 @@ void Worksheet::saveToXmlFile(QIODevice *device) const
         writer.writeEndElement(); // headerFooter
     }
 
-    d->saveXmlHyperlinks(writer);
     d->saveXmlDrawings(writer);
 
     writer.writeEndElement(); // worksheet
